@@ -7,11 +7,13 @@
 hum_specific(vapor_pressure, air_pressure)
 }
 \arguments{
-\item{air_pressure}{}
+\item{vapor_pressure}{numeric. Vapor pressure in hPa}
+
+\item{air_pressure}{numeric. Air pressure in hPa}
 }
 \value{
-
+numeric. Specific humidity in kg/kg
 }
 \description{
-Specific humidity
+Calculates specfic humidity from vapor pressure and air pressure.
 }

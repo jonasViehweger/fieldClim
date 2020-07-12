@@ -7,10 +7,10 @@
 hum_sat_vapor_pres(temp)
 }
 \arguments{
-\item{temp}{Air temperature in degrees Celsius}
+\item{temp}{numeric. Air temperature in degrees Celsius}
 }
 \value{
-Saturation vapor pressure in hPa
+numeric. Saturation vapor pressure in hPa
 }
 \description{
 Calculates the saturation vapor pressure from air temperature using the Magnus

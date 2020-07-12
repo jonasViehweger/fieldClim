@@ -7,12 +7,12 @@
 hum_vapor_pres(hum_rel, sat_vapor_pres)
 }
 \arguments{
-\item{hum_rel}{Relative humidity in percent \link{0, 100}}
+\item{hum_rel}{numeric. Relative humidity in percent (0-100)}
 
-\item{sat_vapor_pres}{Saturation vapor pressure in hPa}
+\item{sat_vapor_pres}{numeric. Saturation vapor pressure in hPa}
 }
 \value{
-Vapor pressure in hPa
+numeric. Vapor pressure in hPa
 }
 \description{
 Calculates vapor pressure from relative humidity and saturation vapor pressure
