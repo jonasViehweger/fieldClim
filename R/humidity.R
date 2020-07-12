@@ -61,12 +61,13 @@ hum_absolute <- function(vapor_pressure, temp) {
   return(0.21668*vapor_pressure)/temp
 }
 
-# Vewrdunstungsw?rme in J/kg, temp (x1) in ?C
 #' Heat of evaporation
+#'
+#' Calculates heat of evaporation for water from air temperature.
 #'
 #' @param temp numeric. Air temperature in degrees celsius.
 #'
-#' @return
+#' @return numeric. Heat of evaporation in J/kg
 #' @export
 #'
 #' @examples
