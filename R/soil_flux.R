@@ -40,7 +40,7 @@ soil_thermal_cond <- function(moisture, texture = "sand") {
 #' @export
 #'
 #' @examples
-soil_vol_heat_cap <- function(moisture, texture = "sand") {
+soil_heat_cap <- function(moisture, texture = "sand") {
   if(texture == "sand"){
     y <- c(1.17,1.38,1.59,1.8,2.0,2.42,2.97)
   } else if(texture == "clay"){
@@ -61,7 +61,7 @@ soil_vol_heat_cap <- function(moisture, texture = "sand") {
 #' Calculates soil heat flux from measurements in two different
 #' depths and thermal conductivity of the soil.
 #'
-#' Negative values
+#' Negative values signify flux towards the atmosphere, positive values signify flux into the soil.
 #'
 #' @param diff_temp Difference in temperature between two depths.
 #' @param diff_depth Difference in depths (m)
@@ -72,7 +72,14 @@ soil_vol_heat_cap <- function(moisture, texture = "sand") {
 #'
 #' @examples
 soil_heat_flux <- function(diff_temp, diff_depth, thermal_cond) {
-  return(thermal_cond*(diff_temp/diff_depth))
+  if (!is.numeric(diff_temp)) stop("diff_temp is not numeric")
+  if (!is.numeric(diff_depth)) stop("diff_depth is not numeric")
+  if (!is.numeric(thermal_cond)) stop("thermal_cond is not numeric")
+  if (any(thermal_cond < 0)){
+    warning("Negative thermal_cond values will be converted to NA.")
+    thermal_cond[thermal_cond < 0] <- NA
+  }
+  return (thermal_cond*(diff_temp/diff_depth))
 }
 
 
@@ -86,5 +93,15 @@ soil_heat_flux <- function(diff_temp, diff_depth, thermal_cond) {
 #'
 #' @examples
 soil_attenuation_length <- function(thermal_cond, vol_heat_cap) {
+  if (!is.numeric(vol_heat_cap)) stop("vol_heat_cap is not numeric")
+  if (!is.numeric(thermal_cond)) stop("thermal_cond is not numeric")
+  if (any(thermal_cond < 0)){
+    warning("Negative thermal_cond values will be converted to NA.")
+    thermal_cond[thermal_cond < 0] <- NA
+  }
+  if (any(vol_heat_cap < 0)){
+    warning("Negative vol_heat_cap values will be converted to NA.")
+    vol_heat_cap[vol_heat_cap < 0] <- NA
+  }
   return(sqrt((thermal_cond*24)/(vol_heat_cap*pi)))
 }

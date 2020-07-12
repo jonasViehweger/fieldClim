@@ -21,5 +21,5 @@ Calculates soil heat flux from measurements in two different
 depths and thermal conductivity of the soil.
 }
 \details{
-Negative values
+Negative values signify flux towards the atmosphere, positive values signify flux into the soil.
 }
