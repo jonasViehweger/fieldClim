@@ -1,5 +1,5 @@
 #' Pressure.
-#' 
+#'
 #' Calculation of pressure as a function of height.
 #'
 #' @param z Height in m.
@@ -20,6 +20,8 @@ pres_p <- function(z,T1){
 
 
 #' Air density.
+#'
+#' Calculation of the air density.
 #'
 #' @param p Pressure in hPa.
 #' @param T1 Temperature in °C.

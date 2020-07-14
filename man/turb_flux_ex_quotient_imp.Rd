@@ -21,5 +21,5 @@ turb_flux_ex_quotient_imp(stability, ustar, mol, z1, air_density)
 Exchange quotient for impulse transmission in kg/(m*s).
 }
 \description{
-Exchange quotient for impulse transmission.
+Calculation of the exchange quotient of the turbulent impulse transmission.
 }

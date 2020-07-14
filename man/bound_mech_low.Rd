@@ -13,5 +13,5 @@ bound_mech_low(dist)
 Height of boundary layer in m.
 }
 \description{
-Mechanical internal boundary layer; lowest height.
+Calculation of the lowest height of the mechanical internal boundary layer.
 }

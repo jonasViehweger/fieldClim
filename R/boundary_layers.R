@@ -1,30 +1,36 @@
 #' Mechanical internal boundary layer; lowest height.
 #'
+#' Calculation of the lowest height of the mechanical internal boundary layer.
+#'
 #' @param dist Distance to point of roughness change in m.
 #'
 #' @return Height of boundary layer in m.
 #' @export
 #'
 #' @examples
-bound_mech_low <- function(dist) { 
+bound_mech_low <- function(dist) {
   mib <- 0.3*sqrt(dist)
-  return(mib) 
+  return(mib)
 }
 
 #' Mechanical internal boundary layer; average height.
 #'
+#' Calculation of the average height of the mechanical internal boundary layer.
+#'
 #' @param dist Distance to point of roughness change in m.
 #'
 #' @return Height of boundary layer in m.
 #' @export
 #'
 #' @examples
-bound_mech_avg <- function(dist) { 
+bound_mech_avg <- function(dist) {
   mib <- 0.43*dist**0.5
-  return(mib) 
+  return(mib)
 }
 
 #' Thermal internal boundary layer.
+#'
+#' Calculation of the average height of the thermal internal boundary layer.
 #'
 #' @param ustar Friction velocity u*.
 #' @param v_a Windspeed in height of anemometer in m/s.
@@ -37,7 +43,7 @@ bound_mech_avg <- function(dist) {
 #' @export
 #'
 #' @examples
-bound_thermal_avg <- function(ustar,v_a,temp_change_dist,pt_upwind,pt,lr) { 
-  tib <- (ustar/v_a)*( (temp_change_dist*abs(pt_upwind-pt))/abs(lr) )**0.5;          
-  return(tib) 
+bound_thermal_avg <- function(ustar,v_a,temp_change_dist,pt_upwind,pt,lr) {
+  tib <- (ustar/v_a)*( (temp_change_dist*abs(pt_upwind-pt))/abs(lr) )**0.5;
+  return(tib)
 }

@@ -13,5 +13,5 @@ bound_mech_avg(dist)
 Height of boundary layer in m.
 }
 \description{
-Mechanical internal boundary layer; average height.
+Calculation of the average height of the mechanical internal boundary layer.
 }

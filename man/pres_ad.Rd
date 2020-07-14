@@ -15,5 +15,5 @@ pres_ad(p, T1)
 Air density in kg*m^(-3)
 }
 \description{
-Air density.
+Calculation of the air density.
 }

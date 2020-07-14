@@ -1,5 +1,5 @@
 #' Monin-Obhukov-Length.
-#' 
+#'
 #' Calculation of the Monin-Obhukov-Length.
 #' Stability of atmosphere needs to be given as one of "stabil", "neutral" or "unstabil".
 #'
@@ -19,10 +19,10 @@
 #' @examples
 turb_flux_mol <- function(stability, z1, z2, z0 = NULL, v1, v2, T1, T2, ustar){
   if(stability == "labil"){
-    mol <- (z1*(T1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(T2-T1)/(z2-z1))  
+    mol <- (z1*(T1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(T2-T1)/(z2-z1))
   }
   else if(stability == "neutral"){
-    mol <- 0.75*(z1*(T1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(T2-T1)/(z2-z1))  
+    mol <- 0.75*(z1*(T1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(T2-T1)/(z2-z1))
   }
   else if(stability == "stabil"){
     mol <- 4.7*ustar*log(z1/z_0)*(z1-z_0)/(v1*0.4)
@@ -31,7 +31,7 @@ turb_flux_mol <- function(stability, z1, z2, z0 = NULL, v1, v2, T1, T2, ustar){
 }
 
 #' Gradient-Richardson-Number.
-#' 
+#'
 #' Calculation of the Gradient-Richardson-Number.
 #'
 #' @param T1 Temperature at lower height (e.g. height of anemometer) in °C.
@@ -54,7 +54,7 @@ turb_flux_grad_rich_no <- function(T1, T2, z1, z2, v1, v2, p1, p2){
   return(grad_rich_no)}
 
 #' Stability.
-#' 
+#'
 #' Calculation of atmospheric stability.
 #'
 #' @param grad_rich_no Gradient-Richardson-Number
@@ -71,6 +71,8 @@ turb_flux_stability <- function(grad_rich_no){
 }
 
 #' Exchange quotient for heat transmission.
+#'
+#' Calculation of the exchange quotient of the turbulent heat transmission.
 #'
 #' @param stability Stability of atmosphere. One of "stabil", "neutral" or "instabil".
 #' @param ustar Friction velocity in m/s.
@@ -99,6 +101,8 @@ turb_flux_ex_quotient_temp <- function(stability, ustar, mol, z1, air_density){
 
 #' Exchange quotient for impulse transmission.
 #'
+#' Calculation of the exchange quotient of the turbulent impulse transmission.
+#'
 #' @param stability Stability of atmosphere. One of "stabil", "neutral" or "instabil".
 #' @param ustar Friction velocity in m/s.
 #' @param mol Monin-Obhukov-Length in m.
@@ -124,6 +128,8 @@ turb_flux_ex_quotient_imp <- function(stability, ustar, mol, z1, air_density){
 }
 
 #' Turbulent impulse exchange.
+#'
+#' Calculation of the turbulent impulse exchange.
 #'
 #' @param ex_quotient Exchange quotient in kg/(m*s).
 #' @param v1 Windspeed at lower height (e.g. height of anemometer) in m/s.

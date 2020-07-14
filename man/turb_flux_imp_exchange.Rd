@@ -21,5 +21,5 @@ turb_flux_imp_exchange(ex_quotient, v1, v2, z1, z2)
 Turbulent impulse exchange in kg/(m*s^2).
 }
 \description{
-Turbulent impulse exchange.
+Calculation of the turbulent impulse exchange.
 }

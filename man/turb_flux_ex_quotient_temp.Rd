@@ -21,5 +21,5 @@ turb_flux_ex_quotient_temp(stability, ustar, mol, z1, air_density)
 Exchange quotient for heat transmission in kg/(m*s).
 }
 \description{
-Exchange quotient for heat transmission.
+Calculation of the exchange quotient of the turbulent heat transmission.
 }

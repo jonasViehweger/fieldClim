@@ -23,5 +23,5 @@ bound_thermal_avg(ustar, v_a, temp_change_dist, pt_upwind, pt, lr)
 
 }
 \description{
-Thermal internal boundary layer.
+Calculation of the average height of the thermal internal boundary layer.
 }
