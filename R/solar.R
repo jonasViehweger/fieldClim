@@ -3,7 +3,7 @@
 #'
 #' @param datetime POSIXt object (POSIXct, POSIXlt)
 #'
-#' @return
+#' @return Eccentricity at the date
 #' @export
 #'
 #' @examples
