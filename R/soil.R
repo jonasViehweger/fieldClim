@@ -92,7 +92,7 @@ soil_heat_flux <- function(diff_temp, diff_depth, thermal_cond) {
 #' @export
 #'
 #' @examples
-soil_attenuation_length <- function(thermal_cond, vol_heat_cap) {
+soil_attenuation <- function(thermal_cond, vol_heat_cap) {
   if (!is.numeric(vol_heat_cap)) stop("vol_heat_cap is not numeric")
   if (!is.numeric(thermal_cond)) stop("thermal_cond is not numeric")
   if (any(thermal_cond < 0)){
