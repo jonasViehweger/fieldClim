@@ -135,7 +135,7 @@ trans_gas <- function(air_mass_abs) {
 #' @examples
 trans_total <- function(sol_elevation, temp, altitude,
                         oz = 0.35, vis = 30, pressure = NULL){
-  if(is.null(p)) p <- pp(altitude, temp)
+  if(is.null(p)) p <- pres_p(altitude, temp)
   pw <- pw(p, temp, altitude)
   mr <- trans_air_mass_rel(sol_elevation)
   ma <- trans_air_mass_abs(mr, pressure)

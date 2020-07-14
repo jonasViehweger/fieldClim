@@ -7,10 +7,10 @@
 sol_eccentricity(datetime)
 }
 \arguments{
-\item{datetime}{}
+\item{datetime}{POSIXt object (POSIXct, POSIXlt)}
 }
 \value{
-
+Eccentricity at the date
 }
 \description{
 Eccentricity

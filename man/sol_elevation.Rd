@@ -4,13 +4,17 @@
 \alias{sol_elevation}
 \title{Solar elevation angle}
 \usage{
-sol_elevation(datetime, latitude, longitude)
+sol_elevation(datetime, lat, lon)
 }
 \arguments{
-\item{longitude}{}
+\item{datetime}{POSIXt object (POSIXct, POSIXlt)}
+
+\item{lat}{numeric. Latitude in decimal degrees}
+
+\item{lon}{numeric. Longitude in decimal degrees}
 }
 \value{
-
+numeric. Solar elevation angle in degrees
 }
 \description{
 Solar elevation angle
