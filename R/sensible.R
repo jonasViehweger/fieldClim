@@ -19,14 +19,14 @@ sensible_taylor_priestly <- function(temp, rad_bal, soil_flux){
 # ustern       = Friction velocity , x4
 # ri      x5
 # z = h?he x6
-QH <- function(p,mo,t_gradient,ustar,ri,z) {
-  cp <- 1004.834                  # Spezifische Verdunstungswaerme, T in ?C
+QH <- function(air_density, monin, t_gradient, ustar, ri, z1) {
+  cp <- 1004.834
   k <- 0.4
-  s1 <- z/mo
+  s1 <- z/monin
   ri[ri>0] <- 0.95+(7.8*s1)
-  if(ri < 0) {Busi <- 0.95*(1-(11.6*s1))^-0.5}      # labil
-  if(ri > 0) {Busi <- 0.95+(7.8*s1) }               # stabile
-  QH <- -1*((p*cp*k*ustar)/Busi)*1*t_gradient;
+  if(ri < 0) {busi <- 0.95*(1-(11.6*s1))^-0.5}      # labil
+  if(ri > 0) {busi <- 0.95+(7.8*s1) }               # stabile
+  QH <- -1*((air_density*cp*k*ustar)/busi)*1*t_gradient
   return(QH)
 }
 
