@@ -4,13 +4,15 @@
 \alias{trans_aerosol}
 \title{Transmittance due to aerosols}
 \usage{
-trans_aerosol(air_mass_abs, vis)
+trans_aerosol(air_mass_abs, vis = 30)
 }
 \arguments{
-\item{vis}{}
+\item{air_mass_abs}{Absolute optical air mass.}
+
+\item{vis}{Meteorological visibility in km. Default is the visibility on a clear day.}
 }
 \value{
-
+Transmittance due to aerosols (0-1)
 }
 \description{
 Transmittance due to aerosols

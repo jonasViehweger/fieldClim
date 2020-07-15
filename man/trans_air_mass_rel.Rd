@@ -7,11 +7,11 @@
 trans_air_mass_rel(sol_elevation)
 }
 \arguments{
-\item{sol_elevation}{}
+\item{sol_elevation}{Solar elevation in degrees.}
 }
 \value{
-
+Relative optical air mass.
 }
 \description{
-Relative optical air mass
+Calculates relative optical air mass.
 }

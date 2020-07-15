@@ -4,10 +4,10 @@
 \alias{sc}
 \title{sc PT coefficient (???)}
 \usage{
-sc(temp)
+sc(t1)
 }
 \arguments{
-\item{temp}{numeric. Air temperature in K}
+\item{t1}{numeric. Air temperature in degrees celsius}
 }
 \value{
 numeric. sc

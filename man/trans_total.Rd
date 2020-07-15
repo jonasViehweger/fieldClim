@@ -4,21 +4,24 @@
 \alias{trans_total}
 \title{Total transmittance}
 \usage{
-trans_total(
-  sol_elevation,
-  temp,
-  altitude,
-  oz = 0.35,
-  vis = 30,
-  pressure = NULL
-)
+trans_total(sol_elevation, t1, elev, oz = 0.35, vis = 30, pressure = NULL)
 }
 \arguments{
-\item{pressure}{}
+\item{sol_elevation}{Solar elevation in degrees.}
+
+\item{t1}{Air temperature in degrees celsius.}
+
+\item{elev}{Altitude above sea level in m.}
+
+\item{oz}{Columnar ozone in cm. Default is}
+
+\item{vis}{Meteorological visibility in km. Default is the visibility on a clear day.}
+
+\item{pressure}{OPTIONAL. Pressure in hPa. Calculated from elev and t1 if not available.}
 }
 \value{
-
+Total transmittance (0-1)
 }
 \description{
-Total transmittance
+Calculates total transmittance of the atmosphere.
 }

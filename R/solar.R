@@ -1,4 +1,3 @@
-#c----Funktion zur Berechnung des Exzentrizit?tsfaktor
 #' Eccentricity
 #'
 #' @param datetime POSIXt object (POSIXct, POSIXlt)

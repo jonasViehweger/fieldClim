@@ -7,11 +7,13 @@
 trans_air_mass_abs(air_mass_rel, pressure)
 }
 \arguments{
-\item{pressure}{}
+\item{air_mass_rel}{Relative optical air mass.}
+
+\item{pressure}{Pressure in hPa.}
 }
 \value{
-
+Absolute optical air mass.
 }
 \description{
-Absolute optical air mass
+Calculates absolute optical air mass.
 }

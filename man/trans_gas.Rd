@@ -7,11 +7,11 @@
 trans_gas(air_mass_abs)
 }
 \arguments{
-\item{air_mass_abs}{}
+\item{air_mass_abs}{Absolute optical air mass.}
 }
 \value{
-
+Transmittance due to gas (0-1)
 }
 \description{
-(O2, CO2)
+Calculates transmittance due to O2 and CO2.
 }

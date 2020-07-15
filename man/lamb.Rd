@@ -4,10 +4,10 @@
 \alias{lamb}
 \title{lambda PT coefficient (???)}
 \usage{
-lamb(temp)
+lamb(t1)
 }
 \arguments{
-\item{temp}{numeric. Air temperature in K}
+\item{t1}{numeric. Air temperature in degree celsius}
 }
 \value{
 numeric. lambda

@@ -30,7 +30,7 @@ pres_p <- function(elev,t1){
 #' @export
 #'
 #' @examples
-pres_ad <- function(p, t1){
+pres_air_density <- function(p, t1){
   ad <- p/(287.05*t1)
   return(ad)
 }

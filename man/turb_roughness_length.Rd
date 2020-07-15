@@ -17,6 +17,6 @@ Roughness length in m.
 \description{
 Calculate the roughness length of an underground on the basis of the obstacle height or the type of the underground.
 Possible types of underground are:
-"Wiese", "Weide", "Acker", "Sportplatz", "Strasse", "Gruenflaeche", "Landwirtschaft", "Siedlung", "Nadelwald", "Laubwald", "Mischwald", "Stadt"
+"Wiese", "Acker", "Gruenflaeche", "Strasse", "Landwirtschaft", "Siedlung", "Nadelwald", "Laubwald", "Mischwald", "Stadt"
 You need to specify only one, "type" OR "obs_height".
 }

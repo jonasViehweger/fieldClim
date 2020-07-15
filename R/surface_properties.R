@@ -30,4 +30,4 @@ surface_properties <- data.frame(surface_type = c("Wiese",
                                                       2.0)
                                  )
 
-usethis::use_data(surface_properties)
+usethis::use_data(surface_properties, overwrite = T)
