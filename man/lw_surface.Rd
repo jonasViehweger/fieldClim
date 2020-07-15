@@ -2,7 +2,7 @@
 % Please edit documentation in R/longwave.R
 \name{lw_surface}
 \alias{lw_surface}
-\title{Longwave terrestric emission}
+\title{Longwave radiation of the surface}
 \usage{
 lw_surface(temp, emissivity = 0.95)
 }
