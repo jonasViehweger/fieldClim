@@ -4,7 +4,7 @@
 \alias{turb_flux_mol}
 \title{Monin-Obhukov-Length.}
 \usage{
-turb_flux_mol(stability, z1, z2, z0 = NULL, v1, v2, T1, T2, ustar)
+turb_flux_mol(stability, z1, z2, z0 = NULL, v1, v2, t1, t2, ustar)
 }
 \arguments{
 \item{stability}{Stability of atmosphere.}
@@ -19,9 +19,9 @@ turb_flux_mol(stability, z1, z2, z0 = NULL, v1, v2, T1, T2, ustar)
 
 \item{v2}{Windspeed at upper height in m/s.}
 
-\item{T1}{Temperature at lower height (e.g. height of anemometer) in °C.}
+\item{t1}{Temperature at lower height (e.g. height of anemometer) in °C.}
 
-\item{T2}{Temperature at upper height in °C.}
+\item{t2}{Temperature at upper height in °C.}
 
 \item{ustar}{Friction velocity in m/s.}
 }

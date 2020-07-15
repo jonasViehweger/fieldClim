@@ -4,12 +4,12 @@
 \alias{pres_ad}
 \title{Air density.}
 \usage{
-pres_ad(p, T1)
+pres_ad(p, t1)
 }
 \arguments{
 \item{p}{Pressure in hPa.}
 
-\item{T1}{Temperature in °C.}
+\item{t1}{Temperature in °C.}
 }
 \value{
 Air density in kg*m^(-3)

@@ -10,11 +10,11 @@ monthly_climate <- function(data,
                             elev,
                             type = "wiese",
                             obs_height = 0.3,
-                            hum_rel,
-                            
+                            hum_rel
+
                             ) {
-  
-  
-  
-  
+
+
+
+
 }

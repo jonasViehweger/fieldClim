@@ -4,10 +4,10 @@
 \alias{temp_pot_temp}
 \title{Potential Temperature.}
 \usage{
-temp_pot_temp(T1, p)
+temp_pot_temp(t1, p)
 }
 \arguments{
-\item{T1}{Temperature in °C.}
+\item{t1}{Temperature in °C.}
 
 \item{p}{Pressure in hPa.}
 }

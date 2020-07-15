@@ -3,7 +3,7 @@
 #'
 #' Calculate the roughness length of an underground on the basis of the obstacle height or the type of the underground.
 #' Possible types of underground are:
-#' "Wiese", "Weide", "Acker", "Sportplatz", "Strasse", "Gruenflaeche", "Landwirtschaft", "Siedlung", "Nadelwald", "Laubwald", "Mischwald", "Stadt"
+#' "Wiese", "Acker", "Gruenflaeche", "Strasse", "Landwirtschaft", "Siedlung", "Nadelwald", "Laubwald", "Mischwald", "Stadt"
 #' You need to specify only one, "type" OR "obs_height".
 #'
 #' @param type Type of underground.
@@ -25,11 +25,11 @@ turb_roughness_length <- function(type = NULL, obs_height = NULL){
     else if(type == "Laubwald" || type == "Mischwald"){z0 = 1.5}
     else if(type == "Stadt"){z0 = 2.0}}
   else if(is.null(obs_height)==F){z0 <- obs_height*0.1}
-  return(z0)                    
+  return(z0)
 }
 
 #' Displacement height.
-#' 
+#'
 #' Calculate the displacement height, caused by an obstacle (e.g. a crop field).
 #'
 #' @param obs_height Height of obstacle in m.
@@ -38,13 +38,13 @@ turb_roughness_length <- function(type = NULL, obs_height = NULL){
 #' @export
 #'
 #' @examples
-turb_displacement <- function(obs_height){ 
+turb_displacement <- function(obs_height){
   d0 <- (2/3)*obs_height;      # for Vegetation only
   return(d0)
 }
 
 #' Friction velocity.
-#' 
+#'
 #' Calculate the friction velocity of the underground.
 #'
 #' @param v1 Windspeed in height of anemometer in m/s.

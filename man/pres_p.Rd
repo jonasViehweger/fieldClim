@@ -4,12 +4,12 @@
 \alias{pres_p}
 \title{Pressure.}
 \usage{
-pres_p(z, T1)
+pres_p(elev, t1)
 }
 \arguments{
-\item{z}{Height in m.}
+\item{elev}{Elevation above sea level in m.}
 
-\item{T1}{Temperature in °C.}
+\item{t1}{Temperature in °C.}
 }
 \value{
 Pressure in hPa.

@@ -4,12 +4,12 @@
 \alias{turb_ustar}
 \title{Friction velocity.}
 \usage{
-turb_ustar(v_a, z_a, z0)
+turb_ustar(v1, z1, z0)
 }
 \arguments{
-\item{v_a}{Windspeed in height of anemometer in m/s.}
+\item{v1}{Windspeed in height of anemometer in m/s.}
 
-\item{z_a}{Height of anemometer in m.}
+\item{z1}{Height of anemometer in m.}
 
 \item{z0}{Roughness length in m.}
 }
