@@ -18,6 +18,9 @@
 #'
 #' @examples
 turb_flux_mol <- function(stability, z1, z2, z0 = NULL, v1, v2, T1, T2, ustar){
+
+  mol[stability == "labil"] <- (z1*(T1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(T2-T1)/(z2-z1))
+
   if(stability == "labil"){
     mol <- (z1*(T1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(T2-T1)/(z2-z1))
   }

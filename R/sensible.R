@@ -1,5 +1,5 @@
 ###### Sensible HEat Flux PT;  x1 is sc, x2 is lam, x3 is radiation balance, Qg is soil heat flux
-QH_TP <- function(temp, rad_bal, soil_flux){
+sensible_taylor_priestly <- function(temp, rad_bal, soil_flux){
   temp <- temp+273.15
   sc <- sc(temp)
   lamb <- lamb(temp)
@@ -23,6 +23,7 @@ QH <- function(p,mo,t_gradient,ustar,ri,z) {
   cp <- 1004.834                  # Spezifische Verdunstungswaerme, T in ?C
   k <- 0.4
   s1 <- z/mo
+  ri[ri>0] <- 0.95+(7.8*s1)
   if(ri < 0) {Busi <- 0.95*(1-(11.6*s1))^-0.5}      # labil
   if(ri > 0) {Busi <- 0.95+(7.8*s1) }               # stabile
   QH <- -1*((p*cp*k*ustar)/Busi)*1*t_gradient;
