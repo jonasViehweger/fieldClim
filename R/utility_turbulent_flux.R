@@ -19,3 +19,9 @@ lamb <- function(temp){
   lamb <- 0.0004+(0.00041491-0.0004)/(1+(299.44/temp)^383.4)
   return(lamb)
 }
+
+# Bowen Ration ?ber Temperatur- und  absolute Feuchtegradienten
+Bow2 <- function(x1,x2,x3,x4){
+  Bow2 <- (x1*x3) / (x2*x4);
+  return(Bow2)
+}
