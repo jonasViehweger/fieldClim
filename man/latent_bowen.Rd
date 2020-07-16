@@ -4,16 +4,20 @@
 \alias{latent_bowen}
 \title{Latent Heat using Bowen Method}
 \usage{
-latent_bowen(t1, t2, h1, h2, z1, z2, rad_bal, soil_flux, p = NULL, elev = NULL)
+latent_bowen(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10, rad_bal, soil_flux)
 }
 \arguments{
 \item{t1}{Temperature at lower height (e.g. height of anemometer) in degrees C.}
 
 \item{t2}{Temperature at upper height in degrees C.}
 
-\item{h1}{Relative humidity at lower height (e.g. height of anemometer) in \%.}
+\item{hum1}{Relative humidity at lower height (e.g. height of anemometer) in \%.}
 
-\item{h2}{Relative humidity at upper height in \%.}
+\item{hum2}{Relative humidity at upper height in \%.}
+
+\item{p1}{Air pressure at lower height in hPa.}
+
+\item{p2}{Air pressure at upper height in hPa.}
 
 \item{z1}{Lower height of measurement (e.g. height of anemometer) in m.}
 
@@ -22,10 +26,6 @@ latent_bowen(t1, t2, h1, h2, z1, z2, rad_bal, soil_flux, p = NULL, elev = NULL)
 \item{rad_bal}{Radiation balance in W/m^2.}
 
 \item{soil_flux}{Soil flux in W/m^2.}
-
-\item{p}{OPTIONAL. Air pressure in hPa. If not given, elev has to be set.}
-
-\item{elev}{OPTIONAL. Elevation above sea level in m. If not given, p has to be set.}
 }
 \value{
 Latent heat flux in W/m^2

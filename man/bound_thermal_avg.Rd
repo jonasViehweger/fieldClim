@@ -7,7 +7,7 @@
 bound_thermal_avg(ustar, v_a, temp_change_dist, pt_upwind, pt, lr)
 }
 \arguments{
-\item{ustar}{Friction velocity u*.}
+\item{ustar}{Friction velocity u* in m/s.}
 
 \item{v_a}{Windspeed in height of anemometer in m/s.}
 
@@ -17,10 +17,10 @@ bound_thermal_avg(ustar, v_a, temp_change_dist, pt_upwind, pt, lr)
 
 \item{pt}{Potential temperature at site in °C.}
 
-\item{lr}{Lapse rate in K/m (or °C/m)}
+\item{lr}{Lapse rate in K/m (or degrees C/m)}
 }
 \value{
-
+Average height of the thermal boundary layer in m.
 }
 \description{
 Calculation of the average height of the thermal internal boundary layer.

@@ -7,15 +7,15 @@
 soil_heat_cap(moisture, texture = "sand")
 }
 \arguments{
-\item{moisture}{Numeric vector with soil moisture data (in Vol-\%)}
+\item{moisture}{Soil moisture in Vol-\%.}
 
 \item{texture}{Soil texture. Either "sand" or "clay".}
 }
 \value{
-Numeric vector with volumetric heat capacity \eq{J\emph{m^-3}K^-1}
+Numeric vector with volumetric heat capacity in J/(m^3 * K)
 }
 \description{
-Calculates soil volumetric heat capacity \eqn{J * m^(-3) * K^(-1)} from soil moisture (Vol-\%) and texture.
+Calculates soil volumetric heat capacity (J / (m^3 * K)) from soil moisture (Vol-\%) and texture.
 }
 \details{
 Works by linearly interpolating volumetric heat capacity based on measured data.

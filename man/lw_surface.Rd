@@ -7,12 +7,12 @@
 lw_surface(temp, emissivity = 0.95)
 }
 \arguments{
-\item{temp}{numeric. Surface temperature in degrees celsius}
+\item{temp}{Surface temperature in degrees C.}
 
-\item{emissivity}{numeric. Emissivity of surface. Default is emissivity for short grass}
+\item{emissivity}{Emissivity of surface (0-1). Default is emissivity for short grass.}
 }
 \value{
-Emissions in W*m^-2
+Surface emissions in W/m^2.
 }
 \description{
 Calculates emissions of a surface.

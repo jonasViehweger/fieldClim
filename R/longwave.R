@@ -1,18 +1,17 @@
 #' Emissivity of the atmosphere
 #'
-#' @param temp numeric. Air termperature in degrees celsius.
-#' @param altitude numeric. Meters above sea level
-#' @param air_pressure numeric. Optional. Air pressure in hPa.
-#' If not available, will be calculated from altitude and air temperature.
+#' Calculates emissivity of the atmosphere.
 #'
-#' @return numeric. Emissivity of the atmosphere (0-1)
+#' @param temp Air temperature in degrees C.
+#' @param elev Elevation above sea level in m.
+#' @param p Air pressure in hPa.
+#'
+#' @return Emissivity of the atmosphere (0-1).
 #' @export
 #'
-#' @examples
-lw_emissivity_air <- function(temp, altitude, air_pressure = NULL){
-  if(is.null(air_pressure)) p <- pres_p(altitude, temp)
+lw_emissivity_air <- function(temp, elev, p){
   svp <- hum_sat_vapor_pres(temp)
-  t_over <- temp*(0.0065*altitude)
+  t_over <- temp*(0.0065*elev)
   eat <- ((1.24*svp/temp)**1/7)*(p/1013.25)
   return(eat)
 }
@@ -21,13 +20,12 @@ lw_emissivity_air <- function(temp, altitude, air_pressure = NULL){
 #'
 #' Calculates emissions of a surface.
 #'
-#' @param temp numeric. Surface temperature in degrees celsius
-#' @param emissivity numeric. Emissivity of surface. Default is emissivity for short grass
+#' @param temp Surface temperature in degrees C.
+#' @param emissivity Emissivity of surface (0-1). Default is emissivity for short grass.
 #'
-#' @return Emissions in W*m^-2
+#' @return Surface emissions in W/m^2.
 #' @export
 #'
-#' @examples
 lw_surface <- function(temp, emissivity = 0.95){
   sigma <- 5.670374 * 10^-8
   return(em*sigma*(temp+273.15)**4)
@@ -35,14 +33,14 @@ lw_surface <- function(temp, emissivity = 0.95){
 
 #' Longwave radiation of the atmosphere
 #'
-#' @param emissivity_air numeric. Emissivity of the atmosphere (factor: 0-1)
-#' @param temp numeric. Air temperature in degrees celsius
+#' @param emissivity_air Emissivity of the atmosphere (0-1).
+#' See \code{\link{lw_emmissivity_air}} for calculation.
+#' @param temp Air temperature in degrees C.
 #'
-#' @return numeric. Atmospheric radiation in W*m^-2
+#' @return Atmospheric radiation in W/m^2.
 #' @export
 #'
-#' @examples
-lw_atmospheric <- function(emissivity_air, temp){
+lw_atmospheric <- function(temp, emissivity_air){
   sigma <- 5.670374 * 10^-8
   gs <- emissivity_air*sigma*(temp+273.15)**4
   return(gs)

@@ -27,5 +27,5 @@ hum_moisture_gradient(hum1, hum2, t1, t2, p1, p2, z1, z2)
 
 }
 \description{
-Moisture gradient
+Calculates moisture gradient.
 }

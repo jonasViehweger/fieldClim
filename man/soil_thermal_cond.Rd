@@ -7,12 +7,12 @@
 soil_thermal_cond(moisture, texture = "sand")
 }
 \arguments{
-\item{moisture}{Numeric vector with soil moisture data (in Vol-\%)}
+\item{moisture}{Soil moisture in Vol-\%.}
 
 \item{texture}{Soil texture. Either "sand" or "clay".}
 }
 \value{
-vector with soil thermal conductivity (W/m K)
+vector with soil thermal conductivity in W/m K
 }
 \description{
 Calculates soil thermal conductivity (W/m K) from soil moisture (Vol-\%) and texture.

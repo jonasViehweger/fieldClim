@@ -7,10 +7,10 @@
 hum_evap_heat(temp)
 }
 \arguments{
-\item{temp}{numeric. Air temperature in degrees celsius.}
+\item{temp}{Air temperature in degrees C.}
 }
 \value{
-numeric. Heat of evaporation in J/kg
+Heat of evaporation in J/kg.
 }
 \description{
 Calculates heat of evaporation for water from air temperature.

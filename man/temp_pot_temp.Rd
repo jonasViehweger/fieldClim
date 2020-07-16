@@ -7,12 +7,12 @@
 temp_pot_temp(t1, p)
 }
 \arguments{
-\item{t1}{Temperature in °C.}
+\item{t1}{Temperature in degrees C.}
 
 \item{p}{Pressure in hPa.}
 }
 \value{
-
+Potential temperature in K.
 }
 \description{
 Calculation of the potential air temperature.

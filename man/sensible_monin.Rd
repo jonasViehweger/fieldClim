@@ -4,23 +4,40 @@
 \alias{sensible_monin}
 \title{Sensible Heat using Monin-Obukhov length}
 \usage{
-sensible_monin(air_density, monin, t_gradient, ustar, ri, z1)
+sensible_monin(
+  t1,
+  t2,
+  p1,
+  p2,
+  z1 = 2,
+  z2 = 10,
+  monin,
+  t_gradient,
+  ustar,
+  grad_rich_no
+)
 }
 \arguments{
-\item{air_density}{Air density in (kg*m^-3)}
+\item{t1}{Air temperature at lower height in degrees C.}
 
-\item{monin}{Monin-Obukhov length (m)}
+\item{t2}{Air temperature at upper height in degrees C.}
 
-\item{t_gradient}{Specific moisture gradient (dq/dlog(z) with q in kg/kg)}
+\item{p1}{Pressure at lower height in hPa.}
 
-\item{ustar}{Friction velocity (m/s)}
+\item{p2}{Pressure at upper height in hPa.}
 
-\item{ri}{Gradient-Richardson-Number}
+\item{z1}{Lower height of measurement in m.}
 
-\item{z1}{Height of air temperature measurment (m)}
+\item{z2}{Upper height of measurement in m.}
+
+\item{monin}{Monin-Obukhov-Length in m.}
+
+\item{ustar}{Friction velocity in m/s.}
+
+\item{grad_rich_no}{Gradient-Richardson-Number.}
 }
 \value{
-Sensible heat flux (W/m^2)
+Latent heat flux in W/m^2.
 }
 \description{
 Calculates the sensible heat flux using the Monin-Obukhov length. Negative

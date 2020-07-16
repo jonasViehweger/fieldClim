@@ -7,12 +7,12 @@
 hum_absolute(vapor_pressure, temp)
 }
 \arguments{
-\item{vapor_pressure}{numeric. Vapor presure in hPa}
+\item{vapor_pressure}{Vapor presure in hPa.}
 
-\item{temp}{numeric. Air temperature in degrees celsius}
+\item{temp}{Air temperature in degrees celsius.}
 }
 \value{
-numeric. Absolute humidity in kg/m^3
+Absolute humidity in kg/m^3.
 }
 \description{
 Calculates absolute humidity from vapor pressure and temperature.

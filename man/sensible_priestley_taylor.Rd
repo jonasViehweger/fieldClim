@@ -7,14 +7,14 @@
 sensible_priestley_taylor(t1, rad_bal, soil_flux)
 }
 \arguments{
-\item{t1}{Air temperature in degrees celsius}
+\item{t1}{Air temperature in degrees C.}
 
-\item{rad_bal}{Radiation balance (W/m^2)}
+\item{rad_bal}{Radiation balance in W/m^2.}
 
-\item{soil_flux}{Soil flux (W/m^2)}
+\item{soil_flux}{Soil flux in W/m^2.}
 }
 \value{
-Sensible heat flux (W/m^2)
+Sensible heat flux in W/m^2.
 }
 \description{
 Calculates the Sensible heat flux using the Priestley-Taylor method. Negative

@@ -7,13 +7,13 @@
 soil_attenuation(thermal_cond, vol_heat_cap)
 }
 \arguments{
-\item{thermal_cond}{Thermal conductivity of soil (W/m K)}
+\item{thermal_cond}{Thermal conductivity of soil in W/m K.}
 
-\item{vol_heat_cap}{Volumetric heat capacity of soil \eq{J\emph{m^-3}K^-1}}
+\item{vol_heat_cap}{Volumetric heat capacity of soil in J/(m^3 * K).}
 }
 \value{
-Soil attenuation length (m)
+Soil attenuation length in m.
 }
 \description{
-Soil attenuation length
+Calculates soil attenuation length.
 }

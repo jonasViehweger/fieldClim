@@ -4,15 +4,16 @@
 \alias{lw_atmospheric}
 \title{Longwave radiation of the atmosphere}
 \usage{
-lw_atmospheric(emissivity_air, temp)
+lw_atmospheric(temp, emissivity_air)
 }
 \arguments{
-\item{emissivity_air}{numeric. Emissivity of the atmosphere (factor: 0-1)}
+\item{temp}{Air temperature in degrees C.}
 
-\item{temp}{numeric. Air temperature in degrees celsius}
+\item{emissivity_air}{Emissivity of the atmosphere (0-1).
+See \code{\link{lw_emmissivity_air}} for calculation.}
 }
 \value{
-numeric. Atmospheric radiation in W*m^-2
+Atmospheric radiation in W/m^2.
 }
 \description{
 Longwave radiation of the atmosphere

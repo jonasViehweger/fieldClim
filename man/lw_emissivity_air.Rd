@@ -4,19 +4,18 @@
 \alias{lw_emissivity_air}
 \title{Emissivity of the atmosphere}
 \usage{
-lw_emissivity_air(temp, altitude, air_pressure = NULL)
+lw_emissivity_air(temp, elev, p)
 }
 \arguments{
-\item{temp}{numeric. Air termperature in degrees celsius.}
+\item{temp}{Air temperature in degrees C.}
 
-\item{altitude}{numeric. Meters above sea level}
+\item{elev}{Elevation above sea level in m.}
 
-\item{air_pressure}{numeric. Optional. Air pressure in hPa.
-If not available, will be calculated from altitude and air temperature.}
+\item{p}{Air pressure in hPa.}
 }
 \value{
-numeric. Emissivity of the atmosphere (0-1)
+Emissivity of the atmosphere (0-1).
 }
 \description{
-Emissivity of the atmosphere
+Calculates emissivity of the atmosphere.
 }

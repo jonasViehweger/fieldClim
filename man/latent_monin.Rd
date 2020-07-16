@@ -4,22 +4,42 @@
 \alias{latent_monin}
 \title{Latent Heat using Monin-Obukhov length}
 \usage{
-latent_monin(air_density, monin, moist_gradient, ustar, ri, t1, z1)
+latent_monin(
+  hum1,
+  hum2,
+  t1,
+  t2,
+  p1,
+  p2,
+  z1 = 2,
+  z2 = 10,
+  monin,
+  ustar,
+  grad_rich_no
+)
 }
 \arguments{
-\item{air_density}{Air density in kg*m^-3.}
+\item{hum1}{Relative humidity at lower height in \%.}
 
-\item{monin}{Monin-Obukhov length in m.}
+\item{hum2}{Relative humidity at upper height in \%.}
 
-\item{moist_gradient}{Specific moisture gradient (dq/dlog(z) with q in kg/kg)}
+\item{t1}{Air temperature at lower height in degrees C.}
+
+\item{t2}{Air temperature at upper height in degrees C.}
+
+\item{p1}{Pressure at lower height in hPa.}
+
+\item{p2}{Pressure at upper height in hPa.}
+
+\item{z1}{Lower height of measurement in m.}
+
+\item{z2}{Upper height of measurement in m.}
+
+\item{monin}{Monin-Obukhov-Length in m.}
 
 \item{ustar}{Friction velocity in m/s.}
 
-\item{ri}{Gradient-Richardson-Number.}
-
-\item{t1}{Air temperature in degrees C.}
-
-\item{z1}{Height of air temperature measurment in m.}
+\item{grad_rich_no}{Gradient-Richardson-Number.}
 }
 \value{
 Latent heat flux in W/m^2.

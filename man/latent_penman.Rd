@@ -4,7 +4,7 @@
 \alias{latent_penman}
 \title{Latent Heat Penman Method}
 \usage{
-latent_penman(datetime, v1, t1, h1, z1, rad_bal, elevation, lat, lon)
+latent_penman(datetime, v1, t1, hum1, z1 = 2, rad_bal, elev, lat, lon)
 }
 \arguments{
 \item{datetime}{POSIXt object (POSIXct, POSIXlt).}
@@ -13,13 +13,13 @@ latent_penman(datetime, v1, t1, h1, z1, rad_bal, elevation, lat, lon)
 
 \item{t1}{Temperature in degrees C}
 
-\item{h1}{Relative humidity in percent (0-100)}
+\item{hum1}{Relative humidity in \%.}
 
 \item{z1}{Height of measurement for t1, v1 in m.}
 
 \item{rad_bal}{Radiation balance in W/m^2.}
 
-\item{elevation}{Elevation above sea level in m.}
+\item{elev}{Elevation above sea level in m.}
 
 \item{lat}{Latitude in decimal degrees.}
 

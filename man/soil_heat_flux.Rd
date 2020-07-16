@@ -4,17 +4,21 @@
 \alias{soil_heat_flux}
 \title{Soil heat flux}
 \usage{
-soil_heat_flux(diff_temp, diff_depth, thermal_cond)
+soil_heat_flux(t1, t2, depth1, depth2, thermal_cond)
 }
 \arguments{
-\item{diff_temp}{Difference in temperature between two depths.}
+\item{t1}{Upper soil temperature (closest to the surface) in degrees C.}
 
-\item{diff_depth}{Difference in depths (m)}
+\item{t2}{Lower soil temperature in degrees C.}
 
-\item{thermal_cond}{Thermal conductivity of soil (W/m K)}
+\item{depth1}{Depth of upper measurement (closest to the surface) in m.}
+
+\item{depth2}{Depth of lower measurement in m.}
+
+\item{thermal_cond}{Thermal conductivity of soil in W/m K.}
 }
 \value{
-Soil heat flux (W*m^-2)
+Soil heat flux in W*m^-2.
 }
 \description{
 Calculates soil heat flux from measurements in two different

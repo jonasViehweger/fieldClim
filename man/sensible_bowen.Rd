@@ -4,42 +4,27 @@
 \alias{sensible_bowen}
 \title{Sensible Heat using Bowen Method}
 \usage{
-sensible_bowen(
-  t1,
-  t2,
-  h1,
-  h2,
-  z1,
-  z2,
-  rad_bal,
-  soil_flux,
-  p = NULL,
-  elev = NULL
-)
+sensible_bowen(t1, t2, hum1, hum2, p1, p2, z1, z2, rad_bal, soil_flux)
 }
 \arguments{
 \item{t1}{Temperature at lower height (e.g. height of anemometer) in degrees C.}
 
 \item{t2}{Temperature at upper height in degrees C.}
 
-\item{h1}{Relative humidity at lower height (e.g. height of anemometer) in \%.}
+\item{hum1}{Relative humidity at lower height (e.g. height of anemometer) in \%.}
 
-\item{h2}{Relative humidity at upper height in \%.}
+\item{hum2}{Relative humidity at upper height in \%.}
 
 \item{z1}{Lower height of measurement (e.g. height of anemometer) in m.}
 
 \item{z2}{Upper height of measurement in m.}
 
-\item{rad_bal}{Radiation balance in W/m^2}
+\item{rad_bal}{Radiation balance in W/m^2.}
 
-\item{soil_flux}{Soil flux in W/m^2}
-
-\item{p}{OPTIONAL. Air pressure in hPa. If not given, elev has to be set.}
-
-\item{elev}{OPTIONAL. Elevation above sea level in m. If not given, p has to be set.}
+\item{soil_flux}{Soil flux in W/m^2.}
 }
 \value{
-Sensible heat flux (W/m^2)
+Sensible heat flux in W/m^2.
 }
 \description{
 Calculates the sensible heat flux using the Bowen Method. Negative
