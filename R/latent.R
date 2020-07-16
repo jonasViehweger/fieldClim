@@ -15,7 +15,7 @@ latent_priestley_taylor <- function(t1, rad_bal, soil_flux){
   sc <- sc(t1)
   lamb <- lamb(t1)
   alpt <- 1.25
-  QE_TP <- alpt*sc*((-rad_bal-soil_flux)/sc+lamb) ;
+  QE_TP <- alpt*sc*((-rad_bal-soil_flux)/sc+lamb)
   return(QE_TP)
 }
 
