@@ -2,22 +2,32 @@ monthly_climate <- function(data,
                             datetime,
                             t1,
                             t2,
-                            z1,
-                            z2,
+                            z1 = 2,
+                            z2 = 10,
                             v1,
                             v2,
+                            hum1,
+                            hum2,
+                            rad_bal,
+                            soil_flux,
                             p = NULL,
-                            elev,
+                            elev = 270,
+                            lat = 8.683303333333333,
+                            alt = 50.84050277777778,
                             surface_type = "wiese",
-                            obs_height = 0.3,
-                            hum_rel){
+                            obs_height = 0.3
+                            ){
   t1 <- data[,t1]
   t2 <- data[,t2]
   v1 <- data[,v1]
   v2 <- data[,v2]
   z1 <- data[,z1]
   z2 <- data[,z2]
-
+  rad_bal <- data[,rad_bal]
+  soil_flux <- data[,soil_flux]
+  hum1 <- data[,hum1]
+  hum2 <- data[,hum2]
+  
   #roughness length
   z0 <- turb_roughness_length(surface_type = surface_type, obs_height = obs_height)
 
@@ -28,25 +38,55 @@ monthly_climate <- function(data,
   ustar <- turb_ustar(v1 = v1, z1 = z1, z0 = z0)
 
   #pressure
-  p1 <- pres_p((elev+z1),t1)
+  if(is.null(p)){p1 <- pres_p((elev+z1),t1)}
+  else if(is.null(p)==F){p1 <- p}
   p2 <- pres_p((elev+z2),t2)
 
   #air density
   air_density <- pres_air_density(p1,t1)
-
-  #Gradient-Richardson-Number
+  
+  #Gradient-Richardson-Number ##in Ausgabe
   grad_rich_no <- turb_flux_grad_rich_no(t1,t2,z1,z2,v1,v2,p1,p2)
 
-  #stability
+  #stability ##in Ausgabe
   stability <- turb_flux_stability(grad_rich_no)
 
-  #Monin-Obhukov-Length
-  mol <- turb_flux_mol(stability,z1,z2,z0,v1,v2,t1,t2,ustar)
+  #Monin-Obhukov-Length ##in Ausgabe
+  monin <- turb_flux_monin(stability,z1,z2,z0,v1,v2,t1,t2,ustar)
 
   #exchange quotient
-  ex_quotient <- turb_flux_ex_quotient_imp(stability,ustar,mol,z1,air_density)
+  ex_quotient <- turb_flux_ex_quotient_imp(stability,ustar,monin,z1,air_density)
 
-  #turbulent impulse exchange
+  #turbulent impulse exchange ##in Ausgabe
   turb_flux <- turb_flux_imp_exchange(ex_quotient,v1,v2,z1,z2)
-
+  
+  
+  
+  
+  
+  
+  
+  
+  ##################################################################################################
+  #Latent Heat Priestley-Taylor Method
+  latent_priestley_taylor <- latent_priestley_taylor()
+  
+  #Latent Heat Penman Method
+  latent_penman <- latent_penman()
+  
+  #Latent Heat using Monin-Obukhov length ##### Eingangsvariablen anpassen ####
+  latent_monin <- latent_monin()
+  
+  #Latent Heat using Bowen Method
+  latent_bowen <- latent_bowen()
+  
+  #Sensible Heat Priestley-Taylor Method  #### Eingangsvariablen anpassen ####
+  sensible_priestley_taylor <- sensible_priestley_taylor()
+  
+  #Sensible Heat using Monin-Obukhov length #### Eingangsvariablen anpassen ####
+  sensible_monin <- sensible_monin()
+  
+  #Sensible Heat using Bowen Method #### Eingangsvariablen anpassen ####
+  sensible_bowen <- sensible_bowen()
+  
 }

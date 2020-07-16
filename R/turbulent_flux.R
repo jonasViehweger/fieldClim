@@ -17,11 +17,12 @@
 #' @export
 #'
 #' @examples
-turb_flux_mol <- function(stability, z1, z2, z0 = NULL, v1, v2, t1, t2, ustar){
-  mol[stability == "labil"] <- (z1*(t1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(t2-t1)/(z2-z1))
-  mol[stability == "neutral"] <- 0.75*(z1*(t1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(t2-t1)/(z2-z1))
-  mol[stability == "stabil"] <- 4.7*ustar*log(z1/z_0)*(z1-z_0)/(v1*0.4)
-  return(mol)
+turb_flux_monin <- function(stability, z1, z2, z0, v1, v2, t1, t2){
+  ustar <- turb_ustar(v1,z1,z0)
+  monin[stability == "labil"] <- (z1*(t1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(t2-t1)/(z2-z1))
+  monin[stability == "neutral"] <- 0.75*(z1*(t1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(t2-t1)/(z2-z1))
+  monin[stability == "stabil"] <- 4.7*ustar*log(z1/z0)*(z1-z0)/(v1*0.4)
+  return(monin)
 }
 
 #' Gradient-Richardson-Number.
@@ -70,7 +71,7 @@ turb_flux_stability <- function(grad_rich_no){
 #'
 #' @param stability Stability of atmosphere. One of "stabil", "neutral" or "instabil".
 #' @param ustar Friction velocity in m/s.
-#' @param mol Monin-Obhukov-Length in m.
+#' @param monin Monin-Obhukov-Length in m.
 #' @param z1 Height in m.
 #' @param air_density Air density in kg*m^(-3).
 #'
@@ -78,9 +79,9 @@ turb_flux_stability <- function(grad_rich_no){
 #' @export
 #'
 #' @examples
-turb_flux_ex_quotient_temp <- function(stability, ustar, mol, z1, air_density){
-  A[stability == "labil"] <- (0.4*ustar*z1/(0.74*(1-9*z1/mol)**(-0.5)))*air_density
-  A[stability == "stabil"] <- (0.4*ustar*z1/(0.74+4.7*z1/mol))*air_density
+turb_flux_ex_quotient_temp <- function(stability, ustar, monin, z1, air_density){
+  A[stability == "labil"] <- (0.4*ustar*z1/(0.74*(1-9*z1/monin)**(-0.5)))*air_density
+  A[stability == "stabil"] <- (0.4*ustar*z1/(0.74+4.7*z1/monin))*air_density
   A[stability == "neutral"] <- NA
   return(A)
 }
@@ -91,7 +92,7 @@ turb_flux_ex_quotient_temp <- function(stability, ustar, mol, z1, air_density){
 #'
 #' @param stability Stability of atmosphere. One of "stabil", "neutral" or "instabil".
 #' @param ustar Friction velocity in m/s.
-#' @param mol Monin-Obhukov-Length in m.
+#' @param monin Monin-Obhukov-Length in m.
 #' @param z1 Height in m.
 #' @param air_density Air density in kg*m^(-3).
 #'
@@ -99,9 +100,9 @@ turb_flux_ex_quotient_temp <- function(stability, ustar, mol, z1, air_density){
 #' @export
 #'
 #' @examples
-turb_flux_ex_quotient_imp <- function(stability, ustar, mol, z1, air_density){
-  A[stability == "labil"] <- (0.4*ustar*z1/((1-15*z1/mol)**(-0.25)))*air_density
-  A[stability == "stabil"] <- (0.4*ustar*mol/4.7)*air_density
+turb_flux_ex_quotient_imp <- function(stability, ustar, monin, z1, air_density){
+  A[stability == "labil"] <- (0.4*ustar*z1/((1-15*z1/monin)**(-0.25)))*air_density
+  A[stability == "stabil"] <- (0.4*ustar*monin/4.7)*air_density
   A[stability == "neutral"] <- (0.4*ustar*z1)*air_density
   return(A)
 }
