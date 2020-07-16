@@ -11,7 +11,7 @@
 #' @return Sensible heat flux (W/m^2)
 #' @export
 #'
-sens_priestley_taylor <- function(t1, rad_bal, soil_flux){
+sensible_priestley_taylor <- function(t1, rad_bal, soil_flux){
   sc <- sc(t1)
   lamb <- lamb(t1)
   alpt <- 1.25
@@ -36,7 +36,7 @@ sens_priestley_taylor <- function(t1, rad_bal, soil_flux){
 #' @return Sensible heat flux (W/m^2)
 #' @export
 #'
-sens_monin <- function(air_density, monin, t_gradient, ustar, ri, z1) {
+sensible_monin <- function(air_density, monin, t_gradient, ustar, ri, z1) {
   cp <- 1004.834
   k <- 0.4
   s1 <- z1/monin
@@ -67,7 +67,7 @@ sens_monin <- function(air_density, monin, t_gradient, ustar, ri, z1) {
 #' @return Sensible heat flux (W/m^2)
 #' @export
 #'
-sens_bowen <- function(t1, t2, h1, h2, z1, z2,
+sensible_bowen <- function(t1, t2, h1, h2, z1, z2,
                       rad_bal, soil_flux,
                       p = NULL, elev = NULL){
 

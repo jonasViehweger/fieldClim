@@ -4,10 +4,10 @@
 \alias{turb_roughness_length}
 \title{Roughness length.}
 \usage{
-turb_roughness_length(type = NULL, obs_height = NULL)
+turb_roughness_length(surface_type = NULL, obs_height = NULL)
 }
 \arguments{
-\item{type}{Type of underground.}
+\item{surface_type}{Type of underground.}
 
 \item{obs_height}{Height of obstacle in m.}
 }

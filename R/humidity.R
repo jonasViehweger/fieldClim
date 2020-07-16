@@ -20,14 +20,15 @@ hum_sat_vapor_pres <- function(temp) {
 #'
 #' Calculates vapor pressure from relative humidity and saturation vapor pressure
 #'
-#' @param hum_rel numeric. Relative humidity in percent (0-100)
-#' @param sat_vapor_pres numeric. Saturation vapor pressure in hPa
+#' @param hum_rel numeric. Relative humidity in percent (0-100).
+#' @param t1 numeric. Air temperature in degrees C.
 #'
-#' @return numeric. Vapor pressure in hPa
+#' @return numeric. Vapor pressure in hPa.
 #' @export
 #'
 #' @examples
-hum_vapor_pres <- function(hum_rel, sat_vapor_pres){
+hum_vapor_pres <- function(hum_rel, t1){
+  sat_vapor_pres <- hum_sat_vapor_pres(t1)
   return((hum_rel/100)*sat_vapor_pres)
 }
 
@@ -73,4 +74,30 @@ hum_absolute <- function(vapor_pressure, temp) {
 #' @examples
 hum_evap_heat <- function(temp){
   return((2.5008-0.002372*temp)*10^6)
+}
+
+#' Moisture gradient
+#'
+#' @param hum1 Relative humidity at lower height in %.
+#' @param hum2 Relative humidity at upper height in %.
+#' @param t1 Air temperature at lower height in degrees C.
+#' @param t2 Air temperature at upper height in degrees C.
+#' @param p1 Air pressure at lower height in hPa.
+#' @param p2 Air pressure at lower height in hPa.
+#' @param z1 Lower measurement height in m.
+#' @param z2 Upper measurement height in m.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+hum_moisture_gradient <- function(hum1, hum2, t1, t2, p1, p2, z1, z2){
+  # vapor pressure
+  vp1 <- hum_vapor_pres(hum1, t1)
+  vp2 <- hum_vapor_pres(hum2, t2)
+
+  # specific humidity
+  sh1 <- hum_specific(vp1, p1)
+  sh2 <- hum_specific(vp2, p1)
+  return((sh2-sh1) / log(z2-z1))
 }
