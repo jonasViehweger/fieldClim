@@ -4,13 +4,12 @@
 #'
 #' Works by linearly interpolating thermal conductivity based on measured data.
 #'
-#' @param moisture Numeric vector with soil moisture data (in Vol-%)
+#' @param moisture Soil moisture in Vol-%.
 #' @param texture Soil texture. Either "sand" or "clay".
 #'
-#' @return vector with soil thermal conductivity (W/m K)
+#' @return vector with soil thermal conductivity in W/m K
 #' @export
 #'
-#' @examples
 soil_thermal_cond <- function(moisture, texture = "sand") {
   if(texture == "sand"){
     y <- c(0.269,1.46,1.98,2.18,2.31,2.49,2.58)
@@ -29,17 +28,16 @@ soil_thermal_cond <- function(moisture, texture = "sand") {
 
 #' Soil volumetric heat capacity
 #'
-#' Calculates soil volumetric heat capacity \eqn{J * m^(-3) * K^(-1)} from soil moisture (Vol-%) and texture.
+#' Calculates soil volumetric heat capacity (J / (m^3 * K)) from soil moisture (Vol-%) and texture.
 #'
 #' Works by linearly interpolating volumetric heat capacity based on measured data.
 #'
-#' @param moisture Numeric vector with soil moisture data (in Vol-%)
+#' @param moisture Soil moisture in Vol-%.
 #' @param texture Soil texture. Either "sand" or "clay".
 #'
-#' @return Numeric vector with volumetric heat capacity \eq{J*m^-3*K^-1}
+#' @return Numeric vector with volumetric heat capacity in J/(m^3 * K)
 #' @export
 #'
-#' @examples
 soil_heat_cap <- function(moisture, texture = "sand") {
   if(texture == "sand"){
     y <- c(1.17,1.38,1.59,1.8,2.0,2.42,2.97)
@@ -63,15 +61,16 @@ soil_heat_cap <- function(moisture, texture = "sand") {
 #'
 #' Negative values signify flux towards the atmosphere, positive values signify flux into the soil.
 #'
-#' @param diff_temp Difference in temperature between two depths.
-#' @param diff_depth Difference in depths (m)
-#' @param thermal_cond Thermal conductivity of soil (W/m K)
+#' @param t1 Upper soil temperature (closest to the surface) in degrees C.
+#' @param t2 Lower soil temperature in degrees C.
+#' @param depth1 Depth of upper measurement (closest to the surface) in m.
+#' @param depth2 Depth of lower measurement in m.
+#' @param thermal_cond Thermal conductivity of soil in W/m K.
 #'
-#' @return Soil heat flux (W*m^-2)
+#' @return Soil heat flux in W*m^-2.
 #' @export
 #'
-#' @examples
-soil_heat_flux <- function(diff_temp, diff_depth, thermal_cond) {
+soil_heat_flux <- function(t1, t2, depth1, depth2, thermal_cond) {
   if (!is.numeric(diff_temp)) stop("diff_temp is not numeric")
   if (!is.numeric(diff_depth)) stop("diff_depth is not numeric")
   if (!is.numeric(thermal_cond)) stop("thermal_cond is not numeric")
@@ -79,19 +78,20 @@ soil_heat_flux <- function(diff_temp, diff_depth, thermal_cond) {
     warning("Negative thermal_cond values will be converted to NA.")
     thermal_cond[thermal_cond < 0] <- NA
   }
-  return (thermal_cond*(diff_temp/diff_depth))
+  return (thermal_cond*((t1-t2)/(depth2-depth1)))
 }
 
 
 #' Soil attenuation length
 #'
-#' @param thermal_cond Thermal conductivity of soil (W/m K)
-#' @param vol_heat_cap Volumetric heat capacity of soil \eq{J*m^-3*K^-1}
+#' Calculates soil attenuation length.
 #'
-#' @return Soil attenuation length (m)
+#' @param thermal_cond Thermal conductivity of soil in W/m K.
+#' @param vol_heat_cap Volumetric heat capacity of soil in J/(m^3 * K).
+#'
+#' @return Soil attenuation length in m.
 #' @export
 #'
-#' @examples
 soil_attenuation <- function(thermal_cond, vol_heat_cap) {
   if (!is.numeric(vol_heat_cap)) stop("vol_heat_cap is not numeric")
   if (!is.numeric(thermal_cond)) stop("thermal_cond is not numeric")
