@@ -4,15 +4,15 @@
 \alias{hum_vapor_pres}
 \title{Vapor pressure}
 \usage{
-hum_vapor_pres(hum_rel, sat_vapor_pres)
+hum_vapor_pres(hum_rel, t1)
 }
 \arguments{
-\item{hum_rel}{numeric. Relative humidity in percent (0-100)}
+\item{hum_rel}{numeric. Relative humidity in percent (0-100).}
 
-\item{sat_vapor_pres}{numeric. Saturation vapor pressure in hPa}
+\item{t1}{numeric. Air temperature in degrees C.}
 }
 \value{
-numeric. Vapor pressure in hPa
+numeric. Vapor pressure in hPa.
 }
 \description{
 Calculates vapor pressure from relative humidity and saturation vapor pressure

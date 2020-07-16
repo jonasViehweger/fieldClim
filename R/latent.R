@@ -4,14 +4,14 @@
 #' heat flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
-#' @param t1 Air temperature in degrees celsius
-#' @param rad_bal Radiation balance (W/m^2)
-#' @param soil_flux Soil flux (W/m^2)
+#' @param t1 Air temperature in degrees Celsius.
+#' @param rad_bal Radiation balance in W/m^2.
+#' @param soil_flux Soil flux in W/m^2.
 #'
-#' @return Latent heat flux (W/m^2)
+#' @return Latent heat flux in W/m^2.
 #' @export
 #'
-lat_priestley_taylor <- function(t1, rad_bal, soil_flux){
+latent_priestley_taylor <- function(t1, rad_bal, soil_flux){
   sc <- sc(t1)
   lamb <- lamb(t1)
   alpt <- 1.25
@@ -26,21 +26,21 @@ lat_priestley_taylor <- function(t1, rad_bal, soil_flux){
 #' heat flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
-#' @param datetime POSIXt object (POSIXct, POSIXlt)
-#' @param v1 Wind velocity (m/s)
-#' @param t1 Temperature (degrees celsius)
+#' @param datetime POSIXt object (POSIXct, POSIXlt).
+#' @param v1 Wind velocity in m/s.
+#' @param t1 Temperature in degrees C
 #' @param h1 Relative humidity in percent (0-100)
-#' @param z1 Height of measurement for t1, v1
-#' @param rad_bal Radiation balance (W/m^2)
-#' @param elevation Elevation above sea level (m)
-#' @param lat Latitude in decimal degrees
-#' @param lon Longitude in decimal degrees
+#' @param z1 Height of measurement for t1, v1 in m.
+#' @param rad_bal Radiation balance in W/m^2.
+#' @param elevation Elevation above sea level in m.
+#' @param lat Latitude in decimal degrees.
+#' @param lon Longitude in decimal degrees.
 #'
-#' @return Latent heat flux (W/m^2)
+#' @return Latent heat flux in W/m^2.
 #' @import water
 #' @export
 #'
-lat_penman <- function(datetime,
+latent_penman <- function(datetime,
                        v1, t1, h1, z1, rad_bal,
                        elevation, lat, lon){
   if(!inherits(datetime, "POSIXt")){
@@ -74,17 +74,17 @@ lat_penman <- function(datetime,
 #' flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
-#' @param air_density Air density in (kg*m^-3)
-#' @param monin Monin-Obukhov length (m)
+#' @param air_density Air density in kg*m^-3.
+#' @param monin Monin-Obukhov length in m.
 #' @param moist_gradient Specific moisture gradient (dq/dlog(z) with q in kg/kg)
-#' @param ustar Friction velocity (m/s)
-#' @param ri Gradient-Richardson-Number
-#' @param t1 Air temperature (degrees celsius)
-#' @param z1 Height of air temperature measurment (m)
+#' @param ustar Friction velocity in m/s.
+#' @param ri Gradient-Richardson-Number.
+#' @param t1 Air temperature in degrees C.
+#' @param z1 Height of air temperature measurment in m.
 #'
-#' @return Latent heat flux (W/m^2)
+#' @return Latent heat flux in W/m^2.
 #' @export
-lat_monin <- function(air_density, monin, moist_gradient, ustar, ri, t1, z1) {
+latent_monin <- function(air_density, monin, moist_gradient, ustar, ri, t1, z1) {
   lv <- hum_evap_heat(t1)                  # Spezifische Verdunstungswaerme, T in ?C
   k <- 0.4
   s1 <- z1/monin
@@ -107,15 +107,15 @@ lat_monin <- function(air_density, monin, moist_gradient, ustar, ri, t1, z1) {
 #' @param h2 Relative humidity at upper height in %.
 #' @param z1 Lower height of measurement (e.g. height of anemometer) in m.
 #' @param z2 Upper height of measurement in m.
-#' @param rad_bal Radiation balance in W/m^2
-#' @param soil_flux Soil flux in W/m^2
+#' @param rad_bal Radiation balance in W/m^2.
+#' @param soil_flux Soil flux in W/m^2.
 #' @param p OPTIONAL. Air pressure in hPa. If not given, elev has to be set.
 #' @param elev OPTIONAL. Elevation above sea level in m. If not given, p has to be set.
 #'
-#' @return Latent heat flux (W/m^2)
+#' @return Latent heat flux in W/m^2
 #' @export
 #'
-lat_bowen <- function(t1, t2, h1, h2, z1, z2,
+latent_bowen <- function(t1, t2, h1, h2, z1, z2,
                       rad_bal, soil_flux,
                       p = NULL, elev = NULL){
 

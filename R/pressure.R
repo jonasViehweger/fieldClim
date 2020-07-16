@@ -14,7 +14,7 @@ pres_p <- function(elev,t1){
   p0 <- 1013.25    # Standardruck in hPa
   g <- 9.81
   rl <- 287.05
-  p <- p0*exp(- (g*z)/ (rl*t) );
+  p <- p0*exp(- (g*elev)/ (rl*t) )
   return(p)
 }
 
