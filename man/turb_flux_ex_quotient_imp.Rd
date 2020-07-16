@@ -4,14 +4,14 @@
 \alias{turb_flux_ex_quotient_imp}
 \title{Exchange quotient for impulse transmission.}
 \usage{
-turb_flux_ex_quotient_imp(stability, ustar, mol, z1, air_density)
+turb_flux_ex_quotient_imp(stability, ustar, monin, z1, air_density)
 }
 \arguments{
 \item{stability}{Stability of atmosphere. One of "stabil", "neutral" or "instabil".}
 
 \item{ustar}{Friction velocity in m/s.}
 
-\item{mol}{Monin-Obhukov-Length in m.}
+\item{monin}{Monin-Obhukov-Length in m.}
 
 \item{z1}{Height in m.}
 

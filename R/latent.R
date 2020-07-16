@@ -74,17 +74,27 @@ latent_penman <- function(datetime,
 #' flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
-#' @param air_density Air density in kg*m^-3.
-#' @param monin Monin-Obukhov length in m.
-#' @param moist_gradient Specific moisture gradient (dq/dlog(z) with q in kg/kg)
+#'
+#' @param hum1 Relative humidity at lower height in %.
+#' @param hum2 Relative humidity at upper height in %.
+#' @param t1 Air temperature at lower height in degrees C.
+#' @param t2 Air temperature at upper height in degrees C.
+#' @param p1 Pressure at lower height in hPa.
+#' @param p2 Pressure at upper height in hPa.
+#' @param z1 Lower height of measurement in m.
+#' @param z2 Upper height of measurement in m.
+#' @param monin Monin-Obukhov-Length in m.
 #' @param ustar Friction velocity in m/s.
 #' @param ri Gradient-Richardson-Number.
-#' @param t1 Air temperature in degrees C.
-#' @param z1 Height of air temperature measurment in m.
 #'
 #' @return Latent heat flux in W/m^2.
 #' @export
-latent_monin <- function(air_density, monin, moist_gradient, ustar, ri, t1, z1) {
+latent_monin <- function(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10,
+                         monin, ustar, ri) {
+
+  moist_gradient <- hum_moisture_gradient(hum1, hum2, t1, t2, p1, p2, z1, z2)
+  air_density <- pres_air_density(p1, t1)
+
   lv <- hum_evap_heat(t1)                  # Spezifische Verdunstungswaerme, T in ?C
   k <- 0.4
   s1 <- z1/monin
