@@ -39,7 +39,7 @@ sensible_priestley_taylor <- function(t, rad_bal, soil_flux){
 #' @return Latent heat flux in W/m^2.
 #' @export
 sensible_monin <- function(t1, t2, p1, p2, z1 = 2, z2 = 10,
-                           monin, t_gradient, ustar, grad_rich_no) {
+                           monin, ustar, grad_rich_no) {
   cp <- 1004.834
   k <- 0.4
   s1 <- z1/monin

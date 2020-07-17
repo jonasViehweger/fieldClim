@@ -4,10 +4,10 @@
 \alias{latent_priestley_taylor}
 \title{Latent Heat Priestley-Taylor Method}
 \usage{
-latent_priestley_taylor(t1, rad_bal, soil_flux)
+latent_priestley_taylor(t, rad_bal, soil_flux)
 }
 \arguments{
-\item{t1}{Air temperature in degrees Celsius.}
+\item{t}{Air temperature in degrees Celsius.}
 
 \item{rad_bal}{Radiation balance in W/m^2.}
 

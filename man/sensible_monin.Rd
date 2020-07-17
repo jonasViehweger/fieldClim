@@ -4,18 +4,7 @@
 \alias{sensible_monin}
 \title{Sensible Heat using Monin-Obukhov length}
 \usage{
-sensible_monin(
-  t1,
-  t2,
-  p1,
-  p2,
-  z1 = 2,
-  z2 = 10,
-  monin,
-  t_gradient,
-  ustar,
-  grad_rich_no
-)
+sensible_monin(t1, t2, p1, p2, z1 = 2, z2 = 10, monin, ustar, grad_rich_no)
 }
 \arguments{
 \item{t1}{Air temperature at lower height in degrees C.}
