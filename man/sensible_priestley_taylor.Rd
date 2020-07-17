@@ -4,10 +4,10 @@
 \alias{sensible_priestley_taylor}
 \title{Sensible Heat Priestley-Taylor Method}
 \usage{
-sensible_priestley_taylor(t1, rad_bal, soil_flux)
+sensible_priestley_taylor(t, rad_bal, soil_flux)
 }
 \arguments{
-\item{t1}{Air temperature in degrees C.}
+\item{t}{Air temperature in degrees C.}
 
 \item{rad_bal}{Radiation balance in W/m^2.}
 

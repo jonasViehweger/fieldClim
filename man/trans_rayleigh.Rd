@@ -10,7 +10,7 @@ trans_rayleigh(air_mass_abs)
 \item{air_mass_abs}{Absolute optical air mass.}
 }
 \value{
-Transmittance due to rayleigh scattering (0-1)
+Transmittance due to rayleigh scattering (0-1).
 }
 \description{
 Calculates transmittance due to rayleigh scattering.

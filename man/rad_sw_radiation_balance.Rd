@@ -2,7 +2,7 @@
 % Please edit documentation in R/radiance.R
 \name{rad_sw_radiation_balance}
 \alias{rad_sw_radiation_balance}
-\title{Shortwave radiation balance.}
+\title{Shortwave radiation balance}
 \usage{
 rad_sw_radiation_balance(rad_sw_ground_horizontal, rad_sw_reflected)
 }

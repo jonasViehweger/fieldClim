@@ -4,12 +4,12 @@
 \alias{trans_air_mass_abs}
 \title{Absolute optical air mass}
 \usage{
-trans_air_mass_abs(air_mass_rel, pressure)
+trans_air_mass_abs(air_mass_rel, p)
 }
 \arguments{
 \item{air_mass_rel}{Relative optical air mass.}
 
-\item{pressure}{Pressure in hPa.}
+\item{p}{Air pressure in hPa.}
 }
 \value{
 Absolute optical air mass.

@@ -13,5 +13,5 @@ sol_eccentricity(datetime)
 Eccentricity at the date
 }
 \description{
-Eccentricity
+Calculate the eccentricity.
 }

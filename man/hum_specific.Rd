@@ -4,12 +4,12 @@
 \alias{hum_specific}
 \title{Specific humidity}
 \usage{
-hum_specific(vapor_pressure, air_pressure)
+hum_specific(p_vapor, p)
 }
 \arguments{
-\item{vapor_pressure}{Vapor pressure in hPa.}
+\item{p_vapor}{Vapor pressure in hPa.}
 
-\item{air_pressure}{Air pressure in hPa.}
+\item{p}{Air pressure in hPa.}
 }
 \value{
 Specific humidity in kg/kg.

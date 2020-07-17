@@ -13,5 +13,5 @@ trans_air_mass_rel(sol_elevation)
 Relative optical air mass.
 }
 \description{
-Calculates relative optical air mass.
+Calculates relative optical air mass. Returns NA for negative values.
 }

@@ -15,5 +15,5 @@ trans_ozone(air_mass_rel, oz = 0.35)
 Transmittance due to ozone (0-1).
 }
 \description{
-Calculates transmittance due to ozone
+Calculates transmittance due to ozone.
 }

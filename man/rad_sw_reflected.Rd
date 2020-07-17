@@ -2,7 +2,7 @@
 % Please edit documentation in R/radiance.R
 \name{rad_sw_reflected}
 \alias{rad_sw_reflected}
-\title{Reflected shortwave radiance (albedo radiance).}
+\title{Reflected shortwave radiance}
 \usage{
 rad_sw_reflected(rad_sw_ground_horizontal, albedo)
 }
@@ -15,5 +15,5 @@ rad_sw_reflected(rad_sw_ground_horizontal, albedo)
 Reflected shortwave radiance in W/m^2.
 }
 \description{
-Calculation of the reflected shortwave radiance (albedo radiance).
+Calculation of the reflected shortwave radiance.
 }

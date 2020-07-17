@@ -7,9 +7,9 @@
 turb_flux_grad_rich_no(t1, t2, z1 = 2, z2 = 10, v1, v2, p1, p2)
 }
 \arguments{
-\item{t1}{Temperature at lower height (e.g. height of anemometer) in °C.}
+\item{t1}{Temperature at lower height (e.g. height of anemometer) in degrees C.}
 
-\item{t2}{Temperature at upper height in °C.}
+\item{t2}{Temperature at upper height in degrees C.}
 
 \item{z1}{Lower height of measurement (e.g. height of anemometer) in m.}
 

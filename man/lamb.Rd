@@ -7,7 +7,7 @@
 lamb(t)
 }
 \arguments{
-\item{t1}{Air temperature in degree C}
+\item{t}{Air temperature in degree C}
 }
 \value{
 lambda

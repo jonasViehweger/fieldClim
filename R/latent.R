@@ -4,16 +4,16 @@
 #' heat flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
-#' @param t1 Air temperature in degrees Celsius.
+#' @param t Air temperature in degrees Celsius.
 #' @param rad_bal Radiation balance in W/m^2.
 #' @param soil_flux Soil flux in W/m^2.
 #'
 #' @return Latent heat flux in W/m^2.
 #' @export
 #'
-latent_priestley_taylor <- function(t1, rad_bal, soil_flux){
-  sc <- sc(t1)
-  lamb <- lamb(t1)
+latent_priestley_taylor <- function(t, rad_bal, soil_flux){
+  sc <- sc(t)
+  lamb <- lamb(t)
   alpt <- 1.25
   QE_TP <- alpt*sc*((-rad_bal-soil_flux)/sc+lamb)
   return(QE_TP)

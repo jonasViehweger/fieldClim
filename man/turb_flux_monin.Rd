@@ -19,9 +19,9 @@ turb_flux_monin(stability, z1 = 2, z2 = 10, z0, v1, v2, t1, t2)
 
 \item{v2}{Windspeed at upper height in m/s.}
 
-\item{t1}{Temperature at lower height (e.g. height of anemometer) in °C.}
+\item{t1}{Temperature at lower height (e.g. height of anemometer) in degrees C.}
 
-\item{t2}{Temperature at upper height in °C.}
+\item{t2}{Temperature at upper height in degrees C.}
 
 \item{ustar}{Friction velocity in m/s.}
 }

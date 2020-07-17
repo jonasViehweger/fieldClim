@@ -2,7 +2,7 @@
 % Please edit documentation in R/turbulent_flux.R
 \name{turb_flux_imp_exchange}
 \alias{turb_flux_imp_exchange}
-\title{Turbulent impulse exchange.}
+\title{Turbulent impulse exchange}
 \usage{
 turb_flux_imp_exchange(ex_quotient, v1, v2, z1 = 2, z2 = 10)
 }

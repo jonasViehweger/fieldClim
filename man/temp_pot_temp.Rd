@@ -7,9 +7,9 @@
 temp_pot_temp(t, p)
 }
 \arguments{
-\item{p}{Pressure in hPa.}
+\item{t}{Temperature in degrees C.}
 
-\item{t1}{Temperature in degrees C.}
+\item{p}{Pressure in hPa.}
 }
 \value{
 Potential temperature in K.

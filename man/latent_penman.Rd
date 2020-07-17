@@ -4,18 +4,18 @@
 \alias{latent_penman}
 \title{Latent Heat Penman Method}
 \usage{
-latent_penman(datetime, v1, t1, hum1, z1 = 2, rad_bal, elev, lat, lon)
+latent_penman(datetime, v, t, hum, z = 2, rad_bal, elev, lat, lon)
 }
 \arguments{
 \item{datetime}{POSIXt object (POSIXct, POSIXlt).}
 
-\item{v1}{Wind velocity in m/s.}
+\item{v}{Wind velocity in m/s.}
 
-\item{t1}{Temperature in degrees C}
+\item{t}{Temperature in degrees C}
 
-\item{hum1}{Relative humidity in \%.}
+\item{hum}{Relative humidity in \%.}
 
-\item{z1}{Height of measurement for t1, v1 in m.}
+\item{z}{Height of measurement for t, v in m.}
 
 \item{rad_bal}{Radiation balance in W/m^2.}
 

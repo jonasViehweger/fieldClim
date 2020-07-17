@@ -2,12 +2,12 @@
 % Please edit documentation in R/radiance.R
 \name{rad_sw_toa}
 \alias{rad_sw_toa}
-\title{Shortwave radiation at top of atmosphere.}
+\title{Shortwave radiation at top of atmosphere}
 \usage{
 rad_sw_toa(datetime, lat, lon)
 }
 \arguments{
-\item{datetime}{Date and time.}
+\item{datetime}{Date and time as POSIX type (see strptime() for conversion)}
 
 \item{lat}{Latitude of the place of the climate station in decimal degrees.}
 

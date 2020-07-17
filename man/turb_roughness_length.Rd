@@ -7,7 +7,7 @@
 turb_roughness_length(surface_type = NULL, obs_height = NULL)
 }
 \arguments{
-\item{surface_type}{Type of underground.}
+\item{surface_type}{Type of surface}
 
 \item{obs_height}{Height of obstacle in m.}
 }
@@ -15,8 +15,8 @@ turb_roughness_length(surface_type = NULL, obs_height = NULL)
 Roughness length in m.
 }
 \description{
-Calculate the roughness length of an underground on the basis of the obstacle height or the type of the underground.
-Possible types of underground are:
+Calculate the roughness length of an surface on the basis of the obstacle height or the type of the surface
+Possible surface types are:
 "Wiese", "Acker", "Gruenflaeche", "Strasse", "Landwirtschaft", "Siedlung", "Nadelwald", "Laubwald", "Mischwald", "Stadt"
 You need to specify only one, "type" OR "obs_height".
 }

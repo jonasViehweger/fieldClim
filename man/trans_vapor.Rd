@@ -4,12 +4,12 @@
 \alias{trans_vapor}
 \title{Transmittance due to water vapor}
 \usage{
-trans_vapor(air_mass_rel, pw)
+trans_vapor(air_mass_rel, precipitable_water)
 }
 \arguments{
 \item{air_mass_rel}{Relative optical air mass.}
 
-\item{pw}{Precipitable water in cm.}
+\item{precipitable_water}{Precipitable water in cm.}
 }
 \value{
 Transmittance due to water vapor (0-1).

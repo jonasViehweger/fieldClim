@@ -2,15 +2,14 @@
 % Please edit documentation in R/radiance.R
 \name{rad_sw_reflected_by_terrain}
 \alias{rad_sw_reflected_by_terrain}
-\title{Shortwave radiation balance in dependency of topography.}
+\title{Shortwave radiation balance in dependency of topography}
 \usage{
 rad_sw_reflected_by_terrain(
   slope,
   valley = F,
-  terr_sky_view,
   sol_elevation,
   sol_azimuth,
-  exposition,
+  exposition = 0,
   rad_sw_ground_horizontal,
   albedo
 )
@@ -18,13 +17,11 @@ rad_sw_reflected_by_terrain(
 \arguments{
 \item{slope}{Slope in degrees.}
 
-\item{valley}{Is the climate station placed in a valley (True/False)?}
+\item{valley}{Is the climate station placed in a valley (TRUE/FALSE)?}
 
-\item{terr_sky_view}{Sky view factor from 0-1.}
+\item{sol_elevation}{Sun elevation in degrees.}
 
-\item{sol_elevation}{Sun elevation.}
-
-\item{sol_azimuth}{Sun atzimuth.}
+\item{sol_azimuth}{Sun azimuth in degrees.}
 
 \item{exposition}{Exposition (North = 0, South = 180)}
 

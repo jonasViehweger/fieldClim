@@ -4,18 +4,18 @@
 \alias{bound_thermal_avg}
 \title{Thermal internal boundary layer.}
 \usage{
-bound_thermal_avg(ustar, v_a, temp_change_dist, pt_upwind, pt, lr)
+bound_thermal_avg(ustar, v, temp_change_dist, pt_upwind, t_pot, lapse_rate)
 }
 \arguments{
 \item{ustar}{Friction velocity u* in m/s.}
 
-\item{v_a}{Windspeed in height of anemometer in m/s.}
+\item{v}{Windspeed in height of anemometer in m/s.}
 
 \item{temp_change_dist}{Distance to point of temperature change in m.}
 
 \item{pt_upwind}{Potential temperature in upwind direction in °C.}
 
-\item{pt}{Potential temperature at site in °C.}
+\item{t_pot}{Potential temperature at site in °C.}
 
 \item{lr}{Lapse rate in K/m (or degrees C/m)}
 }

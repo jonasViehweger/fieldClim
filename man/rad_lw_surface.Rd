@@ -4,15 +4,15 @@
 \alias{rad_lw_surface}
 \title{Longwave radiation of the surface}
 \usage{
-rad_lw_surface(temp, emissivity = 0.95)
+rad_lw_surface(t, emissivity_surface = 0.95)
 }
 \arguments{
-\item{temp}{numeric. Surface temperature in degrees celsius}
+\item{t}{Surface temperature in degrees C.}
 
-\item{emissivity}{numeric. Emissivity of surface. Default is emissivity for short grass}
+\item{emissivity_surface}{Emissivity of surface. Default is emissivity for short grass.}
 }
 \value{
-Emissions in W*m^-2
+Emissions in W/m^2.
 }
 \description{
 Calculates emissions of a surface.

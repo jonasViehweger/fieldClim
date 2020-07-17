@@ -4,10 +4,10 @@
 \alias{hum_absolute}
 \title{Absolute humidity}
 \usage{
-hum_absolute(vapor_pressure, temp)
+hum_absolute(p_vapor, temp)
 }
 \arguments{
-\item{vapor_pressure}{Vapor presure in hPa.}
+\item{p_vapor}{Vapor presure in hPa.}
 
 \item{temp}{Air temperature in degrees C.}
 }

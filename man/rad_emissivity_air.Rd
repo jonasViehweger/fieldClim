@@ -4,19 +4,19 @@
 \alias{rad_emissivity_air}
 \title{Emissivity of the atmosphere}
 \usage{
-rad_emissivity_air(temp, altitude, air_pressure = NULL)
+rad_emissivity_air(t, elev, p = NULL)
 }
 \arguments{
-\item{temp}{numeric. Air termperature in degrees celsius.}
+\item{t}{Air temperature in degrees C.}
 
-\item{altitude}{numeric. Meters above sea level}
+\item{elev}{Meters above sea level}
 
-\item{air_pressure}{numeric. Optional. Air pressure in hPa.
-If not available, will be calculated from altitude and air temperature.}
+\item{p}{Optional. Air pressure in hPa.
+If not available, will be calculated from elev and air temperature.}
 }
 \value{
-numeric. Emissivity of the atmosphere (0-1)
+missivity of the atmosphere (0-1).
 }
 \description{
-Emissivity of the atmosphere
+Calculation of the emissivity of the atmosphere.
 }

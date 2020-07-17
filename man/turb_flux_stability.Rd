@@ -13,5 +13,5 @@ turb_flux_stability(grad_rich_no)
 Stability of atmosphere. Returns one of "stabil", "neutral" or "instabil".
 }
 \description{
-Calculation of atmospheric stability.
+Conversion of Gradient-Richardson-Number to stability string.
 }
