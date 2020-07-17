@@ -9,10 +9,10 @@ trans_ozone(air_mass_rel, oz = 0.35)
 \arguments{
 \item{air_mass_rel}{Relative optical air mass.}
 
-\item{oz}{Columnar ozone in cm. Default is average value of 0.35 cm}
+\item{oz}{Columnar ozone in cm. Default is average value of 0.35 cm.}
 }
 \value{
-Transmittance due to ozone (0-1)
+Transmittance due to ozone (0-1).
 }
 \description{
 Calculates transmittance due to ozone

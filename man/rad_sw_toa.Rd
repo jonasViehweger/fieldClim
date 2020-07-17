@@ -14,7 +14,7 @@ rad_sw_toa(datetime, lat, lon)
 \item{lon}{Longitude of the place of the climate station in decimal degrees.}
 }
 \value{
-Shortwave radiation at top of atmosphere in W/m^2
+Shortwave radiation at top of atmosphere in W/m^2.
 }
 \description{
 Calculation of the shortwave radiation at the top of the atmosphere.

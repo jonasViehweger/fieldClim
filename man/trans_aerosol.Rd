@@ -12,8 +12,8 @@ trans_aerosol(air_mass_abs, vis = 30)
 \item{vis}{Meteorological visibility in km. Default is the visibility on a clear day.}
 }
 \value{
-Transmittance due to aerosols (0-1)
+Transmittance due to aerosols (0-1).
 }
 \description{
-Transmittance due to aerosols
+Calculates transmittance due to aerosols.
 }

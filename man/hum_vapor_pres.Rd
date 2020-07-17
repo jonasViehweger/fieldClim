@@ -4,12 +4,12 @@
 \alias{hum_vapor_pres}
 \title{Vapor pressure}
 \usage{
-hum_vapor_pres(hum, temp)
+hum_vapor_pres(hum, t)
 }
 \arguments{
 \item{hum}{Relative humidity in \%.}
 
-\item{temp}{Air temperature in degrees C.}
+\item{t}{Air temperature in degrees C.}
 }
 \value{
 Vapor pressure in hPa.

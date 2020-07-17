@@ -7,7 +7,7 @@
 #' @param moisture Soil moisture in Vol-%.
 #' @param texture Soil texture. Either "sand" or "clay".
 #'
-#' @return vector with soil thermal conductivity in W/m K
+#' @return Soil thermal conductivity in W/m K.
 #' @export
 #'
 soil_thermal_cond <- function(moisture, texture = "sand") {

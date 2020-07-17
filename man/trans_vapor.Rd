@@ -12,8 +12,8 @@ trans_vapor(air_mass_rel, pw)
 \item{pw}{Precipitable water in cm.}
 }
 \value{
-Transmittance due to water vapor (0-1)
+Transmittance due to water vapor (0-1).
 }
 \description{
-Calculates transmittance due to water vapor
+Calculates transmittance due to water vapor.
 }

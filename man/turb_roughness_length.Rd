@@ -2,7 +2,7 @@
 % Please edit documentation in R/turbulence.R
 \name{turb_roughness_length}
 \alias{turb_roughness_length}
-\title{Roughness length.}
+\title{Roughness length}
 \usage{
 turb_roughness_length(surface_type = NULL, obs_height = NULL)
 }

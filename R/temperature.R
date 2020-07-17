@@ -1,4 +1,4 @@
-#' Potential Temperature.
+#' Potential Temperature
 #'
 #' Calculation of the potential air temperature.
 #'
@@ -9,9 +9,9 @@
 #' @export
 #'
 #' @examples
-temp_pot_temp <- function(t1, p){
+temp_pot_temp <- function(t, p){
   p0 <- 1013.25    # Standardruck in hPa
   air_const <- 0.286     # spezifische Gaskonstante / spezifische Wärmekapatität; Wert für Luft
-  pot_temp <- (t1+273.15)*(p0/p)**air_const
+  pot_temp <- (t+273.15)*(p0/p)**air_const
   return(pot_temp)
 }

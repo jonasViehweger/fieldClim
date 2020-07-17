@@ -2,9 +2,9 @@
 % Please edit documentation in R/turbulent_flux.R
 \name{turb_flux_monin}
 \alias{turb_flux_monin}
-\title{Monin-Obhukov-Length.}
+\title{Monin-Obhukov-Length}
 \usage{
-turb_flux_monin(stability, z1, z2, z0, v1, v2, t1, t2)
+turb_flux_monin(stability, z1 = 2, z2 = 10, z0, v1, v2, t1, t2)
 }
 \arguments{
 \item{stability}{Stability of atmosphere.}

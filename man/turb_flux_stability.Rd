@@ -2,7 +2,7 @@
 % Please edit documentation in R/turbulent_flux.R
 \name{turb_flux_stability}
 \alias{turb_flux_stability}
-\title{Stability.}
+\title{Stability}
 \usage{
 turb_flux_stability(grad_rich_no)
 }

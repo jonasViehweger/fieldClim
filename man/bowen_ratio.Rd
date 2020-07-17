@@ -2,21 +2,21 @@
 % Please edit documentation in R/utility_turbulent_flux.R
 \name{bowen_ratio}
 \alias{bowen_ratio}
-\title{Bowen ratio}
+\title{Bowen-ratio}
 \usage{
 bowen_ratio(t1_pot, dpot, dah)
 }
 \arguments{
-\item{t1_pot}{potential temperature (see temp_pot_temp)}
+\item{t1_pot}{Potential temperature (see temp_pot_temp)}
 
-\item{dpot}{difference in potential temperature between the two measurement
-heights in degrees}
+\item{dpot}{Difference in potential temperature between the two measurement
+heights in degrees Celsius.}
 
-\item{dah}{difference in absolute humidity (kg/m^3) between the two measurement heights}
+\item{dah}{Difference in absolute humidity (kg/m^3) between the two measurement heights.}
 }
 \value{
-bowen ratio
+Bowen-ratio
 }
 \description{
-Calculates bowen ratio
+Calculates Bowen-ratio.
 }

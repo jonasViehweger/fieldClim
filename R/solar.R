@@ -5,7 +5,6 @@
 #' @return Eccentricity at the date
 #' @export
 #'
-#' @examples
 sol_eccentricity <- function(datetime) {
 
   if(!inherits(datetime, "POSIXt")){
@@ -16,7 +15,7 @@ sol_eccentricity <- function(datetime) {
   doy <- strftime(datetime, format = "%j")
 
   x <- 2.*pi*(doy-1)/365.
-  exz <- 1.00011+0.034221*cos(x)+0.00128*sin(x)+0.000719*cos(2*x)+0.000719*sin(2.*x);
+  exz <- 1.00011+0.034221*cos(x)+0.00128*sin(x)+0.000719*cos(2*x)+0.000719*sin(2.*x)
   return(exz)
 }
 
@@ -24,14 +23,13 @@ sol_eccentricity <- function(datetime) {
 #'
 #' Calculates solar azimuth and solar elevation angle.
 #'
-#' @param datetime POSIXt object (POSIXct, POSIXlt)
-#' @param lat numeric. Latitude in decimal degrees
-#' @param lon numeric. Longitude in decimal degrees
+#' @param datetime POSIXt object (POSIXct, POSIXlt).
+#' @param lat Latitude in decimal degrees.
+#' @param lon Longitude in decimal degrees.
 #'
 #' @return data.frame with two columns: sol_azimuth and sol_elevation
 #' @export
 #'
-#' @examples
 sol_angles <- function(datetime, lat, lon){
 
   if(!inherits(datetime, "POSIXt")){
@@ -74,13 +72,12 @@ sol_angles <- function(datetime, lat, lon){
 #' Solar elevation angle
 #'
 #' @param datetime POSIXt object (POSIXct, POSIXlt)
-#' @param lat numeric. Latitude in decimal degrees
-#' @param lon numeric. Longitude in decimal degrees
+#' @param lat Latitude in decimal degrees.
+#' @param lon Longitude in decimal degrees.
 #'
-#' @return numeric. Solar elevation angle in degrees
+#' @return Solar elevation angle in degrees.
 #' @export
 #'
-#' @examples
 sol_elevation <- function(datetime, lat, lon) {
   angles <- sol_angles(datetime, lat, lon)
   return(angles$sol_elevation)
@@ -90,10 +87,10 @@ sol_elevation <- function(datetime, lat, lon) {
 #' Solar azimuth angle
 #'
 #' @param datetime POSIXt object (POSIXct, POSIXlt)
-#' @param lat numeric. Latitude in decimal degrees
-#' @param lon numeric. Longitude in decimal degrees
+#' @param lat Latitude in decimal degrees.
+#' @param lon Longitude in decimal degrees.
 #'
-#' @return numeric. Solar azimuth angle in degrees
+#' @return Solar azimuth angle in degrees.
 #' @export
 #'
 #' @examples

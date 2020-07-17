@@ -4,10 +4,10 @@
 \alias{hum_evap_heat}
 \title{Heat of evaporation}
 \usage{
-hum_evap_heat(temp)
+hum_evap_heat(t)
 }
 \arguments{
-\item{temp}{Air temperature in degrees C.}
+\item{t}{Air temperature in degrees C.}
 }
 \value{
 Heat of evaporation in J/kg.

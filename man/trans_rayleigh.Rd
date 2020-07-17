@@ -13,5 +13,5 @@ trans_rayleigh(air_mass_abs)
 Transmittance due to rayleigh scattering (0-1)
 }
 \description{
-Calculates transmittance due to rayleigh scattering
+Calculates transmittance due to rayleigh scattering.
 }

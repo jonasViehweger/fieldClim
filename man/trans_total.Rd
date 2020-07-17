@@ -4,16 +4,16 @@
 \alias{trans_total}
 \title{Total transmittance}
 \usage{
-trans_total(sol_elevation, t1, elev, oz = 0.35, vis = 30, pressure = NULL)
+trans_total(sol_elevation, t, elev, oz = 0.35, vis = 30, pressure = NULL)
 }
 \arguments{
 \item{sol_elevation}{Solar elevation in degrees.}
 
-\item{t1}{Air temperature in degrees celsius.}
+\item{t}{Air temperature in degrees C.}
 
 \item{elev}{Altitude above sea level in m.}
 
-\item{oz}{Columnar ozone in cm. Default is}
+\item{oz}{Columnar ozone in cm. Default is average global value.}
 
 \item{vis}{Meteorological visibility in km. Default is the visibility on a clear day.}
 

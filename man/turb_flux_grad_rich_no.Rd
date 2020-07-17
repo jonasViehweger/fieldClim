@@ -2,9 +2,9 @@
 % Please edit documentation in R/turbulent_flux.R
 \name{turb_flux_grad_rich_no}
 \alias{turb_flux_grad_rich_no}
-\title{Gradient-Richardson-Number.}
+\title{Gradient-Richardson-Number}
 \usage{
-turb_flux_grad_rich_no(t1, t2, z1, z2, v1, v2, p1, p2)
+turb_flux_grad_rich_no(t1, t2, z1 = 2, z2 = 10, v1, v2, p1, p2)
 }
 \arguments{
 \item{t1}{Temperature at lower height (e.g. height of anemometer) in °C.}
@@ -27,5 +27,7 @@ turb_flux_grad_rich_no(t1, t2, z1, z2, v1, v2, p1, p2)
 Gradient-Richardson-Number.
 }
 \description{
-Calculation of the Gradient-Richardson-Number.
+Calculation of the Gradient-Richardson-Number. The number represents the
+stability of the atmosphere. Negative values signify unstable conditions,
+positive values signify stable conditions.
 }

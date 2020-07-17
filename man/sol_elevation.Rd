@@ -9,12 +9,12 @@ sol_elevation(datetime, lat, lon)
 \arguments{
 \item{datetime}{POSIXt object (POSIXct, POSIXlt)}
 
-\item{lat}{numeric. Latitude in decimal degrees}
+\item{lat}{Latitude in decimal degrees.}
 
-\item{lon}{numeric. Longitude in decimal degrees}
+\item{lon}{Longitude in decimal degrees.}
 }
 \value{
-numeric. Solar elevation angle in degrees
+Solar elevation angle in degrees.
 }
 \description{
 Solar elevation angle

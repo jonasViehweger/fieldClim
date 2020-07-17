@@ -2,7 +2,7 @@
 % Please edit documentation in R/turbulent_flux.R
 \name{turb_flux_ex_quotient_imp}
 \alias{turb_flux_ex_quotient_imp}
-\title{Exchange quotient for impulse transmission.}
+\title{Exchange quotient for impulse transmission}
 \usage{
 turb_flux_ex_quotient_imp(stability, ustar, monin, z1, air_density)
 }
@@ -15,7 +15,7 @@ turb_flux_ex_quotient_imp(stability, ustar, monin, z1, air_density)
 
 \item{z1}{Height in m.}
 
-\item{air_density}{Air density in kg*m^(-3).}
+\item{air_density}{Air density in kg/m^3.}
 }
 \value{
 Exchange quotient for impulse transmission in kg/(m*s).

@@ -2,14 +2,14 @@
 % Please edit documentation in R/temperature.R
 \name{temp_pot_temp}
 \alias{temp_pot_temp}
-\title{Potential Temperature.}
+\title{Potential Temperature}
 \usage{
-temp_pot_temp(t1, p)
+temp_pot_temp(t, p)
 }
 \arguments{
-\item{t1}{Temperature in degrees C.}
-
 \item{p}{Pressure in hPa.}
+
+\item{t1}{Temperature in degrees C.}
 }
 \value{
 Potential temperature in K.

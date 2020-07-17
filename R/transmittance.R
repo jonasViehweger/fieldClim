@@ -24,7 +24,6 @@ trans_air_mass_rel <- function(sol_elevation) {
 #' @return Absolute optical air mass.
 #' @export
 #'
-#' @examples
 trans_air_mass_abs <- function (air_mass_rel, pressure) {
   p0 <- 1013.25 # hPa Normaldruck auf Meeresniveau der Standardatmosph?re
   air_mass_abs <- air_mass_rel*(p/p0);
@@ -34,14 +33,13 @@ trans_air_mass_abs <- function (air_mass_rel, pressure) {
 
 #' Transmittance due to rayleigh scattering
 #'
-#' Calculates transmittance due to rayleigh scattering
+#' Calculates transmittance due to rayleigh scattering.
 #'
 #' @param air_mass_abs Absolute optical air mass.
 #'
 #' @return Transmittance due to rayleigh scattering (0-1)
 #' @export
 #'
-#' @examples
 trans_rayleigh <- function(air_mass_abs) {
   x <- (-0.0903)*air_mass_abs**0.84*(1.+air_mass_abs-air_mass_abs**1.01)
   return(exp(x))
@@ -52,12 +50,11 @@ trans_rayleigh <- function(air_mass_abs) {
 #' Calculates transmittance due to ozone
 #'
 #' @param air_mass_rel Relative optical air mass.
-#' @param oz Columnar ozone in cm. Default is average value of 0.35 cm
+#' @param oz Columnar ozone in cm. Default is average value of 0.35 cm.
 #'
-#' @return Transmittance due to ozone (0-1)
+#' @return Transmittance due to ozone (0-1).
 #' @export
 #'
-#' @examples
 trans_ozone <- function(air_mass_rel, oz = 0.35) {
   x <- oz*air_mass_rel
   xx <- 0.1611*x*(1+139.48*x)**-0.3035-0.002715*x*(1+0.044*x+0.0003*x**2)**-1
@@ -67,15 +64,14 @@ trans_ozone <- function(air_mass_rel, oz = 0.35) {
 
 #' Transmittance due to water vapor
 #'
-#' Calculates transmittance due to water vapor
+#' Calculates transmittance due to water vapor.
 #'
 #' @param air_mass_rel Relative optical air mass.
 #' @param pw Precipitable water in cm.
 #'
-#' @return Transmittance due to water vapor (0-1)
+#' @return Transmittance due to water vapor (0-1).
 #' @export
 #'
-#' @examples
 trans_vapor <- function(air_mass_rel, pw) {
   y <- pw*air_mass_rel
   yy <- 2.4959*y*((1+79.034*y)**0.6828+6.385*y)**-1
@@ -85,13 +81,14 @@ trans_vapor <- function(air_mass_rel, pw) {
 
 #' Transmittance due to aerosols
 #'
+#' Calculates transmittance due to aerosols.
+#'
 #' @param air_mass_abs Absolute optical air mass.
 #' @param vis Meteorological visibility in km. Default is the visibility on a clear day.
 #'
-#' @return Transmittance due to aerosols (0-1)
+#' @return Transmittance due to aerosols (0-1).
 #' @export
 #'
-#' @examples
 trans_aerosol <- function(air_mass_abs, vis = 30) {
   tau38 <- 3.6536*vis**-0.7111
   tau5 <- 2.4087*vis**-0.719
@@ -120,9 +117,9 @@ trans_gas <- function(air_mass_abs) {
 #' Calculates total transmittance of the atmosphere.
 #'
 #' @param sol_elevation Solar elevation in degrees.
-#' @param t1 Air temperature in degrees celsius.
+#' @param t Air temperature in degrees C.
 #' @param elev Altitude above sea level in m.
-#' @param oz Columnar ozone in cm. Default is
+#' @param oz Columnar ozone in cm. Default is average global value.
 #' @param vis Meteorological visibility in km. Default is the visibility on a clear day.
 #' @param pressure OPTIONAL. Pressure in hPa. Calculated from elev and t1 if not available.
 #'
@@ -130,10 +127,10 @@ trans_gas <- function(air_mass_abs) {
 #' @export
 #'
 #' @examples
-trans_total <- function(sol_elevation, t1, elev,
+trans_total <- function(sol_elevation, t, elev,
                         oz = 0.35, vis = 30, pressure = NULL){
-  if(is.null(p)) p <- pres_p(elev, t1)
-  pw <- pw(p, t1, elev)
+  if(is.null(p)) p <- pres_p(elev, t)
+  pw <- pw(p, t, elev)
   mr <- trans_air_mass_rel(sol_elevation)
   ma <- trans_air_mass_abs(mr, pressure)
   trans_total <- data.frame(rayleigh = trans_rayleigh(ma),

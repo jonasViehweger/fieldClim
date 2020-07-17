@@ -2,14 +2,14 @@
 % Please edit documentation in R/pressure.R
 \name{pres_p}
 \alias{pres_p}
-\title{Pressure.}
+\title{Air pressure}
 \usage{
-pres_p(elev, t1)
+pres_p(elev, t)
 }
 \arguments{
 \item{elev}{Elevation above sea level in m.}
 
-\item{t1}{Temperature in °C.}
+\item{t}{Temperature in degrees C.}
 }
 \value{
 Pressure in hPa.

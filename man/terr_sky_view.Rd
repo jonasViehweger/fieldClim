@@ -7,13 +7,17 @@
 terr_sky_view(slope, valley = F)
 }
 \arguments{
-\item{slope}{Inclination of slope in degrees}
+\item{slope}{Inclination of slope in degrees.}
 
-\item{valley}{If the position is in a valley (TRUE) or on a slope (FALSE)}
+\item{valley}{If the position is in a valley (TRUE) or on a slope (FALSE).}
 }
 \value{
-sky view factor from 0-1
+Sky view factor from 0-1.
 }
 \description{
-Sky view factor
+Calculates the sky view factor of a position only based on slope angle and
+position in valley or on a slope.
+}
+\details{
+Terrain view factor can be calculated by 1-terr_sky_view().
 }

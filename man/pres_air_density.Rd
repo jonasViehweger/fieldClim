@@ -2,17 +2,17 @@
 % Please edit documentation in R/pressure.R
 \name{pres_air_density}
 \alias{pres_air_density}
-\title{Air density.}
+\title{Air density}
 \usage{
-pres_air_density(p, t1)
+pres_air_density(p, t)
 }
 \arguments{
 \item{p}{Pressure in hPa.}
 
-\item{t1}{Temperature in °C.}
+\item{t}{Temperature in degrees C.}
 }
 \value{
-Air density in kg*m^(-3)
+Air density in kg/m^3.
 }
 \description{
 Calculation of the air density.

@@ -3,15 +3,15 @@
 #' Calculates the saturation vapor pressure from air temperature using the Magnus
 #' formula (applicable over water surfaces).
 #'
-#' @param temp Air temperature in degrees C.
+#' @param t Air temperature in degrees C.
 #'
 #' @return Saturation vapor pressure in hPa.
 #' @export
 #'
-hum_sat_vapor_pres <- function(temp) {
+hum_sat_vapor_pres <- function(t) {
   a <- 7.5
   b <- 235
-  return(6.1078*10**((a*temp)/(b+temp)))
+  return(6.1078*10**((a*t)/(b+t)))
 }
 
 
@@ -20,13 +20,13 @@ hum_sat_vapor_pres <- function(temp) {
 #' Calculates vapor pressure from relative humidity and saturation vapor pressure
 #'
 #' @param hum Relative humidity in %.
-#' @param temp Air temperature in degrees C.
+#' @param t Air temperature in degrees C.
 #'
 #' @return Vapor pressure in hPa.
 #' @export
 #'
-hum_vapor_pres <- function(hum, temp){
-  sat_vapor_pres <- hum_sat_vapor_pres(temp)
+hum_vapor_pres <- function(hum, t){
+  sat_vapor_pres <- hum_sat_vapor_pres(t)
   return((hum/100)*sat_vapor_pres)
 }
 
@@ -49,7 +49,7 @@ hum_specific <- function(vapor_pressure, air_pressure) {
 #' Calculates absolute humidity from vapor pressure and temperature.
 #'
 #' @param vapor_pressure Vapor presure in hPa.
-#' @param temp Air temperature in degrees celsius.
+#' @param temp Air temperature in degrees C.
 #'
 #' @return Absolute humidity in kg/m^3.
 #' @export
@@ -62,13 +62,13 @@ hum_absolute <- function(vapor_pressure, temp) {
 #'
 #' Calculates heat of evaporation for water from air temperature.
 #'
-#' @param temp Air temperature in degrees C.
+#' @param t Air temperature in degrees C.
 #'
 #' @return Heat of evaporation in J/kg.
 #' @export
 #'
-hum_evap_heat <- function(temp){
-  return((2.5008-0.002372*temp)*10^6)
+hum_evap_heat <- function(t){
+  return((2.5008-0.002372*t)*10^6)
 }
 
 #' Moisture gradient

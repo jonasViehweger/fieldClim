@@ -19,5 +19,5 @@ pos_min_dist(obs_width, obs_height, ring = F, obs_radius = NULL)
 Minimum distance in m.
 }
 \description{
-Calculate the needed minimum distance between climate station and obstacle (e.g. forest), to ensure independency of measurements.
+Calculate the needed minimum distance between climate station and obstacle (e.g. forest), to ensure independence of measurements.
 }

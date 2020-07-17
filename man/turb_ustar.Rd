@@ -2,7 +2,7 @@
 % Please edit documentation in R/turbulence.R
 \name{turb_ustar}
 \alias{turb_ustar}
-\title{Friction velocity.}
+\title{Friction velocity}
 \usage{
 turb_ustar(v1, z1, z0)
 }

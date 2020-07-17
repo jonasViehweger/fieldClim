@@ -2,7 +2,7 @@
 % Please edit documentation in R/turbulent_flux.R
 \name{turb_flux_ex_quotient_temp}
 \alias{turb_flux_ex_quotient_temp}
-\title{Exchange quotient for heat transmission.}
+\title{Exchange quotient for heat transmission}
 \usage{
 turb_flux_ex_quotient_temp(stability, ustar, monin, z1, air_density)
 }
@@ -15,7 +15,7 @@ turb_flux_ex_quotient_temp(stability, ustar, monin, z1, air_density)
 
 \item{z1}{Height in m.}
 
-\item{air_density}{Air density in kg*m^(-3).}
+\item{air_density}{Air density in kg/m^3.}
 }
 \value{
 Exchange quotient for heat transmission in kg/(m*s).

@@ -4,7 +4,7 @@
 \alias{turb_flux_imp_exchange}
 \title{Turbulent impulse exchange.}
 \usage{
-turb_flux_imp_exchange(ex_quotient, v1, v2, z1, z2)
+turb_flux_imp_exchange(ex_quotient, v1, v2, z1 = 2, z2 = 10)
 }
 \arguments{
 \item{ex_quotient}{Exchange quotient in kg/(m*s).}

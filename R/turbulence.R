@@ -1,5 +1,4 @@
-
-#' Roughness length.
+#' Roughness length
 #'
 #' Calculate the roughness length of an underground on the basis of the obstacle height or the type of the underground.
 #' Possible types of underground are:
@@ -12,7 +11,6 @@
 #' @return Roughness length in m.
 #' @export
 #'
-#' @examples
 turb_roughness_length <- function(surface_type = NULL, obs_height = NULL){
   if(is.null(obs_height)==F){z0 <- obs_height*0.1}
   else if(is.null(surface_type)==F && is.null(obs_height)){
@@ -22,7 +20,7 @@ turb_roughness_length <- function(surface_type = NULL, obs_height = NULL){
   return(z0)
 }
 
-#' Displacement height.
+#' Displacement height
 #'
 #' Calculate the displacement height, caused by an obstacle (e.g. a crop field).
 #'
@@ -31,13 +29,12 @@ turb_roughness_length <- function(surface_type = NULL, obs_height = NULL){
 #' @return Displacement height in m.
 #' @export
 #'
-#' @examples
 turb_displacement <- function(obs_height){
-  d0 <- (2/3)*obs_height;      # for Vegetation only
+  d0 <- (2/3)*obs_height      # for Vegetation only
   return(d0)
 }
 
-#' Friction velocity.
+#' Friction velocity
 #'
 #' Calculate the friction velocity of the underground.
 #'
@@ -48,7 +45,6 @@ turb_displacement <- function(obs_height){
 #' @return Friction velocity in m/s.
 #' @export
 #'
-#' @examples
 turb_ustar <- function(v1, z1, z0){
   ustar <- v1*0.4/log(z1/z0)
   return(ustar)

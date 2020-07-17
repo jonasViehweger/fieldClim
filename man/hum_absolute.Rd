@@ -9,7 +9,7 @@ hum_absolute(vapor_pressure, temp)
 \arguments{
 \item{vapor_pressure}{Vapor presure in hPa.}
 
-\item{temp}{Air temperature in degrees celsius.}
+\item{temp}{Air temperature in degrees C.}
 }
 \value{
 Absolute humidity in kg/m^3.

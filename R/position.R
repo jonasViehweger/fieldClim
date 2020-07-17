@@ -1,6 +1,6 @@
 #' Minimum Distance between climate station and obstacle
 #'
-#' Calculate the needed minimum distance between climate station and obstacle (e.g. forest), to ensure independency of measurements.
+#' Calculate the needed minimum distance between climate station and obstacle (e.g. forest), to ensure independence of measurements.
 #'
 #' @param obs_width Width of obstacle in m.
 #' @param obs_height Height of obstacle in m.

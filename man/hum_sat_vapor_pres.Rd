@@ -4,10 +4,10 @@
 \alias{hum_sat_vapor_pres}
 \title{Saturation vapor pressure}
 \usage{
-hum_sat_vapor_pres(temp)
+hum_sat_vapor_pres(t)
 }
 \arguments{
-\item{temp}{Air temperature in degrees C.}
+\item{t}{Air temperature in degrees C.}
 }
 \value{
 Saturation vapor pressure in hPa.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/turbulence.R
 \name{turb_displacement}
 \alias{turb_displacement}
-\title{Displacement height.}
+\title{Displacement height}
 \usage{
 turb_displacement(obs_height)
 }

@@ -7,11 +7,11 @@
 sol_angles(datetime, lat, lon)
 }
 \arguments{
-\item{datetime}{POSIXt object (POSIXct, POSIXlt)}
+\item{datetime}{POSIXt object (POSIXct, POSIXlt).}
 
-\item{lat}{numeric. Latitude in decimal degrees}
+\item{lat}{Latitude in decimal degrees.}
 
-\item{lon}{numeric. Longitude in decimal degrees}
+\item{lon}{Longitude in decimal degrees.}
 }
 \value{
 data.frame with two columns: sol_azimuth and sol_elevation

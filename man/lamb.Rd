@@ -4,13 +4,13 @@
 \alias{lamb}
 \title{lambda PT coefficient (???)}
 \usage{
-lamb(t1)
+lamb(t)
 }
 \arguments{
-\item{t1}{numeric. Air temperature in degree celsius}
+\item{t1}{Air temperature in degree C}
 }
 \value{
-numeric. lambda
+lambda
 }
 \description{
 lambda PT coefficient (???)
