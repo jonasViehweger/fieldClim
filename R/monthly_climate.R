@@ -96,6 +96,7 @@ monthly_climate <- function(data,
     terr_sky_view <- terr_sky_view(slope,valley)
     rad_bal_total_with_topography <- rad_bal_total_with_topography(rad_sw_reflected_by_terrain, rad_lw_surface,rad_lw_atmospheric,terr_sky_view)
   }
+  else if(is.null(slope)){rad_bal_total_with_topography <- NULL}
 
   ### Caclulation of latent and sensible heat fluxes
   #cakculation of soil_flux, if unknown
