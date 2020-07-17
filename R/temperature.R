@@ -3,7 +3,7 @@
 #' Calculation of the potential air temperature.
 #'
 #' @param p Pressure in hPa.
-#' @param t1 Temperature in degrees C.
+#' @param t Temperature in degrees C.
 #'
 #' @return Potential temperature in K.
 #' @export

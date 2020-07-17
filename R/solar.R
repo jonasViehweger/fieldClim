@@ -1,5 +1,7 @@
 #' Eccentricity
 #'
+#' Calculate the eccentricity.
+#'
 #' @param datetime POSIXt object (POSIXct, POSIXlt)
 #'
 #' @return Eccentricity at the date

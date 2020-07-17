@@ -7,7 +7,6 @@
 #' @return Height of boundary layer in m.
 #' @export
 #'
-#' @examples
 bound_mech_low <- function(dist) {
   mib <- 0.3*sqrt(dist)
   return(mib)
@@ -22,7 +21,6 @@ bound_mech_low <- function(dist) {
 #' @return Height of boundary layer in m.
 #' @export
 #'
-#' @examples
 bound_mech_avg <- function(dist) {
   mib <- 0.43*dist**0.5
   return(mib)
@@ -33,17 +31,16 @@ bound_mech_avg <- function(dist) {
 #' Calculation of the average height of the thermal internal boundary layer.
 #'
 #' @param ustar Friction velocity u* in m/s.
-#' @param v_a Windspeed in height of anemometer in m/s.
+#' @param v Windspeed in height of anemometer in m/s.
 #' @param temp_change_dist Distance to point of temperature change in m.
 #' @param pt_upwind Potential temperature in upwind direction in °C.
-#' @param pt Potential temperature at site in °C.
+#' @param t_pot Potential temperature at site in °C.
 #' @param lr Lapse rate in K/m (or degrees C/m)
 #'
 #' @return Average height of the thermal boundary layer in m.
 #' @export
 #'
-#' @examples
-bound_thermal_avg <- function(ustar,v_a,temp_change_dist,pt_upwind,pt,lr) {
-  tib <- (ustar/v_a)*( (temp_change_dist*abs(pt_upwind-pt))/abs(lr) )**0.5
+bound_thermal_avg <- function(ustar,v,temp_change_dist,pt_upwind,t_pot,lapse_rate) {
+  tib <- (ustar/v)*( (temp_change_dist*abs(pt_upwind-t_pot))/abs(lapse_rate) )**0.5
   return(tib)
 }

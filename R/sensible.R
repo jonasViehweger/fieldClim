@@ -4,16 +4,16 @@
 #' heat flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
-#' @param t1 Air temperature in degrees C.
+#' @param t Air temperature in degrees C.
 #' @param rad_bal Radiation balance in W/m^2.
 #' @param soil_flux Soil flux in W/m^2.
 #'
 #' @return Sensible heat flux in W/m^2.
 #' @export
 #'
-sensible_priestley_taylor <- function(t1, rad_bal, soil_flux){
-  sc <- sc(t1)
-  lamb <- lamb(t1)
+sensible_priestley_taylor <- function(t, rad_bal, soil_flux){
+  sc <- sc(t)
+  lamb <- lamb(t)
   alpt <- 1.25
   QH_TP <- ((1-alpt)*sc+lamb)*(-rad_bal-soil_flux)/(sc+lamb)
   return(QH_TP)
@@ -78,8 +78,8 @@ sensible_bowen <- function(t1, t2, hum1, hum2, p1, p2, z1, z2,
                            rad_bal, soil_flux){
 
   # Calculating potential temperature delta
-  t1_pot <- temp_pot_temp(t1, p)
-  t2_pot <- temp_pot_temp(t2, p)
+  t1_pot <- temp_pot_temp(t1, p1)
+  t2_pot <- temp_pot_temp(t2, p2)
   dpot <- (t1_pot-t2_pot) / (z2-z1)
 
   # Calculating absolute humidity
