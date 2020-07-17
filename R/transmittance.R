@@ -1,6 +1,6 @@
 #' Relative optical air mass
 #'
-#' Calculates relative optical air mass.
+#' Calculates relative optical air mass. Returns NA for negative values.
 #'
 #' @param sol_elevation Solar elevation in degrees.
 #'
@@ -19,14 +19,14 @@ trans_air_mass_rel <- function(sol_elevation) {
 #' Calculates absolute optical air mass.
 #'
 #' @param air_mass_rel Relative optical air mass.
-#' @param pressure Pressure in hPa.
+#' @param p Air pressure in hPa.
 #'
 #' @return Absolute optical air mass.
 #' @export
 #'
-trans_air_mass_abs <- function (air_mass_rel, pressure) {
-  p0 <- 1013.25 # hPa Normaldruck auf Meeresniveau der Standardatmosph?re
-  air_mass_abs <- air_mass_rel*(p/p0);
+trans_air_mass_abs <- function (air_mass_rel, p) {
+  p0 <- 1013.25
+  air_mass_abs <- air_mass_rel*(p/p0)
   return (air_mass_abs)
 }
 
@@ -37,7 +37,7 @@ trans_air_mass_abs <- function (air_mass_rel, pressure) {
 #'
 #' @param air_mass_abs Absolute optical air mass.
 #'
-#' @return Transmittance due to rayleigh scattering (0-1)
+#' @return Transmittance due to rayleigh scattering (0-1).
 #' @export
 #'
 trans_rayleigh <- function(air_mass_abs) {
@@ -47,7 +47,7 @@ trans_rayleigh <- function(air_mass_abs) {
 
 #' Transmittance due to ozone
 #'
-#' Calculates transmittance due to ozone
+#' Calculates transmittance due to ozone.
 #'
 #' @param air_mass_rel Relative optical air mass.
 #' @param oz Columnar ozone in cm. Default is average value of 0.35 cm.
@@ -67,13 +67,13 @@ trans_ozone <- function(air_mass_rel, oz = 0.35) {
 #' Calculates transmittance due to water vapor.
 #'
 #' @param air_mass_rel Relative optical air mass.
-#' @param pw Precipitable water in cm.
+#' @param precipitable_water Precipitable water in cm.
 #'
 #' @return Transmittance due to water vapor (0-1).
 #' @export
 #'
-trans_vapor <- function(air_mass_rel, pw) {
-  y <- pw*air_mass_rel
+trans_vapor <- function(air_mass_rel, precipitable_water) {
+  y <- precipitable_water*air_mass_rel
   yy <- 2.4959*y*((1+79.034*y)**0.6828+6.385*y)**-1
   return(1.-yy)
 }

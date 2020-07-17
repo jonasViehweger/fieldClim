@@ -2,16 +2,15 @@
 #'
 #' Calculation of the emissivity of the atmosphere.
 #'
-#' @param t numeric. Air termperature in degrees celsius.
-#' @param elev numeric. Meters above sea level
-#' @param air_pressure numeric. Optional. Air pressure in hPa.
+#' @param t Air temperature in degrees C.
+#' @param elev Meters above sea level
+#' @param p Optional. Air pressure in hPa.
 #' If not available, will be calculated from elev and air temperature.
 #'
-#' @return numeric. Emissivity of the atmosphere (0-1)
+#' @return missivity of the atmosphere (0-1).
 #' @export
 #'
-#' @examples
-rad_emissivity_air <- function(t, elev, air_pressure = NULL){
+rad_emissivity_air <- function(t, elev, p = NULL){
   if(is.null(air_pressure)) p <- pres_p(elev, t)
   svp <- hum_sat_vapor_pres(t)
   t_over <- t*(0.0065*elev)
@@ -23,13 +22,12 @@ rad_emissivity_air <- function(t, elev, air_pressure = NULL){
 #'
 #' Calculates emissions of a surface.
 #'
-#' @param t numeric. Surface temperature in degrees celsius
-#' @param emissivity_surface numeric. Emissivity of surface. Default is emissivity for short grass
+#' @param t Surface temperature in degrees C.
+#' @param emissivity_surface Emissivity of surface. Default is emissivity for short grass.
 #'
-#' @return Emissions in W/m^2
+#' @return Emissions in W/m^2.
 #' @export
 #'
-#' @examples
 rad_lw_surface <- function(t, emissivity_surface = 0.95){
   sigma <- 5.670374 * 10^-8
   return(emissivity_surface*sigma*(t+273.15)**4)
@@ -39,13 +37,12 @@ rad_lw_surface <- function(t, emissivity_surface = 0.95){
 #'
 #' Calculation of the longwave radiation of the atmosphere.
 #'
-#' @param emissivity_air numeric. Emissivity of the atmosphere (factor: 0-1)
-#' @param t numeric. Air temperature in degrees celsius
+#' @param emissivity_air Emissivity of the atmosphere (factor: 0-1)
+#' @param t Air temperature in degrees C.
 #'
-#' @return numeric. Atmospheric radiation in W/m^2
+#' @return Atmospheric radiation in W/m^2.
 #' @export
 #'
-#' @examples
 rad_lw_atmospheric <- function(emissivity_air, t){
   sigma <- 5.670374 * 10^-8
   gs <- emissivity_air*sigma*(t+273.15)**4
@@ -57,18 +54,17 @@ rad_lw_atmospheric <- function(emissivity_air, t){
 #'
 #' Calculation of the shortwave radiation at the top of the atmosphere.
 #'
-#' @param datetime Date and time.
+#' @param datetime Date and time as POSIX type (see strptime() for conversion)
 #' @param lat Latitude of the place of the climate station in decimal degrees.
 #' @param lon Longitude of the place of the climate station in decimal degrees.
 #'
 #' @return Shortwave radiation at top of atmosphere in W/m^2.
 #' @export
 #'
-#' @examples
 rad_sw_toa <- function(datetime, lat, lon){
   sol_const <- 1367
   sol_eccentricity <- sol_eccentricity(datetime)
-  sol_elevation <- sol_elevation(datetime,lat,lon)
+  sol_elevation <- sol_elevation(datetime, lat, lon)
   rad_sw_toa <- sol_const*sol_eccentricity*sin(sol_elevation*(pi/180))
   return(rad_sw_toa)
 }
@@ -78,20 +74,19 @@ rad_sw_toa <- function(datetime, lat, lon){
 #' Calculation of the shortwave radiation onto a horizontal area on the ground.
 #'
 #' @param rad_sw_toa Shortwave radiation at top of atmosphere in W/m^2.
-#' @param trans_total Total transmittance (0-1)
+#' @param trans_total Total transmittance of the atmosphere (0-1).
 #'
 #' @return Shortwave radiation on the ground onto a horizontal area in W/m^2.
 #' @export
 #'
-#' @examples
 rad_sw_ground_horizontal <- function(rad_sw_toa, trans_total){
   rad_sw_ground_horizontal <- rad_sw_toa*trans_total
   return(rad_sw_ground_horizontal)
 }
 
-#' Reflected shortwave radiance (albedo radiance)
+#' Reflected shortwave radiance
 #'
-#' Calculation of the reflected shortwave radiance (albedo radiance).
+#' Calculation of the reflected shortwave radiance.
 #'
 #' @param rad_sw_ground_horizontal Shortwave radiation on the ground onto a horizontal area in W/m^2.
 #' @param albedo Albedo of the surface.
@@ -99,7 +94,6 @@ rad_sw_ground_horizontal <- function(rad_sw_toa, trans_total){
 #' @return Reflected shortwave radiance in W/m^2.
 #' @export
 #'
-#' @examples
 rad_sw_reflected <- function(rad_sw_ground_horizontal, albedo){
   rad_sw_reflected <- rad_sw_ground_horizontal*albedo
   return(rad_sw_reflected)
@@ -115,7 +109,6 @@ rad_sw_reflected <- function(rad_sw_ground_horizontal, albedo){
 #' @return Shortwave radiation balance in W/m^2.
 #' @export
 #'
-#' @examples
 rad_sw_radiation_balance <- function(rad_sw_ground_horizontal, rad_sw_reflected){
   rad_sw_radiation_balance <- rad_sw_ground_horizontal-rad_sw_reflected
   return(rad_sw_radiation_balance)
@@ -126,9 +119,9 @@ rad_sw_radiation_balance <- function(rad_sw_ground_horizontal, rad_sw_reflected)
 #' Calculate shortwave radiation balance in dependency of topography.
 #'
 #' @param slope Slope in degrees.
-#' @param valley Is the climate station placed in a valley (True/False)?
-#' @param sol_elevation Sun elevation.
-#' @param sol_azimuth Sun azimuth.
+#' @param valley Is the climate station placed in a valley (TRUE/FALSE)?
+#' @param sol_elevation Sun elevation in degrees.
+#' @param sol_azimuth Sun azimuth in degrees.
 #' @param exposition Exposition (North = 0, South = 180)
 #' @param rad_sw_ground_horizontal Shortwave radiation on the ground onto a horizontal area in W/m^2.
 #' @param albedo Albedo of surface.
@@ -136,7 +129,6 @@ rad_sw_radiation_balance <- function(rad_sw_ground_horizontal, rad_sw_reflected)
 #' @return Shortwave radiation balance in dependency of topography in W/m^2.
 #' @export
 #'
-#' @examples
 rad_sw_reflected_by_terrain <- function(slope, valley = F, sol_elevation, sol_azimuth, exposition = 0, rad_sw_ground_horizontal, albedo){
   sol_dir <- rad_sw_ground_horizontal/0.9751
   sol_dif <- rad_sw_ground_horizontal-sol_dif
@@ -170,7 +162,6 @@ rad_sw_reflected_by_terrain <- function(slope, valley = F, sol_elevation, sol_az
 #' @return Total radiation balance in W/m^2.
 #' @export
 #'
-#' @examples
 rad_bal_total <-function(rad_sw_radiation_balance, rad_lw_surface, rad_lw_atmospheric){
   radbil <- rad_sw_radiation_balance - (rad_lw_surface - rad_lw_atmospheric)
   return(radbil)
@@ -189,7 +180,6 @@ rad_bal_total <-function(rad_sw_radiation_balance, rad_lw_surface, rad_lw_atmosp
 #' @return Total radiation balance with topography in W/m^2.
 #' @export
 #'
-#' @examples
 rad_bal_total_with_topography <- function(rad_sw_reflected_by_terrain, rad_lw_surface, rad_lw_atmospheric, terr_sky_view ){
   radbil_topo <- rad_sw_reflected_by_terrain - (rad_lw_surface - (rad_lw_atmospheric*terr_sky_view + rad_lw_surface*(1-terr_sky_view)))
   return(radbil_topo)

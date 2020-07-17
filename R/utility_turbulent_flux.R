@@ -10,7 +10,7 @@ sc <- function(t){
 
 #' lambda PT coefficient (???)
 #'
-#' @param t1 Air temperature in degree C
+#' @param t Air temperature in degree C
 #'
 #' @return lambda
 lamb <- function(t){
@@ -23,15 +23,15 @@ lamb <- function(t){
 #'
 #' Calculates Bowen-ratio.
 #'
-#' @param t1_pot Potential temperature (see temp_pot_temp)
+#' @param t_pot Potential temperature (see temp_pot_temp)
 #' @param dpot Difference in potential temperature between the two measurement
 #' heights in degrees Celsius.
 #' @param dah Difference in absolute humidity (kg/m^3) between the two measurement heights.
 #'
 #' @return Bowen-ratio
-bowen_ratio <- function(t1_pot, dpot, dah){
-  heat_cap <- heat_capacity(t1_pot)
-  evap_heat <- hum_evap_heat(t1_pot)
+bowen_ratio <- function(t_pot, dpot, dah){
+  heat_cap <- heat_capacity(t_pot)
+  evap_heat <- hum_evap_heat(t_pot)
   Bow2 <- (heat_cap*dpot) / (evap_heat*h2)
   return(Bow2)
 }

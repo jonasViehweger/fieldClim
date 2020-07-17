@@ -9,8 +9,8 @@
 #' @param z0 Roughness length in m.
 #' @param v1 Windspeed at lower height (e.g. height of anemometer) in m/s.
 #' @param v2 Windspeed at upper height in m/s.
-#' @param t1 Temperature at lower height (e.g. height of anemometer) in °C.
-#' @param t2 Temperature at upper height in °C.
+#' @param t1 Temperature at lower height (e.g. height of anemometer) in degrees C.
+#' @param t2 Temperature at upper height in degrees C.
 #' @param ustar Friction velocity in m/s.
 #'
 #' @return Monin-Obhukov-Length in m.
@@ -30,8 +30,8 @@ turb_flux_monin <- function(stability, z1 = 2, z2 = 10, z0, v1, v2, t1, t2){
 #' stability of the atmosphere. Negative values signify unstable conditions,
 #' positive values signify stable conditions.
 #'
-#' @param t1 Temperature at lower height (e.g. height of anemometer) in °C.
-#' @param t2 Temperature at upper height in °C.
+#' @param t1 Temperature at lower height (e.g. height of anemometer) in degrees C.
+#' @param t2 Temperature at upper height in degrees C.
 #' @param z1 Lower height of measurement (e.g. height of anemometer) in m.
 #' @param z2 Upper height of measurement in m.
 #' @param v1 Windspeed at lower height (e.g. height of anemometer) in m/s.
@@ -42,7 +42,6 @@ turb_flux_monin <- function(stability, z1 = 2, z2 = 10, z0, v1, v2, t1, t2){
 #' @return Gradient-Richardson-Number.
 #' @export
 #'
-#' @examples
 turb_flux_grad_rich_no <- function(t1, t2, z1 = 2, z2 = 10, v1, v2, p1, p2){
   pot_temp1 <- temp_pot_temp(t1, p1)
   pot_temp2 <- temp_pot_temp(t2, p1)
@@ -51,7 +50,7 @@ turb_flux_grad_rich_no <- function(t1, t2, z1 = 2, z2 = 10, v1, v2, p1, p2){
 
 #' Stability
 #'
-#' Calculation of atmospheric stability.
+#' Conversion of Gradient-Richardson-Number to stability string.
 #'
 #' @param grad_rich_no Gradient-Richardson-Number
 #'
@@ -105,7 +104,7 @@ turb_flux_ex_quotient_imp <- function(stability, ustar, monin, z1, air_density){
   return(ex)
 }
 
-#' Turbulent impulse exchange.
+#' Turbulent impulse exchange
 #'
 #' Calculation of the turbulent impulse exchange.
 #'
