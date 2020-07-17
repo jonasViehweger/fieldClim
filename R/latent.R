@@ -27,10 +27,10 @@ latent_priestley_taylor <- function(t1, rad_bal, soil_flux){
 #' towards the surface.
 #'
 #' @param datetime POSIXt object (POSIXct, POSIXlt).
-#' @param v1 Wind velocity in m/s.
-#' @param t1 Temperature in degrees C
-#' @param hum1 Relative humidity in %.
-#' @param z1 Height of measurement for t1, v1 in m.
+#' @param v Wind velocity in m/s.
+#' @param t Temperature in degrees C
+#' @param hum Relative humidity in %.
+#' @param z Height of measurement for t, v in m.
 #' @param rad_bal Radiation balance in W/m^2.
 #' @param elev Elevation above sea level in m.
 #' @param lat Latitude in decimal degrees.
@@ -41,7 +41,7 @@ latent_priestley_taylor <- function(t1, rad_bal, soil_flux){
 #' @export
 #'
 latent_penman <- function(datetime,
-                       v1, t1, hum1, z1 = 2, rad_bal,
+                       v, t, hum, z = 2, rad_bal,
                        elev, lat, lon){
   if(!inherits(datetime, "POSIXt")){
     stop("datetime has to be of class POSIXt.")
@@ -53,16 +53,16 @@ latent_penman <- function(datetime,
   lt <- as.POSIXlt(datetime)
   ut <- lt$hour + lt$min/60 + lt$sec/3600
 
-  WeatherStation  <- data.frame(wind=v1,
-                                RH=hum1,
-                                temp=t1,
+  WeatherStation  <- data.frame(wind=v,
+                                RH=hum,
+                                temp=t,
                                 radiation=rad_bal,
-                                height=z1,
+                                height=z,
                                 lat=lat,
                                 long=lon,
                                 elev=elev)
 
-  lv <- hum_evap_heat(t1)  # Spezifische Verdunstungsw?rme
+  lv <- hum_evap_heat(t)  # Spezifische Verdunstungsw?rme
   QE_PM <- lv*(water::hourlyET(WeatherStation, hours=ut, DOY=doy, long.z=long)/3600)*(-1)
   return(QE_PM)
 }
