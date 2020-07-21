@@ -4,12 +4,12 @@
 \alias{hum_absolute}
 \title{Absolute humidity}
 \usage{
-hum_absolute(p_vapor, temp)
+hum_absolute(p_vapor, t_pot)
 }
 \arguments{
 \item{p_vapor}{Vapor presure in hPa.}
 
-\item{temp}{Air temperature in degrees C.}
+\item{t}{Potential air temperature in Kelvin.}
 }
 \value{
 Absolute humidity in kg/m^3.

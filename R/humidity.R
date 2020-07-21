@@ -41,7 +41,7 @@ hum_vapor_pres <- function(hum, t){
 #' @export
 #'
 hum_specific <- function(p_vapor, p) {
-  return(0.622*(vapor_pressure/p))
+  return(0.622*(p_vapor/p))
 }
 
 #' Absolute humidity
@@ -49,22 +49,22 @@ hum_specific <- function(p_vapor, p) {
 #' Calculates absolute humidity from vapor pressure and temperature.
 #'
 #' @param p_vapor Vapor presure in hPa.
-#' @param temp Air temperature in degrees C.
+#' @param t Potential air temperature in Kelvin.
 #'
 #' @return Absolute humidity in kg/m^3.
 #' @export
 #'
-hum_absolute <- function(p_vapor, temp) {
-  return(0.21668*p_vapor)/temp
+hum_absolute <- function(p_vapor, t_pot) {
+  return((0.21668*p_vapor)/t_pot)
 }
 
-#' Heat of evaporation
+#' Enthaly of vaporization
 #'
 #' Calculates heat of evaporation for water from air temperature.
 #'
 #' @param t Air temperature in degrees C.
 #'
-#' @return Heat of evaporation in J/kg.
+#' @return Enthaly of vaporization in J/kg.
 #' @export
 #'
 hum_evap_heat <- function(t){

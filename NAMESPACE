@@ -3,6 +3,7 @@
 export(bound_mech_avg)
 export(bound_mech_low)
 export(bound_thermal_avg)
+export(heat_capacity)
 export(hum_absolute)
 export(hum_evap_heat)
 export(hum_moisture_gradient)

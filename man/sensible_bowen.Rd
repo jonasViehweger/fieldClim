@@ -15,6 +15,10 @@ sensible_bowen(t1, t2, hum1, hum2, p1, p2, z1, z2, rad_bal, soil_flux)
 
 \item{hum2}{Relative humidity at upper height in \%.}
 
+\item{p1}{Air pressure at lower height in hPa.}
+
+\item{p2}{Air pressure at upper height in hPa.}
+
 \item{z1}{Lower height of measurement (e.g. height of anemometer) in m.}
 
 \item{z2}{Upper height of measurement in m.}

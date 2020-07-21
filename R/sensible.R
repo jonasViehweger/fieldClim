@@ -66,6 +66,8 @@ sensible_monin <- function(t1, t2, p1, p2, z1 = 2, z2 = 10,
 #' @param t2 Temperature at upper height in degrees C.
 #' @param hum1 Relative humidity at lower height (e.g. height of anemometer) in %.
 #' @param hum2 Relative humidity at upper height in %.
+#' @param p1 Air pressure at lower height in hPa.
+#' @param p2 Air pressure at upper height in hPa.
 #' @param z1 Lower height of measurement (e.g. height of anemometer) in m.
 #' @param z2 Upper height of measurement in m.
 #' @param rad_bal Radiation balance in W/m^2.
@@ -74,18 +76,18 @@ sensible_monin <- function(t1, t2, p1, p2, z1 = 2, z2 = 10,
 #' @return Sensible heat flux in W/m^2.
 #' @export
 #'
-sensible_bowen <- function(t1, t2, hum1, hum2, p1, p2, z1, z2,
+sensible_bowen <- function(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10,
                            rad_bal, soil_flux){
 
   # Calculating potential temperature delta
   t1_pot <- temp_pot_temp(t1, p1)
   t2_pot <- temp_pot_temp(t2, p2)
-  dpot <- (t1_pot-t2_pot) / (z2-z1)
+  dpot <- (t2_pot-t1_pot) / (z2-z1)
 
   # Calculating absolute humidity
-  af1 <- hum_absolute(hum_vapor_pres(hum1, svp(t1)), t1_pot)
-  af2 <- hum_absolute(hum_vapor_pres(hum2, svp(t2)), t2_pot)
-  dah <- (af1-af2) / (z2-z1)
+  af1 <- hum_absolute(hum_vapor_pres(hum1, t1), t1_pot)
+  af2 <- hum_absolute(hum_vapor_pres(hum2, t2), t2_pot)
+  dah <- (af2-af1) / (z2-z1)
 
   # Calculate bowen ratio
   bowen_ratio <- bowen_ratio(t1_pot, dpot, dah)

@@ -32,12 +32,20 @@ lamb <- function(t){
 bowen_ratio <- function(t_pot, dpot, dah){
   heat_cap <- heat_capacity(t_pot)
   evap_heat <- hum_evap_heat(t_pot)
-  Bow2 <- (heat_cap*dpot) / (evap_heat*h2)
+  Bow2 <- (heat_cap*dpot) / (evap_heat*dah)
   return(Bow2)
 }
 
-# W?rmekapazit?tsdichte in J/m? K, temp (x1) in ?C
-heat_capacity <- function(t){
-  ca <- 1005*(1.2754298-0.0047210538*t+1.6463585*10^-5*t)
+#' Volumetric heat capacity
+#'
+#' Calculates volumetric heat capacity
+#'
+#' @param t_pot Potential temperature in Kelvin.
+#'
+#' @return Heat capacity density in J/(K*m^3)
+#' @export
+#'
+heat_capacity <- function(t_pot){
+  ca <- 1005*(1.2754298-0.0047210538*t_pot+1.6463585*10^-5*t_pot)
   return(ca)
 }
