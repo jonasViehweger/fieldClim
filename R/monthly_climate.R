@@ -22,7 +22,7 @@ monthly_climate <- function(data,
                             obs_height = 0.3,
                             albedo,
                             slope = NULL, #if not NULL, the rad_bal with topography will be calculated
-                            valley = F,
+                            valley = F
                             ){
   t1 <- data[,t1]
   t2 <- data[,t2]
