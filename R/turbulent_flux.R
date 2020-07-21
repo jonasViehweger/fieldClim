@@ -18,6 +18,7 @@
 #'
 turb_flux_monin <- function(stability, z1 = 2, z2 = 10, z0, v1, v2, t1, t2){
   ustar <- turb_ustar(v1,z1,z0)
+  monin <- rep(NA, length(stability))
   monin[stability == "labil"] <- (z1*(t1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(t2-t1)/(z2-z1))
   monin[stability == "neutral"] <- 0.75*(z1*(t1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(t2-t1)/(z2-z1))
   monin[stability == "stabil"] <- 4.7*ustar*log(z1/z0)*(z1-z0)/(v1*0.4)
@@ -117,7 +118,6 @@ turb_flux_ex_quotient_imp <- function(stability, ustar, monin, z1, air_density){
 #' @return Turbulent impulse exchange in kg/(m*s^2).
 #' @export
 #'
-#' @examples
 turb_flux_imp_exchange <- function(ex_quotient, v1, v2, z1 = 2, z2 = 10){
   ia <- ex_quotient*(v2-v1)/(z2-z1)
   return(ia)
