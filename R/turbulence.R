@@ -23,8 +23,9 @@ turb_roughness_length <- function(surface_type = NULL, obs_height = NULL){
 #' Displacement height
 #'
 #' Calculate the displacement height, caused by an obstacle (e.g. a crop field).
+#' Works for vegetation only.
 #'
-#' @param obs_height Height of obstacle in m.
+#' @param obs_height Height of vegetation in m.
 #'
 #' @return Displacement height in m.
 #' @export
@@ -46,6 +47,6 @@ turb_displacement <- function(obs_height){
 #' @export
 #'
 turb_ustar <- function(v, z, z0){
-  ustar <- v*0.4/log(z/z0)
+  ustar <- (v*0.4)/log(z/z0)
   return(ustar)
 }
