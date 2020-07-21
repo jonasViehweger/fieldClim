@@ -2,7 +2,7 @@
 % Please edit documentation in R/utility_turbulent_flux.R
 \name{heat_capacity}
 \alias{heat_capacity}
-\title{Heat capacity density}
+\title{Volumetric heat capacity}
 \usage{
 heat_capacity(t_pot)
 }
@@ -10,8 +10,8 @@ heat_capacity(t_pot)
 \item{t_pot}{Potential temperature in Kelvin.}
 }
 \value{
-Heat capacity density in J/m^3 K
+Heat capacity density in J/(K*m^3)
 }
 \description{
-Calculates heat capacity density (?)
+Calculates volumetric heat capacity
 }

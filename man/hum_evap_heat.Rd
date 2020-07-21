@@ -2,7 +2,7 @@
 % Please edit documentation in R/humidity.R
 \name{hum_evap_heat}
 \alias{hum_evap_heat}
-\title{Heat of evaporation}
+\title{Enthaly of vaporization}
 \usage{
 hum_evap_heat(t)
 }
@@ -10,7 +10,7 @@ hum_evap_heat(t)
 \item{t}{Air temperature in degrees C.}
 }
 \value{
-Heat of evaporation in J/kg.
+Enthaly of vaporization in J/kg.
 }
 \description{
 Calculates heat of evaporation for water from air temperature.

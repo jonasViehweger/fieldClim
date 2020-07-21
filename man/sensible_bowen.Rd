@@ -4,7 +4,7 @@
 \alias{sensible_bowen}
 \title{Sensible Heat using Bowen Method}
 \usage{
-sensible_bowen(t1, t2, hum1, hum2, p1, p2, z1, z2, rad_bal, soil_flux)
+sensible_bowen(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10, rad_bal, soil_flux)
 }
 \arguments{
 \item{t1}{Temperature at lower height (e.g. height of anemometer) in degrees C.}

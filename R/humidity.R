@@ -87,13 +87,15 @@ hum_evap_heat <- function(t){
 #' @return
 #' @export
 #'
-hum_moisture_gradient <- function(hum1, hum2, t1, t2, p1, p2, z1, z2){
+hum_moisture_gradient <- function(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10){
+  # saturation vapor pressure
+
   # vapor pressure
   vp1 <- hum_vapor_pres(hum1, t1)
   vp2 <- hum_vapor_pres(hum2, t2)
 
   # specific humidity
   sh1 <- hum_specific(vp1, p1)
-  sh2 <- hum_specific(vp2, p1)
+  sh2 <- hum_specific(vp2, p2)
   return((sh2-sh1) / log(z2-z1))
 }

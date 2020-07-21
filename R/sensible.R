@@ -90,6 +90,6 @@ sensible_bowen <- function(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10,
   dah <- (af2-af1) / (z2-z1)
 
   # Calculate bowen ratio
-  bowen_ratio <- bowen_ratio(t1_pot, dpot, dah)
+  bowen_ratio <- bowen_ratio(t1_pot-273.15, dpot, dah)
   return((-rad_bal-soil_flux) * (bowen_ratio / (1+bowen_ratio)))
 }
