@@ -8,7 +8,7 @@ sol_eccentricity(datetime)
 }
 \arguments{
 \item{datetime}{POSIXt object (POSIXct, POSIXlt).
-See \link[base]{as.Posixlt} and \link[base]{strptime} for conversion.}
+See \code{\link[base:as.POSIXlt]{base::as.POSIXlt()}} and \link[base]{strptime} for conversion.}
 }
 \value{
 Eccentricity at the date.

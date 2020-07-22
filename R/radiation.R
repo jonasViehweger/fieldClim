@@ -11,10 +11,10 @@
 #' @export
 #'
 rad_emissivity_air <- function(t, elev, p = NULL){
-  if(is.null(air_pressure)) p <- pres_p(elev, t)
+  if(is.null(p)) p <- pres_p(elev, t)
   svp <- hum_sat_vapor_pres(t)
   t_over <- t*(0.0065*elev)
-  eat <- ((1.24*svp/temp)**1/7)*(p/1013.25)
+  eat <- ((1.24*svp/t)**1/7)*(p/1013.25)
   return(eat)
 }
 
@@ -30,7 +30,7 @@ rad_emissivity_air <- function(t, elev, p = NULL){
 #' @export
 #'
 rad_lw_surface <- function(t, emissivity_surface = 0.95){
-  sigma <- 5.670374 * 10^-8
+  sigma <- 5.670374e-8
   return(emissivity_surface*sigma*(t+273.15)**4)
 }
 
@@ -45,7 +45,7 @@ rad_lw_surface <- function(t, emissivity_surface = 0.95){
 #' @export
 #'
 rad_lw_atmospheric <- function(emissivity_air, t){
-  sigma <- 5.670374 * 10^-8
+  sigma <- 5.670374e-8
   gs <- emissivity_air*sigma*(t+273.15)**4
   return(gs)
 }
@@ -55,7 +55,8 @@ rad_lw_atmospheric <- function(emissivity_air, t){
 #'
 #' Calculation of the shortwave radiation at the top of the atmosphere.
 #'
-#' @param datetime Date and time as POSIX type (see strptime() for conversion)
+#' @param datetime Date and time as POSIX type.
+#' See [base::as.POSIXlt()] and [base::strptime] for conversion.
 #' @param lat Latitude of the place of the climate station in decimal degrees.
 #' @param lon Longitude of the place of the climate station in decimal degrees.
 #'
@@ -63,6 +64,9 @@ rad_lw_atmospheric <- function(emissivity_air, t){
 #' @export
 #'
 rad_sw_toa <- function(datetime, lat, lon){
+  if(!inherits(datetime, "POSIXt")){
+    stop("datetime has to be of class POSIXt.")
+  }
   sol_const <- 1367
   sol_eccentricity <- sol_eccentricity(datetime)
   sol_elevation <- sol_elevation(datetime, lat, lon)
@@ -133,14 +137,17 @@ rad_sw_radiation_balance <- function(rad_sw_ground_horizontal, rad_sw_reflected)
 rad_sw_reflected_by_terrain <- function(slope, valley = F,
                                         sol_elevation, sol_azimuth,
                                         exposition = 0,
-                                        rad_sw_ground_horizontal, albedo){
-  sol_dir <- rad_sw_ground_horizontal/0.9751
-  sol_dif <- rad_sw_ground_horizontal-sol_dif
-  terr_sky_view <- terr_sky_view(slope,valley)
+                                        rad_sw_ground_horizontal, albedo,
+                                        trans_total){
+  sol_dir <- rad_sw_ground_horizontal*0.9751*trans_total
+  sol_dif <- rad_sw_ground_horizontal-sol_dir
+  terr_sky_view <- terr_sky_view(slope, valley)
+  f <- (pi/180)
   if(slope > 0) {
-    terrain_angle <- cos(slope*(pi/180))*sin(sol_elevation*(pi/180))+sin(slope*(pi/180))*cos(sol_elevation*(pi/180))*cos(sol_azimuth*(pi/180)-(exposition*(pi/180)))/(pi/180)
-    print("Topographische Direktstrahlung in W/m?")
-    rad_sw_topo_direct <- (sol_dir/sin(sol_elevation*(pi/180)))*terrain_angle
+    terrain_angle <- (cos(slope*f)*sin(sol_elevation*f)
+                      + sin(slope*f)*cos(sol_elevation*f)*cos(sol_azimuth*f
+                      -(exposition*f)))
+    rad_sw_topo_direct <- (sol_dir/sin(sol_elevation*f))*terrain_angle
     }
   if(slope == 0) {
     rad_sw_topo_direct <- sol_dir
@@ -151,7 +158,7 @@ rad_sw_reflected_by_terrain <- function(slope, valley = F,
   if(terr_sky_view == 1) {
     rad_sw_topo_diffuse <- sol_dif
     }
-  sol_ter <- (rad_sw_topo_direct + rad_sw_topo_diffuse) * albedo * terr_sky_view
+  sol_ter <- (rad_sw_topo_direct + rad_sw_topo_diffuse) * albedo * (1-terr_sky_view)
   return(sol_ter)
   }
 
@@ -184,8 +191,14 @@ rad_bal_total <-function(rad_sw_radiation_balance, rad_lw_surface, rad_lw_atmosp
 #' @return Total radiation balance with topography in W/m^2.
 #' @export
 #'
-rad_bal_total_with_topography <- function(rad_sw_reflected_by_terrain, rad_lw_surface, rad_lw_atmospheric, terr_sky_view ){
-  radbil_topo <- rad_sw_reflected_by_terrain - (rad_lw_surface - (rad_lw_atmospheric*terr_sky_view + rad_lw_surface*(1-terr_sky_view)))
+rad_bal_total_with_topography <- function(rad_sw_reflected_by_terrain,
+                                          rad_lw_surface,
+                                          rad_lw_atmospheric,
+                                          terr_sky_view){
+  radbil_topo <- (rad_sw_reflected_by_terrain
+                  - (rad_lw_surface
+                     - (rad_lw_atmospheric*terr_sky_view
+                        + rad_lw_surface*(1-terr_sky_view))))
   return(radbil_topo)
 }
 

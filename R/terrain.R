@@ -13,6 +13,6 @@
 #'
 terr_sky_view <- function(slope, valley = F) {
   f <- pi/180                                 # Winkel in Radiant Faktor
-  if(valley) return((1+cos(slope*f))/2.0)
-  return(cos(slope*f))
+  if(valley) return(cos(slope*f))
+  return((1+cos(slope*f))/2.0)
 }
