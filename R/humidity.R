@@ -71,6 +71,30 @@ hum_evap_heat <- function(t){
   return((2.5008-0.002372*t)*10^6)
 }
 
+
+#' Total precipitable water
+#'
+#' Estimates total precipitable water in the atmosphere.
+#' It uses a moist adiabatic temperature gradient which might not be
+#' suitable for every application.
+#'
+#' @param p Air pressure in hPa.
+#' @param t Air temperature in degrees C.
+#' @param elev Elevation above sea level in m.
+#'
+#' @return Total precipitable water in cm (grams).
+#' @export
+#'
+hum_precipitable_water <- function(p, t, elev){
+  p0 <- 1013.25                # Pressure Standaratmosphere
+  t <- t+273.15               # degrees C in K
+  cof <- (elev/100) * 0.6       # average moist adiabatic T-gradient, might have to be adjusted
+  t0 <- t + cof
+  pw_st <- 0.0000004*exp(0.0538*t0)
+  pw <- pw_st*(p/p0) *(t0/t)**0.5
+  return(pw)
+}
+
 #' Moisture gradient
 #'
 #' Calculates moisture gradient.

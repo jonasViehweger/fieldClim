@@ -7,11 +7,12 @@
 turb_displacement(obs_height)
 }
 \arguments{
-\item{obs_height}{Height of obstacle in m.}
+\item{obs_height}{Height of vegetation in m.}
 }
 \value{
 Displacement height in m.
 }
 \description{
 Calculate the displacement height, caused by an obstacle (e.g. a crop field).
+Works for vegetation only.
 }

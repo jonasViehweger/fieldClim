@@ -4,7 +4,7 @@
 \alias{hum_moisture_gradient}
 \title{Moisture gradient}
 \usage{
-hum_moisture_gradient(hum1, hum2, t1, t2, p1, p2, z1, z2)
+hum_moisture_gradient(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10)
 }
 \arguments{
 \item{hum1}{Relative humidity at lower height in \%.}

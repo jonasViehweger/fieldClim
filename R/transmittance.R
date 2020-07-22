@@ -9,8 +9,8 @@
 #'
 trans_air_mass_rel <- function(sol_elevation) {
   f <- pi/180                                 # Winkel in Radiant Faktor
-  mr <- 1 / (sin(sh*f) + (1.5*sh**-0.72) )
-  return(ifelse(sh <= 0, NA, mr))
+  mr <- 1 / (sin(sol_elevation*f) + (1.5*sol_elevation**-0.72) )
+  return(ifelse(sol_elevation <= 0, NA, mr))
 }
 
 
@@ -68,6 +68,7 @@ trans_ozone <- function(air_mass_rel, oz = 0.35) {
 #'
 #' @param air_mass_rel Relative optical air mass.
 #' @param precipitable_water Precipitable water in cm.
+#' See \link{hum_precipitable_water} for estimation.
 #'
 #' @return Transmittance due to water vapor (0-1).
 #' @export
@@ -106,7 +107,6 @@ trans_aerosol <- function(air_mass_abs, vis = 30) {
 #' @return Transmittance due to gas (0-1)
 #' @export
 #'
-#' @examples
 trans_gas <- function(air_mass_abs) {
   return(exp(-0.0127*air_mass_abs**0.26))
 }
@@ -126,7 +126,6 @@ trans_gas <- function(air_mass_abs) {
 #' @return Total transmittance (0-1)
 #' @export
 #'
-#' @examples
 trans_total <- function(sol_elevation, t, elev,
                         oz = 0.35, vis = 30, pressure = NULL){
   if(is.null(p)) p <- pres_p(elev, t)

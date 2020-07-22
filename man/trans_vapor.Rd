@@ -9,7 +9,8 @@ trans_vapor(air_mass_rel, precipitable_water)
 \arguments{
 \item{air_mass_rel}{Relative optical air mass.}
 
-\item{precipitable_water}{Precipitable water in cm.}
+\item{precipitable_water}{Precipitable water in cm.
+See \link{hum_precipitable_water} for estimation.}
 }
 \value{
 Transmittance due to water vapor (0-1).

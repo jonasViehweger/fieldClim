@@ -32,6 +32,10 @@ test_that("hum_evap_heat", {
   expect_equal(hum_evap_heat(t = t1), 2448616, tolerance = 1e-4)
 })
 
+test_that("hum_precipitable_water", {
+  expect_equal(hum_precipitable_water(1000, 20.8, 200), 3.114731, tolerance = 1e-4)
+})
+
 test_that("hum_moisture_gradient", {
   expect_equal(hum_moisture_gradient(hum1, hum2,
                                      t1, t2,
