@@ -7,14 +7,15 @@
 sol_angles(datetime, lat, lon)
 }
 \arguments{
-\item{datetime}{POSIXt object (POSIXct, POSIXlt).}
+\item{datetime}{POSIXt object (POSIXct, POSIXlt).
+See \link[base]{as.Posixlt} and \link[base]{strptime} for conversion.}
 
 \item{lat}{Latitude in decimal degrees.}
 
 \item{lon}{Longitude in decimal degrees.}
 }
 \value{
-data.frame with two columns: sol_azimuth and sol_elevation
+data.frame with two columns: sol_azimuth and sol_elevation.
 }
 \description{
 Calculates solar azimuth and solar elevation angle.

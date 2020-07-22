@@ -17,5 +17,5 @@ sol_azimuth(datetime, lat, lon)
 Solar azimuth angle in degrees.
 }
 \description{
-Solar azimuth angle
+Calculates solar azimuth angle for the given date and time.
 }

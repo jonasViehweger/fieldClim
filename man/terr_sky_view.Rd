@@ -19,5 +19,5 @@ Calculates the sky view factor of a position only based on slope angle and
 position in valley or on a slope.
 }
 \details{
-Terrain view factor can be calculated by 1-terr_sky_view().
+Terrain view factor can be calculated by 1-terr_sky_view.
 }

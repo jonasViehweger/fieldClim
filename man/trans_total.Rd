@@ -4,7 +4,7 @@
 \alias{trans_total}
 \title{Total transmittance}
 \usage{
-trans_total(sol_elevation, t, elev, oz = 0.35, vis = 30, pressure = NULL)
+trans_total(sol_elevation, t, elev, oz = 0.35, vis = 30, p = NULL)
 }
 \arguments{
 \item{sol_elevation}{Solar elevation in degrees.}
@@ -17,7 +17,7 @@ trans_total(sol_elevation, t, elev, oz = 0.35, vis = 30, pressure = NULL)
 
 \item{vis}{Meteorological visibility in km. Default is the visibility on a clear day.}
 
-\item{pressure}{OPTIONAL. Pressure in hPa. Calculated from elev and t1 if not available.}
+\item{p}{OPTIONAL. Pressure in hPa. Estimated from elev and t if not available.}
 }
 \value{
 Total transmittance (0-1)

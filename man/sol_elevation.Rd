@@ -7,7 +7,8 @@
 sol_elevation(datetime, lat, lon)
 }
 \arguments{
-\item{datetime}{POSIXt object (POSIXct, POSIXlt)}
+\item{datetime}{POSIXt object (POSIXct, POSIXlt).
+See \link[base]{as.Posixlt} and \link[base]{strptime} for conversion.}
 
 \item{lat}{Latitude in decimal degrees.}
 
@@ -17,5 +18,5 @@ sol_elevation(datetime, lat, lon)
 Solar elevation angle in degrees.
 }
 \description{
-Solar elevation angle
+Calculates solar elevation angle for the given date and time.
 }

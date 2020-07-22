@@ -4,10 +4,10 @@
 #'
 #' @param t Air temperature in degrees C.
 #' @param elev Meters above sea level
-#' @param p Optional. Air pressure in hPa.
+#' @param p OPTIONAL. Air pressure in hPa.
 #' If not available, will be calculated from elev and air temperature.
 #'
-#' @return missivity of the atmosphere (0-1).
+#' @return Emissivity of the atmosphere (0-1).
 #' @export
 #'
 rad_emissivity_air <- function(t, elev, p = NULL){
@@ -23,7 +23,8 @@ rad_emissivity_air <- function(t, elev, p = NULL){
 #' Calculates emissions of a surface.
 #'
 #' @param t Surface temperature in degrees C.
-#' @param emissivity_surface Emissivity of surface. Default is emissivity for short grass.
+#' @param emissivity_surface Emissivity of surface.
+#' Default is emissivity for short grass.
 #'
 #' @return Emissions in W/m^2.
 #' @export
@@ -129,7 +130,10 @@ rad_sw_radiation_balance <- function(rad_sw_ground_horizontal, rad_sw_reflected)
 #' @return Shortwave radiation balance in dependency of topography in W/m^2.
 #' @export
 #'
-rad_sw_reflected_by_terrain <- function(slope, valley = F, sol_elevation, sol_azimuth, exposition = 0, rad_sw_ground_horizontal, albedo){
+rad_sw_reflected_by_terrain <- function(slope, valley = F,
+                                        sol_elevation, sol_azimuth,
+                                        exposition = 0,
+                                        rad_sw_ground_horizontal, albedo){
   sol_dir <- rad_sw_ground_horizontal/0.9751
   sol_dif <- rad_sw_ground_horizontal-sol_dif
   terr_sky_view <- terr_sky_view(slope,valley)
