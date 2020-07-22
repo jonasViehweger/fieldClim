@@ -121,17 +121,17 @@ trans_gas <- function(air_mass_abs) {
 #' @param elev Altitude above sea level in m.
 #' @param oz Columnar ozone in cm. Default is average global value.
 #' @param vis Meteorological visibility in km. Default is the visibility on a clear day.
-#' @param pressure OPTIONAL. Pressure in hPa. Calculated from elev and t1 if not available.
+#' @param p OPTIONAL. Pressure in hPa. Estimated from elev and t if not available.
 #'
 #' @return Total transmittance (0-1)
 #' @export
 #'
 trans_total <- function(sol_elevation, t, elev,
-                        oz = 0.35, vis = 30, pressure = NULL){
+                        oz = 0.35, vis = 30, p = NULL){
   if(is.null(p)) p <- pres_p(elev, t)
-  pw <- pw(p, t, elev)
+  pw <- hum_precipitable_water(p, t, elev)
   mr <- trans_air_mass_rel(sol_elevation)
-  ma <- trans_air_mass_abs(mr, pressure)
+  ma <- trans_air_mass_abs(mr, p)
   trans_total <- data.frame(rayleigh = trans_rayleigh(ma),
                             ozone = trans_ozone(mr, oz),
                             vapor = trans_vapor(mr, pw),

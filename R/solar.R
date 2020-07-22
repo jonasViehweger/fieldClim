@@ -1,10 +1,11 @@
 #' Eccentricity
 #'
-#' Calculate the eccentricity.
+#' Calculates the eccentricity.
 #'
-#' @param datetime POSIXt object (POSIXct, POSIXlt)
+#' @param datetime POSIXt object (POSIXct, POSIXlt).
+#' See \link[base]{as.Posixlt} and \link[base]{strptime} for conversion.
 #'
-#' @return Eccentricity at the date
+#' @return Eccentricity at the date.
 #' @export
 #'
 sol_eccentricity <- function(datetime) {
@@ -14,7 +15,7 @@ sol_eccentricity <- function(datetime) {
   }
 
   # day of year
-  doy <- strftime(datetime, format = "%j")
+  doy <- as.numeric(strftime(datetime, format = "%j"))
 
   x <- 2.*pi*(doy-1)/365.
   exz <- 1.00011+0.034221*cos(x)+0.00128*sin(x)+0.000719*cos(2*x)+0.000719*sin(2.*x)
@@ -26,10 +27,11 @@ sol_eccentricity <- function(datetime) {
 #' Calculates solar azimuth and solar elevation angle.
 #'
 #' @param datetime POSIXt object (POSIXct, POSIXlt).
+#' See \link[base]{as.Posixlt} and \link[base]{strptime} for conversion.
 #' @param lat Latitude in decimal degrees.
 #' @param lon Longitude in decimal degrees.
 #'
-#' @return data.frame with two columns: sol_azimuth and sol_elevation
+#' @return data.frame with two columns: sol_azimuth and sol_elevation.
 #' @export
 #'
 sol_angles <- function(datetime, lat, lon){
@@ -39,7 +41,7 @@ sol_angles <- function(datetime, lat, lon){
   }
 
   # day of year
-  doy <- strftime(datetime, format = "%j")
+  doy <- as.numeric(strftime(datetime, format = "%j"))
   # decimal hour
   lt <- as.POSIXlt(datetime)
   ut <- lt$hour + lt$min/60 + lt$sec/3600
@@ -61,11 +63,15 @@ sol_angles <- function(datetime, lat, lon){
   sde <- sin(23.44*f)*sin(del)     #  In Radiant
   #---------------------------Sonnenh?he
   shh <- sin(gbr)*sde+cos(gbr)*cos(asin(sde))*cos(h)
-  #---------------------------Sonnenazimut
-  saz <- (sde*cos(gbr)-cos(asin(sde))*sin(gbr)*cos(h))/cos(shh)
-  saz <- ifelse(t <=12, acos(saz), 360*f-acos(saz))
-  saz_deg <- saz/f
   sh <- asin(shh)/f
+  #---------------------------Sonnenazimut
+  saz <- (sde*cos(gbr)-cos(asin(sde))*sin(gbr)*cos(h))/cos((sh*f))
+
+  saz_2 <- rep(NA, length(saz))
+  saz_2[t<=12] <- acos(saz)
+  saz_2[t>12] <- 360*f-acos(saz)
+
+  saz_deg <- saz_2/f
   results <- data.frame(sol_azimuth = saz_deg,
                         sol_elevation = sh)
   return(results)
@@ -73,7 +79,10 @@ sol_angles <- function(datetime, lat, lon){
 
 #' Solar elevation angle
 #'
-#' @param datetime POSIXt object (POSIXct, POSIXlt)
+#' Calculates solar elevation angle for the given date and time.
+#'
+#' @param datetime POSIXt object (POSIXct, POSIXlt).
+#' See \link[base]{as.Posixlt} and \link[base]{strptime} for conversion.
 #' @param lat Latitude in decimal degrees.
 #' @param lon Longitude in decimal degrees.
 #'
@@ -88,6 +97,8 @@ sol_elevation <- function(datetime, lat, lon) {
 
 #' Solar azimuth angle
 #'
+#' Calculates solar azimuth angle for the given date and time.
+#'
 #' @param datetime POSIXt object (POSIXct, POSIXlt)
 #' @param lat Latitude in decimal degrees.
 #' @param lon Longitude in decimal degrees.
@@ -95,7 +106,6 @@ sol_elevation <- function(datetime, lat, lon) {
 #' @return Solar azimuth angle in degrees.
 #' @export
 #'
-#' @examples
 sol_azimuth <- function(datetime, lat, lon) {
   angles <- sol_angles(datetime, lat, lon)
   return(angles$sol_azimuth)
