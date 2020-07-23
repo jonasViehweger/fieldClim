@@ -123,7 +123,6 @@ monthly_climate <- function(data,
   #Sensible Heat using Bowen Method
   sensible_bowen <- sensible_bowen(t1,t2,hum1,hum2,p1,p2,z1,z2,rad_bal,soil_flux)
 
-
   #### Creation of output dataframe
   out <- data.frame(datetime = datetime,
                     z1 = z1,
