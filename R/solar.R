@@ -69,8 +69,8 @@ sol_angles <- function(datetime, lat, lon){
 
   saz_2 <- rep(NA, length(saz))
   for(i in 1:length(saz_2)){
-    if(t[i]<=12){saz_2[i] <- acos(saz)}
-    if(t[i]>12){saz_2[i] <- 360*f-acos(saz)}
+    if(t[i]<=12){saz_2[i] <- acos(saz[i])}
+    if(t[i]>12){saz_2[i] <- 360*f-acos(saz[i])}
   }
   saz_deg <- saz_2/f
   results <- data.frame(sol_azimuth = saz_deg,
