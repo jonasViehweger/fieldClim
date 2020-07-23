@@ -8,22 +8,23 @@ monthly_climate <- function(data,
                             v2,
                             hum1,
                             hum2,
-                            rad_bal = NULL,
+                            p = NULL,
+                            rad_bal = NULL, #if NULL -> will be calculated, albedo needed
+                            albedo = NULL, #needed, if radiation balance is unknown an shall be calulated
+                            slope = NULL, #if not NULL, the rad_bal with topography will be calculated
+                            valley = F,
+                            surface_type = "Wiese",  #climate station caldern
+                            obs_height = 0.3,
                             soil_flux = NULL,
                             depth1 = NULL, #needed when soil_flux unknown
                             depth2 = NULL, #needed when soil_flux unknown
                             moisture = NULL, #needed when soil_flux unknown
                             texture = NULL, #needed when soil_flux unknown
-                            p = NULL,
-                            elev = 270,
-                            lat = 8.683303333333333,
-                            alt = 50.84050277777778,
-                            surface_type = "Acker",
-                            obs_height = 0.3,
-                            albedo,
-                            slope = NULL, #if not NULL, the rad_bal with topography will be calculated
-                            valley = F
+                            elev = 270, #climate station caldern
+                            lat = 8.683303333333333, #climate station caldern
+                            alt = 50.84050277777778 #climate station caldern
                             ){
+  datetime <- data[,datetime]
   t1 <- data[,t1]
   t2 <- data[,t2]
   v1 <- data[,v1]
@@ -34,6 +35,8 @@ monthly_climate <- function(data,
   soil_flux <- data[,soil_flux]
   hum1 <- data[,hum1]
   hum2 <- data[,hum2]
+  p = data[,p]
+  albedo = data[,albedo]
 
   #pressure
   if(is.null(p)){p1 <- pres_p((elev+z1),t1)}
@@ -59,34 +62,35 @@ monthly_climate <- function(data,
   stability <- turb_flux_stability(grad_rich_no)
 
   #Monin-Obhukov-Length ##in Ausgabe
-  monin <- turb_flux_monin(stability,z1,z2,z0,v1,v2,t1,t2,ustar)
+  monin <- turb_flux_monin(grad_rich_no,z1,z2,z0,v1,v2,t1,t2)
 
   #exchange quotient
-  ex_quotient <- turb_flux_ex_quotient_imp(stability,ustar,monin,z1,air_density)
+  ex_quotient <- turb_flux_ex_quotient_imp(grad_rich_no,ustar,monin,z1,air_density)
 
   #turbulent impulse exchange ##in Ausgabe
   turb_flux <- turb_flux_imp_exchange(ex_quotient,v1,v2,z1,z2)
 
   ### Caclulation of radiances
   #calculation of radiation balance, if unknown
-  rad_sw_toa <- rad_sw_toa(datetime,lat,lon)
-  sol_elevation <- sol_elevation(datetime,lat,lon)
-  trans_total <- trans_total(sol_elevation,t1,elev,pressure = p)
-  rad_sw_ground_horizontal <- rad_sw_ground_horizontal(rad_sw_toa, trans_total)
-  rad_sw_reflected <- rad_sw_reflected(rad_sw_ground_horizontal, albedo)
-  sol_azimuth <- sol_azimuth(datetime,lat,lon)
-
-  #shortwave radiation balance
-  rad_sw_radiation_balance <- rad_sw_radiation_balance(rad_sw_ground_horizontal,rad_sw_reflected)
-
-  emissivity_surface <- surface_properties[which(as.character(surface_properties$surface_type)==surface_type),]$emissivity
-  rad_lw_surface <- rad_lw_surface(t1,emissivity_surface)
-
-  emissivity_air <- rad_emissivity_air(t1,elev,p1)
-  rad_lw_atmospheric <- rad_lw_atmospheric(emissivity_air,t1)
-
-  #total radiation balance (without topography)
   if(is.null(radbal)){
+    rad_sw_toa <- rad_sw_toa(datetime,lat,lon)
+    sol_elevation <- sol_elevation(datetime,lat,lon)
+    trans_total <- trans_total(sol_elevation,t1,elev,pressure = p)
+    rad_sw_ground_horizontal <- rad_sw_ground_horizontal(rad_sw_toa, trans_total)
+    rad_sw_reflected <- rad_sw_reflected(rad_sw_ground_horizontal, albedo)
+    sol_azimuth <- sol_azimuth(datetime,lat,lon)
+
+    #shortwave radiation balance
+    rad_sw_radiation_balance <- rad_sw_radiation_balance(rad_sw_ground_horizontal,rad_sw_reflected)
+
+    emissivity_surface <- surface_properties[which(as.character(surface_properties$surface_type)==surface_type),]$emissivity
+    rad_lw_surface <- rad_lw_surface(t1,emissivity_surface)
+
+    emissivity_air <- rad_emissivity_air(t1,elev,p1)
+    rad_lw_atmospheric <- rad_lw_atmospheric(emissivity_air,t1)
+
+    #total radiation balance (without topography)
+
     radbal <- rad_bal_total(rad_sw_radiation_balance,rad_lw_surface,rad_lw_atmospheric)
   }
 
@@ -153,10 +157,63 @@ monthly_climate <- function(data,
                     latent_heat_priestly_taylor <-latent_priestly_taylor,
                     sensible_heat_penman <-sensible_penman,
                     latent_heat_penman <-latent_penman,
-                    sensible_heat_bowben <-sensible_bowen,
+                    sensible_heat_bowen <-sensible_bowen,
                     latent_heat_bowen <-latent_bowen,
                     sensible_heat_monin <-sensible_monin,
                     latent_heat_monin <-latent_monin
                     )
+  colnames(out) <- c("height_lower[m]",
+                     "height_upper[m]",
+                     "temperature_lower[C°]",
+                     "temperature_upper[C°]",
+                     "wind_speed_lower[m/s]",
+                     "wind_speed_upper[m/s]",
+                     "pressure_lower[hPa]",
+                     "pressure_upper[hPa]",
+                     "humidity_lower[%]",
+                     "humidity_upper[%]",
+                     "atmospheric_stability",
+                     "soil_flux[W/m²]",
+                     "shortwave_radiation_balance[W/m²]",
+                     "longwave_radiation_balance[W/m²]",
+                     "total_radiation_balance[W/m²]",
+                     "turbulent_flux[kg/(m*s)]",
+                     "sensible_heat[W/m^2]_Priestly-Taylor",
+                     "latent_heat[W/m^2]_Priestly-Taylor",
+                     "sensible_heat[W/m^2]_Penman",
+                     "latent_heat[W/m^2]_Penman",
+                     "sensible_heat[W/m^2]_Bowen",
+                     "latent_heat[W/m^2]_Bowen",
+                     "sensible_heat[W/m^2]_Monin",
+                     "latent_heat[W/m^2]_Monin")
   return(out)
 }
+
+data <- read.csv("D:/Studium/Geländeklimatologie/Testdaten/CaldernWiese_2018.csv")
+data <- data[c(1:7225),] #january
+test <- monthly_climate(data = data,
+                        datetime = "datetime",
+                        t1 = "Ta_2m",
+                        t2 = "Ta_10m",
+                        z1 = 2,
+                        z2 = 10,
+                        v1 = "Windspeed_2m",
+                        v2 = "Windspeed_10m",
+                        hum1 = "Huma_2m",
+                        hum2 = "Huma_10m",
+                        p = "P",
+                        rad_bal = "rad_net",
+                        albedo = NULL,
+                        slope = NULL,
+                        valley = F,
+                        surface_type = "Wiese",
+                        obs_height = 0.3,
+                        soil_flux = "heatflux_soil",
+                        depth1 = NULL,
+                        depth2 = NULL,
+                        moisture = NULL,
+                        texture = NULL,
+                        elev = 270,
+                        lat = 8.683303333333333,
+                        alt = 50.84050277777778
+                        )
