@@ -70,12 +70,12 @@ monthly_climate <- function(data,
   v2 <- as.numeric(data[,v2])
   rad_bal <- as.numeric(data[,rad_bal])
   sw_bal <- as.numeric(data[,sw_bal])
-  sw_bal <- as.numeric(data[,lw_bal])
+  lw_bal <- as.numeric(data[,lw_bal])
   soil_flux <- as.numeric(data[,soil_flux])
   hum1 <- as.numeric(data[,hum1])
   hum2 <- as.numeric(data[,hum2])
 
-  if (!is.null(albedo)){
+  if(!is.null(albedo)){
     albedo <- data[,albedo]
   }
 
@@ -172,8 +172,8 @@ monthly_climate <- function(data,
 
   #### Creation of output dataframe
   out <- data.frame(datetime = datetime,
-                    z1 = z1,
-                    z2 = z2,
+                    v1 = v1,
+                    v2 = v2,
                     t1 = t1,
                     t2 = t2,
                     v1 = v1,
@@ -188,15 +188,16 @@ monthly_climate <- function(data,
                     lw_radiation_balance = lw_bal,
                     total_radiation_balance = rad_bal,
                     turbulent_flux = turb_flux,
-                    sensible_heat_priestly_taylor <- sensible_priestley_taylor,
-                    latent_heat_priestly_taylor <-latent_priestley_taylor,
-                    latent_heat_penman <-latent_penman,
-                    sensible_heat_bowen <-sensible_bowen,
-                    latent_heat_bowen <-latent_bowen,
-                    sensible_heat_monin <-sensible_monin,
-                    latent_heat_monin <-latent_monin
+                    sensible_heat_priestly_taylor = sensible_priestley_taylor,
+                    latent_heat_priestly_taylor = latent_priestley_taylor,
+                    latent_heat_penman = latent_penman,
+                    sensible_heat_bowen = sensible_bowen,
+                    latent_heat_bowen = latent_bowen,
+                    sensible_heat_monin = sensible_monin,
+                    latent_heat_monin = latent_monin
                     )
-  colnames(out) <- c("height_lower[m]",
+  colnames(out) <- c("datetime",
+                     "height_lower[m]",
                      "height_upper[m]",
                      "temperature_lower[C°]",
                      "temperature_upper[C°]",
