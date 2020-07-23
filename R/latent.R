@@ -15,7 +15,7 @@ latent_priestley_taylor <- function(t, rad_bal, soil_flux){
   sc <- sc(t)
   lamb <- lamb(t)
   alpt <- 1.25
-  QE_TP <- alpt*sc*((-rad_bal-soil_flux)/sc+lamb)
+  QE_TP <- alpt*sc*((-1*rad_bal-soil_flux)/sc+lamb)
   return(QE_TP)
 }
 
@@ -99,8 +99,8 @@ latent_monin <- function(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10,
   s1 <- z1/monin
   busi <- rep(NA, length(grad_rich_no))
   for(i in 1:length(busi)){
-    if(grad_rich_no <= 0){busi[i] <- 0.95*(1-(11.6*s1[i]))^-0.5}
-    if(grad_rich_no > 0){busi[i] <- 0.95+(7.8*s1[i])}
+    if(grad_rich_no[i] <= 0){busi[i] <- 0.95*(1-(11.6*s1[i]))^-0.5}
+    if(grad_rich_no[i] > 0){busi[i] <- 0.95+(7.8*s1[i])}
   }
   QL <- -1*((air_density*lv*k*ustar)/busi)*1*moist_gradient
   return(QL)
@@ -142,5 +142,6 @@ latent_bowen <- function(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10,
 
   # Calculate bowen ratio
   bowen_ratio <- bowen_ratio(t1_pot, dpot, dah)
-  return((-1*(rad_bal)-soil_flux) / (1+bowen_ratio))
+  out <- (-1*(rad_bal)-soil_flux) / (1+bowen_ratio)
+  return(out)
 }

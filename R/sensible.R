@@ -15,7 +15,7 @@ sensible_priestley_taylor <- function(t, rad_bal, soil_flux){
   sc <- sc(t)
   lamb <- lamb(t)
   alpt <- 1.25
-  QH_TP <- ((1-alpt)*sc+lamb)*(-rad_bal-soil_flux)/(sc+lamb)
+  QH_TP <- ((1-alpt)*sc+lamb)*(-1*rad_bal-soil_flux)/(sc+lamb)
   return(QH_TP)
 }
 
@@ -50,8 +50,8 @@ sensible_monin <- function(t1, t2, p1, p2, z1 = 2, z2 = 10,
   air_density <- pres_air_density(p1, t1)
   busi <- rep(NA, length(grad_rich_no))
   for(i in 1:length(busi)){
-    if(grad_rich_no <= 0){busi[i] <- 0.95*(1-(11.6*s1[i]))^-0.5}
-    if(grad_rich_no > 0){busi[i] <- 0.95+(7.8*s1[i])}
+    if(grad_rich_no[i] <= 0){busi[i] <- 0.95*(1-(11.6*s1[i]))^-0.5}
+    if(grad_rich_no[i] > 0){busi[i] <- 0.95+(7.8*s1[i])}
   }
   QH <- -1*((air_density*cp*k*ustar)/busi)*1*t_gradient
   return(QH)
@@ -93,5 +93,6 @@ sensible_bowen <- function(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10,
 
   # Calculate bowen ratio
   bowen_ratio <- bowen_ratio(t1_pot-273.15, dpot, dah)
-  return(((rad_bal*-1)-soil_flux) * (bowen_ratio / (1+bowen_ratio)))
+  out <- ((rad_bal*-1)-soil_flux) * (bowen_ratio / (1+bowen_ratio))
+  return()
 }

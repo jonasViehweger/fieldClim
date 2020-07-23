@@ -70,25 +70,19 @@ monthly_climate <- function(data,
 
   ### Caclulation of radiances
   #calculation of radiation balance, if unknown
+  rad_sw_toa <- rad_sw_toa(datetime,lat,lon)
+  sol_elevation <- sol_elevation(datetime,lat,lon)
+  trans_total <- trans_total(sol_elevation,t1,elev,p = p)
+  rad_sw_ground_horizontal <- rad_sw_ground_horizontal(rad_sw_toa, trans_total$total)
+  rad_sw_reflected <- rad_sw_reflected(rad_sw_ground_horizontal, albedo)
+  sol_azimuth <- sol_azimuth(datetime,lat,lon)
+  rad_sw_radiation_balance <- rad_sw_radiation_balance(rad_sw_ground_horizontal,rad_sw_reflected)
+  emissivity_surface <- surface_properties[which(as.character(surface_properties$surface_type)==surface_type),]$emissivity
+  rad_lw_surface <- rad_lw_surface(t1,emissivity_surface)
+  emissivity_air <- rad_emissivity_air(t1,elev,p1)
+  rad_lw_atmospheric <- rad_lw_atmospheric(emissivity_air,t1)
+  lw_radiation_balance <- rad_lw_surface - rad_lw_atmospheric
   if(is.null(rad_bal)){
-    rad_sw_toa <- rad_sw_toa(datetime,lat,lon)
-    sol_elevation <- sol_elevation(datetime,lat,lon)
-    trans_total <- trans_total(sol_elevation,t1,elev,p = p)
-    rad_sw_ground_horizontal <- rad_sw_ground_horizontal(rad_sw_toa, trans_total$total)
-    rad_sw_reflected <- rad_sw_reflected(rad_sw_ground_horizontal, albedo)
-    sol_azimuth <- sol_azimuth(datetime,lat,lon)
-
-    #shortwave radiation balance
-    rad_sw_radiation_balance <- rad_sw_radiation_balance(rad_sw_ground_horizontal,rad_sw_reflected)
-
-    emissivity_surface <- surface_properties[which(as.character(surface_properties$surface_type)==surface_type),]$emissivity
-    rad_lw_surface <- rad_lw_surface(t1,emissivity_surface)
-
-    emissivity_air <- rad_emissivity_air(t1,elev,p1)
-    rad_lw_atmospheric <- rad_lw_atmospheric(emissivity_air,t1)
-
-    #total radiation balance (without topography)
-
     rad_bal <- rad_bal_total(rad_sw_radiation_balance,rad_lw_surface,rad_lw_atmospheric)
   }
 
@@ -130,8 +124,6 @@ monthly_climate <- function(data,
   sensible_bowen <- sensible_bowen(t1,t2,hum1,hum2,p1,p2,z1,z2,rad_bal,soil_flux)
 
 
-
-
   #### Creation of output dataframe
   out <- data.frame(datetime = datetime,
                     z1 = z1,
@@ -147,13 +139,11 @@ monthly_climate <- function(data,
                     stability_of_atmosphere = stability,
                     soil_flux = soil_flux,
                     sw_radiation_balance = rad_sw_radiation_balance,
-                    lw_radiation_balance = (rad_lw_surface - rad_lw_atmospheric),
+                    lw_radiation_balance = lw_radiation_balance,
                     total_radiation_balance = rad_bal,
-                    total_radiation_balance_with_topo = rad_bal_total_with_topography,
                     turbulent_flux = turb_flux,
-                    sensible_heat_priestly_taylor <-sensible_priestly_taylor,
-                    latent_heat_priestly_taylor <-latent_priestly_taylor,
-                    sensible_heat_penman <-sensible_penman,
+                    sensible_heat_priestly_taylor <- sensible_priestley_taylor,
+                    latent_heat_priestly_taylor <-latent_priestley_taylor,
                     latent_heat_penman <-latent_penman,
                     sensible_heat_bowen <-sensible_bowen,
                     latent_heat_bowen <-latent_bowen,
@@ -178,7 +168,6 @@ monthly_climate <- function(data,
                      "turbulent_flux[kg/(m*s)]",
                      "sensible_heat[W/m^2]_Priestly-Taylor",
                      "latent_heat[W/m^2]_Priestly-Taylor",
-                     "sensible_heat[W/m^2]_Penman",
                      "latent_heat[W/m^2]_Penman",
                      "sensible_heat[W/m^2]_Bowen",
                      "latent_heat[W/m^2]_Bowen",
