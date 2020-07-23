@@ -7,7 +7,8 @@
 rad_sw_toa(datetime, lat, lon)
 }
 \arguments{
-\item{datetime}{Date and time as POSIX type (see strptime() for conversion)}
+\item{datetime}{Date and time as POSIX type.
+See \code{\link[base:as.POSIXlt]{base::as.POSIXlt()}} and \link[base:strptime]{base::strptime} for conversion.}
 
 \item{lat}{Latitude of the place of the climate station in decimal degrees.}
 

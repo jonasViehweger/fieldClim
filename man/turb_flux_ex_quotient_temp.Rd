@@ -4,10 +4,10 @@
 \alias{turb_flux_ex_quotient_temp}
 \title{Exchange quotient for heat transmission}
 \usage{
-turb_flux_ex_quotient_temp(stability, ustar, monin, z1, air_density)
+turb_flux_ex_quotient_temp(grad_rich_no, ustar, monin, z1, air_density)
 }
 \arguments{
-\item{stability}{Stability of atmosphere. One of "stabil", "neutral" or "instabil".}
+\item{grad_rich_no}{Gradient-Richardson-Number.}
 
 \item{ustar}{Friction velocity in m/s.}
 

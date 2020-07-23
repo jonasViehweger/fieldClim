@@ -4,12 +4,12 @@
 \alias{soil_heat_flux}
 \title{Soil heat flux}
 \usage{
-soil_heat_flux(t1, t2, depth1, depth2, thermal_cond)
+soil_heat_flux(ts1, ts2, depth1, depth2, thermal_cond)
 }
 \arguments{
-\item{t1}{Upper soil temperature (closest to the surface) in degrees C.}
+\item{ts1}{Upper soil temperature (closest to the surface) in degrees C.}
 
-\item{t2}{Lower soil temperature in degrees C.}
+\item{ts2}{Lower soil temperature in degrees C.}
 
 \item{depth1}{Depth of upper measurement (closest to the surface) in m.}
 

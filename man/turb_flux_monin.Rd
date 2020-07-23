@@ -4,10 +4,10 @@
 \alias{turb_flux_monin}
 \title{Monin-Obhukov-Length}
 \usage{
-turb_flux_monin(stability, z1 = 2, z2 = 10, z0, v1, v2, t1, t2)
+turb_flux_monin(grad_rich_no, z1 = 2, z2 = 10, z0, v1, v2, t1, t2)
 }
 \arguments{
-\item{stability}{Stability of atmosphere.}
+\item{grad_rich_no}{Gradient-Richardson-Number.}
 
 \item{z1}{Lower height of measurement (e.g. height of anemometer) in m.}
 

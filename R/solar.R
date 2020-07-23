@@ -27,7 +27,7 @@ sol_eccentricity <- function(datetime) {
 #' Calculates solar azimuth and solar elevation angle.
 #'
 #' @param datetime POSIXt object (POSIXct, POSIXlt).
-#' See [base::as.POSIXlt()] and [base::strptime] for conversion.
+#' See \code{\link[base:as.POSIX*]{as.POSIXlt}} and [base::strptime] for conversion.
 #' @param lat Latitude in decimal degrees.
 #' @param lon Longitude in decimal degrees.
 #'

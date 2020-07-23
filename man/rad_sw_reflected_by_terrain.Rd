@@ -11,7 +11,8 @@ rad_sw_reflected_by_terrain(
   sol_azimuth,
   exposition = 0,
   rad_sw_ground_horizontal,
-  albedo
+  albedo,
+  trans_total
 )
 }
 \arguments{

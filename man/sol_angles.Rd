@@ -8,7 +8,7 @@ sol_angles(datetime, lat, lon)
 }
 \arguments{
 \item{datetime}{POSIXt object (POSIXct, POSIXlt).
-See \link[base]{as.Posixlt} and \link[base]{strptime} for conversion.}
+See \code{\link[base:as.POSIX*]{as.POSIXlt}} and \link[base:strptime]{base::strptime} for conversion.}
 
 \item{lat}{Latitude in decimal degrees.}
 
