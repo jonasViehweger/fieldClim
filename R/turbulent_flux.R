@@ -3,7 +3,7 @@
 #' Calculation of the Monin-Obhukov-Length.
 #' Stability of atmosphere needs to be given as one of "stabil", "neutral" or "unstabil".
 #'
-#' @param stability Stability of atmosphere.
+#' @param grad_rich_no Gradient-Richardson-Number.
 #' @param z1 Lower height of measurement (e.g. height of anemometer) in m.
 #' @param z2 Upper height of measurement in m.
 #' @param z0 Roughness length in m.
@@ -16,12 +16,12 @@
 #' @return Monin-Obhukov-Length in m.
 #' @export
 #'
-turb_flux_monin <- function(stability, z1 = 2, z2 = 10, z0, v1, v2, t1, t2){
+turb_flux_monin <- function(grad_rich_no, z1 = 2, z2 = 10, z0, v1, v2, t1, t2){
   ustar <- turb_ustar(v1,z1,z0)
-  monin <- rep(NA, length(stability))
-  monin[stability == "labil"] <- (z1*(t1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(t2-t1)/(z2-z1))
-  monin[stability == "neutral"] <- 0.75*(z1*(t1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(t2-t1)/(z2-z1))
-  monin[stability == "stabil"] <- 4.7*ustar*log(z1/z0)*(z1-z0)/(v1*0.4)
+  monin <- rep(NA, length(grad_rich_no))
+  monin[grad_rich_no < 0] <- (z1*(t1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(t2-t1)/(z2-z1))
+  monin[grad_rich_no == 0] <- 0.75*(z1*(t1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(t2-t1)/(z2-z1))
+  monin[grad_rich_no > 0] <- 4.7*ustar*log(z1/z0)*(z1-z0)/(v1*0.4)
   return(monin)
 }
 
@@ -59,6 +59,7 @@ turb_flux_grad_rich_no <- function(t1, t2, z1 = 2, z2 = 10, v1, v2, p1, p2){
 #' @export
 #'
 turb_flux_stability <- function(grad_rich_no){
+  stability <- rep(NA, length(grad_rich_no))
   stability[grad_rich_no < 0] <- "labil"
   stability[grad_rich_no == 0] <- "neutral"
   stability[grad_rich_no > 0] <- "stabil"
@@ -69,7 +70,7 @@ turb_flux_stability <- function(grad_rich_no){
 #'
 #' Calculation of the exchange quotient of the turbulent heat transmission.
 #'
-#' @param stability Stability of atmosphere. One of "stabil", "neutral" or "instabil".
+#' @param grad_rich_no Gradient-Richardson-Number.
 #' @param ustar Friction velocity in m/s.
 #' @param monin Monin-Obhukov-Length in m.
 #' @param z1 Height in m.
@@ -79,9 +80,10 @@ turb_flux_stability <- function(grad_rich_no){
 #' @export
 #'
 turb_flux_ex_quotient_temp <- function(stability, ustar, monin, z1, air_density){
-  ex[stability == "labil"] <- (0.4*ustar*z1/(0.74*(1-9*z1/monin)**(-0.5)))*air_density
-  ex[stability == "stabil"] <- (0.4*ustar*z1/(0.74+4.7*z1/monin))*air_density
-  ex[stability == "neutral"] <- NA
+  ex <- rep(NA, length(grad_rich_no))
+  ex[grad_rich_no < 0] <- (0.4*ustar*z1/(0.74*(1-9*z1/monin)**(-0.5)))*air_density
+  ex[grad_rich_no == 0] <- (0.4*ustar*z1/(0.74+4.7*z1/monin))*air_density
+  ex[grad_rich_no > 0] <- NA
   return(ex)
 }
 
@@ -89,7 +91,7 @@ turb_flux_ex_quotient_temp <- function(stability, ustar, monin, z1, air_density)
 #'
 #' Calculation of the exchange quotient of the turbulent impulse transmission.
 #'
-#' @param stability Stability of atmosphere. One of "stabil", "neutral" or "instabil".
+#' @param grad_rich_no Gradient-Richardson-Number.
 #' @param ustar Friction velocity in m/s.
 #' @param monin Monin-Obhukov-Length in m.
 #' @param z1 Height in m.
@@ -98,10 +100,11 @@ turb_flux_ex_quotient_temp <- function(stability, ustar, monin, z1, air_density)
 #' @return Exchange quotient for impulse transmission in kg/(m*s).
 #' @export
 #'
-turb_flux_ex_quotient_imp <- function(stability, ustar, monin, z1, air_density){
-  ex[stability == "labil"] <- (0.4*ustar*z1/((1-15*z1/monin)**(-0.25)))*air_density
-  ex[stability == "stabil"] <- (0.4*ustar*monin/4.7)*air_density
-  ex[stability == "neutral"] <- (0.4*ustar*z1)*air_density
+turb_flux_ex_quotient_imp <- function(grad_rich_no, ustar, monin, z1, air_density){
+  ex <- rep(NA, length(grad_rich_no))
+  ex[grad_rich_no < 0] <- (0.4*ustar*z1/((1-15*z1/monin)**(-0.25)))*air_density
+  ex[grad_rich_no == 0] <- (0.4*ustar*monin/4.7)*air_density
+  ex[grad_rich_no > 0] <- (0.4*ustar*z1)*air_density
   return(ex)
 }
 

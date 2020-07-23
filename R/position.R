@@ -47,10 +47,10 @@ pos_min_dist <- function(obs_width, obs_height, ring = F, obs_radius = NULL){
 pos_max_dist <- function(dist, obs_width, obs_height, ring = F){
   if(ring == T){
     if(dist < 15*obs_height){
-      message("The climate station is postioned well.")
+      return("The climate station is postioned well.")
     }else{
       max_dist <- 15*obs_height
-      message(paste("The climate station is positioned too far from the obstacle. It needs to be placed in a position, that is closer than", max_dist, "m from the obstacle."))
+      return(paste("The climate station is positioned too far from the obstacle. It needs to be placed in a position, that is closer than", max_dist, "m from the obstacle."))
     }
   }
   #else, if climate station is positioned behind a forest:
@@ -58,19 +58,19 @@ pos_max_dist <- function(dist, obs_width, obs_height, ring = F){
     #check if height > width
     if(obs_height > obs_width){
       if(dist < 15*obs_width){
-        message("The climate station is postioned close enough to the obstacle.")
+        return("The climate station is postioned well.")
       }else{
         max_dist <- round(15*obs_width, digits = 2)
-        message(paste("The climate station is positioned too far from the obstacle. It needs to be placed in a position, that is closer than", max_dist, "m from the obstacle."))
+        return(paste("The climate station is positioned too far from the obstacle. It needs to be placed in a position, that is closer than", max_dist, "m from the obstacle."))
       }
     }
     #check if height < width
     else if(obs_height < obs_width){
       if(dist < 15*obs_height){
-        message("The climate station is postioned close enough to the obstacle")
+        return("The climate station is postioned well.")
       }else{
         max_dist <- round(15*obs_height, digits = 2)
-        message(paste("The climate station is positioned too far from the obstacle. It needs to be placed in a position, that is closer than", max_dist, "m from the obstacle."))}
+        return(paste("The climate station is positioned too far from the obstacle. It needs to be placed in a position, that is closer than", max_dist, "m from the obstacle."))}
     }
   }
 }
@@ -89,10 +89,10 @@ pos_max_dist <- function(dist, obs_width, obs_height, ring = F){
 #'
 pos_anemometer_height <- function(dist, min_dist, obs_height){
   if(dist >= min_dist){
-    message("The climate station is positioned beyond the needed minimum distance. It is not required to change the height of the anemometer.")
+    return("The climate station is positioned beyond the needed minimum distance. It is not required to change the height of the anemometer.")
   }
   if(dist < min_dist){
-    repos <- obs_height*(min_dist-dist)/min_dist
-    message(paste("The climate station is positioned too close to the obstacle. It needs to repositioned", repos, "m higher."))
+    repos <- round(obs_height*(min_dist-dist)/min_dist, 2)
+    return(paste("The climate station is positioned too close to the obstacle. It needs to repositioned", repos, "m higher."))
   }
 }

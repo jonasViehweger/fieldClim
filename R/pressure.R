@@ -9,7 +9,7 @@
 #' @export
 #'
 pres_p <- function(elev, t){
-  t <- t1+273.15   # von ?c in K
+  t <- t+273.15   # von ?c in K
   p0 <- 1013.25    # Standardruck in hPa
   g <- 9.81
   rl <- 287.05
@@ -29,6 +29,6 @@ pres_p <- function(elev, t){
 #' @export
 #'
 pres_air_density <- function(p, t){
-  ad <- p/(287.05*t)
+  ad <- (p*100)/(287.05*(t+273.15))
   return(ad)
 }

@@ -6,7 +6,7 @@ ah <- 10             # Messhoehe
 h <- 1.2   # Obstacle height in m
 vh <- 1.2  # Vegetation height in m
 v <- 3.5   # wind velocity
-z0 <- 0.92 # roughness length
+z0 <- 0.12 # roughness length
 rh1 <- 89     # Relative Humidity Hoehe 1
 rh2 <- 88     # Relative Humidity Hoehe 2
 
