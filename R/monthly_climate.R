@@ -10,6 +10,8 @@ monthly_climate <- function(data,
                             hum2,
                             p = NULL,
                             rad_bal = NULL, #if NULL -> will be calculated, albedo needed
+                            sw_bal = NULL, #if NULL -> will be calculated, albedo needed
+                            lw_bal = NULL, #if NULL -> tough luck, won't be calculated
                             albedo = NULL, #needed, if radiation balance is unknown an shall be calulated
                             slope = NULL, #if not NULL, the rad_bal with topography will be calculated
                             valley = F,
@@ -32,6 +34,8 @@ monthly_climate <- function(data,
   v1 <- data[,v1]
   v2 <- data[,v2]
   rad_bal <- data[,rad_bal]
+  sw_bal <- data[,sw_bal]
+  sw_bal <- data[,lw_bal]
   soil_flux <- data[,soil_flux]
   hum1 <- data[,hum1]
   hum2 <- data[,hum2]
@@ -85,13 +89,13 @@ monthly_climate <- function(data,
     rad_sw_ground_horizontal <- rad_sw_ground_horizontal(rad_sw_toa, trans_total$total)
     rad_sw_reflected <- rad_sw_reflected(rad_sw_ground_horizontal, albedo)
     sol_azimuth <- sol_azimuth(datetime,lat,lon)
-    rad_sw_radiation_balance <- rad_sw_radiation_balance(rad_sw_ground_horizontal,rad_sw_reflected)
+    sw_bal <- rad_sw_radiation_balance(rad_sw_ground_horizontal,rad_sw_reflected)
     emissivity_surface <- surface_properties[which(as.character(surface_properties$surface_type)==surface_type),]$emissivity
     rad_lw_surface <- rad_lw_surface(t1,emissivity_surface)
     emissivity_air <- rad_emissivity_air(t1,elev,p1)
     rad_lw_atmospheric <- rad_lw_atmospheric(emissivity_air,t1)
-    lw_radiation_balance <- rad_lw_surface - rad_lw_atmospheric
-    rad_bal <- rad_bal_total(rad_sw_radiation_balance,rad_lw_surface,rad_lw_atmospheric)
+    lw_bal <- rad_lw_surface - rad_lw_atmospheric
+    rad_bal <- rad_bal_total(sw_bal,rad_lw_surface,rad_lw_atmospheric)
   }
 
   #total radiation balance with topography
@@ -145,8 +149,8 @@ monthly_climate <- function(data,
                     hum2 = hum2,
                     stability_of_atmosphere = stability,
                     soil_flux = soil_flux,
-                    sw_radiation_balance = rad_sw_radiation_balance,
-                    lw_radiation_balance = lw_radiation_balance,
+                    sw_radiation_balance = sw_bal,
+                    lw_radiation_balance = lw_bal,
                     total_radiation_balance = rad_bal,
                     turbulent_flux = turb_flux,
                     sensible_heat_priestly_taylor <- sensible_priestley_taylor,
