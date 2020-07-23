@@ -1,3 +1,38 @@
+#' Monthly climate, you know
+#'
+#' @param data
+#' @param datetime
+#' @param t1
+#' @param t2
+#' @param z1
+#' @param z2
+#' @param v1
+#' @param v2
+#' @param hum1
+#' @param hum2
+#' @param p
+#' @param rad_bal
+#' @param sw_bal
+#' @param lw_bal
+#' @param albedo
+#' @param slope
+#' @param valley
+#' @param surface_type
+#' @param obs_height
+#' @param soil_flux
+#' @param depth1
+#' @param depth2
+#' @param ts1
+#' @param ts2
+#' @param moisture
+#' @param texture
+#' @param elev
+#' @param lat
+#' @param lon
+#'
+#' @return
+#' @export
+#'
 monthly_climate <- function(data,
                             datetime,
                             t1,
@@ -29,16 +64,16 @@ monthly_climate <- function(data,
                             lon = 50.84050277777778 #climate station caldern
                             ){
   datetime <- data[,datetime]
-  t1 <- data[,t1]
-  t2 <- data[,t2]
-  v1 <- data[,v1]
-  v2 <- data[,v2]
-  rad_bal <- data[,rad_bal]
-  sw_bal <- data[,sw_bal]
-  sw_bal <- data[,lw_bal]
-  soil_flux <- data[,soil_flux]
-  hum1 <- data[,hum1]
-  hum2 <- data[,hum2]
+  t1 <- as.numeric(data[,t1])
+  t2 <- as.numeric(data[,t2])
+  v1 <- as.numeric(data[,v1])
+  v2 <- as.numeric(data[,v2])
+  rad_bal <- as.numeric(data[,rad_bal])
+  sw_bal <- as.numeric(data[,sw_bal])
+  sw_bal <- as.numeric(data[,lw_bal])
+  soil_flux <- as.numeric(data[,soil_flux])
+  hum1 <- as.numeric(data[,hum1])
+  hum2 <- as.numeric(data[,hum2])
 
   if (!is.null(albedo)){
     albedo <- data[,albedo]
