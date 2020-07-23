@@ -18,6 +18,8 @@ monthly_climate <- function(data,
                             soil_flux = NULL,
                             depth1 = NULL, #needed when soil_flux unknown
                             depth2 = NULL, #needed when soil_flux unknown
+                            ts1 = NULL,
+                            ts2 = NULL,
                             moisture = NULL, #needed when soil_flux unknown
                             texture = "clay", #needed when soil_flux unknown
                             elev = 270, #climate station caldern
@@ -33,12 +35,18 @@ monthly_climate <- function(data,
   soil_flux <- data[,soil_flux]
   hum1 <- data[,hum1]
   hum2 <- data[,hum2]
-  p = data[,p]
-  albedo = data[,albedo]
+
+  if (!is.null(albedo)){
+    albedo <- data[,albedo]
+  }
 
   #pressure
-  if(is.null(p)){p1 <- pres_p((elev+z1),t1)}
-  else if(is.null(p)==F){p1 <- p}
+  if (is.null(p)){
+    p1 <- pres_p((elev+z1),t1)
+  } else {
+    p <- data[,p]
+    p1 <- p
+  }
   p2 <- pres_p((elev+z2),t2)
 
   #air density
@@ -68,38 +76,38 @@ monthly_climate <- function(data,
   #turbulent impulse exchange ##in Ausgabe
   turb_flux <- turb_flux_imp_exchange(ex_quotient,v1,v2,z1,z2)
 
-  ### Caclulation of radiances
-  #calculation of radiation balance, if unknown
-  rad_sw_toa <- rad_sw_toa(datetime,lat,lon)
-  sol_elevation <- sol_elevation(datetime,lat,lon)
-  trans_total <- trans_total(sol_elevation,t1,elev,p = p)
-  rad_sw_ground_horizontal <- rad_sw_ground_horizontal(rad_sw_toa, trans_total$total)
-  rad_sw_reflected <- rad_sw_reflected(rad_sw_ground_horizontal, albedo)
-  sol_azimuth <- sol_azimuth(datetime,lat,lon)
-  rad_sw_radiation_balance <- rad_sw_radiation_balance(rad_sw_ground_horizontal,rad_sw_reflected)
-  emissivity_surface <- surface_properties[which(as.character(surface_properties$surface_type)==surface_type),]$emissivity
-  rad_lw_surface <- rad_lw_surface(t1,emissivity_surface)
-  emissivity_air <- rad_emissivity_air(t1,elev,p1)
-  rad_lw_atmospheric <- rad_lw_atmospheric(emissivity_air,t1)
-  lw_radiation_balance <- rad_lw_surface - rad_lw_atmospheric
   if(is.null(rad_bal)){
+    ### Caclulation of radiances
+    #calculation of radiation balance, if unknown
+    rad_sw_toa <- rad_sw_toa(datetime,lat,lon)
+    sol_elevation <- sol_elevation(datetime,lat,lon)
+    trans_total <- trans_total(sol_elevation,t1,elev,p = p)
+    rad_sw_ground_horizontal <- rad_sw_ground_horizontal(rad_sw_toa, trans_total$total)
+    rad_sw_reflected <- rad_sw_reflected(rad_sw_ground_horizontal, albedo)
+    sol_azimuth <- sol_azimuth(datetime,lat,lon)
+    rad_sw_radiation_balance <- rad_sw_radiation_balance(rad_sw_ground_horizontal,rad_sw_reflected)
+    emissivity_surface <- surface_properties[which(as.character(surface_properties$surface_type)==surface_type),]$emissivity
+    rad_lw_surface <- rad_lw_surface(t1,emissivity_surface)
+    emissivity_air <- rad_emissivity_air(t1,elev,p1)
+    rad_lw_atmospheric <- rad_lw_atmospheric(emissivity_air,t1)
+    lw_radiation_balance <- rad_lw_surface - rad_lw_atmospheric
     rad_bal <- rad_bal_total(rad_sw_radiation_balance,rad_lw_surface,rad_lw_atmospheric)
   }
 
   #total radiation balance with topography
-  if(is.null(slope)==F){
+  if(!is.null(slope)){
     rad_sw_reflected_by_terrain <- rad_sw_reflected_by_terrain(slope,valley,sol_elevation,sol_azimuth,exposition = 0,rad_sw_ground_horizontal,albedo)
     terr_sky_view <- terr_sky_view(slope,valley)
     rad_bal_total_with_topography <- rad_bal_total_with_topography(rad_sw_reflected_by_terrain, rad_lw_surface,rad_lw_atmospheric,terr_sky_view)
+  } else if(is.null(slope)){
+    rad_bal_total_with_topography <- NULL
   }
-  else if(is.null(slope)){rad_bal_total_with_topography <- NULL}
-
-  ### Caclulation of latent and sensible heat fluxes
-  #cakculation of soil_flux, if unknown
-  thermal_cond <- soil_thermal_cond(moisture,texture)
 
   if(is.null(soil_flux)){
-    soil_flux <- soil_heat_flux(t1,t2,depth1,depth2, thermal_cond)
+    ### Caclulation of latent and sensible heat fluxes
+    #cakculation of soil_flux, if unknown
+    thermal_cond <- soil_thermal_cond(moisture, texture)
+    soil_flux <- soil_heat_flux(ts1, ts2, depth1, depth2, thermal_cond)
   }
 
   #Latent Heat Priestley-Taylor Method

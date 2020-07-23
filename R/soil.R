@@ -61,8 +61,8 @@ soil_heat_cap <- function(moisture, texture = "sand") {
 #'
 #' Negative values signify flux towards the atmosphere, positive values signify flux into the soil.
 #'
-#' @param t1 Upper soil temperature (closest to the surface) in degrees C.
-#' @param t2 Lower soil temperature in degrees C.
+#' @param ts1 Upper soil temperature (closest to the surface) in degrees C.
+#' @param ts2 Lower soil temperature in degrees C.
 #' @param depth1 Depth of upper measurement (closest to the surface) in m.
 #' @param depth2 Depth of lower measurement in m.
 #' @param thermal_cond Thermal conductivity of soil in W/m K.
@@ -70,7 +70,7 @@ soil_heat_cap <- function(moisture, texture = "sand") {
 #' @return Soil heat flux in W*m^-2.
 #' @export
 #'
-soil_heat_flux <- function(t1, t2, depth1, depth2, thermal_cond) {
+soil_heat_flux <- function(ts1, ts2, depth1, depth2, thermal_cond) {
   if (any(thermal_cond < 0)){
     warning("Negative thermal_cond values will be converted to NA.")
     thermal_cond[thermal_cond < 0] <- NA
