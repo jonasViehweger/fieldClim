@@ -190,28 +190,4 @@ monthly_climate <- function(data,
 }
 
 
-data <- read.csv("D:/Studium/Geländeklimatologie/Testdaten/CaldernWiese_2018.csv")
-data <- data[c(1:7225),] #january
-data$datetime <- as.POSIXct(data$datetime)
-
-test <- monthly_climate(data = data,
-                        datetime = "datetime",
-                        t1 = "Ta_2m",
-                        t2 = "Ta_10m",
-                        z1 = 2,
-                        z2 = 10,
-                        v1 = "Windspeed_2m",
-                        v2 = "Windspeed_10m",
-                        hum1 = "Huma_2m",
-                        hum2 = "Huma_10m",
-                        p = "P",
-                        rad_bal = "rad_net",
-                        surface_type = "Wiese",
-                        obs_height = 0.3,
-                        soil_flux = "heatflux_soil",
-                        elev = 270,
-                        lat = 8.683303333333333,
-                        alt = 50.84050277777778
-)
-
 
