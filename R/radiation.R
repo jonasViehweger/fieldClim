@@ -174,7 +174,7 @@ rad_sw_reflected_by_terrain <- function(slope, valley = F,
 #' @export
 #'
 rad_bal_total <-function(rad_sw_radiation_balance, rad_lw_surface, rad_lw_atmospheric){
-  radbil <- rad_sw_radiation_balance - (rad_lw_surface - rad_lw_atmospheric)
+  radbil <- rad_sw_radiation_balance - (rad_lw_surface-rad_lw_atmospheric)
   return(radbil)
 }
 
