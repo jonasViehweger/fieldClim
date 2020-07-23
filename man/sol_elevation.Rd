@@ -8,7 +8,7 @@ sol_elevation(datetime, lat, lon)
 }
 \arguments{
 \item{datetime}{POSIXt object (POSIXct, POSIXlt).
-See \code{\link[base:as.POSIXlt]{base::as.POSIXlt()}} and \link[base:strptime]{base::strptime} for conversion.}
+See \link[base:as.POSIXlt]{base::as.POSIXlt} and \link[base:strptime]{base::strptime} for conversion.}
 
 \item{lat}{Latitude in decimal degrees.}
 

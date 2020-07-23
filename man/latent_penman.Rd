@@ -7,7 +7,8 @@
 latent_penman(datetime, v, t, hum, z = 2, rad_bal, elev, lat, lon)
 }
 \arguments{
-\item{datetime}{POSIXt object (POSIXct, POSIXlt).}
+\item{datetime}{POSIXt object (POSIXct, POSIXlt).
+See \link[base:as.POSIXlt]{base::as.POSIXlt} and \link[base:strptime]{base::strptime} for conversion.}
 
 \item{v}{Wind velocity in m/s.}
 

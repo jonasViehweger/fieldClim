@@ -27,6 +27,7 @@ latent_priestley_taylor <- function(t, rad_bal, soil_flux){
 #' towards the surface.
 #'
 #' @param datetime POSIXt object (POSIXct, POSIXlt).
+#' See [base::as.POSIXlt] and [base::strptime] for conversion.
 #' @param v Wind velocity in m/s.
 #' @param t Temperature in degrees C
 #' @param hum Relative humidity in %.
