@@ -48,7 +48,7 @@ latent_penman <- function(datetime,
   }
 
   # day of year
-  doy <- strftime(datetime, format = "%j")
+  doy <- as.numeric(strftime(datetime, format = "%j"))
   # decimal hour
   lt <- as.POSIXlt(datetime)
   ut <- lt$hour + lt$min/60 + lt$sec/3600
