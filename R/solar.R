@@ -68,9 +68,10 @@ sol_angles <- function(datetime, lat, lon){
   saz <- (sde*cos(gbr)-cos(asin(sde))*sin(gbr)*cos(h))/cos((sh*f))
 
   saz_2 <- rep(NA, length(saz))
-  saz_2[t<=12] <- acos(saz)
-  saz_2[t>12] <- 360*f-acos(saz)
-
+  for(i in 1:length(saz_2)){
+    if(t[i]<=12){saz_2[i] <- acos(saz)}
+    if(t[i]>12){saz_2[i] <- 360*f-acos(saz)}
+  }
   saz_deg <- saz_2/f
   results <- data.frame(sol_azimuth = saz_deg,
                         sol_elevation = sh)
