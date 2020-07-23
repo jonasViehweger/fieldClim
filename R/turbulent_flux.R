@@ -19,9 +19,22 @@
 turb_flux_monin <- function(grad_rich_no, z1 = 2, z2 = 10, z0, v1, v2, t1, t2){
   ustar <- turb_ustar(v1,z1,z0)
   monin <- rep(NA, length(grad_rich_no))
-  monin[grad_rich_no < 0] <- (z1*(t1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(t2-t1)/(z2-z1))
-  monin[grad_rich_no == 0] <- 0.75*(z1*(t1+273-15)*(((v2-v1)/(z2-z1))**2))/(9.81*(t2-t1)/(z2-z1))
-  monin[grad_rich_no > 0] <- 4.7*ustar*log(z1/z0)*(z1-z0)/(v1*0.4)
+  df <- cbind(grad_rich_no, v1, v2, t1, t2)
+  v1u <- df[which(df[,1] <= -0.05),1]
+  v2u <-df[which(df[,1] <= -0.05),2]
+  t1u <- df[which(df[,1] <= -0.05),3]
+  t2u <- df[which(df[,1] <= -0.05),4]
+  v1n <- df[which(df[,1] > -0.05 && df[,1] < 0.05),1]
+  v2n <- df[which(df[,1] > -0.05 && df[,1] < 0.05),2]
+  t1n <- df[which(df[,1] > -0.05 && df[,1] < 0.05),3]
+  t2n <- df[which(df[,1] > -0.05 && df[,1] < 0.05),4]
+  v1s <- df[which(df[,1] >= 0.05),1]
+  v2s <- df[which(df[,1] >= 0.05),2]
+  t1s <- df[which(df[,1] >= 0.05),3]
+  t2s <- df[which(df[,1]>= 0.05),4]
+  monin[grad_rich_no <= -0.05] <- (z1*(t1u+273-15)*(((v2u-v1u)/(z2-z1))**2))/(9.81*(t2u-t1u)/(z2-z1))
+  monin[grad_rich_no > -0.05 && grad_rich_no < 0.05] <- 0.75*(z1*(t1n+273-15)*(((v2n-v1n)/(z2-z1))**2))/(9.81*(t2n-t1n)/(z2-z1))
+  monin[grad_rich_no >= 0.05] <- 4.7*ustar*log(z1/z0)*(z1-z0)/(v1s*0.4)
   return(monin)
 }
 
@@ -60,9 +73,9 @@ turb_flux_grad_rich_no <- function(t1, t2, z1 = 2, z2 = 10, v1, v2, p1, p2){
 #'
 turb_flux_stability <- function(grad_rich_no){
   stability <- rep(NA, length(grad_rich_no))
-  stability[grad_rich_no < 0] <- "labil"
-  stability[grad_rich_no == 0] <- "neutral"
-  stability[grad_rich_no > 0] <- "stabil"
+  stability[grad_rich_no <= -0.05] <- "unstable"
+  stability[grad_rich_no > -0.05 && grad_rich_no < 0.05] <- "neutral"
+  stability[grad_rich_no >= 0.05] <- "stable"
   return(stability)
 }
 
@@ -79,11 +92,11 @@ turb_flux_stability <- function(grad_rich_no){
 #' @return Exchange quotient for heat transmission in kg/(m*s).
 #' @export
 #'
-turb_flux_ex_quotient_temp <- function(stability, ustar, monin, z1, air_density){
+turb_flux_ex_quotient_temp <- function(grad_rich_no, ustar, monin, z1, air_density){
   ex <- rep(NA, length(grad_rich_no))
-  ex[grad_rich_no < 0] <- (0.4*ustar*z1/(0.74*(1-9*z1/monin)**(-0.5)))*air_density
-  ex[grad_rich_no == 0] <- (0.4*ustar*z1/(0.74+4.7*z1/monin))*air_density
-  ex[grad_rich_no > 0] <- NA
+  ex[grad_rich_no <= -0.05] <- (0.4*ustar*z1u/(0.74*(1-9*z1u/monin)**(-0.5)))*air_density
+  ex[grad_rich_no > -0.05 && grad_rich_no < 0.05] <- (0.4*ustar*z1n/(0.74+4.7*z1n/monin))*air_density
+  ex[grad_rich_no >= 0.05] <- NA
   return(ex)
 }
 
@@ -102,9 +115,9 @@ turb_flux_ex_quotient_temp <- function(stability, ustar, monin, z1, air_density)
 #'
 turb_flux_ex_quotient_imp <- function(grad_rich_no, ustar, monin, z1, air_density){
   ex <- rep(NA, length(grad_rich_no))
-  ex[grad_rich_no < 0] <- (0.4*ustar*z1/((1-15*z1/monin)**(-0.25)))*air_density
-  ex[grad_rich_no == 0] <- (0.4*ustar*monin/4.7)*air_density
-  ex[grad_rich_no > 0] <- (0.4*ustar*z1)*air_density
+  ex[grad_rich_no <= -0.05] <- (0.4*ustar*z1u/((1-15*z1u/monin)**(-0.25)))*air_density
+  ex[grad_rich_no > -0.05 && grad_rich_no < 0.05] <- (0.4*ustar*monin/4.7)*air_density
+  ex[grad_rich_no >= 0.05] <- (0.4*ustar*z1s)*air_density
   return(ex)
 }
 

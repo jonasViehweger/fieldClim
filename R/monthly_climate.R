@@ -19,7 +19,7 @@ monthly_climate <- function(data,
                             depth1 = NULL, #needed when soil_flux unknown
                             depth2 = NULL, #needed when soil_flux unknown
                             moisture = NULL, #needed when soil_flux unknown
-                            texture = NULL, #needed when soil_flux unknown
+                            texture = "clay", #needed when soil_flux unknown
                             elev = 270, #climate station caldern
                             lat = 8.683303333333333, #climate station caldern
                             alt = 50.84050277777778 #climate station caldern
@@ -72,7 +72,7 @@ monthly_climate <- function(data,
 
   ### Caclulation of radiances
   #calculation of radiation balance, if unknown
-  if(is.null(radbal)){
+  if(is.null(rad_bal)){
     rad_sw_toa <- rad_sw_toa(datetime,lat,lon)
     sol_elevation <- sol_elevation(datetime,lat,lon)
     trans_total <- trans_total(sol_elevation,t1,elev,pressure = p)
@@ -91,7 +91,7 @@ monthly_climate <- function(data,
 
     #total radiation balance (without topography)
 
-    radbal <- rad_bal_total(rad_sw_radiation_balance,rad_lw_surface,rad_lw_atmospheric)
+    rad_bal <- rad_bal_total(rad_sw_radiation_balance,rad_lw_surface,rad_lw_atmospheric)
   }
 
   #total radiation balance with topography
@@ -111,25 +111,25 @@ monthly_climate <- function(data,
   }
 
   #Latent Heat Priestley-Taylor Method
-  latent_priestley_taylor <- latent_priestley_taylor(t1,radbal,soil_flux)
+  latent_priestley_taylor <- latent_priestley_taylor(t1,rad_bal,soil_flux)
 
   #Latent Heat Penman Method
-  latent_penman <- latent_penman(datetime,v1,t1,hum1,z1,radbal,elev,lat)
+  latent_penman <- latent_penman(datetime,v1,t1,hum1,z1,rad_bal,elev,lat,lon)
 
   #Latent Heat using Monin-Obukhov length
   latent_monin <- latent_monin(hum1,hum2,t1,t2,p1,p2,z1,z2)
 
   #Latent Heat using Bowen Method
-  latent_bowen <- latent_bowen(t1,t2,hum1,hum2,p1,p2,z1,z2,radbal,soil_flux)
+  latent_bowen <- latent_bowen(t1,t2,hum1,hum2,p1,p2,z1,z2,rad_bal,soil_flux)
 
   #Sensible Heat Priestley-Taylor Method
-  sensible_priestley_taylor <- sensible_priestley_taylor(t1,radbal,soil_flux)
+  sensible_priestley_taylor <- sensible_priestley_taylor(t1,rad_bal,soil_flux)
 
   #Sensible Heat using Monin-Obukhov length
   sensible_monin <- sensible_monin(t1,t2,p1,p2,z1,z2,monin,ustar,grad_rich_no)
 
   #Sensible Heat using Bowen Method
-  sensible_bowen <- sensible_bowen(t1,t2,hum1,hum2,p1,p2,z1,z2,radbal,soil_flux)
+  sensible_bowen <- sensible_bowen(t1,t2,hum1,hum2,p1,p2,z1,z2,rad_bal,soil_flux)
 
 
 
@@ -150,7 +150,7 @@ monthly_climate <- function(data,
                     soil_flux = soil_flux,
                     sw_radiation_balance = rad_sw_radiation_balance,
                     lw_radiation_balance = (rad_lw_surface - rad_lw_atmospheric),
-                    total_radiation_balance = radbal,
+                    total_radiation_balance = rad_bal,
                     total_radiation_balance_with_topo = rad_bal_total_with_topography,
                     turbulent_flux = turb_flux,
                     sensible_heat_priestly_taylor <-sensible_priestly_taylor,
@@ -189,8 +189,11 @@ monthly_climate <- function(data,
   return(out)
 }
 
+
 data <- read.csv("D:/Studium/Geländeklimatologie/Testdaten/CaldernWiese_2018.csv")
 data <- data[c(1:7225),] #january
+data$datetime <- as.POSIXct(data$datetime)
+
 test <- monthly_climate(data = data,
                         datetime = "datetime",
                         t1 = "Ta_2m",
@@ -203,17 +206,12 @@ test <- monthly_climate(data = data,
                         hum2 = "Huma_10m",
                         p = "P",
                         rad_bal = "rad_net",
-                        albedo = NULL,
-                        slope = NULL,
-                        valley = F,
                         surface_type = "Wiese",
                         obs_height = 0.3,
                         soil_flux = "heatflux_soil",
-                        depth1 = NULL,
-                        depth2 = NULL,
-                        moisture = NULL,
-                        texture = NULL,
                         elev = 270,
                         lat = 8.683303333333333,
                         alt = 50.84050277777778
-                        )
+)
+
+
