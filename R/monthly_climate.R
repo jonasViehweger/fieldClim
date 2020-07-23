@@ -74,7 +74,7 @@ monthly_climate <- function(data,
     rad_sw_toa <- rad_sw_toa(datetime,lat,lon)
     sol_elevation <- sol_elevation(datetime,lat,lon)
     trans_total <- trans_total(sol_elevation,t1,elev,p = p)
-    rad_sw_ground_horizontal <- rad_sw_ground_horizontal(rad_sw_toa, trans_total)
+    rad_sw_ground_horizontal <- rad_sw_ground_horizontal(rad_sw_toa, trans_total$total)
     rad_sw_reflected <- rad_sw_reflected(rad_sw_ground_horizontal, albedo)
     sol_azimuth <- sol_azimuth(datetime,lat,lon)
 
@@ -112,8 +112,7 @@ monthly_climate <- function(data,
   latent_priestley_taylor <- latent_priestley_taylor(t1,rad_bal,soil_flux)
 
   #Latent Heat Penman Method
-  #latent_penman <- latent_penman(datetime,v1,t1,hum1,z1,rad_bal,elev,lat,lon)
-  latent_penman <- NULL
+  latent_penman <- latent_penman(datetime,v1,t1,hum1,z1,rad_bal,elev,lat,lon)
 
   #Latent Heat using Monin-Obukhov length
   latent_monin <- latent_monin(hum1,hum2,t1,t2,p1,p2,z1,z2,monin,ustar,grad_rich_no)

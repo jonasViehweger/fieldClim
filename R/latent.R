@@ -63,7 +63,7 @@ latent_penman <- function(datetime,
                                 elev=elev)
 
   lv <- hum_evap_heat(t)  # Spezifische Verdunstungsw?rme
-  QE_PM <- lv*(water::hourlyET(WeatherStation, hours=ut, DOY=doy, long.z=long)/3600)*(-1)
+  QE_PM <- lv*(water::hourlyET(WeatherStation, hours=ut, DOY=doy, long.z=lon)/3600)*(-1)
   return(QE_PM)
 }
 
