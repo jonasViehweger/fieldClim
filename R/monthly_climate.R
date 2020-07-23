@@ -172,8 +172,8 @@ monthly_climate <- function(data,
 
   #### Creation of output dataframe
   out <- data.frame(datetime = datetime,
-                    v1 = v1,
-                    v2 = v2,
+                    z1 = z1,
+                    z2 = z2,
                     t1 = t1,
                     t2 = t2,
                     v1 = v1,
