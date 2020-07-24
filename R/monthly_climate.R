@@ -30,7 +30,31 @@
 #' @param lat Latitude of location. Preset: 8.683303333333333 (climate station caldern).
 #' @param lon Longitude of location. Preset: 50.84050277777778 (climate station caldern).
 #'
-#' @return
+#' @return Dataframe containing:
+#' "datetime",
+#' "height_lower[m]",
+#' "height_upper[m]",
+#' "temperature_lower[C°]",
+#' "temperature_upper[C°]",
+#' "wind_speed_lower[m/s]",
+#' "wind_speed_upper[m/s]",
+#' "pressure_lower[hPa]",
+#' "pressure_upper[hPa]",
+#' "humidity_lower[%]",
+#' "humidity_upper[%]",
+#' "atmospheric_stability",
+#' "soil_flux[W/m²]",
+#' "shortwave_radiation_balance[W/m²]",
+#' "longwave_radiation_balance[W/m²]",
+#' "total_radiation_balance[W/m²]",
+#' "turbulent_flux[kg/(m*s)]", "
+#' sensible_heat[W/m^2]_Priestly-Taylor",
+#' "latent_heat[W/m^2]_Priestly-Taylor",
+#' "latent_heat[W/m^2]_Penman",
+#' "sensible_heat[W/m^2]_Bowen",
+#' "latent_heat[W/m^2]_Bowen",
+#' "sensible_heat[W/m^2]_Monin",
+#' "latent_heat[W/m^2]_Monin"
 #' @export
 #'
 monthly_climate <- function(data,

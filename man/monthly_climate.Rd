@@ -96,7 +96,31 @@ monthly_climate(
 \item{lon}{Longitude of location. Preset: 50.84050277777778 (climate station caldern).}
 }
 \value{
-
+Dataframe containing:
+"datetime",
+"height_lower\link{m}",
+"height_upper\link{m}",
+"temperature_lower\link[=CÂ°]{C°}",
+"temperature_upper\link[=CÂ°]{C°}",
+"wind_speed_lower\link{m/s}",
+"wind_speed_upper\link{m/s}",
+"pressure_lower\link{hPa}",
+"pressure_upper\link{hPa}",
+"humidity_lower\link{\%}",
+"humidity_upper\link{\%}",
+"atmospheric_stability",
+"soil_flux\link[=W/mÂ²]{W/m²}",
+"shortwave_radiation_balance\link[=W/mÂ²]{W/m²}",
+"longwave_radiation_balance\link[=W/mÂ²]{W/m²}",
+"total_radiation_balance\link[=W/mÂ²]{W/m²}",
+"turbulent_flux\link{kg/(m*s)}", "
+sensible_heat\link{W/m^2}_Priestly-Taylor",
+"latent_heat\link{W/m^2}_Priestly-Taylor",
+"latent_heat\link{W/m^2}_Penman",
+"sensible_heat\link{W/m^2}_Bowen",
+"latent_heat\link{W/m^2}_Bowen",
+"sensible_heat\link{W/m^2}_Monin",
+"latent_heat\link{W/m^2}_Monin"
 }
 \description{
 Monthly climate, you know
