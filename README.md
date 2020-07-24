@@ -6,9 +6,9 @@ Installation and example of usage:
   * you can now use the *monthly_climate* function (for usage see *?monthly_climate()*)
   
 Example
-data_complete <- read.csv("yourdata.csv") /break
-data_january <- data_complete[c(1:7225),] #january /break
-data_january$datetime <- as.POSIXlt(data_january$datetime) /break
+data_complete <- read.csv("yourdata.csv") <br />
+data_january <- data_complete[c(1:7225),] #january <br />
+data_january$datetime <- as.POSIXlt(data_january$datetime) <br />
 
 
 exxample <- monthly_climate(data = data_january, /n
