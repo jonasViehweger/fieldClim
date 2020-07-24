@@ -1,34 +1,34 @@
 #' Monthly climate, you know
 #'
-#' @param data
-#' @param datetime
-#' @param t1
-#' @param t2
-#' @param z1
-#' @param z2
-#' @param v1
-#' @param v2
-#' @param hum1
-#' @param hum2
-#' @param p
-#' @param rad_bal
-#' @param sw_bal
-#' @param lw_bal
-#' @param albedo
-#' @param slope
-#' @param valley
-#' @param surface_type
-#' @param obs_height
-#' @param soil_flux
-#' @param depth1
-#' @param depth2
-#' @param ts1
-#' @param ts2
-#' @param moisture
-#' @param texture
-#' @param elev
-#' @param lat
-#' @param lon
+#' @param data Input data as a dataframe.
+#' @param datetime Name of datetime-coloumn in data. Form: Character string. NOTE: datetime needs to be converted POSIXlt-Format (see ?as.POSIXlt)
+#' @param t1 Name of the coloumn in data, which contains lower temperature data. Form: Character string.
+#' @param t2 Name of the coloumn in data, which contains upper temperature data. Form: Character string.
+#' @param z1 Lower measurement height in m. Preset: 2m.
+#' @param z2 Upper measurement height in m. Preset: 2m.
+#' @param v1 Name of the coloumn in data, which contains lower wind speed data. Form: Character string.
+#' @param v2 Name of the coloumn in data, which contains upper wind speed data. Form: Character string.
+#' @param hum1 Name of the coloumn in data, which contains lower humidity data. Form: Character string.
+#' @param hum2 Name of the coloumn in data, which contains upper humidity data. Form: Character string.
+#' @param p Name of the coloumn in data, which contains lower pressure data. Form: Character string. Preset: NULL. Note: If NULL, pressure will be calculated.
+#' @param rad_bal Name of the coloumn in data, which contains total radiation balance. Form: Character string. Preset: NULL. Note: If NULL, rad_bal will be calculated (Albedo needed).
+#' @param sw_bal Name of the coloumn in data, which contains shortwave radiation balance. Form: Character string. Preset: NULL. Note: If NULL, sw_bal will be calculated (Albedo needed).
+#' @param lw_bal Name of the coloumn in data, which contains longwave radiation balance. Form: Character string. Preset: NULL. Note: If NULL, lw_bal will be calculated (Albedo needed).
+#' @param albedo Name of the coloumn in data, which contains albedo. Form: Character string. Preset: NULL. Note: Only needed, if radiation balances shall be calculated.
+#' @param slope Slope of hillside in %. Form: Integer or Numeric. Preset: NULL.
+#' @param valley TRUE, if climate station is positioned in a valley. Form: Boolean. Preset: FALSE.
+#' @param surface_type Surface Type. Form: Character string. One of: "Wiese", "Acker", "Gruenflaeche", "Strasse", "Landwirtschaft", "Siedlung", "Nadelwald", "Laubwald", "Mischwald", "Stadt". Preset: "Wiese.
+#' @param obs_height Height of vegetation in m. Preset: 0.3.
+#' @param soil_flux Name of the coloumn in data, which contains soil flux. Form: Character string. Preset: NULL. Note: If NULL, soil_flux will be calculated.
+#' @param depth1 Upper depth of measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
+#' @param depth2 Lower depth of measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
+#' @param ts1 Name of the coloumn in data, which contains upper ground temperature data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
+#' @param ts2 Name of the coloumn in data, which contains lower ground temperature data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
+#' @param moisture Name of the coloumn in data, which ground moisture data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
+#' @param texture Texture of ground. Form: Character string. One of: "clay", "sand". Preset: "clay".
+#' @param elev Elevation of location above sea level in m. Preset: 270 m (climate station caldern).
+#' @param lat Latitude of location. Preset: 8.683303333333333 (climate station caldern).
+#' @param lon Longitude of location. Preset: 50.84050277777778 (climate station caldern).
 #'
 #' @return
 #' @export
