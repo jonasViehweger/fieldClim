@@ -45,12 +45,12 @@ test_that("rad_sw_radiation_balance", {
   expect_equal(rad_sw_radiation_balance(496.5168, 74.47752), 422.0393, tolerance = 1e-3)
 })
 
-test_that("rad_sw_reflected_by_terrain", {
-  expect_equal(rad_sw_reflected_by_terrain(slope = slope, valley = F,
+test_that("rad_sw_balance_topography", {
+  expect_equal(rad_sw_balance_topography(slope = slope, valley = F,
                                            sol_elevation, sol_azimuth,
                                            exposition = hex,
                                            rad_sw_ground_horizontal = 496.5168,
-                                           albedo, trans_total = tges), 2.740538, tolerance = 1e-5)
+                                           albedo, trans_total = tges), 214.5225, tolerance = 1e-5)
 })
 
 test_that("rad_bal_total", {
@@ -60,7 +60,7 @@ test_that("rad_bal_total", {
 })
 
 test_that("rad_bal_total_with_topography", {
-  expect_equal(rad_bal_total_with_topography(rad_sw_reflected_by_terrain = 2.740538,
+  expect_equal(rad_bal_total_with_topography(rad_sw_balance_topography = 214.5225,
                                              rad_lw_surface = 371.3726,
                                              rad_lw_atmospheric = 88.50861,
                                              terr_sky_view = 0.9698463), -59.8121, tolerance = 1e-3)

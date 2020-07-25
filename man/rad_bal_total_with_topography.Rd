@@ -5,14 +5,14 @@
 \title{Total radiation balance with topography}
 \usage{
 rad_bal_total_with_topography(
-  rad_sw_reflected_by_terrain,
+  rad_sw_balance_topography,
   rad_lw_surface,
   rad_lw_atmospheric,
   terr_sky_view
 )
 }
 \arguments{
-\item{rad_sw_reflected_by_terrain}{Shortwave radiation balance in dependency of topography in W/m^2.}
+\item{rad_sw_balance_topography}{Shortwave radiation balance in dependency of topography in W/m^2.}
 
 \item{rad_lw_surface}{Longave surface emissions in W/m^2.}
 

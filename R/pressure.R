@@ -9,7 +9,7 @@
 #' @export
 #'
 pres_p <- function(elev, t){
-  t <- t+273.15   # von ?c in K
+  t <- t+273.15   # to Kelvin
   p0 <- 1013.25    # Standardruck in hPa
   g <- 9.81
   rl <- 287.05

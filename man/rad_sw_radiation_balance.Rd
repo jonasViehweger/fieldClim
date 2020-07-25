@@ -9,7 +9,7 @@ rad_sw_radiation_balance(rad_sw_ground_horizontal, rad_sw_reflected)
 \arguments{
 \item{rad_sw_ground_horizontal}{Shortwave radiation on the ground onto a horizontal area in W/m^2.}
 
-\item{rad_sw_reflected}{Reflected shortwave radiance in W/m^2.}
+\item{rad_sw_reflected}{Reflected shortwave ratdiation in W/m^2.}
 }
 \value{
 Shortwave radiation balance in W/m^2.

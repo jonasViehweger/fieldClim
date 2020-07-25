@@ -36,7 +36,7 @@ test_that("turb_flux_monin", {
                                z1, z2, z0,
                                v1, v2,
                                t1, t2),
-               -63.55804, tolerance = 1e-4)
+               -3.210203, tolerance = 1e-4)
 })
 
 

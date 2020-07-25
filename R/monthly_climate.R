@@ -159,9 +159,9 @@ monthly_climate <- function(data,
 
   #total radiation balance with topography
   if(!is.null(slope)){
-    rad_sw_reflected_by_terrain <- rad_sw_reflected_by_terrain(slope,valley,sol_elevation,sol_azimuth,exposition = 0,rad_sw_ground_horizontal,albedo)
+    rad_sw_balance_topography <- rad_sw_balance_topography(slope,valley,sol_elevation,sol_azimuth,exposition = 0,rad_sw_ground_horizontal,albedo)
     terr_sky_view <- terr_sky_view(slope,valley)
-    rad_bal_total_with_topography <- rad_bal_total_with_topography(rad_sw_reflected_by_terrain, rad_lw_surface,rad_lw_atmospheric,terr_sky_view)
+    rad_bal_total_with_topography <- rad_bal_total_with_topography(rad_sw_balance_topography, rad_lw_surface,rad_lw_atmospheric,terr_sky_view)
   } else if(is.null(slope)){
     rad_bal_total_with_topography <- NULL
   }

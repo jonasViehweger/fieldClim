@@ -89,14 +89,14 @@ rad_sw_ground_horizontal <- function(rad_sw_toa, trans_total){
   return(rad_sw_ground_horizontal)
 }
 
-#' Reflected shortwave radiance
+#' Reflected shortwave ratdiation
 #'
-#' Calculation of the reflected shortwave radiance.
+#' Calculation of the reflected shortwave radiation.
 #'
 #' @param rad_sw_ground_horizontal Shortwave radiation on the ground onto a horizontal area in W/m^2.
 #' @param albedo Albedo of the surface.
 #'
-#' @return Reflected shortwave radiance in W/m^2.
+#' @return Reflected shortwave ratdiation in W/m^2.
 #' @export
 #'
 rad_sw_reflected <- function(rad_sw_ground_horizontal, albedo){
@@ -109,7 +109,7 @@ rad_sw_reflected <- function(rad_sw_ground_horizontal, albedo){
 #' Calculation of the shortwave radiation balance.
 #'
 #' @param rad_sw_ground_horizontal Shortwave radiation on the ground onto a horizontal area in W/m^2.
-#' @param rad_sw_reflected Reflected shortwave radiance in W/m^2.
+#' @param rad_sw_reflected Reflected shortwave ratdiation in W/m^2.
 #'
 #' @return Shortwave radiation balance in W/m^2.
 #' @export
@@ -134,7 +134,7 @@ rad_sw_radiation_balance <- function(rad_sw_ground_horizontal, rad_sw_reflected)
 #' @return Shortwave radiation balance in dependency of topography in W/m^2.
 #' @export
 #'
-rad_sw_reflected_by_terrain <- function(slope, valley = F,
+rad_sw_balance_topography <- function(slope, valley = F,
                                         sol_elevation, sol_azimuth,
                                         exposition = 0,
                                         rad_sw_ground_horizontal, albedo,
@@ -146,21 +146,22 @@ rad_sw_reflected_by_terrain <- function(slope, valley = F,
   if(slope > 0) {
     terrain_angle <- (cos(slope*f)*sin(sol_elevation*f)
                       + sin(slope*f)*cos(sol_elevation*f)*cos(sol_azimuth*f
-                      -(exposition*f)))
+                                                              -(exposition*f)))
     rad_sw_topo_direct <- (sol_dir/sin(sol_elevation*f))*terrain_angle
-    }
+  }
   if(slope == 0) {
     rad_sw_topo_direct <- sol_dir
-    }
+  }
   if(terr_sky_view < 1) {
     rad_sw_topo_diffuse <- sol_dif*terr_sky_view
-    }
+  }
   if(terr_sky_view == 1) {
     rad_sw_topo_diffuse <- sol_dif
-    }
-  sol_ter <- (rad_sw_topo_direct + rad_sw_topo_diffuse) * albedo * (1-terr_sky_view)
-  return(sol_ter)
   }
+  sol_ter <- (rad_sw_topo_direct + rad_sw_topo_diffuse) * albedo * (1-terr_sky_view)
+  sol_bal_topo <- (rad_sw_topo_direct - rad_sw_topo_diffuse) + sol_ter
+  return(sol_bal_topo)
+}
 
 #' Total radiation balance
 #'
@@ -183,7 +184,7 @@ rad_bal_total <-function(rad_sw_radiation_balance, rad_lw_surface, rad_lw_atmosp
 #'
 #' Calculates the total radiation balance with topography.
 #'
-#' @param rad_sw_reflected_by_terrain Shortwave radiation balance in dependency of topography in W/m^2.
+#' @param rad_sw_balance_topography Shortwave radiation balance in dependency of topography in W/m^2.
 #' @param rad_lw_surface Longave surface emissions in W/m^2.
 #' @param rad_lw_atmospheric Atmospheric radiation in W/m^2.
 #' @param terr_sky_view Sky view factor from 0-1.
@@ -191,14 +192,15 @@ rad_bal_total <-function(rad_sw_radiation_balance, rad_lw_surface, rad_lw_atmosp
 #' @return Total radiation balance with topography in W/m^2.
 #' @export
 #'
-rad_bal_total_with_topography <- function(rad_sw_reflected_by_terrain,
+rad_bal_total_with_topography <- function(rad_sw_balance_topography,
                                           rad_lw_surface,
                                           rad_lw_atmospheric,
                                           terr_sky_view){
-  radbil_topo <- (rad_sw_reflected_by_terrain
-                  - (rad_lw_surface
-                     - (rad_lw_atmospheric*terr_sky_view
-                        + rad_lw_surface*(1-terr_sky_view))))
-  return(radbil_topo)
+  # Longwave component:
+  G_topo <- rad_lw_atmospheric*terr_sky_view + rad_lw_surface*(1-terr_sky_view)
+  lw_bal_topo <- rad_lw_surface - G_topo
+
+  rad_bal_topo <- rad_sw_balance_topography - lw_bal_topo
+  return(rad_bal_topo)
 }
 
