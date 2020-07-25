@@ -97,7 +97,7 @@ latent_monin <- function(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10,
   air_density <- pres_air_density(p1, t1)
   lv <- hum_evap_heat(t1)
   k <- 0.4
-  s1 <- z1/monin
+  s1 <- z2/monin
   busi <- rep(NA, length(grad_rich_no))
   for(i in 1:length(busi)){
     if(grad_rich_no[i] <= 0){busi[i] <- 0.95*(1-(11.6*s1[i]))^-0.5}
@@ -142,7 +142,7 @@ latent_bowen <- function(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10,
   dah <- (af2-af1) / (z2-z1)
 
   # Calculate bowen ratio
-  bowen_ratio <- bowen_ratio(t1_pot, dpot, dah)
+  bowen_ratio <- bowen_ratio(t1_pot-273.15, dpot, dah)
   out <- (-1*rad_bal-soil_flux) / (1+bowen_ratio)
   return(out)
 }

@@ -42,7 +42,7 @@ sensible_monin <- function(t1, t2, p1, p2, z1 = 2, z2 = 10,
                            monin, ustar, grad_rich_no) {
   cp <- 1004.834
   k <- 0.4
-  s1 <- z1/monin
+  s1 <- z2/monin
 
   # Temperature gradient
   t_gradient <- (temp_pot_temp(t2, p1)-temp_pot_temp(t1, p2)) / log(z2-z1)
