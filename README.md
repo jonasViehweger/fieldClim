@@ -1,5 +1,5 @@
 # fieldClim
-Alpha-Version of fieldClim package. <br />
+Alpha-Version of fieldClim package.
 Installation and example of usage:
   * `devtools::install_github("jonasViehweger/fieldClim")`
   * `library(fieldClim)`
@@ -7,28 +7,28 @@ Installation and example of usage:
   
 Example
 
-    data_complete <- read.csv("yourdata.csv") <br />
-    data_january <- data_complete[c(1:7225),] #january <br />
-    data_january$datetime <- as.POSIXlt(data_january$datetime) <br />
+    data_complete <- read.csv("yourdata.csv")
+    data_january <- data_complete[c(1:7225),] #january
+    data_january$datetime <- as.POSIXlt(data_january$datetime)
 
 
-    example <- monthly_climate(data = data_january, <br />
-                            datetime = "datetime", <br />
-                            t1 = "Ta_2m", <br />
-                            t2 = "Ta_10m", <br />
-                            z1 = 2, <br />
-                            z2 = 10, <br />
-                            v1 = "Windspeed_2m", <br />
-                            v2 = "Windspeed_10m", <br />
-                            hum1 = "Huma_2m", <br />
-                            hum2 = "Huma_10m", <br />
-                            rad_bal = "rad_net", <br />
-                            sw_bal = "RsNet", <br />
-                            lw_bal = "RlNet", <br />
-                            surface_type = "Wiese", <br />
-                            obs_height = 0.3, <br />
-                            soil_flux = "heatflux_soil", <br />
-                            elev = 270, <br />
-                            lat = 8.683303333333333, <br />
-                            lon = 50.84050277777778 <br />
+    example <- monthly_climate(data = data_january,
+                            datetime = "datetime",
+                            t1 = "Ta_2m",
+                            t2 = "Ta_10m",
+                            z1 = 2,
+                            z2 = 10,
+                            v1 = "Windspeed_2m",
+                            v2 = "Windspeed_10m",
+                            hum1 = "Huma_2m",
+                            hum2 = "Huma_10m",
+                            rad_bal = "rad_net",
+                            sw_bal = "RsNet",
+                            lw_bal = "RlNet",
+                            surface_type = "Wiese",
+                            obs_height = 0.3,
+                            soil_flux = "heatflux_soil",
+                            elev = 270,
+                            lat = 8.683303333333333,
+                            lon = 50.84050277777778
                             )
