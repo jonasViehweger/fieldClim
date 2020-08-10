@@ -1,6 +1,7 @@
 # fieldClim
 Alpha-Version of fieldClim package.
 Installation and example of usage:
+  * install package `water` first
   * `devtools::install_github("jonasViehweger/fieldClim")`
   * `library(fieldClim)`
   * you can now use the `monthly_climate()` function (for usage see `?monthly_climate()`)
