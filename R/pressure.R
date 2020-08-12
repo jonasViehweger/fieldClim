@@ -1,17 +1,22 @@
+#' Air pressure
+#'
+#' Calculation of pressure as a function of height.
+#'
+#' @rdname pres_p
+#' @return Pressure in hPa.
+#' @export
+#'
 pres_p <- function (...) {
   UseMethod("pres_p")
 }
 
 
-#' Air pressure
-#'
-#' Calculation of pressure as a function of height.
-#'
+#' @rdname pres_p
+#' @method pres_p weather_station
 #' @param weather_station Object of class weather_station
 #' @param height lower or upper
 #'
 #' @return Pressure in hPa.
-#' @export
 #'
 pres_p.weather_station <- function(weather_station, height){
   if(height=="lower"){
@@ -24,15 +29,13 @@ pres_p.weather_station <- function(weather_station, height){
   return(pres_p(z, t))
 }
 
-#' Air pressure
-#'
-#' Calculation of pressure as a function of height.
-#'
+
+#' @rdname pres_p
+#' @method pres_p numeric
 #' @param elev Elevation above sea level in m.
 #' @param t Temperature in degrees C.
 #'
 #' @return Pressure in hPa.
-#' @export
 #'
 pres_p.numeric <- function(elev, t){
   t <- t+273.15   # to Kelvin
@@ -43,18 +46,22 @@ pres_p.numeric <- function(elev, t){
   return(p)
 }
 
-
-pres_air_density <- function (...) {
-  UseMethod("pres_air_density")
-}
-
 #' Air density
 #'
 #' Calculation of the air density.
 #'
+#' @rdname pres_air_density
+#' @return Air density in kg/m^3.
+#' @export
+#'
+pres_air_density <- function (...) {
+  UseMethod("pres_air_density")
+}
+
 #' @param weather_station Object of class weather_station
 #' @param height "lower" or "upper"
-#'
+#' @rdname pres_air_density
+#' @method pres_air_density weather_station
 #' @return Air density in kg/m^3.
 #' @export
 #'
@@ -70,13 +77,11 @@ pres_air_density.weather_station <- function(weather_station, height){
 }
 
 
-#' Air density
-#'
-#' Calculation of the air density.
-#'
+
 #' @param p Pressure in hPa.
 #' @param t Temperature in degrees C.
-#'
+#' @rdname pres_air_density
+#' @method pres_air_density numeric
 #' @return Air density in kg/m^3.
 #' @export
 #'
