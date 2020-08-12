@@ -4,10 +4,10 @@
 \alias{heat_capacity}
 \title{Volumetric heat capacity}
 \usage{
-heat_capacity(t_pot)
+heat_capacity(t)
 }
 \arguments{
-\item{t_pot}{Potential temperature in Kelvin.}
+\item{t}{Air temperature in degrees C.}
 }
 \value{
 Heat capacity density in J/(K*m^3)

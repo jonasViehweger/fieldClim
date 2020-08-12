@@ -4,10 +4,10 @@
 \alias{bowen_ratio}
 \title{Bowen-ratio}
 \usage{
-bowen_ratio(t_pot, dpot, dah)
+bowen_ratio(t, dpot, dah)
 }
 \arguments{
-\item{t_pot}{Potential temperature (see temp_pot_temp)}
+\item{t}{Air temperature in degrees C.}
 
 \item{dpot}{Difference in potential temperature between the two measurement
 heights in degrees Celsius.}
