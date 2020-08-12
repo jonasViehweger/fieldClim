@@ -3,7 +3,7 @@
 #' Calculation of pressure as a function of height.
 #'
 #' @param climate_station # *climate_station_properties*-element.
-#' @param height# *climate_station_properties*-element.
+#' @param height# # "lower" or "upper"
 #'
 #' @return Pressure in hPa.
 #' @export
@@ -29,7 +29,7 @@ pres_p <- function(climate_station, height){
 #' Calculation of the air density.
 #'
 #' @param climate_station # *climate_station_properties*-element.
-#' @param height # *climate_station_properties*-element.
+#' @param height # "lower" or "upper"
 #'
 #' @return Air density in kg/m^3.
 #' @export
