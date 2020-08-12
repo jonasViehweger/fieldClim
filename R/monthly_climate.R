@@ -27,8 +27,8 @@
 #' @param moisture Name of the coloumn in data, which ground moisture data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
 #' @param texture Texture of ground. Form: Character string. One of: "clay", "sand". Preset: "clay".
 #' @param elev Elevation of location above sea level in m. Preset: 270 m (climate station caldern).
-#' @param lat Latitude of location. Preset: 8.683303333333333 (climate station caldern).
-#' @param lon Longitude of location. Preset: 50.84050277777778 (climate station caldern).
+#' @param lat Latitude of location. Preset: 50.840502777777788.683303333333333 (climate station caldern).
+#' @param lon Longitude of location. Preset: 8.683303333333333 (climate station caldern).
 #'
 #' @return Dataframe containing:
 #' "datetime",
