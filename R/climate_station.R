@@ -59,7 +59,7 @@ build_climate_station <-  function(lat = 50.84050277777778, #climate station cal
                                    hum1,
                                    hum2,
                                    p1 = NULL,
-                                   p2 = NULL
+                                   p2 = NULL,
                                    rad_bal = NULL, #if NULL -> will be calculated, albedo needed
                                    sw_bal = NULL, #if NULL -> will be calculated, albedo needed
                                    lw_bal = NULL, #if NULL -> tough luck, won't be calculated
@@ -67,8 +67,7 @@ build_climate_station <-  function(lat = 50.84050277777778, #climate station cal
                                    soil_flux = NULL,
                                    ts1 = NULL,
                                    ts2 = NULL,
-                                   moisture = NULL #needed when soil_flux unknown
-){
+                                   moisture = NULL){ #needed when soil_flux unknown
   out_list <- list(climate_station_location_properties = list(latitude = lat,
                                                               longitude = lon,
                                                               elevation = elev,

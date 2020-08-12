@@ -39,83 +39,61 @@ monthly_climate(
 \arguments{
 \item{data}{Input data as a dataframe.}
 
-\item{datetime}{Name of datetime-column in data.
-Form: Character string. NOTE: datetime needs to be convertedto POSIX-Format
-(see \link[base:as.POSIXlt]{base::as.POSIXlt} or \link[base:strptime]{base::strptime})}
+\item{datetime}{Name of datetime-coloumn in data. Form: Character string. NOTE: datetime needs to be converted POSIXlt-Format (see ?as.POSIXlt)}
 
-\item{t1}{Name of the column in data, which contains lower temperature data in degrees C.
-Form: Character string.}
+\item{t1}{Name of the coloumn in data, which contains lower temperature data. Form: Character string.}
 
-\item{t2}{Name of the column in data, which contains upper temperature data in degrees C.
-Form: Character string.}
+\item{t2}{Name of the coloumn in data, which contains upper temperature data. Form: Character string.}
 
 \item{z1}{Lower measurement height in m. Preset: 2m.}
 
 \item{z2}{Upper measurement height in m. Preset: 2m.}
 
-\item{v1}{Name of the column in data, which contains lower wind speed data in m/s.
-Form: Character string.}
+\item{v1}{Name of the coloumn in data, which contains lower wind speed data. Form: Character string.}
 
-\item{v2}{Name of the column in data, which contains upper wind speed data in m/s.
-Form: Character string.}
+\item{v2}{Name of the coloumn in data, which contains upper wind speed data. Form: Character string.}
 
-\item{hum1}{Name of the column in data, which contains lower humidity data in \%.
-Form: Character string.}
+\item{hum1}{Name of the coloumn in data, which contains lower humidity data. Form: Character string.}
 
-\item{hum2}{Name of the column in data, which contains upper humidity data in \%.
-Form: Character string.}
+\item{hum2}{Name of the coloumn in data, which contains upper humidity data. Form: Character string.}
 
-\item{p}{Name of the column in data, which contains lower pressure data in hPa.
-Form: Character string. Preset: NULL. Note: If NULL, pressure will be estimated using elevation and temperature.}
+\item{p}{Name of the coloumn in data, which contains lower pressure data. Form: Character string. Preset: NULL. Note: If NULL, pressure will be calculated.}
 
-\item{rad_bal}{Name of the column in data, which contains total radiation balance in W/m^2.
-Form: Character string. Preset: NULL. Note: If NULL, rad_bal will be calculated (Albedo needed).}
+\item{rad_bal}{Name of the coloumn in data, which contains total radiation balance. Form: Character string. Preset: NULL. Note: If NULL, rad_bal will be calculated (Albedo needed).}
 
-\item{sw_bal}{Name of the column in data, which contains shortwave radiation balance in W/m^2.
-Form: Character string. Preset: NULL. Note: If NULL, sw_bal will be calculated (Albedo needed).}
+\item{sw_bal}{Name of the coloumn in data, which contains shortwave radiation balance. Form: Character string. Preset: NULL. Note: If NULL, sw_bal will be calculated (Albedo needed).}
 
-\item{lw_bal}{Name of the column in data, which contains longwave radiation balance in W/m^2.
-Form: Character string. Preset: NULL. Note: If NULL, lw_bal will be estimated}
+\item{lw_bal}{Name of the coloumn in data, which contains longwave radiation balance. Form: Character string. Preset: NULL. Note: If NULL, lw_bal will be calculated (Albedo needed).}
 
-\item{albedo}{Albedo value of the surface.
-Form: Numeric value between 0 and 1. Preset: NULL. Note: Only needed, if radiation balances shall be calculated.}
+\item{albedo}{Name of the coloumn in data, which contains albedo. Form: Character string. Preset: NULL. Note: Only needed, if radiation balances shall be calculated.}
 
 \item{slope}{Slope of hillside in \%. Form: Integer or Numeric. Preset: NULL.}
 
-\item{valley}{TRUE, if climate station is positioned in a valley.
-Form: Boolean. Preset: FALSE.}
+\item{valley}{TRUE, if climate station is positioned in a valley. Form: Boolean. Preset: FALSE.}
 
-\item{surface_type}{Surface Type.
-Form: Character string. One of: "Wiese", "Acker", "Gruenflaeche", "Strasse",
-"Landwirtschaft", "Siedlung", "Nadelwald", "Laubwald", "Mischwald", "Stadt". Preset: "Wiese.}
+\item{surface_type}{Surface Type. Form: Character string. One of: "Wiese", "Acker", "Gruenflaeche", "Strasse", "Landwirtschaft", "Siedlung", "Nadelwald", "Laubwald", "Mischwald", "Stadt". Preset: "Wiese.}
 
 \item{obs_height}{Height of vegetation in m. Preset: 0.3.}
 
-\item{soil_flux}{Name of the column in data, which contains soil flux in W/m^2.
-Form: Character string. Preset: NULL. Note: If NULL, soil_flux will be calculated.}
+\item{soil_flux}{Name of the coloumn in data, which contains soil flux. Form: Character string. Preset: NULL. Note: If NULL, soil_flux will be calculated.}
 
-\item{depth1}{Upper depth of measurment in m.
-Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{depth1}{Upper depth of measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 
-\item{depth2}{Lower depth of measurment in m.
-Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{depth2}{Lower depth of measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 
-\item{ts1}{Name of the column in data, which contains upper ground temperature data in degrees C.
-Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{ts1}{Name of the coloumn in data, which contains upper ground temperature data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 
-\item{ts2}{Name of the column in data, which contains lower ground temperature data in degrees C.
-Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{ts2}{Name of the coloumn in data, which contains lower ground temperature data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 
-\item{moisture}{Name of the column in data, which contains ground moisture data in Vol\%.
-Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{moisture}{Name of the coloumn in data, which ground moisture data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 
 \item{texture}{Texture of ground. Form: Character string. One of: "clay", "sand". Preset: "clay".}
 
 \item{elev}{Elevation of location above sea level in m. Preset: 270 m (climate station caldern).}
 
-\item{lat}{Latitude of location. Preset: 8.683303333333333 (climate station caldern).}
+\item{lat}{Latitude of location. Preset: 50.840502777777788.683303333333333 (climate station caldern).}
 
-\item{lon}{Longitude of location. Preset: 50.84050277777778 (climate station caldern).}
+\item{lon}{Longitude of location. Preset: 8.683303333333333 (climate station caldern).}
 }
 \value{
 Dataframe containing:
