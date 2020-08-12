@@ -1,4 +1,4 @@
-#' Climate Station Properties
+#' Climate Station
 #'
 #' Creates a element, that contains all data regarding the climate station, its location and its measurements.
 #'
@@ -39,35 +39,35 @@
 #' @export
 #'
 #' @examples
-climate_station <-  function(lat = 50.84050277777778, #climate station caldern
-                             lon = 8.683303333333333, #climate station caldern
-                             elev = 270, #climate station caldern
-                             surface_type = "Wiese",  #climate station caldern
-                             obs_height = 0.3,
-                             texture = "clay", #needed when soil_flux unknown
-                             valley = F,
-                             slope = NULL, #if not NULL, the rad_bal with topography will be calculated
-                             z1,
-                             z2,
-                             depth1 = NULL, #needed when soil_flux unknown
-                             depth2 = NULL, #needed when soil_flux unknown
-                             datetime,
-                             t1,
-                             t2,
-                             v1,
-                             v2,
-                             hum1,
-                             hum2,
-                             p1 = NULL,
-                             p2 = NULL
-                             rad_bal = NULL, #if NULL -> will be calculated, albedo needed
-                             sw_bal = NULL, #if NULL -> will be calculated, albedo needed
-                             lw_bal = NULL, #if NULL -> tough luck, won't be calculated
-                             albedo = NULL, #needed, if radiation balance is unknown an shall be calulated
-                             soil_flux = NULL,
-                             ts1 = NULL,
-                             ts2 = NULL,
-                             moisture = NULL #needed when soil_flux unknown
+build_climate_station <-  function(lat = 50.84050277777778, #climate station caldern
+                                   lon = 8.683303333333333, #climate station caldern
+                                   elev = 270, #climate station caldern
+                                   surface_type = "Wiese",  #climate station caldern
+                                   obs_height = 0.3,
+                                   texture = "clay", #needed when soil_flux unknown
+                                   valley = F,
+                                   slope = NULL, #if not NULL, the rad_bal with topography will be calculated
+                                   z1,
+                                   z2,
+                                   depth1 = NULL, #needed when soil_flux unknown
+                                   depth2 = NULL, #needed when soil_flux unknown
+                                   datetime,
+                                   t1,
+                                   t2,
+                                   v1,
+                                   v2,
+                                   hum1,
+                                   hum2,
+                                   p1 = NULL,
+                                   p2 = NULL
+                                   rad_bal = NULL, #if NULL -> will be calculated, albedo needed
+                                   sw_bal = NULL, #if NULL -> will be calculated, albedo needed
+                                   lw_bal = NULL, #if NULL -> tough luck, won't be calculated
+                                   albedo = NULL, #needed, if radiation balance is unknown an shall be calulated
+                                   soil_flux = NULL,
+                                   ts1 = NULL,
+                                   ts2 = NULL,
+                                   moisture = NULL #needed when soil_flux unknown
 ){
   out_list <- list(climate_station_location_properties = list(latitude = lat,
                                                               longitude = lon,
