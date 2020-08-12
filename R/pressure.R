@@ -1,50 +1,27 @@
+pres_p <- function (...) {
+  UseMethod("pres_p")
+}
+
+
 #' Air pressure
 #'
 #' Calculation of pressure as a function of height.
 #'
-#' @param climate_station # *climate_station*-element.
-#' @param height# # "lower" or "upper"
+#' @param weather_station Object of class weather_station
+#' @param height lower or upper
 #'
 #' @return Pressure in hPa.
 #' @export
 #'
-#' @examples
-pres_p <- function(climate_station, height){
+pres_p.weather_station <- function(weather_station, height){
   if(height=="lower"){
-    t <- climate_station$climate_station_measurements$t1+273.15   # to Kelvin
-    z <- climate_station$climate_station_location_properties$elevation + climate_station$climate_station_properties$z1
+    t <- weather_station$measurements$t1+273.15   # to Kelvin
+    z <- weather_station$location_properties$elevation + weather_station$properties$z1
   } else if(height=="upper"){
-    t <- climate_station$climate_station_measurements$t2+273.15   # to Kelvin
-    z <- climate_station$climate_station_location_properties$elevation + climate_station$climate_station_properties$z2
+    t <- weather_station$measurements$t2+273.15   # to Kelvin
+    z <- weather_station$location_properties$elevation + weather_station$properties$z2
   }
-  p0 <- 1013.25    # Standardruck in hPa
-  g <- 9.81
-  rl <- 287.05
-  p1 <- p0*exp(- (g*z)/ (rl*t1) )
-  return(p1)
-}
-
-#' Air density
-#'
-#' Calculation of the air density.
-#'
-#' @param climate_station # *climate_station*-element.
-#' @param height # "lower" or "upper"
-#'
-#' @return Air density in kg/m^3.
-#' @export
-#'
-#' @examples
-pres_air_density <- function(climate_station, height){
-  if(height=="lower"){
-    t <- climate_station$climate_station_measurements$t1+273.15   # to Kelvin
-    p <- climate_station$climate_station_properties$p1
-  } else if(height=="upper"){
-    t <- climate_station$climate_station_measurements$t2+273.15   # to Kelvin
-    p <- climate_station$climate_station_properties$p2
-  }
-  ad <- (p*100)/(287.05*t)
-  return(ad)
+  return(pres_p(z, t))
 }
 
 #' Air pressure
@@ -57,13 +34,39 @@ pres_air_density <- function(climate_station, height){
 #' @return Pressure in hPa.
 #' @export
 #'
-pres_p <- function(elev, t){
+pres_p.numeric <- function(elev, t){
   t <- t+273.15   # to Kelvin
   p0 <- 1013.25    # Standardruck in hPa
   g <- 9.81
   rl <- 287.05
   p <- p0*exp(- (g*elev)/ (rl*t) )
   return(p)
+}
+
+
+pres_air_density <- function (...) {
+  UseMethod("pres_air_density")
+}
+
+#' Air density
+#'
+#' Calculation of the air density.
+#'
+#' @param weather_station Object of class weather_station
+#' @param height "lower" or "upper"
+#'
+#' @return Air density in kg/m^3.
+#' @export
+#'
+pres_air_density.weather_station <- function(weather_station, height){
+  if(height=="lower"){
+    t <- weather_station$measurements$t1+273.15   # to Kelvin
+    p <- weather_station$properties$p1
+  } else if(height=="upper"){
+    t <- weather_station$measurements$t2+273.15   # to Kelvin
+    p <- weather_station$properties$p2
+  }
+  return(pres_air_density(p, t))
 }
 
 
@@ -77,7 +80,7 @@ pres_p <- function(elev, t){
 #' @return Air density in kg/m^3.
 #' @export
 #'
-pres_air_density <- function(p, t){
+pres_air_density.numeric <- function(p, t){
   ad <- (p*100)/(287.05*(t+273.15))
   return(ad)
 }
