@@ -99,6 +99,21 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
                                        moisture = moisture))
   class(out_list) <- "weather_station"
 
+  # calculate pressure
+  if(is.na(p1) | is.null(p1)){
+    out_list$measurements$p1 <- pres_p(out_list, "lower")
+  }
+  if(is.na(p2) | is.null(p2)){
+    out_list$measurements$p2 <- pres_p(out_list, "upper")
+  }
+
+  # calculate rad_bal -> doing this, when functions are ready
+
+  # calculate sw_bal -> doing this, when functions are ready
+
+  # calculate lw_bal -> doing this, when functions are ready
+
+  # create NA-vectors of length datetime for all not-given inputs
   out_list$measurements <- lapply(out_list$measurements, function(i){
     if(length(i)==0 | length(i)==1){
       return(rep(NA, length(datetime)))
@@ -106,10 +121,7 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
     else(return(i))
   })
 
-  # brings all vectors in "out_list$climate_station_measurements" to the length of the "datetime" vector by either filling it up with NA or removing tailing
-  # entries of vectors, that are longer than "datetime"
-  #out_list$measurements <- lapply(out_list$measurements, "length<-", length(out_list$measurements$datetime))
-
+  # check if all vectors have the same lenght and print a warning, if not
   if(any(lengths(out_list$measurements[2:length(out_list$measurements)]) != length(out_list$measurements$datetime)) == T){
     wrong <- which(lengths(out_list$measurements[2:length(out_list$measurements)]) != length(out_list$measurements$datetime))
     warning("There are one or more vectors, that have not the same length as datetime!")

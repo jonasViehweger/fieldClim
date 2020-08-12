@@ -2,15 +2,24 @@
 #'
 #' Calculate the needed minimum distance between climate station and obstacle (e.g. forest), to ensure independence of measurements.
 #'
+#' @rdname pos_min_dist
+#' @return Minimum distance in m.
+#' @export
+#'
+pos_min_dist <- function (...) {
+  UseMethod("pos_min_dist")
+}
+
+#' @rdname pos_min_dist
+#' @method pos_min_dist numeric
 #' @param obs_width Width of obstacle in m.
 #' @param obs_height Height of obstacle in m.
 #' @param ring True, if obstacle is circularly surrounded by the obstacle.
 #' @param obs_radius If ring = T: radius of the ring in m.
 #'
-#' @return Minimum distance in m.
-#' @export
+#' @return
 #'
-pos_min_dist <- function(obs_width, obs_height, ring = F, obs_radius = NULL){
+pos_min_dist.numeric <- function(obs_width, obs_height, ring = F, obs_radius = NULL){
   #if climate station is positioned on a clearing:
   if(ring == T){
     min_dist <- pi*obs_radius+10*obs_height
@@ -31,6 +40,32 @@ pos_min_dist <- function(obs_width, obs_height, ring = F, obs_radius = NULL){
     }
   }
 }
+
+#' @rdname pos_min_dist
+#' @method pos_min_dist weather_station
+#' @param weather_station Object of class weather_station
+#'
+#' @return
+#'
+pos_min_dist.weather_station <- function(weather_station){
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #' Maximum distance between climate station and obstacle.
 #'
