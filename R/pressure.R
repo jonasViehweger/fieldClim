@@ -8,7 +8,7 @@
 #' @return Pressure in hPa.
 #' @export
 #'
-pres_p_old <- function(elev, t){
+pres_p <- function(elev, t){
   t <- t+273.15   # to Kelvin
   p0 <- 1013.25    # Standardruck in hPa
   g <- 9.81
@@ -28,7 +28,7 @@ pres_p_old <- function(elev, t){
 #' @return Air density in kg/m^3.
 #' @export
 #'
-pres_air_density_old <- function(p, t){
+pres_air_density <- function(p, t){
   ad <- (p*100)/(287.05*(t+273.15))
   return(ad)
 }

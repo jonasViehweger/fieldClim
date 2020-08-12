@@ -1,6 +1,6 @@
-#' Climate Station
+#' Weather Station
 #'
-#' Creates a element, that contains all data regarding the climate station, its location and its measurements.
+#' Creates a element, that contains all data regarding the weather station, its location and its measurements.
 #'
 #' @param lat Latitude of location. Preset: 50.840502777777788.683303333333333 (climate station caldern).
 #' @param lon Longitude of location. Preset: 8.683303333333333 (climate station caldern).
@@ -33,16 +33,16 @@
 #' @param moisture Vector that ground moisture data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
 #'
 #' @return List containing:
-#' 1) list of climate station location properties
-#' 2) list of climate station properties
-#' 3) list of climate station measurements, which will conatin NAs if they were not defined in the input
+#' 1) list of weather station location properties
+#' 2) list of weather station properties
+#' 3) list of weather station measurements, which will conatin NAs if they were not defined in the input
 #' @export
 #'
 #' @examples
-build_climate_station <-  function(lat = 50.84050277777778, #climate station caldern
-                                   lon = 8.683303333333333, #climate station caldern
-                                   elev = 270, #climate station caldern
-                                   surface_type = "Wiese",  #climate station caldern
+build_weather_station <-  function(lat = 50.84050277777778, #weather station caldern
+                                   lon = 8.683303333333333, #weather station caldern
+                                   elev = 270, #weather station caldern
+                                   surface_type = "Wiese",  #weather station caldern
                                    obs_height = 0.3,
                                    texture = "clay", #needed when soil_flux unknown
                                    valley = F,
@@ -68,7 +68,7 @@ build_climate_station <-  function(lat = 50.84050277777778, #climate station cal
                                    ts1 = NULL,
                                    ts2 = NULL,
                                    moisture = NULL){ #needed when soil_flux unknown
-  out_list <- list(climate_station_location_properties = list(latitude = lat,
+  out_list <- list(weather_station_location_properties = list(latitude = lat,
                                                               longitude = lon,
                                                               elevation = elev,
                                                               surface_type = surface_type,
@@ -76,11 +76,11 @@ build_climate_station <-  function(lat = 50.84050277777778, #climate station cal
                                                               texture = texture,
                                                               valley = valley,
                                                               slope = slope),
-                   climate_station_properties = list(z1 = z1,
+                   weather_station_properties = list(z1 = z1,
                                                      z2 = z2,
                                                      depth1 = depth1,
                                                      depth2 = depth2,),
-                   climate_station_measurements = list(datetime = datetime,
+                   weather_station_measurements = list(datetime = datetime,
                                                        t1 = t1,
                                                        t2 = t2,
                                                        v1 = v1,
@@ -101,7 +101,7 @@ build_climate_station <-  function(lat = 50.84050277777778, #climate station cal
 
 
 
-  out_list$climate_station_measurements <- lapply(out_list$climate_station_measurements, function(i){
+  out_list$weather_station_measurements <- lapply(out_list$weather_station_measurements, function(i){
     if(length(i)==0 | length(i)==1){
       return(rep(NA, length(datetime)))
     }
@@ -110,7 +110,7 @@ build_climate_station <-  function(lat = 50.84050277777778, #climate station cal
 
   # brings all vectors in "out_list$climate_station_measurements" to the length of the "datetime" vector by either filling it up with NA or removing tailing
   # entries of vectors, that are longer than "datetime"
-  out_list$climate_station_measurements <- lapply(out_list$climate_station_measurements, "length<-", length(out_list$climate_station_measurements$datetime))
+  out_list$weather_station_measurements <- lapply(out_list$weather_station_measurements, "length<-", length(out_list$weather_station_measurements$datetime))
 
   return(out_list)
 }
