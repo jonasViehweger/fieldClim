@@ -1,6 +1,6 @@
 #' Weather Station
 #'
-#' Creates a element, that contains all data regarding the weather station, its location and its measurements.
+#' Creates a list of class "weather_station, that contains all data regarding the weather station, its location and its measurements.
 #'
 #' @param lat Latitude of location. Preset: 50.840502777777788.683303333333333 (climate station caldern).
 #' @param lon Longitude of location. Preset: 8.683303333333333 (climate station caldern).
@@ -32,10 +32,10 @@
 #' @param ts2 Vector that contains lower ground temperature data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
 #' @param moisture Vector that ground moisture data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
 #'
-#' @return List containing:
-#' 1) list of weather station location properties
+#' @return List of class "weater_station", that contains:
+#' 1) list of location properties
 #' 2) list of weather station properties
-#' 3) list of weather station measurements, which will conatin NAs if they were not defined in the input
+#' 3) list of measurements, which will conatin NAs if they were not defined in the input
 #' @export
 #'
 #' @examples
@@ -68,40 +68,38 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
                                    ts1 = NULL,
                                    ts2 = NULL,
                                    moisture = NULL){ #needed when soil_flux unknown
-  out_list <- list(weather_station_location_properties = list(latitude = lat,
-                                                              longitude = lon,
-                                                              elevation = elev,
-                                                              surface_type = surface_type,
-                                                              obs_height = obs_height,
-                                                              texture = texture,
-                                                              valley = valley,
-                                                              slope = slope),
-                   weather_station_properties = list(z1 = z1,
-                                                     z2 = z2,
-                                                     depth1 = depth1,
-                                                     depth2 = depth2,),
-                   weather_station_measurements = list(datetime = datetime,
-                                                       t1 = t1,
-                                                       t2 = t2,
-                                                       v1 = v1,
-                                                       v2 = v2,
-                                                       hum1 = hum1,
-                                                       hum2 = hum2,
-                                                       p1 = p1,
-                                                       p2 = p2,
-                                                       rad_bal = rad_bal,
-                                                       sw_bal = sw_bal,
-                                                       lw_bal = lw_bal,
-                                                       albedo = albedo,
-                                                       soil_flux = soil_flux,
-                                                       ts1 = ts1,
-                                                       ts2 = ts2,
-                                                       moisture = moisture))
+  out_list <- list(location_properties = list(latitude = lat,
+                                              longitude = lon,
+                                              elevation = elev,
+                                              surface_type = surface_type,
+                                              obs_height = obs_height,
+                                              texture = texture,
+                                              valley = valley,
+                                              slope = slope),
+                   properties = list(z1 = z1,
+                                     z2 = z2,
+                                     depth1 = depth1,
+                                     depth2 = depth2),
+                   measurements = list(datetime = datetime,
+                                       t1 = t1,
+                                       t2 = t2,
+                                       v1 = v1,
+                                       v2 = v2,
+                                       hum1 = hum1,
+                                       hum2 = hum2,
+                                       p1 = p1,
+                                       p2 = p2,
+                                       rad_bal = rad_bal,
+                                       sw_bal = sw_bal,
+                                       lw_bal = lw_bal,
+                                       albedo = albedo,
+                                       soil_flux = soil_flux,
+                                       ts1 = ts1,
+                                       ts2 = ts2,
+                                       moisture = moisture))
+  class(out_list) <- "weather_station"
 
-
-
-
-  out_list$weather_station_measurements <- lapply(out_list$weather_station_measurements, function(i){
+  out_list$measurements <- lapply(out_list$measurements, function(i){
     if(length(i)==0 | length(i)==1){
       return(rep(NA, length(datetime)))
     }
@@ -110,7 +108,45 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
 
   # brings all vectors in "out_list$climate_station_measurements" to the length of the "datetime" vector by either filling it up with NA or removing tailing
   # entries of vectors, that are longer than "datetime"
-  out_list$weather_station_measurements <- lapply(out_list$weather_station_measurements, "length<-", length(out_list$weather_station_measurements$datetime))
+  #out_list$measurements <- lapply(out_list$measurements, "length<-", length(out_list$measurements$datetime))
+
+  if(any(lengths(out_list$measurements[2:length(out_list$measurements)]) != length(out_list$measurements$datetime)) == T){
+    wrong <- which(lengths(out_list$measurements[2:length(out_list$measurements)]) != length(out_list$measurements$datetime))
+    warning("There are one or more vectors, that have not the same length as datetime!")
+    for(i in names(wrong)){warning(i)}
+    warning("Please make sure, that all input-vectors have the same length")
+  }
 
   return(out_list)
 }
+
+#example data
+# lat = 50.84050277777778 #weather station caldern
+# lon = 8.683303333333333 #weather station caldern
+# elev = 270 #weather station caldern
+# surface_type = "Wiese"  #weather station caldern
+# obs_height = 0.3
+# texture = "clay" #needed when soil_flux unknown
+# valley = F
+# slope = NULL #if not NULL, the rad_bal with topography will be calculated
+# z1 = 2
+# z2 = 10
+# depth1 = NULL #needed when soil_flux unknown
+# depth2 = NULL #needed when soil_flux unknown
+# datetime = c(1,2,3,4,5,6,7,8)
+# t1 = c(1,2,3,4,5)
+# t2 = c(4,5,7,78,2)
+# v1 = c(1,23,4,6,23)
+# v2 = c(2,4,6,4,2,4,6)
+# hum1 = c(2,4,6,4,2,4,6)
+# hum2 = c(2,4,6,4,2,4,6)
+# p1 = NULL
+# p2 = NULL
+# rad_bal = NULL #if NULL -> will be calculated, albedo needed
+# sw_bal = NULL#if NULL -> will be calculated, albedo needed
+# lw_bal = NULL#if NULL -> tough luck, won't be calculated
+# albedo = NULL #needed, if radiation balance is unknown an shall be calulated
+# soil_flux = NULL
+# ts1 = NULL
+# ts2 = NULL
+# moisture = NULL
