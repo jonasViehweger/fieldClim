@@ -2,9 +2,15 @@
 % Please edit documentation in R/turbulence.R
 \name{turb_ustar}
 \alias{turb_ustar}
+\alias{turb_ustar.numeric}
+\alias{turb_ustar.weather_station}
 \title{Friction velocity}
 \usage{
-turb_ustar(v, z, z0)
+turb_ustar(...)
+
+\method{turb_ustar}{numeric}(v, z, z0)
+
+\method{turb_ustar}{weather_station}(weather_station)
 }
 \arguments{
 \item{v}{Windspeed in height of anemometer in m/s.}
@@ -12,6 +18,8 @@ turb_ustar(v, z, z0)
 \item{z}{Height of anemometer in m.}
 
 \item{z0}{Roughness length in m.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Friction velocity in m/s.

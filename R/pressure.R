@@ -14,8 +14,7 @@ pres_p <- function (...) {
 #' @method pres_p weather_station
 #' @param weather_station Object of class weather_station
 #' @param height lower or upper
-#'
-#' @return
+#' @export
 #'
 pres_p.weather_station <- function(weather_station, height){
   if(height=="lower"){
@@ -32,8 +31,7 @@ pres_p.weather_station <- function(weather_station, height){
 #' @method pres_p numeric
 #' @param elev Elevation above sea level in m.
 #' @param t Temperature in degrees C.
-#'
-#' @return
+#' @export
 #'
 pres_p.numeric <- function(elev, t){
   t <- t+273.15   # to Kelvin
@@ -61,7 +59,6 @@ pres_air_density <- function (...) {
 #' @method pres_air_density weather_station
 #' @param weather_station Object of class weather_station
 #' @param height "lower" or "upper"
-#' @return
 #' @export
 #'
 pres_air_density.weather_station <- function(weather_station, height){
@@ -79,7 +76,6 @@ pres_air_density.weather_station <- function(weather_station, height){
 #' @method pres_air_density numeric
 #' @param p Pressure in hPa.
 #' @param t Temperature in degrees C.
-#' @return
 #' @export
 #'
 pres_air_density.numeric <- function(p, t){

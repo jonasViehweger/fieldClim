@@ -2,9 +2,15 @@
 % Please edit documentation in R/turbulent_flux.R
 \name{turb_flux_ex_quotient_temp}
 \alias{turb_flux_ex_quotient_temp}
+\alias{turb_flux_ex_quotient_temp.numeric}
+\alias{turb_flux_ex_quotient_temp.weather_station}
 \title{Exchange quotient for heat transmission}
 \usage{
-turb_flux_ex_quotient_temp(grad_rich_no, ustar, monin, z1, air_density)
+turb_flux_ex_quotient_temp(...)
+
+\method{turb_flux_ex_quotient_temp}{numeric}(grad_rich_no, ustar, monin, z, air_density)
+
+\method{turb_flux_ex_quotient_temp}{weather_station}(weather_station, height)
 }
 \arguments{
 \item{grad_rich_no}{Gradient-Richardson-Number.}
@@ -13,9 +19,11 @@ turb_flux_ex_quotient_temp(grad_rich_no, ustar, monin, z1, air_density)
 
 \item{monin}{Monin-Obhukov-Length in m.}
 
-\item{z1}{Height in m.}
+\item{z}{Height in m.}
 
 \item{air_density}{Air density in kg/m^3.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Exchange quotient for heat transmission in kg/(m*s).

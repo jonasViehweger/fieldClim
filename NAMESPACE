@@ -2,6 +2,8 @@
 
 S3method(pres_air_density,numeric)
 S3method(pres_air_density,weather_station)
+S3method(pres_p,numeric)
+S3method(pres_p,weather_station)
 export(bound_mech_avg)
 export(bound_mech_low)
 export(bound_thermal_avg)

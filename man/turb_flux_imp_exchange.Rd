@@ -2,9 +2,15 @@
 % Please edit documentation in R/turbulent_flux.R
 \name{turb_flux_imp_exchange}
 \alias{turb_flux_imp_exchange}
+\alias{turb_flux_imp_exchange.numeric}
+\alias{turb_flux_imp_exchange.weather_station}
 \title{Turbulent impulse exchange}
 \usage{
-turb_flux_imp_exchange(ex_quotient, v1, v2, z1 = 2, z2 = 10)
+turb_flux_imp_exchange(...)
+
+\method{turb_flux_imp_exchange}{numeric}(ex_quotient, v1, v2, z1 = 2, z2 = 10)
+
+\method{turb_flux_imp_exchange}{numeric}(weather_station, height)
 }
 \arguments{
 \item{ex_quotient}{Exchange quotient in kg/(m*s).}
@@ -16,6 +22,8 @@ turb_flux_imp_exchange(ex_quotient, v1, v2, z1 = 2, z2 = 10)
 \item{z1}{Lower height of measurement (e.g. height of anemometer) in m.}
 
 \item{z2}{Upper height of measurement in m.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Turbulent impulse exchange in kg/(m*s^2).

@@ -2,9 +2,15 @@
 % Please edit documentation in R/turbulent_flux.R
 \name{turb_flux_ex_quotient_imp}
 \alias{turb_flux_ex_quotient_imp}
+\alias{turb_flux_ex_quotient_imp.numeric}
+\alias{turb_flux_ex_quotient_imp.weather_station}
 \title{Exchange quotient for impulse transmission}
 \usage{
-turb_flux_ex_quotient_imp(grad_rich_no, ustar, monin, z1, air_density)
+turb_flux_ex_quotient_imp(...)
+
+\method{turb_flux_ex_quotient_imp}{numeric}(grad_rich_no, ustar, monin, z, air_density)
+
+\method{turb_flux_ex_quotient_imp}{weather_station}(weather_station, height)
 }
 \arguments{
 \item{grad_rich_no}{Gradient-Richardson-Number.}
@@ -13,12 +19,11 @@ turb_flux_ex_quotient_imp(grad_rich_no, ustar, monin, z1, air_density)
 
 \item{monin}{Monin-Obhukov-Length in m.}
 
-\item{z1}{Height in m.}
-
 \item{air_density}{Air density in kg/m^3.}
-}
-\value{
-Exchange quotient for impulse transmission in kg/(m*s).
+
+\item{weather_station}{Object of class weather_station}
+
+\item{z1}{Height in m.}
 }
 \description{
 Calculation of the exchange quotient of the turbulent impulse transmission.

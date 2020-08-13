@@ -96,13 +96,13 @@ build_weather_station(
 \item{moisture}{Vector that ground moisture data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 }
 \value{
-List containing:
+List of class "weater_station", that contains:
 \enumerate{
-\item list of weather station location properties
+\item list of location properties
 \item list of weather station properties
-\item list of weather station measurements, which will conatin NAs if they were not defined in the input
+\item list of measurements, which will conatin NAs if they were not defined in the input
 }
 }
 \description{
-Creates a element, that contains all data regarding the weather station, its location and its measurements.
+Creates a list of class "weather_station, that contains all data regarding the weather station, its location and its measurements.
 }

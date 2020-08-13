@@ -23,10 +23,6 @@ pres_p(...)
 }
 \value{
 Pressure in hPa.
-
-Pressure in hPa.
-
-Pressure in hPa.
 }
 \description{
 Calculation of pressure as a function of height.

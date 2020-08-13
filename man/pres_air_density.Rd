@@ -23,10 +23,6 @@ pres_air_density(...)
 }
 \value{
 Air density in kg/m^3.
-
-Air density in kg/m^3.
-
-Air density in kg/m^3.
 }
 \description{
 Calculation of the air density.
