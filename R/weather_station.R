@@ -99,11 +99,22 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
                                        moisture = moisture))
   class(out_list) <- "weather_station"
 
+
+  # If there is an actual pressure measurement use that for both heights
+  # instead of estimating the other height
+  if(!is.null(p1) & is.null(p2)){
+    p2 <- p1
+  }
+  if(is.null(p1) & !is.null(p2)){
+    p1 <- p2
+  }
+
   # calculate pressure
-  if(is.na(p1) | is.null(p1)){
+  if(is.null(p1)){
     out_list$measurements$p1 <- pres_p(out_list, "lower")
   }
-  if(is.na(p2) | is.null(p2)){
+
+  if(is.null(p2)){
     out_list$measurements$p2 <- pres_p(out_list, "upper")
   }
 
