@@ -18,9 +18,11 @@ pres_p <- function (...) {
 #'
 pres_p.weather_station <- function(weather_station, height){
   if(height=="lower"){
+    check_availability(weather_station, "t1", "elevation", "z1")
     t <- weather_station$measurements$t1   # to Kelvin
     z <- weather_station$location_properties$elevation + weather_station$properties$z1
   } else if(height=="upper"){
+    check_availability(weather_station, "t2", "elevation", "z2")
     t <- weather_station$measurements$t2   # to Kelvin
     z <- weather_station$location_properties$elevation + weather_station$properties$z2
   }
@@ -63,12 +65,15 @@ pres_air_density <- function (...) {
 #'
 pres_air_density.weather_station <- function(weather_station, height){
   if(height=="lower"){
-    t <- weather_station$measurements$t1+273.15   # to Kelvin
+    check_availability(weather_station, "t1", "p1")
+    t <- weather_station$measurements$t1   # to Kelvin
     p <- weather_station$properties$p1
   } else if(height=="upper"){
-    t <- weather_station$measurements$t2+273.15   # to Kelvin
+    check_availability(weather_station, "t2", "p2")
+    t <- weather_station$measurements$t2   # to Kelvin
     p <- weather_station$properties$p2
   }
+  check_availability(t, p)
   return(pres_air_density(p, t))
 }
 

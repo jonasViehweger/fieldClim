@@ -37,7 +37,7 @@ build_weather_station(
 )
 }
 \arguments{
-\item{lat}{Latitude of location. Preset: 50.840502777777788.683303333333333 (climate station caldern).}
+\item{lat}{Latitude of location. Preset: 50.84050277777778 (climate station caldern).}
 
 \item{lon}{Longitude of location. Preset: 8.683303333333333 (climate station caldern).}
 
@@ -49,54 +49,65 @@ build_weather_station(
 
 \item{texture}{Texture of ground. Form: Character string. One of: "clay", "sand". Preset: "clay".}
 
-\item{valley}{TRUE, if climate station is positioned in a valley. Form: Boolean. Preset: FALSE.}
+\item{valley}{TRUE, if climate station is positioned in a valley. Form: logical. Preset: FALSE.}
 
-\item{slope}{Slope of hillside in \%. Form: Integer or Numeric. Preset: NULL.}
+\item{slope}{Slope of hillside in \%. Form: Numeric. Preset: NULL.}
 
 \item{z1}{Lower measurement height in m. Preset: 2m.}
 
 \item{z2}{Upper measurement height in m. Preset: 2m.}
 
-\item{depth1}{Upper depth of measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{depth1}{Upper depth of soil measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 
-\item{depth2}{Lower depth of measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{depth2}{Lower depth of soil measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 
-\item{datetime}{Name of datetime-coloumn in data. Form: Character string. NOTE: datetime needs to be converted POSIXlt-Format (see ?as.POSIXlt)}
+\item{datetime}{Name of datetime-coloumn in data.
+Form: POSIX-Object (See \link[base:as.POSIXlt]{base::as.POSIXlt} and \link[base:strptime]{base::strptime} for conversion.)}
 
-\item{t1}{Vector that contains lower temperature data. Form: Character string.}
+\item{t1}{Vector containing lower temperature data in degrees C.}
 
-\item{t2}{Vector that contains upper temperature data. Form: Character string.}
+\item{t2}{Vector containing upper temperature data in degrees C.}
 
-\item{v1}{Vector that contains lower wind speed data. Form: Character string.}
+\item{v1}{Vector containing lower wind speed data in m/s.}
 
-\item{v2}{Vector that contains upper wind speed data. Form: Character string.}
+\item{v2}{Vector containing upper wind speed data in m/s.}
 
-\item{hum1}{Vector that contains lower humidity data. Form: Character string.}
+\item{hum1}{Vector containing lower humidity data in \%.}
 
-\item{hum2}{Vector that contains upper humidity data. Form: Character string.}
+\item{hum2}{Vector containing upper humidity data in \%.}
 
-\item{p1}{#Vector that contains lower pressure data. Form: Character string. Preset: NULL. Note: If NULL, pressure will be calculated.}
+\item{p1}{Vector containing lower pressure data in hPa.
+Preset: NULL. Note: If NULL, pressure will be estimated.}
 
-\item{p2}{#Vector that contains upper pressure data. Form: Character string. Preset: NULL. Note: If NULL, pressure will be calculated.}
+\item{p2}{Vector containing upper pressure data in hPa.
+Preset: NULL. Note: If NULL, pressure will be calculated.}
 
-\item{rad_bal}{Vector that contains total radiation balance. Form: Character string. Preset: NULL. Note: If NULL, rad_bal will be calculated (Albedo needed).}
+\item{rad_bal}{Vector containing total radiation balance in W/m^2.
+Preset: NULL. Note: If NULL, rad_bal will be calculated (Albedo needed).}
 
-\item{sw_bal}{Vector that contains shortwave radiation balance. Form: Character string. Preset: NULL. Note: If NULL, sw_bal will be calculated (Albedo needed).}
+\item{sw_bal}{Vector containing shortwave radiation balance in W/m^2.
+Preset: NULL. Note: If NULL, sw_bal will be calculated (Albedo needed).}
 
-\item{lw_bal}{Vector that contains longwave radiation balance. Form: Character string. Preset: NULL. Note: If NULL, lw_bal will be calculated (Albedo needed).}
+\item{lw_bal}{Vector containing longwave radiation balance in W/m^2.
+Preset: NULL. Note: If NULL, lw_bal will be calculated (Albedo needed).}
 
-\item{albedo}{Vector that contains albedo. Form: Character string. Preset: NULL. Note: Only needed, if radiation balances shall be calculated.}
+\item{albedo}{Vector containing albedo.
+Preset: NULL. Note: Only needed, if radiation balances shall be calculated.}
 
-\item{soil_flux}{Vector that contains soil flux. Form: Character string. Preset: NULL. Note: If NULL, soil_flux will be calculated.}
+\item{soil_flux}{Vector containing soil flux in W/m^2.
+Preset: NULL. Note: If NULL, soil_flux will be calculated.}
 
-\item{ts1}{Vector that contains upper ground temperature data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{ts1}{Vector containing upper ground temperature data in degrees C.
+Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 
-\item{ts2}{Vector that contains lower ground temperature data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{ts2}{Vector containing lower ground temperature data in degrees C.
+Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 
-\item{moisture}{Vector that ground moisture data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{moisture}{Vector containing ground moisture data in Vol-\%.
+Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 }
 \value{
-List of class "weater_station", that contains:
+List of class "weather_station", that contains:
 \enumerate{
 \item list of location properties
 \item list of weather station properties

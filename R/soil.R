@@ -4,13 +4,21 @@
 #'
 #' Works by linearly interpolating thermal conductivity based on measured data.
 #'
-#' @param moisture Soil moisture in Vol-%.
-#' @param texture Soil texture. Either "sand" or "clay".
-#'
+#' @rdname soil_thermal_cond
 #' @return Soil thermal conductivity in W/m K.
 #' @export
 #'
-soil_thermal_cond <- function(moisture, texture = "sand") {
+soil_thermal_cond <- function (...) {
+  UseMethod("soil_thermal_cond")
+}
+
+#' @rdname soil_thermal_cond
+#' @method soil_thermal_cond numeric
+#' @param moisture Soil moisture in Vol-%.
+#' @param texture Soil texture. Either "sand" or "clay".
+#' @export
+#'
+soil_thermal_cond.numeric <- function(moisture, texture = "sand") {
   if(texture == "sand"){
     y <- c(0.269,1.46,1.98,2.18,2.31,2.49,2.58)
   } else if(texture == "clay"){
@@ -23,6 +31,22 @@ soil_thermal_cond <- function(moisture, texture = "sand") {
   # linear interpolation of values
   therm_cond <- approx(x, y, xout = moisture, yleft = NA, yright = y[7])
   return(therm_cond$y)
+}
+
+#' @rdname soil_thermal_cond
+#' @method soil_thermal_cond weather_station
+#' @param weather_station Object of class weather_station.
+#' @export
+#'
+soil_thermal_cond.weather_station <- function(weather_station) {
+  if(is.null(weather_station$measurements$moisture)){
+    stop("The weather_station object does not contain the property 'moisture'.")
+  }
+  if(is.null(weather_station$location_properties$texture)){
+    stop("The weather_station object does not contain the property 'texture'.")
+  }
+
+  t <- weather_station$measurements$moisture
 }
 
 

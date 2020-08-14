@@ -46,6 +46,7 @@ turb_flux_monin.numeric <- function(grad_rich_no, z1 = 2, z2 = 10, z0, v1, v2, t
 #' @param weather_station Object of class weather_station
 #'
 turb_flux_monin.weather_station <- function(weather_station){
+  check_availability(weather_station, "z1", "z2", "v1", "v2", "t1", "t2")
   grad_rich_no <- turb_flux_grad_rich_no(weather_station)
   z1 <- weather_station$properties$z1
   z2 <- weather_station$properties$z2
@@ -95,6 +96,7 @@ turb_flux_grad_rich_no.numeric <- function(t1, t2, z1 = 2, z2 = 10, v1, v2, p1, 
 #' @param weather_station Object of class weather_station
 #'
 turb_flux_grad_rich_no.weather_station <- function(weather_station){
+  check_availability(weather_station, "z1", "z2", "v1", "v2", "t1", "t2", "p1", "p2")
   t1 <- weather_station$measurements$t1
   t2 <- weather_station$measurements$t2
   z1 <- weather_station$properties$z1
@@ -180,6 +182,7 @@ turb_flux_ex_quotient_temp.numeric <- function(grad_rich_no, ustar, monin, z, ai
 #' @rdname turb_flux_ex_quotient_temp
 #' @method turb_flux_ex_quotient_temp weather_station
 #' @param weather_station Object of class weather_station
+#' @param height Height of measurement. Either "upper" or "lower".
 #'
 turb_flux_ex_quotient_temp.weather_station <- function(weather_station, height){
   grad_rich_no <- turb_flux_grad_rich_no(weather_station)
@@ -187,9 +190,11 @@ turb_flux_ex_quotient_temp.weather_station <- function(weather_station, height){
   monin <- turb_flux_monin(weather_station)
 
   if(height == "lower"){
+    check_availability(weather_station, "z1")
     z <- weather_station$properties$z1
   }
   if(height == "upper"){
+    check_availability(weather_station, "z2")
     z <- weather_station$properties$z2
   }
 
@@ -203,7 +208,7 @@ turb_flux_ex_quotient_temp.weather_station <- function(weather_station, height){
 #' Calculation of the exchange quotient of the turbulent impulse transmission.
 #'
 #' @rdname turb_flux_ex_quotient_imp
-#' @returnExchange quotient for impulse transmission in kg/(m*s).
+#' @return Exchange quotient for impulse transmission in kg/(m*s).
 #' @export
 #'
 turb_flux_ex_quotient_imp <- function (...) {
@@ -231,6 +236,7 @@ turb_flux_ex_quotient_imp.numeric <- function(grad_rich_no, ustar, monin, z, air
 #' @rdname turb_flux_ex_quotient_imp
 #' @method turb_flux_ex_quotient_imp weather_station
 #' @param weather_station Object of class weather_station
+#' @param height Height of measurement. Either "upper" or "lower".
 #'
 turb_flux_ex_quotient_imp.weather_station <- function(weather_station, height){
   grad_rich_no <- turb_flux_grad_rich_no(weather_station)
@@ -238,9 +244,11 @@ turb_flux_ex_quotient_imp.weather_station <- function(weather_station, height){
   monin <- turb_flux_monin(weather_station)
 
   if(height == "lower"){
+    check_availability(weather_station, "z1")
     z <- weather_station$properties$z1
   }
   if(height == "upper"){
+    check_availability(weather_station, "z2")
     z <- weather_station$properties$z2
   }
 
@@ -279,9 +287,10 @@ turb_flux_imp_exchange.numeric <- function(ex_quotient, v1, v2, z1 = 2, z2 = 10)
 #' @param weather_station Object of class weather_station
 #'
 turb_flux_imp_exchange.weather_station <- function(weather_station, height){
+  check_availability(weather_station, "z1", "z2", "v1", "v2")
   ex_quotient <- turb_flux_ex_quotient_imp(weather_station, height)
   v1 <- weather_station$measurements$v1
-  v2 <- weather_station$measurements$v1
+  v2 <- weather_station$measurements$v2
   z1 <- weather_station$properties$z1
   z2 <- weather_station$properties$z2
   return(turb_flux_imp_exchange(ex_quotient, v1, v2, z1, z2))

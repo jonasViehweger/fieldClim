@@ -2,37 +2,48 @@
 #'
 #' Creates a list of class "weather_station, that contains all data regarding the weather station, its location and its measurements.
 #'
-#' @param lat Latitude of location. Preset: 50.840502777777788.683303333333333 (climate station caldern).
+#' @param lat Latitude of location. Preset: 50.84050277777778 (climate station caldern).
 #' @param lon Longitude of location. Preset: 8.683303333333333 (climate station caldern).
 #' @param elev Elevation of location above sea level in m. Preset: 270 m (climate station caldern).
 #' @param surface_type Surface Type. Form: Character string. One of: "Wiese", "Acker", "Gruenflaeche", "Strasse", "Landwirtschaft", "Siedlung", "Nadelwald", "Laubwald", "Mischwald", "Stadt". Preset: "Wiese.
 #' @param obs_height Height of vegetation in m. Preset: 0.3.
 #' @param texture Texture of ground. Form: Character string. One of: "clay", "sand". Preset: "clay".
-#' @param valley TRUE, if climate station is positioned in a valley. Form: Boolean. Preset: FALSE.
-#' @param slope Slope of hillside in %. Form: Integer or Numeric. Preset: NULL.
+#' @param valley TRUE, if climate station is positioned in a valley. Form: logical. Preset: FALSE.
+#' @param slope Slope of hillside in %. Form: Numeric. Preset: NULL.
 #' @param z1 Lower measurement height in m. Preset: 2m.
 #' @param z2 Upper measurement height in m. Preset: 2m.
-#' @param depth1 Upper depth of measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
-#' @param depth2 Lower depth of measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
-#' @param datetime Name of datetime-coloumn in data. Form: Character string. NOTE: datetime needs to be converted POSIXlt-Format (see ?as.POSIXlt)
-#' @param t1 Vector that contains lower temperature data. Form: Character string.
-#' @param t2 Vector that contains upper temperature data. Form: Character string.
-#' @param v1 Vector that contains lower wind speed data. Form: Character string.
-#' @param v2 Vector that contains upper wind speed data. Form: Character string.
-#' @param hum1 Vector that contains lower humidity data. Form: Character string.
-#' @param hum2 Vector that contains upper humidity data. Form: Character string.
-#' @param p1 #Vector that contains lower pressure data. Form: Character string. Preset: NULL. Note: If NULL, pressure will be calculated.
-#' @param p2 #Vector that contains upper pressure data. Form: Character string. Preset: NULL. Note: If NULL, pressure will be calculated.
-#' @param rad_bal Vector that contains total radiation balance. Form: Character string. Preset: NULL. Note: If NULL, rad_bal will be calculated (Albedo needed).
-#' @param sw_bal Vector that contains shortwave radiation balance. Form: Character string. Preset: NULL. Note: If NULL, sw_bal will be calculated (Albedo needed).
-#' @param lw_bal Vector that contains longwave radiation balance. Form: Character string. Preset: NULL. Note: If NULL, lw_bal will be calculated (Albedo needed).
-#' @param albedo Vector that contains albedo. Form: Character string. Preset: NULL. Note: Only needed, if radiation balances shall be calculated.
-#' @param soil_flux Vector that contains soil flux. Form: Character string. Preset: NULL. Note: If NULL, soil_flux will be calculated.
-#' @param ts1 Vector that contains upper ground temperature data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
-#' @param ts2 Vector that contains lower ground temperature data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
-#' @param moisture Vector that ground moisture data. Form: Character string. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
+#' @param depth1 Upper depth of soil measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
+#' @param depth2 Lower depth of soil measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
+#' @param datetime Name of datetime-coloumn in data.
+#' Form: POSIX-Object (See [base::as.POSIXlt] and [base::strptime] for conversion.)
+#' @param t1 Vector containing lower temperature data in degrees C.
+#' @param t2 Vector containing upper temperature data in degrees C.
+#' @param v1 Vector containing lower wind speed data in m/s.
+#' @param v2 Vector containing upper wind speed data in m/s.
+#' @param hum1 Vector containing lower humidity data in %.
+#' @param hum2 Vector containing upper humidity data in %.
+#' @param p1 Vector containing lower pressure data in hPa.
+#' Preset: NULL. Note: If NULL, pressure will be estimated.
+#' @param p2 Vector containing upper pressure data in hPa.
+#' Preset: NULL. Note: If NULL, pressure will be calculated.
+#' @param rad_bal Vector containing total radiation balance in W/m^2.
+#' Preset: NULL. Note: If NULL, rad_bal will be calculated (Albedo needed).
+#' @param sw_bal Vector containing shortwave radiation balance in W/m^2.
+#' Preset: NULL. Note: If NULL, sw_bal will be calculated (Albedo needed).
+#' @param lw_bal Vector containing longwave radiation balance in W/m^2.
+#' Preset: NULL. Note: If NULL, lw_bal will be calculated (Albedo needed).
+#' @param albedo Vector containing albedo.
+#' Preset: NULL. Note: Only needed, if radiation balances shall be calculated.
+#' @param soil_flux Vector containing soil flux in W/m^2.
+#' Preset: NULL. Note: If NULL, soil_flux will be calculated.
+#' @param ts1 Vector containing upper ground temperature data in degrees C.
+#' Preset: NULL. Note: Only needed, if soil flux shall be calculated.
+#' @param ts2 Vector containing lower ground temperature data in degrees C.
+#' Preset: NULL. Note: Only needed, if soil flux shall be calculated.
+#' @param moisture Vector containing ground moisture data in Vol-%.
+#' Preset: NULL. Note: Only needed, if soil flux shall be calculated.
 #'
-#' @return List of class "weater_station", that contains:
+#' @return List of class "weather_station", that contains:
 #' 1) list of location properties
 #' 2) list of weather station properties
 #' 3) list of measurements, which will conatin NAs if they were not defined in the input
@@ -124,20 +135,18 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
 
   # calculate lw_bal -> doing this, when functions are ready
 
-  # create NA-vectors of length datetime for all not-given inputs
-  out_list$measurements <- lapply(out_list$measurements, function(i){
-    if(length(i)==0 | length(i)==1){
-      return(rep(NA, length(datetime)))
+  # check if all vectors have the same lenght and print a warning if not
+  length_condition <- lengths(out_list$measurements[2:length(out_list$measurements)]) != length(out_list$measurements$datetime)
+  null_check <- lengths(out_list$measurements[2:length(out_list$measurements)])>0
+  if(any(length_condition & null_check)){
+    wrong <- names(which(length_condition & null_check))
+    if(length(wrong) == 1){
+      stop(paste(wrong, collapse = ", "), " is not the same length as datetime!\n",
+           "Please make sure, that all input-vectors have the same length")
+    } else {
+      stop(paste(wrong, collapse = ", "), " are not the same length as datetime!\n",
+           "Please make sure, that all input-vectors have the same length")
     }
-    else(return(i))
-  })
-
-  # check if all vectors have the same lenght and print a warning, if not
-  if(any(lengths(out_list$measurements[2:length(out_list$measurements)]) != length(out_list$measurements$datetime)) == T){
-    wrong <- which(lengths(out_list$measurements[2:length(out_list$measurements)]) != length(out_list$measurements$datetime))
-    warning("There are one or more vectors, that have not the same length as datetime!")
-    for(i in names(wrong)){warning(i)}
-    warning("Please make sure, that all input-vectors have the same length")
   }
 
   return(out_list)

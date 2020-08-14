@@ -2,14 +2,22 @@
 % Please edit documentation in R/soil.R
 \name{soil_thermal_cond}
 \alias{soil_thermal_cond}
+\alias{soil_thermal_cond.numeric}
+\alias{soil_thermal_cond.weather_station}
 \title{Soil thermal conductivity}
 \usage{
-soil_thermal_cond(moisture, texture = "sand")
+soil_thermal_cond(...)
+
+\method{soil_thermal_cond}{numeric}(moisture, texture = "sand")
+
+\method{soil_thermal_cond}{weather_station}(weather_station)
 }
 \arguments{
 \item{moisture}{Soil moisture in Vol-\%.}
 
 \item{texture}{Soil texture. Either "sand" or "clay".}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Soil thermal conductivity in W/m K.
