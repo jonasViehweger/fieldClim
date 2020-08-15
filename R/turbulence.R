@@ -14,16 +14,18 @@ turb_roughness_length <- function (...) {
 }
 
 #' @rdname turb_roughness_length
-#' @method turb_roughness_length numeric
+#' @method turb_roughness_length default
 #' @param surface_type Type of surface
 #' @param obs_height Height of obstacle in m.
 #'
-turb_roughness_length.numeric <- function(surface_type = NULL, obs_height = NULL){
-  if(is.null(obs_height)==F){z0 <- obs_height*0.1}
-  else if(is.null(surface_type)==F && is.null(obs_height)){
+turb_roughness_length.default <- function(surface_type = NULL, obs_height = NULL){
+  if(!is.null(obs_height)){
+    z0 <- obs_height*0.1
+  } else if(!is.null(surface_type)) {
     z0 <- surface_properties[which(surface_properties$surface_type==surface_type),]$roughness_length
+  } else {
+    z0 <- NA
   }
-  else if(is.null(surface_type)==F && is.null(obs_height)==F){z0 <- NA}
   return(z0)
 }
 
@@ -32,12 +34,10 @@ turb_roughness_length.numeric <- function(surface_type = NULL, obs_height = NULL
 #' @param weather_station Object of class weather_station
 #'
 turb_roughness_length.weather_station <- function(weather_station){
-  if(!is.na(weather_station$location_properties$surface_type)){
-    surface_type <- weather_station$location_properties$surface_type
-    obs_height <- NA
-  } else if(is.na(weather_station$location_properties$surface_type) && !is.na(weather_station$location_properties$obs_height)){
-    obs_height <- weather_station$location_properties$obs_height
-    surface_type <- NA
+  obs_height <- weather_station$location_properties$obs_height
+  surface_type <- weather_station$location_properties$surface_type
+  if(is.null(obs_height) & is.null(surface_type)){
+    stop("Either surface_type or obs_height must be set.")
   }
   return(turb_roughness_length(surface_type, obs_height))
 }
