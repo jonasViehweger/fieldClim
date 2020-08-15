@@ -27,7 +27,7 @@ turb_flux_monin.numeric <- function(grad_rich_no, z1 = 2, z2 = 10, z0, v1, v2, t
   ustar <- turb_ustar(v1,z1,z0)
   monin <- rep(NA, length(grad_rich_no))
   for(i in 1:length(grad_rich_no)){
-    if(!is.finite(grad_rich_no[i])){
+    if(is.na(grad_rich_no[i])){
       monin[i] <- NA
 
     } else if(grad_rich_no[i] <= -0.05){
@@ -91,6 +91,7 @@ turb_flux_grad_rich_no.numeric <- function(t1, t2, z1 = 2, z2 = 10, v1, v2, p1, 
   pot_temp1 <- temp_pot_temp(t1, p1)
   pot_temp2 <- temp_pot_temp(t2, p2)
   grad_rich_no <- (9.81/pot_temp1)*((pot_temp2-pot_temp1)/(z2-z1))*(((v2-v1)/(z2-z1))**(-2))
+  grad_rich_no <- ifelse(is.nan(grad_rich_no), 0, grad_rich_no)
   return(grad_rich_no)
   }
 
@@ -131,7 +132,7 @@ turb_flux_stability <- function (...) {
 turb_flux_stability.numeric <- function(grad_rich_no){
   stability <- rep(NA, length(grad_rich_no))
   for(i in 1:length(grad_rich_no)){
-    if(!is.finite(grad_rich_no[i])){stability[i] <- NA}
+    if(is.na(grad_rich_no[i])){stability[i] <- NA}
     else if(grad_rich_no[i] <= -0.05){stability[i] <- "unstable"}
     else if(grad_rich_no[i] > -0.05 && grad_rich_no[i] < 0.05){stability[i] <- "neutral"}
     else if(grad_rich_no[i] >= 0.05){stability[i] <- "stable"}
@@ -171,7 +172,7 @@ turb_flux_ex_quotient_temp <- function (...) {
 turb_flux_ex_quotient_temp.numeric <- function(grad_rich_no, ustar, monin, z, air_density){
   ex <- rep(NA, length(grad_rich_no))
   for(i in 1:length(grad_rich_no)){
-    if(!is.finite(grad_rich_no[i])){
+    if(is.na(grad_rich_no[i])){
       ex[i] <- NA
     } else if(grad_rich_no[i] <= -0.05){
       ex[i] <- (0.4*ustar[i]*z1/(0.74*(1-9*z1/monin[i])**(-0.5)))*air_density[i]
@@ -231,7 +232,7 @@ turb_flux_ex_quotient_imp <- function (...) {
 turb_flux_ex_quotient_imp.numeric <- function(grad_rich_no, ustar, monin, z, air_density){
   ex <- rep(NA, length(grad_rich_no))
   for(i in 1:length(grad_rich_no)){
-    if(!is.finite(grad_rich_no[i])){
+    if(is.na(grad_rich_no[i])){
       ex[i] <- NA
     } else if(grad_rich_no[i] <= -0.05){
       ex[i] <- (0.4*ustar[i]*z1/((1.15*z1/monin[i])**(-0.25)))*air_density[i]
