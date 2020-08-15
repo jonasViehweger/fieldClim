@@ -2,9 +2,15 @@
 % Please edit documentation in R/latent.R
 \name{latent_priestley_taylor}
 \alias{latent_priestley_taylor}
+\alias{latent_priestley_taylor.numeric}
+\alias{latent_priestley_taylor.weather_station}
 \title{Latent Heat Priestley-Taylor Method}
 \usage{
-latent_priestley_taylor(t, rad_bal, soil_flux)
+latent_priestley_taylor(...)
+
+\method{latent_priestley_taylor}{numeric}(t, rad_bal, soil_flux)
+
+\method{latent_priestley_taylor}{weather_station}(weather_station)
 }
 \arguments{
 \item{t}{Air temperature in degrees Celsius.}
@@ -12,6 +18,8 @@ latent_priestley_taylor(t, rad_bal, soil_flux)
 \item{rad_bal}{Radiation balance in W/m^2.}
 
 \item{soil_flux}{Soil flux in W/m^2.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Latent heat flux in W/m^2.

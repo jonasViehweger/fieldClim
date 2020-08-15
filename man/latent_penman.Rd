@@ -2,9 +2,15 @@
 % Please edit documentation in R/latent.R
 \name{latent_penman}
 \alias{latent_penman}
+\alias{latent_penman.numeric}
+\alias{latent_penman.weather_station}
 \title{Latent Heat Penman Method}
 \usage{
-latent_penman(datetime, v, t, hum, z = 2, rad_bal, elev, lat, lon)
+latent_penman(...)
+
+\method{latent_penman}{numeric}(datetime, v, t, hum, z = 2, rad_bal, elev, lat, lon)
+
+\method{latent_penman}{weather_station}(weather_station)
 }
 \arguments{
 \item{datetime}{POSIXt object (POSIXct, POSIXlt).
@@ -25,6 +31,8 @@ See \link[base:as.POSIXlt]{base::as.POSIXlt} and \link[base:strptime]{base::strp
 \item{lat}{Latitude in decimal degrees.}
 
 \item{lon}{Longitude in decimal degrees.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Latent heat flux in W/m^2.

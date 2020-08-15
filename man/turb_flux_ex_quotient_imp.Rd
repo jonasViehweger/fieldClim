@@ -23,7 +23,12 @@ turb_flux_ex_quotient_imp(...)
 
 \item{weather_station}{Object of class weather_station}
 
+\item{height}{Height of measurement. Either "upper" or "lower".}
+
 \item{z1}{Height in m.}
+}
+\value{
+Exchange quotient for impulse transmission in kg/(m*s).
 }
 \description{
 Calculation of the exchange quotient of the turbulent impulse transmission.

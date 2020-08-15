@@ -2,9 +2,15 @@
 % Please edit documentation in R/soil.R
 \name{soil_heat_flux}
 \alias{soil_heat_flux}
+\alias{soil_heat_flux.numeric}
+\alias{soil_heat_flux.weather_station}
 \title{Soil heat flux}
 \usage{
-soil_heat_flux(ts1, ts2, depth1, depth2, thermal_cond)
+soil_heat_flux(...)
+
+\method{soil_heat_flux}{numeric}(ts1, ts2, depth1, depth2, thermal_cond)
+
+\method{soil_heat_flux}{weather_station}(weather_station)
 }
 \arguments{
 \item{ts1}{Upper soil temperature (closest to the surface) in degrees C.}
@@ -16,6 +22,8 @@ soil_heat_flux(ts1, ts2, depth1, depth2, thermal_cond)
 \item{depth2}{Depth of lower measurement in m.}
 
 \item{thermal_cond}{Thermal conductivity of soil in W/m K.}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Soil heat flux in W*m^-2.

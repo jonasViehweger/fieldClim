@@ -2,9 +2,15 @@
 % Please edit documentation in R/sensible.R
 \name{sensible_priestley_taylor}
 \alias{sensible_priestley_taylor}
+\alias{sensible_priestley_taylor.numeric}
+\alias{sensible_priestley_taylor.weather_station}
 \title{Sensible Heat Priestley-Taylor Method}
 \usage{
-sensible_priestley_taylor(t, rad_bal, soil_flux)
+sensible_priestley_taylor(...)
+
+\method{sensible_priestley_taylor}{numeric}(t, rad_bal, soil_flux)
+
+\method{sensible_priestley_taylor}{weather_station}(weather_station)
 }
 \arguments{
 \item{t}{Air temperature in degrees C.}
@@ -12,6 +18,8 @@ sensible_priestley_taylor(t, rad_bal, soil_flux)
 \item{rad_bal}{Radiation balance in W/m^2.}
 
 \item{soil_flux}{Soil flux in W/m^2.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Sensible heat flux in W/m^2.

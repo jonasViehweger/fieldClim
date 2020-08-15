@@ -24,6 +24,8 @@ turb_flux_ex_quotient_temp(...)
 \item{air_density}{Air density in kg/m^3.}
 
 \item{weather_station}{Object of class weather_station}
+
+\item{height}{Height of measurement. Either "upper" or "lower".}
 }
 \value{
 Exchange quotient for heat transmission in kg/(m*s).

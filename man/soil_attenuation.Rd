@@ -2,9 +2,15 @@
 % Please edit documentation in R/soil.R
 \name{soil_attenuation}
 \alias{soil_attenuation}
+\alias{soil_attenuation.numeric}
+\alias{soil_attenuation.weather_station}
 \title{Soil attenuation length}
 \usage{
-soil_attenuation(thermal_cond, vol_heat_cap)
+soil_attenuation(...)
+
+\method{soil_attenuation}{numeric}(thermal_cond, vol_heat_cap)
+
+\method{soil_attenuation}{weather_station}(weather_station)
 }
 \arguments{
 \item{thermal_cond}{Thermal conductivity of soil in W/m K.}

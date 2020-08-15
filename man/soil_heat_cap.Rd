@@ -2,14 +2,22 @@
 % Please edit documentation in R/soil.R
 \name{soil_heat_cap}
 \alias{soil_heat_cap}
+\alias{soil_heat_cap.numeric}
+\alias{soil_heat_cap.weather_station}
 \title{Soil volumetric heat capacity}
 \usage{
-soil_heat_cap(moisture, texture = "sand")
+soil_heat_cap(...)
+
+\method{soil_heat_cap}{numeric}(moisture, texture = "sand")
+
+\method{soil_heat_cap}{weather_station}(weather_station)
 }
 \arguments{
 \item{moisture}{Soil moisture in Vol-\%.}
 
 \item{texture}{Soil texture. Either "sand" or "clay".}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Numeric vector with volumetric heat capacity in J/(m^3 * K)
