@@ -39,14 +39,10 @@ soil_thermal_cond.numeric <- function(moisture, texture = "sand") {
 #' @export
 #'
 soil_thermal_cond.weather_station <- function(weather_station) {
-  if(is.null(weather_station$measurements$moisture)){
-    stop("The weather_station object does not contain the property 'moisture'.")
-  }
-  if(is.null(weather_station$location_properties$texture)){
-    stop("The weather_station object does not contain the property 'texture'.")
-  }
-
-  t <- weather_station$measurements$moisture
+  check_availability(weather_station, "moisture", "texture")
+  moisture <- weather_station$measurements$moisture
+  texture <- weather_station$location_properties$texture
+  return(soil_thermal_cond(moisture, texture))
 }
 
 
@@ -56,13 +52,21 @@ soil_thermal_cond.weather_station <- function(weather_station) {
 #'
 #' Works by linearly interpolating volumetric heat capacity based on measured data.
 #'
-#' @param moisture Soil moisture in Vol-%.
-#' @param texture Soil texture. Either "sand" or "clay".
 #'
 #' @return Numeric vector with volumetric heat capacity in J/(m^3 * K)
 #' @export
 #'
-soil_heat_cap <- function(moisture, texture = "sand") {
+soil_heat_cap <- function (...) {
+  UseMethod("soil_heat_cap")
+}
+
+
+#' @rdname soil_heat_cap
+#' @method soil_heat_cap numeric
+#' @param moisture Soil moisture in Vol-%.
+#' @param texture Soil texture. Either "sand" or "clay".
+#' @export
+soil_heat_cap.numeric <- function(moisture, texture = "sand") {
   if(texture == "sand"){
     y <- c(1.17,1.38,1.59,1.8,2.0,2.42,2.97)
   } else if(texture == "clay"){
@@ -75,6 +79,20 @@ soil_heat_cap <- function(moisture, texture = "sand") {
   # linear interpolation of values
   vol_heat <- approx(x, y, xout = moisture, yleft = NA, yright = y[7])
   return(vol_heat$y)
+}
+
+
+
+#' @rdname soil_heat_cap
+#' @method soil_heat_cap weather_station
+#' @param weather_station Object of class weather_station.
+#' @export
+#'
+soil_thermal_cond.weather_station <- function(weather_station) {
+  check_availability(weather_station, "moisture", "texture")
+  moisture <- weather_station$measurements$moisture
+  texture <- weather_station$location_properties$texture
+  return(soil_heat_cap(moisture, texture))
 }
 
 
