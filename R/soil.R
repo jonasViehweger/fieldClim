@@ -71,10 +71,6 @@ soil_heat_cap <- function(moisture, texture = "sand") {
 #' @export
 #'
 soil_heat_flux <- function(ts1, ts2, depth1, depth2, thermal_cond) {
-  if (any(thermal_cond < 0)){
-    warning("Negative thermal_cond values will be converted to NA.")
-    thermal_cond[thermal_cond < 0] <- NA
-  }
   return (thermal_cond*((ts1-ts2)/(depth2-depth1)))
 }
 

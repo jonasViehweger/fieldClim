@@ -95,9 +95,24 @@ monthly_climate <- function(data,
   rad_bal <- as.numeric(data[,rad_bal])
   sw_bal <- as.numeric(data[,sw_bal])
   lw_bal <- as.numeric(data[,lw_bal])
-  soil_flux <- as.numeric(data[,soil_flux])
   hum1 <- as.numeric(data[,hum1])
   hum2 <- as.numeric(data[,hum2])
+
+  # calculation of soil_flux, if unknown
+  if(is.null(soil_flux)){
+    #Check for missing values
+    if(is.null(moisture) | is.null(texture) | is.null(ts1) | is.null(ts2) |
+       is.null(depth1) | is.null(depth2)){
+      stop("moisture, texture, ts1, ts2, depth1 and depth2 need to be set if soil_flux is NULL.")
+    }
+    ts1 <- as.numeric(data[,ts1])
+    ts2 <- as.numeric(data[,ts2])
+    moisture <- as.numeric(data[,moisture])
+    thermal_cond <- soil_thermal_cond(moisture, texture)
+    soil_flux <- soil_heat_flux(ts1, ts2, depth1, depth2, thermal_cond)
+  } else {
+    soil_flux <- as.numeric(data[,soil_flux])
+  }
 
   if(!is.null(albedo)){
     albedo <- data[,albedo]
@@ -164,13 +179,6 @@ monthly_climate <- function(data,
     rad_bal_total_with_topography <- rad_bal_total_with_topography(rad_sw_balance_topography, rad_lw_surface,rad_lw_atmospheric,terr_sky_view)
   } else if(is.null(slope)){
     rad_bal_total_with_topography <- NULL
-  }
-
-  if(is.null(soil_flux)){
-    ### Caclulation of latent and sensible heat fluxes
-    #cakculation of soil_flux, if unknown
-    thermal_cond <- soil_thermal_cond(moisture, texture)
-    soil_flux <- soil_heat_flux(ts1, ts2, depth1, depth2, thermal_cond)
   }
 
   #Latent Heat Priestley-Taylor Method
