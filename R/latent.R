@@ -55,7 +55,7 @@ latent_penman <- function (...) {
 }
 
 #' @rdname latent_penman
-#' @method latent_penman numeric
+#' @method latent_penman POSIXt
 #' @export
 #' @param datetime POSIXt object (POSIXct, POSIXlt).
 #' See [base::as.POSIXlt] and [base::strptime] for conversion.
@@ -67,7 +67,7 @@ latent_penman <- function (...) {
 #' @param elev Elevation above sea level in m.
 #' @param lat Latitude in decimal degrees.
 #' @param lon Longitude in decimal degrees.
-latent_penman.numeric <- function(datetime,
+latent_penman.POSIXt <- function(datetime,
                        v, t, hum, z = 2, rad_bal,
                        elev, lat, lon){
   if(!inherits(datetime, "POSIXt")){

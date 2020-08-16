@@ -2,14 +2,33 @@
 % Please edit documentation in R/radiation.R
 \name{rad_sw_ground_horizontal}
 \alias{rad_sw_ground_horizontal}
+\alias{rad_sw_ground_horizontal.numeric}
+\alias{rad_sw_ground_horizontal.weather_station}
 \title{Shortwave radiation onto a horizontal area on the ground}
 \usage{
-rad_sw_ground_horizontal(rad_sw_toa, trans_total)
+rad_sw_ground_horizontal(...)
+
+\method{rad_sw_ground_horizontal}{numeric}(rad_sw_toa, trans_total)
+
+\method{rad_sw_ground_horizontal}{weather_station}(
+  weather_station,
+  trans_total = NULL,
+  oz = 0.35,
+  vis = 30
+)
 }
 \arguments{
 \item{rad_sw_toa}{Shortwave radiation at top of atmosphere in W/m^2.}
 
-\item{trans_total}{Total transmittance of the atmosphere (0-1).}
+\item{trans_total}{Total transmittance of the atmosphere.}
+
+\item{weather_station}{Object of class weather_station.}
+
+\item{oz}{OPTIONAL. Needed if trans_total = NULL. Columnar ozone in cm.
+Default is average global value.}
+
+\item{vis}{OPTIONAL. Needed if trans_total = NULL. Meteorological visibility in km.
+Default is the visibility on a clear day.}
 }
 \value{
 Shortwave radiation on the ground onto a horizontal area in W/m^2.

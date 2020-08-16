@@ -2,14 +2,22 @@
 % Please edit documentation in R/radiation.R
 \name{rad_lw_atmospheric}
 \alias{rad_lw_atmospheric}
+\alias{rad_lw_atmospheric.numeric}
+\alias{rad_lw_atmospheric.weather_station}
 \title{Longwave radiation of the atmosphere}
 \usage{
-rad_lw_atmospheric(emissivity_air, t)
+rad_lw_atmospheric(...)
+
+\method{rad_lw_atmospheric}{numeric}(emissivity_air, t)
+
+\method{rad_lw_atmospheric}{weather_station}(weather_station)
 }
 \arguments{
 \item{emissivity_air}{Emissivity of the atmosphere (factor: 0-1)}
 
 \item{t}{Air temperature in degrees C.}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Atmospheric radiation in W/m^2.

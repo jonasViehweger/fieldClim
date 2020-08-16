@@ -2,13 +2,13 @@
 % Please edit documentation in R/latent.R
 \name{latent_penman}
 \alias{latent_penman}
-\alias{latent_penman.numeric}
+\alias{latent_penman.POSIXt}
 \alias{latent_penman.weather_station}
 \title{Latent Heat Penman Method}
 \usage{
 latent_penman(...)
 
-\method{latent_penman}{numeric}(datetime, v, t, hum, z = 2, rad_bal, elev, lat, lon)
+\method{latent_penman}{POSIXt}(datetime, v, t, hum, z = 2, rad_bal, elev, lat, lon)
 
 \method{latent_penman}{weather_station}(weather_station)
 }

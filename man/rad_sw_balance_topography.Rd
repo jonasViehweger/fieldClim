@@ -2,9 +2,12 @@
 % Please edit documentation in R/radiation.R
 \name{rad_sw_balance_topography}
 \alias{rad_sw_balance_topography}
+\alias{rad_sw_balance_topography.numeric}
 \title{Shortwave radiation balance in dependency of topography}
 \usage{
-rad_sw_balance_topography(
+rad_sw_balance_topography(...)
+
+\method{rad_sw_balance_topography}{numeric}(
   slope,
   valley = F,
   sol_elevation,

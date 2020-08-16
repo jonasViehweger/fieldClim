@@ -2,14 +2,30 @@
 % Please edit documentation in R/radiation.R
 \name{rad_sw_reflected}
 \alias{rad_sw_reflected}
+\alias{rad_sw_reflected.numeric}
+\alias{rad_sw_reflected.weather_station}
 \title{Reflected shortwave ratdiation}
 \usage{
-rad_sw_reflected(rad_sw_ground_horizontal, albedo)
+rad_sw_reflected(...)
+
+\method{rad_sw_reflected}{numeric}(rad_sw_ground_horizontal, albedo)
+
+\method{rad_sw_reflected}{weather_station}(weather_station, trans_total = NULL, oz = 0.35, vis = 30)
 }
 \arguments{
 \item{rad_sw_ground_horizontal}{Shortwave radiation on the ground onto a horizontal area in W/m^2.}
 
 \item{albedo}{Albedo of the surface.}
+
+\item{weather_station}{Object of class weather_station.}
+
+\item{trans_total}{Total transmittance of the atmosphere.}
+
+\item{oz}{OPTIONAL. Needed if trans_total = NULL. Columnar ozone in cm.
+Default is average global value.}
+
+\item{vis}{OPTIONAL. Needed if trans_total = NULL. Meteorological visibility in km.
+Default is the visibility on a clear day.}
 }
 \value{
 Reflected shortwave ratdiation in W/m^2.

@@ -62,6 +62,7 @@ turb_flux_monin.weather_station <- function(weather_station){
 }
 
 
+
 #' Gradient-Richardson-Number
 #'
 #' Calculation of the Gradient-Richardson-Number. The number represents the
@@ -111,6 +112,7 @@ turb_flux_grad_rich_no.weather_station <- function(weather_station){
   p2 <- weather_station$measurements$p2
   return(turb_flux_grad_rich_no(t1, t2, z1, z2, v1, v2, p1, p2))
 }
+
 
 
 #' Stability
@@ -226,7 +228,7 @@ turb_flux_ex_quotient_imp <- function (...) {
 #' @param grad_rich_no Gradient-Richardson-Number.
 #' @param ustar Friction velocity in m/s.
 #' @param monin Monin-Obhukov-Length in m.
-#' @param z1 Height in m.
+#' @param z Observation height in m.
 #' @param air_density Air density in kg/m^3.
 #' @export
 turb_flux_ex_quotient_imp.numeric <- function(grad_rich_no, ustar, monin, z, air_density){
@@ -235,11 +237,11 @@ turb_flux_ex_quotient_imp.numeric <- function(grad_rich_no, ustar, monin, z, air
     if(is.na(grad_rich_no[i])){
       ex[i] <- NA
     } else if(grad_rich_no[i] <= -0.05){
-      ex[i] <- (0.4*ustar[i]*z1/((1.15*z1/monin[i])**(-0.25)))*air_density[i]
+      ex[i] <- (0.4*ustar[i]*z/((1.15*z/monin[i])**(-0.25)))*air_density[i]
     } else if(grad_rich_no[i] > -0.05 && grad_rich_no[i] < 0.05){
       ex[i] <- (0.4*ustar[i]*monin[i]/4.7)*air_density[i]
     } else if(grad_rich_no[i] >= 0.05){
-      ex[i] <- (0.4*ustar[i]*z1)*air_density[i]
+      ex[i] <- (0.4*ustar[i]*z)*air_density[i]
     }
   }
   return(ex)

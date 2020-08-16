@@ -2,19 +2,31 @@
 % Please edit documentation in R/radiation.R
 \name{rad_lw_surface}
 \alias{rad_lw_surface}
+\alias{rad_lw_surface.numeric}
+\alias{rad_lw_surface.weather_station}
 \title{Longwave radiation of the surface}
 \usage{
-rad_lw_surface(t, emissivity_surface = 0.95)
+rad_lw_surface(...)
+
+\method{rad_lw_surface}{numeric}(t, emissivity_surface = 0.95)
+
+\method{rad_lw_surface}{weather_station}(weather_station, emissivity_surface = 0.95)
 }
 \arguments{
 \item{t}{Surface temperature in degrees C.}
 
 \item{emissivity_surface}{Emissivity of surface.
 Default is emissivity for short grass.}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Emissions in W/m^2.
 }
 \description{
 Calculates emissions of a surface.
+}
+\details{
+If a weather_station object is given, the lower air temperature will be used
+instead of the surface temperature.
 }

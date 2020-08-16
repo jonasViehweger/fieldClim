@@ -20,7 +20,6 @@ test_that("soil_thermal_cond", {
   expect_equal(soil_thermal_cond(c(NA, -10), texture = "sand"), c(NA, NA_integer_))
   expect_equal(soil_thermal_cond(c(NA, -10), texture = "clay"), c(NA, NA_integer_))
   expect_error(soil_thermal_cond(moisture, texture = "error"))
-  expect_warning(soil_thermal_cond(c("Hallo", "13")))
 })
 
 # values for linear interpolation:
@@ -33,7 +32,6 @@ test_that("soil_heat_cap", {
   expect_equal(soil_heat_cap(c(NA, -10), texture = "sand"), c(NA, NA_integer_))
   expect_equal(soil_heat_cap(c(NA, -10), texture = "clay"), c(NA, NA_integer_))
   expect_error(soil_heat_cap(moisture, texture = "error"))
-  expect_warning(soil_heat_cap(c("Hallo", "13")))
 })
 
 test_that("soil_heat_flux", {

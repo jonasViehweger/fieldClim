@@ -2,9 +2,12 @@
 % Please edit documentation in R/radiation.R
 \name{rad_bal_total_with_topography}
 \alias{rad_bal_total_with_topography}
+\alias{rad_bal_total_with_topography.numeric}
 \title{Total radiation balance with topography}
 \usage{
-rad_bal_total_with_topography(
+rad_bal_total_with_topography(...)
+
+\method{rad_bal_total_with_topography}{numeric}(
   rad_sw_balance_topography,
   rad_lw_surface,
   rad_lw_atmospheric,
