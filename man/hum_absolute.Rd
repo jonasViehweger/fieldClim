@@ -2,14 +2,24 @@
 % Please edit documentation in R/humidity.R
 \name{hum_absolute}
 \alias{hum_absolute}
+\alias{hum_absolute.numeric}
+\alias{hum_absolute.weather_station}
 \title{Absolute humidity}
 \usage{
-hum_absolute(p_vapor, t_pot)
+hum_absolute(...)
+
+\method{hum_absolute}{numeric}(p_vapor, t_pot)
+
+\method{hum_absolute}{weather_station}(weather_station, height)
 }
 \arguments{
 \item{p_vapor}{Vapor presure in hPa.}
 
-\item{t}{Potential air temperature in Kelvin.}
+\item{t_pot}{Potential air temperature in Kelvin.}
+
+\item{weather_station}{Object of class weather_station.}
+
+\item{height}{Height of measurement. "lower" or "upper".}
 }
 \value{
 Absolute humidity in kg/m^3.

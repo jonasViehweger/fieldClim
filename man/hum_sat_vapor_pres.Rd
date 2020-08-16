@@ -2,12 +2,22 @@
 % Please edit documentation in R/humidity.R
 \name{hum_sat_vapor_pres}
 \alias{hum_sat_vapor_pres}
+\alias{hum_sat_vapor_pres.numeric}
+\alias{hum_sat_vapor_pres.weather_station}
 \title{Saturation vapor pressure}
 \usage{
-hum_sat_vapor_pres(t)
+hum_sat_vapor_pres(...)
+
+\method{hum_sat_vapor_pres}{numeric}(t)
+
+\method{hum_sat_vapor_pres}{weather_station}(weather_station, height)
 }
 \arguments{
 \item{t}{Air temperature in degrees C.}
+
+\item{weather_station}{Object of class weather_station.}
+
+\item{height}{Height of measurement. "lower" or "upper".}
 }
 \value{
 Saturation vapor pressure in hPa.

@@ -2,9 +2,15 @@
 % Please edit documentation in R/humidity.R
 \name{hum_moisture_gradient}
 \alias{hum_moisture_gradient}
+\alias{hum_moisture_gradient.numeric}
+\alias{hum_moisture_gradient.weather_station}
 \title{Moisture gradient}
 \usage{
-hum_moisture_gradient(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10)
+hum_moisture_gradient(...)
+
+\method{hum_moisture_gradient}{numeric}(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10)
+
+\method{hum_moisture_gradient}{weather_station}(weather_station)
 }
 \arguments{
 \item{hum1}{Relative humidity at lower height in \%.}
@@ -22,6 +28,8 @@ hum_moisture_gradient(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10)
 \item{z1}{Lower measurement height in m.}
 
 \item{z2}{Upper measurement height in m.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 
