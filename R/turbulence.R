@@ -14,11 +14,11 @@ turb_roughness_length <- function (...) {
 }
 
 #' @rdname turb_roughness_length
-#' @method turb_roughness_length default
+#' @method turb_roughness_length numeric
 #' @param surface_type Type of surface
 #' @param obs_height Height of obstacle in m.
 #'
-turb_roughness_length.default <- function(surface_type = NULL, obs_height = NULL){
+turb_roughness_length.numeric <- function(surface_type = NULL, obs_height = NULL){
   if(!is.null(obs_height)){
     z0 <- obs_height*0.1
   } else if(!is.null(surface_type)) {

@@ -129,11 +129,22 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
     out_list$measurements$p2 <- pres_p(out_list, "upper")
   }
 
-  # calculate rad_bal -> doing this, when functions are ready
 
   # calculate sw_bal -> doing this, when functions are ready
+  #trans_total <- waiting for function being brought to new form
+  sw_bal <- rad_sw_radiation_balance(out_list, trans_total = NULL, oz = 0.35, vis = 30)
+  out_list$measurements$sw_bal <- sw_bal
 
   # calculate lw_bal -> doing this, when functions are ready
+  emissivity <- surface_properties$emissivity[which(surface_properties$surface_type == surface_type)]
+  rad_lw_surface <- rad_lw_surface(out_list, emissivity)
+  rad_lw_atmospheric <- rad_lw_atmospheric(out_list)
+  lw_bal <- rad_lw_surface-rad_lw_atmospheric
+  out_list$measurements$lw_bal <- lw_bal
+
+  # calculate rad_bal
+  rad_bal <- rad_bal_total(sw_bal, rad_lw_surface, rad_lw_atmospheric)
+  out_list$measurements$rad_bal <- rad_bal
 
   # check if all vectors have the same lenght and print a warning if not
   length_condition <- lengths(out_list$measurements[2:length(out_list$measurements)]) != length(out_list$measurements$datetime)
@@ -182,3 +193,33 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
 # ts1 = NULL
 # ts2 = NULL
 # moisture = NULL
+
+testomat <- build_weather_station(lat = 50.84050277777778, #weather station caldern
+                                  lon = 8.683303333333333, #weather station caldern
+                                  elev = 270, #weather station caldern
+                                  surface_type = "Wiese",  #weather station caldern
+                                  obs_height = 0.3,
+                                  texture = "clay", #needed when soil_flux unknown
+                                  valley = F,
+                                  slope = NULL, #if not NULL, the rad_bal with topography will be calculated
+                                  z1 = z1,
+                                  z2 = z2,
+                                  depth1 = NULL, #needed when soil_flux unknown
+                                  depth2 = NULL, #needed when soil_flux unknown
+                                  datetime = datetime,
+                                  t1 = t1,
+                                  t2 = t2,
+                                  v1 = v1,
+                                  v2 = v2,
+                                  hum1 = hum1,
+                                  hum2 = hum2,
+                                  p1 = NULL,
+                                  p2 = NULL,
+                                  rad_bal = NULL, #if NULL -> will be calculated, albedo needed
+                                  sw_bal = NULL, #if NULL -> will be calculated, albedo needed
+                                  lw_bal = NULL, #if NULL -> tough luck, won't be calculated
+                                  albedo = NULL, #needed, if radiation balance is unknown an shall be calulated
+                                  soil_flux = NULL,
+                                  ts1 = NULL,
+                                  ts2 = NULL,
+                                  moisture = NULL)

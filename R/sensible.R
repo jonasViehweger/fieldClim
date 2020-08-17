@@ -135,7 +135,7 @@ sensible_bowen.numeric <- function(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10,
                            rad_bal, soil_flux){
 
   # Check turbulence conditions
-  if()
+  #if()
 
   # Calculating potential temperature delta
   t1_pot <- temp_pot_temp(t1, p1)
