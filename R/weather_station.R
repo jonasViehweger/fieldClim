@@ -10,21 +10,21 @@
 #' If p1 and p2 are NULL, they will get estimated using the elevation and air temperature.
 #'
 #' If sw_in is NULL, it will get estimated using TOA radiation and average
-#' atmospheric transmission (See [fieldClim::rad_sw_in]).
-#' By also setting slope, sky_view and exposition, sw_in will be topographically corrected
+#' atmospheric transmission (see [fieldClim::rad_sw_in]).
+#' By setting slope, sky_view and exposition, sw_in will be topographically corrected
 #' (see [fieldClim::rad_sw_in_topo]).
 #'
-#' If sw_out is NULL, albedo needs to be set (See [fieldClim::rad_sw_out]).
+#' If sw_out is NULL, albedo needs to be set (see [fieldClim::rad_sw_out]).
 #'
-#' If lw_in is NULL, it will get estimated using the air temperature and pressure.
-#' (See [fieldClim::rad_lw_in]).
-#' By also setting sky_view, sw_in will be topographically corrected
+#' If lw_in is NULL, it will get estimated using the air temperature and pressure
+#' (see [fieldClim::rad_lw_in]).
+#' By setting sky_view, sw_in will be topographically corrected
 #' (see [fieldClim::rad_sw_in_topo]).
 #'
-#' If lw_out is NULL, t_surface needs to be set (See [fieldClim::rad_sw_out]).
+#' If lw_out is NULL, t_surface needs to be set (see [fieldClim::rad_sw_out]).
 #'
 #' If soil_flux is NULL, ts1, ts2, depth1, depth2, moisture and texture need to be set.
-#' (See [fieldClim::soil_heat_flux] and [fieldClim::soil_thermal_cond]).
+#' (see [fieldClim::soil_heat_flux] and [fieldClim::soil_thermal_cond]).
 #'
 #' @param lat Latitude of location. Preset: 50.840503 (climate station caldern).
 #' @param lon Longitude of location. Preset: 8.683300 (climate station caldern).
@@ -52,7 +52,7 @@
 #' @return List of class "weather_station", that contains:
 #' 1) list of location properties
 #' 2) list of weather station properties
-#' 3) list of measurements, which will conatin NAs if they were not defined in the input
+#' 3) list of measurements, which will conatin NULLs if they were not defined in the input
 #' @export
 #'
 #' @examples
@@ -130,14 +130,29 @@ build_weather_station <-  function(lat = 50.840503, #weather station caldern
     value <-  args[[i]]
 
     if(name %in% add_location){
-      out_list$location_properties[name] <- value
+      out_list$location_properties[name] <- list(value)
     } else if(name %in% add_heights){
-      out_list$properties[name] <- value
+      out_list$properties[name] <- list(value)
     } else if(name %in% add_measurements){
-      out_list$measurements[name] <- value
+      out_list$measurements[name] <- list(value)
     }
 
     assign(x = name, value = value)
+  }
+
+  # Check if all given measurements are numeric and datetime is POSIXt
+  for(i in 2:length(out_list$measurements)){
+    value <- out_list$measurements[[i]]
+    if(!is.numeric(value)
+       & !is.null(value)){
+      name <- names(out_list$measurements)[i]
+      warning(name, " is not numeric. Will attempt to convert to numeric.")
+      out_list$measurements[[i]] <- as.numeric(value)
+    }
+  }
+
+  if(!inherits(out_list$measurements$datetime, "POSIXt")){
+    stop("datetime must be of class POSIXt.")
   }
 
 
@@ -231,8 +246,6 @@ build_weather_station <-  function(lat = 50.840503, #weather station caldern
     out_list$measurements$soil_flux <- soil_heat_flux(out_list)
 
   }
-
-
 
   # check if all vectors have the same length and print a warning if not
   length_condition <- lengths(out_list$measurements[2:length(out_list$measurements)]) != length(out_list$measurements$datetime)

@@ -14,11 +14,11 @@ turb_roughness_length <- function (...) {
 }
 
 #' @rdname turb_roughness_length
-#' @method turb_roughness_length numeric
+#' @method turb_roughness_length default
 #' @param surface_type Type of surface
 #' @param obs_height Height of obstacle in m.
 #'
-turb_roughness_length.numeric <- function(surface_type = NULL, obs_height = NULL){
+turb_roughness_length.default <- function(surface_type = NULL, obs_height = NULL){
   if(!is.null(obs_height)){
     z0 <- obs_height*0.1
   } else if(!is.null(surface_type)) {
@@ -34,6 +34,7 @@ turb_roughness_length.numeric <- function(surface_type = NULL, obs_height = NULL
 #' @param weather_station Object of class weather_station
 #'
 turb_roughness_length.weather_station <- function(weather_station){
+  check_availability(weather_station, "obs_height", "surface_type")
   obs_height <- weather_station$location_properties$obs_height
   surface_type <- weather_station$location_properties$surface_type
   if(is.null(obs_height) & is.null(surface_type)){
@@ -70,6 +71,7 @@ turb_displacement.numeric <- function(obs_height){
 #' @param weather_station Object of class weather_station
 #'
 turb_displacement.weather_station <- function(weather_station){
+  check_availability(weather_station, "obs_height")
   obs_height <- weather_station$location_properties$obs_height
   return(turb_displacement(obs_height))
 }
@@ -103,6 +105,7 @@ turb_ustar.numeric <- function(v, z, z0){
 #' @param weather_station Object of class weather_station
 #'
 turb_ustar.weather_station <- function(weather_station){
+  check_availability(weather_station, "v1", "z1")
   v <- weather_station$measurements$v1
   z <- weather_station$properties$z1
   z0 <- turb_roughness_length(weather_station)

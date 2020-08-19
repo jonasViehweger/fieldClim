@@ -101,7 +101,7 @@ latent_penman.POSIXt <- function(datetime,
 latent_penman.weather_station <- function(weather_station){
   check_availability(weather_station, "datetime",
                      "v1", "t1", "hum1", "z1", "rad_bal",
-                     "elev", "lat", "lon")
+                     "elevation", "latitude", "longitude")
   datetime <- weather_station$measurements$datetime
   v <- weather_station$measurements$v1
   t <- weather_station$measurements$t1

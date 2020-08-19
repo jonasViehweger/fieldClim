@@ -78,7 +78,7 @@ List of class "weather_station", that contains:
 \enumerate{
 \item list of location properties
 \item list of weather station properties
-\item list of measurements, which will conatin NAs if they were not defined in the input
+\item list of measurements, which will conatin NULLs if they were not defined in the input
 }
 }
 \description{
@@ -93,19 +93,19 @@ For usage examples see the examples below.
 If p1 and p2 are NULL, they will get estimated using the elevation and air temperature.
 
 If sw_in is NULL, it will get estimated using TOA radiation and average
-atmospheric transmission (See \link{rad_sw_in}).
-By also setting slope, sky_view and exposition, sw_in will be topographically corrected
+atmospheric transmission (see \link{rad_sw_in}).
+By setting slope, sky_view and exposition, sw_in will be topographically corrected
 (see \link{rad_sw_in_topo}).
 
-If sw_out is NULL, albedo needs to be set (See \link{rad_sw_out}).
+If sw_out is NULL, albedo needs to be set (see \link{rad_sw_out}).
 
-If lw_in is NULL, it will get estimated using the air temperature and pressure.
-(See \link{rad_lw_in}).
-By also setting sky_view, sw_in will be topographically corrected
+If lw_in is NULL, it will get estimated using the air temperature and pressure
+(see \link{rad_lw_in}).
+By setting sky_view, sw_in will be topographically corrected
 (see \link{rad_sw_in_topo}).
 
-If lw_out is NULL, t_surface needs to be set (See \link{rad_sw_out}).
+If lw_out is NULL, t_surface needs to be set (see \link{rad_sw_out}).
 
 If soil_flux is NULL, ts1, ts2, depth1, depth2, moisture and texture need to be set.
-(See \link{soil_heat_flux} and \link{soil_thermal_cond}).
+(see \link{soil_heat_flux} and \link{soil_thermal_cond}).
 }
