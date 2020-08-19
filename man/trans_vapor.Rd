@@ -2,15 +2,22 @@
 % Please edit documentation in R/transmittance.R
 \name{trans_vapor}
 \alias{trans_vapor}
+\alias{trans_vapor.numeric}
+\alias{trans_vapor.weather_station}
 \title{Transmittance due to water vapor}
 \usage{
-trans_vapor(air_mass_rel, precipitable_water)
+trans_vapor(...)
+
+\method{trans_vapor}{numeric}(air_mass_rel, precipitable_water)
+
+\method{trans_vapor}{weather_station}(weather_station, height)
 }
 \arguments{
 \item{air_mass_rel}{Relative optical air mass.}
 
-\item{precipitable_water}{Precipitable water in cm.
-See \link{hum_precipitable_water} for estimation.}
+\item{precipitable_water}{Precipitable water in cm.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Transmittance due to water vapor (0-1).

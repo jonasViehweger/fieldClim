@@ -1,15 +1,36 @@
 #' Weather Station
 #'
-#' Creates a list of class "weather_station, that contains all data regarding the weather station, its location and its measurements.
+#' Creates a list of class "weather_station, that contains all data regarding the
+#' weather station, its location and its measurements.
 #'
-#' @param lat Latitude of location. Preset: 50.84050277777778 (climate station caldern).
-#' @param lon Longitude of location. Preset: 8.683303333333333 (climate station caldern).
+#' Parameters with preset NULL can be estimated using calculations. However some additional
+#' variables need to be passed for the estimation of some parameters.
+#' For usage examples see the examples below.
+#'
+#' If p1 and p2 are NULL, they will get estimated using the elevation and air temperature.
+#'
+#' If sw_in is NULL, it will get estimated using TOA radiation and average
+#' atmospheric transmission (See [fieldClim::rad_sw_in]).
+#' By also setting slope, sky_view and exposition, sw_in will be topographically corrected
+#' (see [fieldClim::rad_sw_in_topo]).
+#'
+#' If sw_out is NULL, albedo needs to be set (See [fieldClim::rad_sw_out]).
+#'
+#' If lw_in is NULL, it will get estimated using the air temperature and pressure.
+#' (See [fieldClim::rad_lw_in]).
+#' By also setting sky_view, sw_in will be topographically corrected
+#' (see [fieldClim::rad_sw_in_topo]).
+#'
+#' If lw_out is NULL, t_surface needs to be set (See [fieldClim::rad_sw_out]).
+#'
+#' If soil_flux is NULL, ts1, ts2, depth1, depth2, moisture and texture need to be set.
+#' (See [fieldClim::soil_heat_flux] and [fieldClim::soil_thermal_cond]).
+#'
+#' @param lat Latitude of location. Preset: 50.840503 (climate station caldern).
+#' @param lon Longitude of location. Preset: 8.683300 (climate station caldern).
 #' @param elev Elevation of location above sea level in m. Preset: 270 m (climate station caldern).
 #' @param surface_type Surface Type. Form: Character string. One of: "Wiese", "Acker", "Gruenflaeche", "Strasse", "Landwirtschaft", "Siedlung", "Nadelwald", "Laubwald", "Mischwald", "Stadt". Preset: "Wiese.
 #' @param obs_height Height of vegetation in m. Preset: 0.3.
-#' @param texture Texture of ground. Form: Character string. One of: "clay", "sand". Preset: "clay".
-#' @param valley TRUE, if climate station is positioned in a valley. Form: logical. Preset: FALSE.
-#' @param slope Slope of hillside in %. Form: Numeric. Preset: NULL.
 #' @param z1 Lower measurement height in m. Preset: 2m.
 #' @param z2 Upper measurement height in m. Preset: 2m.
 #' @param depth1 Upper depth of soil measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
@@ -32,16 +53,8 @@
 #' Preset: NULL. Note: If NULL, sw_bal will be calculated (Albedo needed).
 #' @param lw_bal Vector containing longwave radiation balance in W/m^2.
 #' Preset: NULL. Note: If NULL, lw_bal will be calculated (Albedo needed).
-#' @param albedo Vector containing albedo.
-#' Preset: NULL. Note: Only needed, if radiation balances shall be calculated.
 #' @param soil_flux Vector containing soil flux in W/m^2.
 #' Preset: NULL. Note: If NULL, soil_flux will be calculated.
-#' @param ts1 Vector containing upper ground temperature data in degrees C.
-#' Preset: NULL. Note: Only needed, if soil flux shall be calculated.
-#' @param ts2 Vector containing lower ground temperature data in degrees C.
-#' Preset: NULL. Note: Only needed, if soil flux shall be calculated.
-#' @param moisture Vector containing ground moisture data in Vol-%.
-#' Preset: NULL. Note: Only needed, if soil flux shall be calculated.
 #'
 #' @return List of class "weather_station", that contains:
 #' 1) list of location properties
@@ -50,18 +63,13 @@
 #' @export
 #'
 #' @examples
-build_weather_station <-  function(lat = 50.84050277777778, #weather station caldern
-                                   lon = 8.683303333333333, #weather station caldern
+build_weather_station <-  function(lat = 50.840503, #weather station caldern
+                                   lon = 8.683300, #weather station caldern
                                    elev = 270, #weather station caldern
                                    surface_type = "Wiese",  #weather station caldern
                                    obs_height = 0.3,
-                                   texture = "clay", #needed when soil_flux unknown
-                                   valley = F,
-                                   slope = NULL, #if not NULL, the rad_bal with topography will be calculated
                                    z1,
                                    z2,
-                                   depth1 = NULL, #needed when soil_flux unknown
-                                   depth2 = NULL, #needed when soil_flux unknown
                                    datetime,
                                    t1,
                                    t2,
@@ -75,23 +83,31 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
                                    sw_out = NULL,
                                    lw_in = NULL,
                                    lw_out = NULL,
-                                   albedo = NULL, #needed, if radiation balance is unknown an shall be calulated
                                    soil_flux = NULL,
-                                   ts1 = NULL,
-                                   ts2 = NULL,
-                                   moisture = NULL){ #needed when soil_flux unknown
+                                   ...){
+
+  # --- alternative soil_flux ---
+  # texture = "clay",
+  # depth1 = NULL,
+  # depth2 = NULL,
+  # ts1 = NULL,
+  # ts2 = NULL,
+  # moisture = NULL,
+
+  # --- alternative radiation ---
+  # slope = NULL,
+  # albedo = NULL,
+  # sky_view = NULL
+  # exposition = NULL
+
+
   out_list <- list(location_properties = list(latitude = lat,
                                               longitude = lon,
                                               elevation = elev,
                                               surface_type = surface_type,
-                                              obs_height = obs_height,
-                                              texture = texture,
-                                              valley = valley,
-                                              slope = slope),
+                                              obs_height = obs_height),
                    properties = list(z1 = z1,
-                                     z2 = z2,
-                                     depth1 = depth1,
-                                     depth2 = depth2),
+                                     z2 = z2),
                    measurements = list(datetime = datetime,
                                        t1 = t1,
                                        t2 = t2,
@@ -101,15 +117,35 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
                                        hum2 = hum2,
                                        p1 = p1,
                                        p2 = p2,
-                                       rad_bal = rad_bal,
-                                       sw_bal = sw_bal,
-                                       lw_bal = lw_bal,
-                                       albedo = albedo,
-                                       soil_flux = soil_flux,
-                                       ts1 = ts1,
-                                       ts2 = ts2,
-                                       moisture = moisture))
+                                       sw_in = sw_in,
+                                       sw_out = sw_out,
+                                       lw_in = lw_in,
+                                       lw_out = lw_out,
+                                       soil_flux = soil_flux))
   class(out_list) <- "weather_station"
+
+
+  # Additional parameters
+  add_location <- c("slope", "sky_view", "exposition", "texture", "albedo")
+  add_heights <- c("depth1", "depth2")
+  add_measurements <- c("ts1", "ts2", "moisture", "t_surface")
+
+  args <- list(...)
+  for(i in seq_along(args)) {
+    # Add additional parameters to the right spot in the list
+    name <- names(args)[i]
+    value <-  args[[i]]
+
+    if(name %in% add_location){
+      out_list$location_properties[name] <- value
+    } else if(name %in% add_heights){
+      out_list$properties[name] <- value
+    } else if(name %in% add_measurements){
+      out_list$measurements[name] <- value
+    }
+
+    assign(x = name, value = value)
+  }
 
 
   # If there is an actual pressure measurement use that for both heights
@@ -130,22 +166,52 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
     out_list$measurements$p2 <- pres_p(out_list, "upper")
   }
 
-  # Calculate radiations
-  if(is.null(sw_in)){
-    out_list$measurements$sw_in <- rad_sw_ground_horizontal(out_list) # You could specify transmittance here
+
+
+  # ---- Shortwave ----
+  sw_in_status <- is.null(sw_in)
+  if(sw_in_status){
+    out_list$measurements$sw_in <- rad_sw_in(out_list) # You could specify transmittance here
   }
 
   if(is.null(sw_out)){
-    out_list$measurements$sw_out <- rad_sw_reflected(out_list) # You could specify transmittance here
+
+    if(!exists("albedo", inherits = F)){
+      stop("If sw_out is NULL, 'albedo' needs to be passed to build_weather_station.")
+    }
+
+    out_list$measurements$sw_out <- rad_sw_out(out_list) # You could specify transmittance here
   }
 
-  if(is.null(lw_in)){
-    out_list$measurements$lw_in <- rad_lw_atmospheric(out_list, "upper")
+  if(sw_in_status
+     & exists("sky_view", inherits = F)
+     & exists("slope", inherits = F)
+     & exists("exposition", inherits = F)){
+    out_list$measurements$sw_in <- rad_sw_in_topo(out_list)
+  }
+
+
+  # ---- Longwave ----
+  lw_in_status <- is.null(lw_in)
+  if(lw_in_status){
+    out_list$measurements$lw_in <- rad_lw_in(out_list, "upper")
   }
 
   if(is.null(lw_out)){
-    out_list$measurements$lw_out <- rad_lw_surface(out_list)
+
+    if(!exists("t_surface", inherits = F)){
+      stop("If lw_out is NULL, 'albedo' needs to be passed to build_weather_station.")
+    }
+
+    out_list$measurements$lw_out <- rad_lw_out(out_list)
   }
+
+  if(exists("sky_view", inherits = F) & lw_in_status){
+    out_list$measurements$lw_in <- rad_lw_in_topo(out_list)
+  }
+
+
+  # ---- Radiation balances ----
 
   #trans_total <- waiting for function being brought to new form
   out_list$measurements$sw_bal <- rad_sw_radiation_balance(out_list)
@@ -156,7 +222,26 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
   # calculate rad_bal
   out_list$measurements$rad_bal <- rad_bal_total(out_list)
 
-  # check if all vectors have the same lenght and print a warning if not
+
+  # ---- Soil Flux ----
+  if(is.null(soil_flux)){
+    if(!exists("texture", inherits = F)
+       & !exists("depth1", inherits = F)
+       & !exists("depth2", inherits = F)
+       & !exists("ts1", inherits = F)
+       & !exists("ts2", inherits = F)
+       & !exists("moisture", inherits = F)){
+      stop("If soil_flux is NULL, 'texture', 'depth1', 'depth2', 'ts1', 'ts2' and 'moisture'",
+           "need to be passed to build weather_station.")
+    }
+
+    out_list$measurements$soil_flux <- soil_heat_flux(out_list)
+
+  }
+
+
+
+  # check if all vectors have the same length and print a warning if not
   length_condition <- lengths(out_list$measurements[2:length(out_list$measurements)]) != length(out_list$measurements$datetime)
   null_check <- lengths(out_list$measurements[2:length(out_list$measurements)])>0
   if(any(length_condition & null_check)){
@@ -172,64 +257,3 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
 
   return(out_list)
 }
-
-#example data
-# lat = 50.84050277777778 #weather station caldern
-# lon = 8.683303333333333 #weather station caldern
-# elev = 270 #weather station caldern
-# surface_type = "Wiese"  #weather station caldern
-# obs_height = 0.3
-# texture = "clay" #needed when soil_flux unknown
-# valley = F
-# slope = NULL #if not NULL, the rad_bal with topography will be calculated
-# z1 = 2
-# z2 = 10
-# depth1 = NULL #needed when soil_flux unknown
-# depth2 = NULL #needed when soil_flux unknown
-# datetime = c(1,2,3,4,5,6,7,8)
-# t1 = c(1,2,3,4,5)
-# t2 = c(4,5,7,78,2)
-# v1 = c(1,23,4,6,23)
-# v2 = c(2,4,6,4,2,4,6)
-# hum1 = c(2,4,6,4,2,4,6)
-# hum2 = c(2,4,6,4,2,4,6)
-# p1 = NULL
-# p2 = NULL
-# rad_bal = NULL #if NULL -> will be calculated, albedo needed
-# sw_bal = NULL#if NULL -> will be calculated, albedo needed
-# lw_bal = NULL#if NULL -> tough luck, won't be calculated
-# albedo = NULL #needed, if radiation balance is unknown an shall be calulated
-# soil_flux = NULL
-# ts1 = NULL
-# ts2 = NULL
-# moisture = NULL
-
-# testomat <- build_weather_station(lat = 50.84050277777778, #weather station caldern
-#                                   lon = 8.683303333333333, #weather station caldern
-#                                   elev = 270, #weather station caldern
-#                                   surface_type = "Wiese",  #weather station caldern
-#                                   obs_height = 0.3,
-#                                   texture = "clay", #needed when soil_flux unknown
-#                                   valley = F,
-#                                   slope = NULL, #if not NULL, the rad_bal with topography will be calculated
-#                                   z1 = z1,
-#                                   z2 = z2,
-#                                   depth1 = NULL, #needed when soil_flux unknown
-#                                   depth2 = NULL, #needed when soil_flux unknown
-#                                   datetime = datetime,
-#                                   t1 = t1,
-#                                   t2 = t2,
-#                                   v1 = v1,
-#                                   v2 = v2,
-#                                   hum1 = hum1,
-#                                   hum2 = hum2,
-#                                   p1 = NULL,
-#                                   p2 = NULL,
-#                                   rad_bal = NULL, #if NULL -> will be calculated, albedo needed
-#                                   sw_bal = NULL, #if NULL -> will be calculated, albedo needed
-#                                   lw_bal = NULL, #if NULL -> tough luck, won't be calculated
-#                                   albedo = NULL, #needed, if radiation balance is unknown an shall be calulated
-#                                   soil_flux = NULL,
-#                                   ts1 = NULL,
-#                                   ts2 = NULL,
-#                                   moisture = NULL)

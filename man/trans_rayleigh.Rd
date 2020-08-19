@@ -2,12 +2,20 @@
 % Please edit documentation in R/transmittance.R
 \name{trans_rayleigh}
 \alias{trans_rayleigh}
+\alias{trans_rayleigh.numeric}
+\alias{trans_rayleigh.weather_station}
 \title{Transmittance due to rayleigh scattering}
 \usage{
-trans_rayleigh(air_mass_abs)
+trans_rayleigh(...)
+
+\method{trans_rayleigh}{numeric}(air_mass_abs)
+
+\method{trans_rayleigh}{weather_station}(weather_station, height)
 }
 \arguments{
 \item{air_mass_abs}{Absolute optical air mass.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Transmittance due to rayleigh scattering (0-1).

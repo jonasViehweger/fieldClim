@@ -2,14 +2,20 @@
 % Please edit documentation in R/transmittance.R
 \name{trans_aerosol}
 \alias{trans_aerosol}
+\alias{trans_aerosol.numeric}
+\alias{trans_aerosol.weather_station}
 \title{Transmittance due to aerosols}
 \usage{
-trans_aerosol(air_mass_abs, vis = 30)
+trans_aerosol(...)
+
+\method{trans_aerosol}{numeric}(air_mass_abs, vis = 30)
+
+\method{trans_aerosol}{weather_station}(weather_station, height)
 }
 \arguments{
 \item{air_mass_abs}{Absolute optical air mass.}
 
-\item{vis}{Meteorological visibility in km. Default is the visibility on a clear day.}
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Transmittance due to aerosols (0-1).

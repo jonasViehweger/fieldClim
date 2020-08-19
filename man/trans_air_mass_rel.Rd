@@ -2,12 +2,20 @@
 % Please edit documentation in R/transmittance.R
 \name{trans_air_mass_rel}
 \alias{trans_air_mass_rel}
+\alias{trans_air_mass_rel.numeric}
+\alias{trans_air_mass_rel.weather_station}
 \title{Relative optical air mass}
 \usage{
-trans_air_mass_rel(sol_elevation)
+trans_air_mass_rel(...)
+
+\method{trans_air_mass_rel}{numeric}(sol_elevation)
+
+\method{trans_air_mass_rel}{weather_station}(weather_station)
 }
 \arguments{
 \item{sol_elevation}{Solar elevation in degrees.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Relative optical air mass.

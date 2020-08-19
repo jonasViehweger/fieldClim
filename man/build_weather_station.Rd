@@ -5,18 +5,13 @@
 \title{Weather Station}
 \usage{
 build_weather_station(
-  lat = 50.8405027777778,
-  lon = 8.68330333333333,
+  lat = 50.840503,
+  lon = 8.6833,
   elev = 270,
   surface_type = "Wiese",
   obs_height = 0.3,
-  texture = "clay",
-  valley = F,
-  slope = NULL,
   z1,
   z2,
-  depth1 = NULL,
-  depth2 = NULL,
   datetime,
   t1,
   t2,
@@ -30,17 +25,14 @@ build_weather_station(
   sw_out = NULL,
   lw_in = NULL,
   lw_out = NULL,
-  albedo = NULL,
   soil_flux = NULL,
-  ts1 = NULL,
-  ts2 = NULL,
-  moisture = NULL
+  ...
 )
 }
 \arguments{
-\item{lat}{Latitude of location. Preset: 50.84050277777778 (climate station caldern).}
+\item{lat}{Latitude of location. Preset: 50.840503 (climate station caldern).}
 
-\item{lon}{Longitude of location. Preset: 8.683303333333333 (climate station caldern).}
+\item{lon}{Longitude of location. Preset: 8.683300 (climate station caldern).}
 
 \item{elev}{Elevation of location above sea level in m. Preset: 270 m (climate station caldern).}
 
@@ -48,19 +40,9 @@ build_weather_station(
 
 \item{obs_height}{Height of vegetation in m. Preset: 0.3.}
 
-\item{texture}{Texture of ground. Form: Character string. One of: "clay", "sand". Preset: "clay".}
-
-\item{valley}{TRUE, if climate station is positioned in a valley. Form: logical. Preset: FALSE.}
-
-\item{slope}{Slope of hillside in \%. Form: Numeric. Preset: NULL.}
-
 \item{z1}{Lower measurement height in m. Preset: 2m.}
 
 \item{z2}{Upper measurement height in m. Preset: 2m.}
-
-\item{depth1}{Upper depth of soil measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
-
-\item{depth2}{Lower depth of soil measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 
 \item{datetime}{Name of datetime-coloumn in data.
 Form: POSIX-Object (See \link[base:as.POSIXlt]{base::as.POSIXlt} and \link[base:strptime]{base::strptime} for conversion.)}
@@ -83,20 +65,12 @@ Preset: NULL. Note: If NULL, pressure will be estimated.}
 \item{p2}{Vector containing upper pressure data in hPa.
 Preset: NULL. Note: If NULL, pressure will be calculated.}
 
-\item{albedo}{Vector containing albedo.
-Preset: NULL. Note: Only needed, if radiation balances shall be calculated.}
-
 \item{soil_flux}{Vector containing soil flux in W/m^2.
 Preset: NULL. Note: If NULL, soil_flux will be calculated.}
 
-\item{ts1}{Vector containing upper ground temperature data in degrees C.
-Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{depth1}{Upper depth of soil measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 
-\item{ts2}{Vector containing lower ground temperature data in degrees C.
-Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
-
-\item{moisture}{Vector containing ground moisture data in Vol-\%.
-Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{depth2}{Lower depth of soil measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 
 \item{rad_bal}{Vector containing total radiation balance in W/m^2.
 Preset: NULL. Note: If NULL, rad_bal will be calculated (Albedo needed).}
@@ -116,5 +90,30 @@ List of class "weather_station", that contains:
 }
 }
 \description{
-Creates a list of class "weather_station, that contains all data regarding the weather station, its location and its measurements.
+Creates a list of class "weather_station, that contains all data regarding the
+weather station, its location and its measurements.
+}
+\details{
+Parameters with preset NULL can be estimated using calculations. However some additional
+variables need to be passed for the estimation of some parameters.
+For usage examples see the examples below.
+
+If p1 and p2 are NULL, they will get estimated using the elevation and air temperature.
+
+If sw_in is NULL, it will get estimated using TOA radiation and average
+atmospheric transmission (See \link{rad_sw_in}).
+By also setting slope, sky_view and exposition, sw_in will be topographically corrected
+(see \link{rad_sw_in_topo}).
+
+If sw_out is NULL, albedo needs to be set (See \link{rad_sw_out}).
+
+If lw_in is NULL, it will get estimated using the air temperature and pressure.
+(See \link{rad_lw_in}).
+By also setting sky_view, sw_in will be topographically corrected
+(see \link{rad_sw_in_topo}).
+
+If lw_out is NULL, t_surface needs to be set (See \link{rad_sw_out}).
+
+If soil_flux is NULL, ts1, ts2, depth1, depth2, moisture and texture need to be set.
+(See \link{soil_heat_flux} and \link{soil_thermal_cond}).
 }
