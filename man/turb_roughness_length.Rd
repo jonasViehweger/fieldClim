@@ -2,13 +2,13 @@
 % Please edit documentation in R/turbulence.R
 \name{turb_roughness_length}
 \alias{turb_roughness_length}
-\alias{turb_roughness_length.default}
+\alias{turb_roughness_length.numeric}
 \alias{turb_roughness_length.weather_station}
 \title{Roughness length}
 \usage{
 turb_roughness_length(...)
 
-\method{turb_roughness_length}{default}(surface_type = NULL, obs_height = NULL)
+\method{turb_roughness_length}{numeric}(surface_type = NULL, obs_height = NULL)
 
 \method{turb_roughness_length}{weather_station}(weather_station)
 }

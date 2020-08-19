@@ -8,12 +8,12 @@
 \usage{
 rad_lw_surface(...)
 
-\method{rad_lw_surface}{numeric}(t, emissivity_surface = 0.95)
+\method{rad_lw_surface}{numeric}(ts1, emissivity_surface = 0.95)
 
 \method{rad_lw_surface}{weather_station}(weather_station, emissivity_surface = 0.95)
 }
 \arguments{
-\item{t}{Surface temperature in degrees C.}
+\item{ts1}{Surface temperature in degrees C.}
 
 \item{emissivity_surface}{Emissivity of surface.
 Default is emissivity for short grass.}

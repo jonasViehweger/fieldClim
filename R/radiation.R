@@ -62,12 +62,12 @@ rad_lw_surface <- function (...) {
 
 #' @rdname rad_lw_surface
 #' @method rad_lw_surface numeric
-#' @param t Surface temperature in degrees C.
+#' @param ts1 Surface temperature in degrees C.
 #' @param emissivity_surface Emissivity of surface.
 #' Default is emissivity for short grass.
-rad_lw_surface.numeric <- function(t, emissivity_surface = 0.95){
+rad_lw_surface.numeric <- function(ts1, emissivity_surface = 0.95){
   sigma <- 5.670374e-8
-  return(emissivity_surface*sigma*(t+273.15)**4)
+  return(emissivity_surface*sigma*(ts1+273.15)**4)
 }
 
 #' @rdname rad_lw_surface
@@ -279,18 +279,10 @@ rad_sw_radiation_balance.numeric <- function(rad_sw_ground_horizontal, rad_sw_re
 #' @method rad_sw_radiation_balance weather_station
 #' @export
 #' @param weather_station Object of class weather_station.
-#' @param trans_total Total transmittance of the atmosphere.
-#' @param oz OPTIONAL. Needed if trans_total = NULL. Columnar ozone in cm.
-#' Default is average global value.
-#' @param vis OPTIONAL. Needed if trans_total = NULL. Meteorological visibility in km.
-#' Default is the visibility on a clear day.
-rad_sw_radiation_balance.weather_station <- function(weather_station,
-                                                     trans_total = NULL, oz = 0.35, vis = 30) {
-
-  rad_sw_ground_horizontal <- rad_sw_ground_horizontal(weather_station,
-                                                       trans_total, oz, vis)
-  rad_sw_reflected <- rad_sw_reflected(weather_station,
-                                       trans_total, oz, vis)
+rad_sw_radiation_balance.weather_station <- function(weather_station) {
+  check_availability(weather_station, "sw_in", "sw_out")
+  rad_sw_ground_horizontal <- weather_station$measurements$sw_in
+  rad_sw_reflected <- weather_station$measurements$sw_out
 
   return(rad_sw_radiation_balance(rad_sw_ground_horizontal, rad_sw_reflected))
 }

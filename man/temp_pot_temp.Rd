@@ -2,14 +2,22 @@
 % Please edit documentation in R/temperature.R
 \name{temp_pot_temp}
 \alias{temp_pot_temp}
+\alias{temp_pot_temp.numeric}
+\alias{temp_pot_temp.weather_station}
 \title{Potential Temperature}
 \usage{
-temp_pot_temp(t, p)
+temp_pot_temp(...)
+
+\method{temp_pot_temp}{numeric}(t, p)
+
+\method{temp_pot_temp}{`weather-station`}(weather_station, height)
 }
 \arguments{
 \item{t}{Temperature in degrees C.}
 
 \item{p}{Pressure in hPa.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Potential temperature in K.

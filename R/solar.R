@@ -2,13 +2,19 @@
 #'
 #' Calculates the eccentricity.
 #'
-#' @param datetime POSIXt object (POSIXct, POSIXlt).
-#' See [base::as.POSIXlt] and [base::strptime] for conversion.
-#'
 #' @return Eccentricity at the date.
 #' @export
 #'
-sol_eccentricity <- function(datetime) {
+sol_eccentricity <- function (...) {
+  UseMethod("sol_eccentricity")
+}
+
+#' @rdname sol_eccentricity
+#' @method sol_eccentricity POSIXt
+#' @param datetime POSIXt object (POSIXct, POSIXlt).
+#' See [base::as.POSIXlt] and [base::strptime] for conversion.
+#' @export
+sol_eccentricity.POSIXt <- function(datetime) {
 
   if(!inherits(datetime, "POSIXt")){
     stop("datetime has to be of class POSIXt.")
@@ -22,19 +28,39 @@ sol_eccentricity <- function(datetime) {
   return(exz)
 }
 
+#' @rdname sol_eccentricity
+#' @method sol_eccentricity weather_station
+#' @param weather_station Object of class weather_station.
+#' @export
+sol_eccentricity.weather_station <- function (weather_station) {
+  check_availability(weather_station, "datetime")
+
+  datetime <- weather_station$measurements$datetime
+
+  return(sol_eccentricity(datetime))
+}
+
+
+
 #' Solar azimuth and elevation angles
 #'
 #' Calculates solar azimuth and solar elevation angle.
 #'
+#' @return data.frame with two columns: sol_azimuth and sol_elevation.
+#' @export
+#'
+sol_angles <- function (...) {
+  UseMethod("sol_angles")
+}
+
+#' @rdname sol_angles
+#' @method sol_angles POSIXt
 #' @param datetime POSIXt object (POSIXct, POSIXlt).
 #' See [base::as.POSIXlt] and [base::strptime] for conversion.
 #' @param lat Latitude in decimal degrees.
 #' @param lon Longitude in decimal degrees.
-#'
-#' @return data.frame with two columns: sol_azimuth and sol_elevation.
 #' @export
-#'
-sol_angles <- function(datetime, lat, lon){
+sol_angles.POSIXt <- function(datetime, lat, lon){
 
   if(!inherits(datetime, "POSIXt")){
     stop("datetime has to be of class POSIXt.")
@@ -78,37 +104,94 @@ sol_angles <- function(datetime, lat, lon){
   return(results)
 }
 
+#' @rdname sol_angles
+#' @method sol_angles weather_station
+#' @param weather_station Object of class weather_station.
+#' @export
+sol_angles.weather_station <- function(weather_station) {
+  check_availability(weather_station, "datetime", "latitude", "longitude")
+
+  datetime <- weather_station$measurements$datetime
+  lat <- weather_station$location_properties$latitude
+  lon <- weather_station$location_properties$longitude
+
+  return(sol_angles(datetime, lat, lon))
+}
+
+
+
 #' Solar elevation angle
 #'
 #' Calculates solar elevation angle for the given date and time.
 #'
+#' @return Solar elevation angle in degrees.
+#' @export
+#'
+sol_elevation <- function (...) {
+  UseMethod("sol_elevation")
+}
+
+#' @rdname sol_elevation
+#' @method sol_elevation POSIXt
 #' @param datetime POSIXt object (POSIXct, POSIXlt).
 #' See [base::as.POSIXlt] and [base::strptime] for conversion.
 #' @param lat Latitude in decimal degrees.
 #' @param lon Longitude in decimal degrees.
-#'
-#' @return Solar elevation angle in degrees.
 #' @export
-#'
-sol_elevation <- function(datetime, lat, lon) {
+sol_elevation.POSIXt <- function(datetime, lat, lon) {
   angles <- sol_angles(datetime, lat, lon)
   return(angles$sol_elevation)
 }
+
+#' @rdname sol_elevation
+#' @method sol_elevation weather_station
+#' @param weather_station Object of class weather_station.
+#' @export
+sol_elevation.weather_station <- function(weather_station) {
+  check_availability(weather_station, "datetime", "latitude", "longitude")
+
+  datetime <- weather_station$measurements$datetime
+  lat <- weather_station$location_properties$latitude
+  lon <- weather_station$location_properties$longitude
+
+  return(sol_elevation(datetime, lat, lon))
+}
+
 
 
 #' Solar azimuth angle
 #'
 #' Calculates solar azimuth angle for the given date and time.
 #'
+#' @return Solar azimuth angle in degrees.
+#' @export
+#'
+sol_azimuth <- function (...) {
+  UseMethod("sol_azimuth")
+}
+
+#' @rdname sol_azimuth
+#' @method sol_azimuth POSIXt
 #' @param datetime POSIXt object (POSIXct, POSIXlt).
 #' See [base::as.POSIXlt] and [base::strptime] for conversion.
 #' @param lat Latitude in decimal degrees.
 #' @param lon Longitude in decimal degrees.
-#'
-#' @return Solar azimuth angle in degrees.
 #' @export
-#'
-sol_azimuth <- function(datetime, lat, lon) {
+sol_azimuth.POSIXt <- function(datetime, lat, lon) {
   angles <- sol_angles(datetime, lat, lon)
   return(angles$sol_azimuth)
+}
+
+#' @rdname sol_azimuth
+#' @method sol_azimuth weather_station
+#' @param weather_station Object of class weather_station.
+#' @export
+sol_azimuth.weather_station <- function(weather_station) {
+  check_availability(weather_station, "datetime", "latitude", "longitude")
+
+  datetime <- weather_station$measurements$datetime
+  lat <- weather_station$location_properties$latitude
+  lon <- weather_station$location_properties$longitude
+
+  return(sol_azimuth(datetime, lat, lon))
 }
