@@ -3,6 +3,8 @@
 \name{rad_sw_balance_topography}
 \alias{rad_sw_balance_topography}
 \alias{rad_sw_balance_topography.numeric}
+\alias{rad_sw_balance_topography.weather_station}
+\alias{rad_bal_total_with_topography.weather_station}
 \title{Shortwave radiation balance in dependency of topography}
 \usage{
 rad_sw_balance_topography(...)
@@ -17,6 +19,10 @@ rad_sw_balance_topography(...)
   albedo,
   trans_total
 )
+
+\method{rad_sw_balance_topography}{weather_station}(weather_station, exposition = 0, trans_total = 0.8)
+
+\method{rad_sw_balance_topography}{weather_station}(weather_station, exposition = 0, trans_total = 0.8)
 }
 \arguments{
 \item{slope}{Slope in degrees.}
@@ -27,11 +33,15 @@ rad_sw_balance_topography(...)
 
 \item{sol_azimuth}{Sun azimuth in degrees.}
 
-\item{exposition}{Exposition (North = 0, South = 180)}
+\item{exposition}{Exposition (North = 0, South = 180).}
 
 \item{rad_sw_ground_horizontal}{Shortwave radiation on the ground onto a horizontal area in W/m^2.}
 
 \item{albedo}{Albedo of surface.}
+
+\item{trans_total}{Total transmittance of the atmosphere (0-1).}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Shortwave radiation balance in dependency of topography in W/m^2.

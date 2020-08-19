@@ -4,7 +4,7 @@
 \alias{rad_sw_reflected}
 \alias{rad_sw_reflected.numeric}
 \alias{rad_sw_reflected.weather_station}
-\title{Reflected shortwave ratdiation}
+\title{Reflected shortwave radiation}
 \usage{
 rad_sw_reflected(...)
 
@@ -28,7 +28,7 @@ Default is average global value.}
 Default is the visibility on a clear day.}
 }
 \value{
-Reflected shortwave ratdiation in W/m^2.
+Reflected shortwave radiation in W/m^2.
 }
 \description{
 Calculation of the reflected shortwave radiation.

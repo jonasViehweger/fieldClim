@@ -211,12 +211,12 @@ rad_sw_ground_horizontal.weather_station <- function(weather_station,
 
 
 
-#' Reflected shortwave ratdiation
+#' Reflected shortwave radiation
 #'
 #' Calculation of the reflected shortwave radiation.
 #'
 #'
-#' @return Reflected shortwave ratdiation in W/m^2.
+#' @return Reflected shortwave radiation in W/m^2.
 #' @export
 #'
 rad_sw_reflected <- function (...) {
@@ -307,9 +307,10 @@ rad_sw_balance_topography <- function (...) {
 #' @param valley Is the climate station placed in a valley (TRUE/FALSE)?
 #' @param sol_elevation Sun elevation in degrees.
 #' @param sol_azimuth Sun azimuth in degrees.
-#' @param exposition Exposition (North = 0, South = 180)
+#' @param exposition Exposition (North = 0, South = 180).
 #' @param rad_sw_ground_horizontal Shortwave radiation on the ground onto a horizontal area in W/m^2.
 #' @param albedo Albedo of surface.
+#' @param trans_total Total transmittance of the atmosphere (0-1).
 rad_sw_balance_topography.numeric <- function(slope, valley = F,
                                         sol_elevation, sol_azimuth,
                                         exposition = 0,
@@ -339,6 +340,29 @@ rad_sw_balance_topography.numeric <- function(slope, valley = F,
   return(sol_bal_topo)
 }
 
+#' @rdname rad_sw_balance_topography
+#' @method rad_sw_balance_topography weather_station
+#' @export
+#' @param weather_station Object of class weather_station.
+rad_sw_balance_topography.weather_station <- function(weather_station, exposition = 0, trans_total = 0.8) {
+  check_availability(weather_station, "slope", "valley", "datetime", "albedo",
+                     "sw_in")
+
+  slope <- weather_station$location_properties$slope
+  valley <- weather_station$location_properties$valley
+  rad_sw_ground_horizontal <- weather_station$measurements$sw_in
+  datetime <- weather_station$measurements$datetime
+  albedo <- weather_station$measurements$albedo
+  sol_elevation <- sol_elevation(weather_station)
+  sol_azimuth <- sol_azimuth(weather_station)
+
+  return(rad_sw_balance_topography(slope, valley,
+                                   sol_elevation, sol_azimuth,
+                                   exposition,
+                                   rad_sw_ground_horizontal, albedo,
+                                   trans_total))
+}
+
 
 
 #' Total radiation balance
@@ -361,6 +385,20 @@ rad_bal_total <- function (...) {
 rad_bal_total.numeric <-function(rad_sw_radiation_balance, rad_lw_surface, rad_lw_atmospheric){
   radbil <- rad_sw_radiation_balance - (rad_lw_surface-rad_lw_atmospheric)
   return(radbil)
+}
+
+#' @rdname rad_bal_total
+#' @method rad_bal_total weather_station
+#' @export
+#' @param weather_station Object of class weather_station.
+rad_bal_total.weather_station <- function(weather_station) {
+  check_availability(weather_station, "lw_in", "lw_out")
+
+  rad_lw_surface <- weather_station$measurements$lw_out
+  rad_lw_atmospheric <- weather_station$measurements$lw_in
+  rad_sw_radiation_balance <- rad_sw_radiation_balance(weather_station)
+
+  return(rad_bal_total(rad_sw_radiation_balance, rad_lw_surface, rad_lw_atmospheric))
 }
 
 
@@ -393,5 +431,23 @@ rad_bal_total_with_topography.numeric <- function(rad_sw_balance_topography,
 
   rad_bal_topo <- rad_sw_balance_topography - lw_bal_topo
   return(rad_bal_topo)
+}
+
+#' @rdname rad_sw_balance_topography
+#' @method rad_sw_balance_topography weather_station
+#' @export
+#' @param weather_station Object of class weather_station.
+rad_bal_total_with_topography.weather_station <- function(weather_station, exposition = 0, trans_total = 0.8) {
+  check_availability(weather_station, "lw_out", "lw_in")
+
+  rad_sw_balance_topography <- rad_sw_balance_topography(weather_station, exposition, trans_total)
+  rad_lw_surface <- weather_station$measurements$lw_out
+  rad_lw_atmospheric <- weather_station$measurements$lw_in
+  terr_sky_view <- terr_sky_view(weather_station)
+
+  return(rad_bal_total_with_topography(rad_sw_balance_topography,
+                                       rad_lw_surface,
+                                       rad_lw_atmospheric,
+                                       terr_sky_view))
 }
 
