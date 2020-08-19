@@ -71,9 +71,10 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
                                    hum2,
                                    p1 = NULL,
                                    p2 = NULL,
-                                   rad_bal = NULL, #if NULL -> will be calculated, albedo needed
-                                   sw_bal = NULL, #if NULL -> will be calculated, albedo needed
-                                   lw_bal = NULL, #if NULL -> tough luck, won't be calculated
+                                   sw_in = NULL,
+                                   sw_out = NULL,
+                                   lw_in = NULL,
+                                   lw_out = NULL,
                                    albedo = NULL, #needed, if radiation balance is unknown an shall be calulated
                                    soil_flux = NULL,
                                    ts1 = NULL,
@@ -129,13 +130,29 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
     out_list$measurements$p2 <- pres_p(out_list, "upper")
   }
 
+  # Calculate radiations
+  if(is.null(sw_in)){
+    out_list$measurements$sw_in <- rad_sw_ground_horizontal(out_list) # You could specify transmittance here
+  }
 
-  # calculate sw_bal -> doing this, when functions are ready
+  if(is.null(sw_out)){
+    out_list$measurements$sw_out <- rad_sw_reflected(out_list) # You could specify transmittance here
+  }
+
+  if(is.null(lw_in)){
+    out_list$measurements$lw_in <- rad_lw_atmospheric(out_list, "upper")
+  }
+
+  if(is.null(lw_out)){
+    out_list$measurements$lw_out <- rad_lw_surface(out_list)
+  }
+
   #trans_total <- waiting for function being brought to new form
-  sw_bal <- rad_sw_radiation_balance(out_list, trans_total = NULL, oz = 0.35, vis = 30)
-  out_list$measurements$sw_bal <- sw_bal
+  out_list$measurements$sw_bal <- rad_sw_radiation_balance(out_list)
 
   # calculate lw_bal -> doing this, when functions are ready
+
+
   emissivity <- surface_properties$emissivity[which(surface_properties$surface_type == surface_type)]
   rad_lw_surface <- rad_lw_surface(out_list, emissivity)
   rad_lw_atmospheric <- rad_lw_atmospheric(out_list)

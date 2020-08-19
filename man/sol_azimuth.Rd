@@ -2,9 +2,15 @@
 % Please edit documentation in R/solar.R
 \name{sol_azimuth}
 \alias{sol_azimuth}
+\alias{sol_azimuth.POSIXt}
+\alias{sol_azimuth.weather_station}
 \title{Solar azimuth angle}
 \usage{
-sol_azimuth(datetime, lat, lon)
+sol_azimuth(...)
+
+\method{sol_azimuth}{POSIXt}(datetime, lat, lon)
+
+\method{sol_azimuth}{weather_station}(weather_station)
 }
 \arguments{
 \item{datetime}{POSIXt object (POSIXct, POSIXlt).
@@ -13,6 +19,8 @@ See \link[base:as.POSIXlt]{base::as.POSIXlt} and \link[base:strptime]{base::strp
 \item{lat}{Latitude in decimal degrees.}
 
 \item{lon}{Longitude in decimal degrees.}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Solar azimuth angle in degrees.

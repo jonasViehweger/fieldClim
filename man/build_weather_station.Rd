@@ -26,9 +26,10 @@ build_weather_station(
   hum2,
   p1 = NULL,
   p2 = NULL,
-  rad_bal = NULL,
-  sw_bal = NULL,
-  lw_bal = NULL,
+  sw_in = NULL,
+  sw_out = NULL,
+  lw_in = NULL,
+  lw_out = NULL,
   albedo = NULL,
   soil_flux = NULL,
   ts1 = NULL,
@@ -82,15 +83,6 @@ Preset: NULL. Note: If NULL, pressure will be estimated.}
 \item{p2}{Vector containing upper pressure data in hPa.
 Preset: NULL. Note: If NULL, pressure will be calculated.}
 
-\item{rad_bal}{Vector containing total radiation balance in W/m^2.
-Preset: NULL. Note: If NULL, rad_bal will be calculated (Albedo needed).}
-
-\item{sw_bal}{Vector containing shortwave radiation balance in W/m^2.
-Preset: NULL. Note: If NULL, sw_bal will be calculated (Albedo needed).}
-
-\item{lw_bal}{Vector containing longwave radiation balance in W/m^2.
-Preset: NULL. Note: If NULL, lw_bal will be calculated (Albedo needed).}
-
 \item{albedo}{Vector containing albedo.
 Preset: NULL. Note: Only needed, if radiation balances shall be calculated.}
 
@@ -105,6 +97,15 @@ Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
 
 \item{moisture}{Vector containing ground moisture data in Vol-\%.
 Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+
+\item{rad_bal}{Vector containing total radiation balance in W/m^2.
+Preset: NULL. Note: If NULL, rad_bal will be calculated (Albedo needed).}
+
+\item{sw_bal}{Vector containing shortwave radiation balance in W/m^2.
+Preset: NULL. Note: If NULL, sw_bal will be calculated (Albedo needed).}
+
+\item{lw_bal}{Vector containing longwave radiation balance in W/m^2.
+Preset: NULL. Note: If NULL, lw_bal will be calculated (Albedo needed).}
 }
 \value{
 List of class "weather_station", that contains:
