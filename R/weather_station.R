@@ -33,8 +33,6 @@
 #' @param obs_height Height of vegetation in m. Preset: 0.3.
 #' @param z1 Lower measurement height in m. Preset: 2m.
 #' @param z2 Upper measurement height in m. Preset: 2m.
-#' @param depth1 Upper depth of soil measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
-#' @param depth2 Lower depth of soil measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.
 #' @param datetime Name of datetime-coloumn in data.
 #' Form: POSIX-Object (See [base::as.POSIXlt] and [base::strptime] for conversion.)
 #' @param t1 Vector containing lower temperature data in degrees C.
@@ -44,17 +42,12 @@
 #' @param hum1 Vector containing lower humidity data in %.
 #' @param hum2 Vector containing upper humidity data in %.
 #' @param p1 Vector containing lower pressure data in hPa.
-#' Preset: NULL. Note: If NULL, pressure will be estimated.
 #' @param p2 Vector containing upper pressure data in hPa.
-#' Preset: NULL. Note: If NULL, pressure will be calculated.
-#' @param rad_bal Vector containing total radiation balance in W/m^2.
-#' Preset: NULL. Note: If NULL, rad_bal will be calculated (Albedo needed).
-#' @param sw_bal Vector containing shortwave radiation balance in W/m^2.
-#' Preset: NULL. Note: If NULL, sw_bal will be calculated (Albedo needed).
-#' @param lw_bal Vector containing longwave radiation balance in W/m^2.
-#' Preset: NULL. Note: If NULL, lw_bal will be calculated (Albedo needed).
+#' @param sw_in Vector containing incoming shortwave radiation in W/m^2.
+#' @param sw_out Vector containing outgoing shortwave radiation in W/m^2.
+#' @param lw_in Vector containing incoming longwave radiation in W/m^2.
+#' @param lw_out Vector containing outgoing shortwave radiation in W/m^2.
 #' @param soil_flux Vector containing soil flux in W/m^2.
-#' Preset: NULL. Note: If NULL, soil_flux will be calculated.
 #'
 #' @return List of class "weather_station", that contains:
 #' 1) list of location properties

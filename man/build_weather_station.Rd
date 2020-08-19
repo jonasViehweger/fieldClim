@@ -59,27 +59,19 @@ Form: POSIX-Object (See \link[base:as.POSIXlt]{base::as.POSIXlt} and \link[base:
 
 \item{hum2}{Vector containing upper humidity data in \%.}
 
-\item{p1}{Vector containing lower pressure data in hPa.
-Preset: NULL. Note: If NULL, pressure will be estimated.}
+\item{p1}{Vector containing lower pressure data in hPa.}
 
-\item{p2}{Vector containing upper pressure data in hPa.
-Preset: NULL. Note: If NULL, pressure will be calculated.}
+\item{p2}{Vector containing upper pressure data in hPa.}
 
-\item{soil_flux}{Vector containing soil flux in W/m^2.
-Preset: NULL. Note: If NULL, soil_flux will be calculated.}
+\item{sw_in}{Vector containing incoming shortwave radiation in W/m^2.}
 
-\item{depth1}{Upper depth of soil measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{sw_out}{Vector containing outgoing shortwave radiation in W/m^2.}
 
-\item{depth2}{Lower depth of soil measurment in m. Preset: NULL. Note: Only needed, if soil flux shall be calculated.}
+\item{lw_in}{Vector containing incoming longwave radiation in W/m^2.}
 
-\item{rad_bal}{Vector containing total radiation balance in W/m^2.
-Preset: NULL. Note: If NULL, rad_bal will be calculated (Albedo needed).}
+\item{lw_out}{Vector containing outgoing shortwave radiation in W/m^2.}
 
-\item{sw_bal}{Vector containing shortwave radiation balance in W/m^2.
-Preset: NULL. Note: If NULL, sw_bal will be calculated (Albedo needed).}
-
-\item{lw_bal}{Vector containing longwave radiation balance in W/m^2.
-Preset: NULL. Note: If NULL, lw_bal will be calculated (Albedo needed).}
+\item{soil_flux}{Vector containing soil flux in W/m^2.}
 }
 \value{
 List of class "weather_station", that contains:
