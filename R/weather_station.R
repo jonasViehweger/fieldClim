@@ -150,18 +150,11 @@ build_weather_station <-  function(lat = 50.84050277777778, #weather station cal
   #trans_total <- waiting for function being brought to new form
   out_list$measurements$sw_bal <- rad_sw_radiation_balance(out_list)
 
-  # calculate lw_bal -> doing this, when functions are ready
-
-
-  emissivity <- surface_properties$emissivity[which(surface_properties$surface_type == surface_type)]
-  rad_lw_surface <- rad_lw_surface(out_list, emissivity)
-  rad_lw_atmospheric <- rad_lw_atmospheric(out_list)
-  lw_bal <- rad_lw_surface-rad_lw_atmospheric
-  out_list$measurements$lw_bal <- lw_bal
+  # calculate lw_bal
+  out_list$measurements$lw_bal <- out_list$measurements$lw_in - out_list$measurements$lw_out
 
   # calculate rad_bal
-  rad_bal <- rad_bal_total(sw_bal, rad_lw_surface, rad_lw_atmospheric)
-  out_list$measurements$rad_bal <- rad_bal
+  out_list$measurements$rad_bal <- rad_bal_total(out_list)
 
   # check if all vectors have the same lenght and print a warning if not
   length_condition <- lengths(out_list$measurements[2:length(out_list$measurements)]) != length(out_list$measurements$datetime)
