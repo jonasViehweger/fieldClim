@@ -309,3 +309,34 @@ turb_flux_imp_exchange.weather_station <- function(weather_station, height){
   z2 <- weather_station$properties$z2
   return(turb_flux_imp_exchange(ex_quotient, v1, v2, z1, z2))
 }
+
+
+#' Sensible and latent heat fluxes
+#'
+#' Calculate sensible and latent heat fluxes, using the methods of Priestly-Taylor, Bowen, Monin and Penman (only latent).
+#'
+#' @param weather_station Object of class weather_station
+#'
+#' @return Object of class weather_station
+#' @export
+#'
+#' @examples
+turb_flux_calc_fluxes <- function(weather_station){
+  sensible_pt <- sensible_priestley_taylor(weather_station)
+  latent_pt <- latent_priestley_taylor(weather_station)
+  sensible_bow <- sensible_bowen(weather_station)
+  latent_bow <- latent_bowen(weather_station)
+  sensible_mon <- sensible_monin(weather_station)
+  latent_mon <- latent_monin(weather_station)
+  latent_pen <- latent_penman(weather_station)
+
+  weather_station$measuerements$sensible_heat_Priestly_Taylor <- sensible_pt
+  weather_station$measuerements$latent_heat_Priestly_Taylor <- latent_pt
+  weather_station$measuerements$sensible_heat_Bowen <- sensible_bow
+  weather_station$measuerements$latent_heat_Bowen <- latent_bow
+  weather_station$measuerements$sensible_heat_Monin <- sensible_mon
+  weather_station$measuerements$latent_heat_Monin <- latent_mon
+  weather_station$measuerements$latent_heat_Penman <- latent_pen
+
+  return(weather_station)
+}
