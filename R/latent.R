@@ -47,7 +47,6 @@ latent_priestley_taylor.weather_station <- function(weather_station){
 #' towards the surface.
 #'
 #' @return Latent heat flux in W/m^2.
-#' @import water
 #' @export
 #'
 latent_penman <- function (...) {
