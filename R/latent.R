@@ -74,6 +74,10 @@ latent_penman.POSIXt <- function(datetime,
     stop("datetime has to be of class POSIXt.")
   }
 
+  if(requireNamespace("water", quietly = TRUE)){
+    stop("Package 'water' required for latent_penman() to work.")
+  }
+
   # day of year
   doy <- as.numeric(strftime(datetime, format = "%j"))
   # decimal hour
