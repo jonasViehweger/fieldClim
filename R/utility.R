@@ -26,35 +26,9 @@ check_availability <- function(weather_station, ...){
 #'
 #' @param weather_station Object of class weather_station.
 #'
-#' @return data.frame containing
-#' "datetime",
-#' "temperature_lower[C°]",
-#' "temperature_upper[C°]",
-#' "wind_speed_lower[m/s]",
-#' "wind_speed_upper[m/s]",
-#' "pressure_lower[hPa]",
-#' "pressure_upper[hPa]",
-#' "humidity_lower[%]",
-#' "humidity_upper[%]",
-#' "soil_flux[W/m²]",
-#' "shortwave_radiation_incoming[W/m²]",
-#' "shortwave_radiation_outgoing[W/m²]",
-#' "longwave_radiation_incoming[W/m²]",
-#' "longwave_radiation_outgoing[W/m²]",
-#' "shortwave_radiation_balance[W/m²]",
-#' "longwave_radiation_balance[W/m²]",
-#' "total_radiation_balance[W/m²]",
-#' "atmospheric_stability",
-#' "sensible_heat[W/m^2]_Priestly-Taylor",
-#' "latent_heat[W/m^2]_Priestly-Taylor",
-#' "sensible_heat[W/m^2]_Bowen",
-#' "latent_heat[W/m^2]_Bowen",
-#' "sensible_heat[W/m^2]_Monin",
-#' "latent_heat[W/m^2]_Monin",
-#' "latent_heat[W/m^2]_Penman"
+#' @return data.frame
 #' @export
 #'
-#' @examples
 as.data.frame.weather_station <- function(weather_station){
 
   out <- data.frame(datetime = weather_station$measurements$datetime,
