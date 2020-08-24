@@ -202,7 +202,7 @@ build_weather_station <-  function(lat = 50.840503, #weather station caldern
   # ---- Longwave ----
   lw_in_status <- is.null(lw_in)
   if(lw_in_status){
-    out_list$measurements$lw_in <- rad_lw_in(out_list, "upper")
+    out_list$measurements$lw_in <- rad_lw_in(out_list)
   }
 
   if(is.null(lw_out)){

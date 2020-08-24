@@ -61,7 +61,7 @@ trans_air_mass_abs.numeric <- function(air_mass_rel, p){
 #' @param weather_station Object of class weather_station
 #' @export
 #'
-trans_air_mass_abs.weather_station <- function(weather_station, height){
+trans_air_mass_abs.weather_station <- function(weather_station, height = "lower"){
   if(height=="lower"){
     check_availability(weather_station, "p1")
     p <- weather_station$properties$p1
@@ -101,7 +101,7 @@ trans_rayleigh.numeric <- function(air_mass_abs){
 #' @param weather_station Object of class weather_station
 #' @export
 #'
-trans_rayleigh.weather_station <- function(weather_station, height){
+trans_rayleigh.weather_station <- function(weather_station, height = "lower"){
   air_mass_abs <- trans_air_mass_abs(weather_station, height)
   return(trans_rayleigh(air_mass_abs))
 }
@@ -171,7 +171,7 @@ trans_vapor.numeric <- function(air_mass_rel, precipitable_water) {
 #' @param weather_station Object of class weather_station
 #' @export
 #'
-trans_vapor.weather_station <- function(weather_station, height){
+trans_vapor.weather_station <- function(weather_station, height = "lower"){
   air_mass_rel <- trans_air_mass_rel(weather_station)
   precipitable_water <- hum_precipitable_water(weather_station, height)
   return(trans_vapor(air_mass_rel, precipitable_water))
@@ -208,7 +208,7 @@ trans_aerosol.numeric <- function(air_mass_abs, vis = 30) {
 #' @param weather_station Object of class weather_station
 #' @export
 #'
-trans_aerosol.weather_station <- function(weather_station, height){
+trans_aerosol.weather_station <- function(weather_station, height = "lower"){
   air_mass_abs <- trans_air_mass_abs(weather_station, height)
   return(trans_aerosol(weather_station))
 }
@@ -240,9 +240,9 @@ trans_gas.numeric <- function(air_mass_abs) {
 #' @param weather_station Object of class weather_station
 #' @export
 #'
-trans_gas.weather_station <- function(weather_station, height){
+trans_gas.weather_station <- function(weather_station, height = "lower"){
   air_mass_abs <- trans_air_mass_abs(weather_station, height)
-  return(trans_gas(aiir_mass_abs))
+  return(trans_gas(air_mass_abs))
 }
 
 
@@ -280,7 +280,7 @@ trans_total.numeric <- function(sol_elevation, t, elev,
                             aerosol = trans_aerosol(ma, vis),
                             gas = trans_gas(ma))
   trans_total$total <- apply(trans_total, 1, prod)
-  return(trans_total)
+  return(trans_total$total)
 }
 
 #' @rdname trans_total
@@ -288,7 +288,7 @@ trans_total.numeric <- function(sol_elevation, t, elev,
 #' @param weather_station Object of class weather_station
 #' @export
 #'
-trans_total.weather_station <- function(weather_station, height){
+trans_total.weather_station <- function(weather_station, height = "lower"){
   sol_elevation <- sol_elevation(weather_station)
   if(height=="lower"){
     check_availability(weather_station, "t1", "z1", "elevation")

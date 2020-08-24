@@ -29,7 +29,7 @@ rad_emissivity_air.numeric <- function(t, elev, p = NULL){
 #' @export
 #' @param weather_station Object of class weather_station.
 #' @param height Height of measurement. "lower" or "upper".
-rad_emissivity_air.weather_station <- function(weather_station, height) {
+rad_emissivity_air.weather_station <- function(weather_station, height = "lower") {
   check_availability(weather_station, "t1", "t2", "elevation", "p1", "p2")
   if(!height %in% c("upper", "lower")){
     stop("'height' must be either 'lower' or 'upper'.")
@@ -207,7 +207,7 @@ rad_sw_in.weather_station <- function(weather_station,
 
   rad_sw_toa <- rad_sw_toa(weather_station)
   if(is.null(trans_total)){
-    trans_total <- trans_total(weather_station, oz, vis)
+    trans_total <- trans_total(weather_station)
   }
 
   return(rad_sw_in(rad_sw_toa, trans_total))

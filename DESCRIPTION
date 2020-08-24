@@ -8,8 +8,8 @@ Authors@R:
            email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: Calculates different parameters for weather stations used in micrometeorology (with 2 measurement heights).
-Can estimate radiation balance, calculates soil heat flux from soil temperature measurements, calculates turbulent fluxes 
-(Bowen Ratio, Penman, Priestley-Taylor) and much more.
+  Can estimate radiation balance, calculates soil heat flux from soil temperature measurements, calculates turbulent fluxes 
+  (Bowen Ratio, Penman, Priestley-Taylor) and much more.
 License: use_mit_license()
 Encoding: UTF-8
 LazyData: true
