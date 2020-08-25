@@ -1,6 +1,8 @@
-test_data <- weather_station_example_data[1:1000,]
+test_data <- weather_station_example_data
 
 test_data$datetime <- as.POSIXct(test_data$datetime)
+test_data$Albedo <- as.character(test_data$Albedo)
+test_data$Albedo <- as.numeric(test_data$Albedo)
 
 test_station <- build_weather_station(z1 = 2,
                                       z2 = 10,
@@ -10,7 +12,8 @@ test_station <- build_weather_station(z1 = 2,
                                       v1 = test_data$Windspeed_2m,
                                       v2 = test_data$Windspeed_10m,
                                       hum1 = test_data$Huma_2m,
-                                      hum2 = test_data$Huma_10m)
+                                      hum2 = test_data$Huma_10m,
+                                      albedo = test_data$Albedo)
 
 
 out_list <- list(location_properties = list(latitude = 50.840503,
@@ -34,3 +37,4 @@ out_list <- list(location_properties = list(latitude = 50.840503,
                                      lw_in = NULL,
                                      lw_out = NULL,
                                      soil_flux = NULL))
+
