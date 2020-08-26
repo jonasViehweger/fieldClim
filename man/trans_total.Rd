@@ -10,7 +10,7 @@ trans_total(...)
 
 \method{trans_total}{numeric}(sol_elevation, t, elev, oz = 0.35, vis = 30, p = NULL)
 
-\method{trans_total}{weather_station}(weather_station, height)
+\method{trans_total}{weather_station}(weather_station, height = "lower")
 }
 \arguments{
 \item{sol_elevation}{Solar elevation in degrees.}

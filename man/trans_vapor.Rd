@@ -10,7 +10,7 @@ trans_vapor(...)
 
 \method{trans_vapor}{numeric}(air_mass_rel, precipitable_water)
 
-\method{trans_vapor}{weather_station}(weather_station, height)
+\method{trans_vapor}{weather_station}(weather_station, height = "lower")
 }
 \arguments{
 \item{air_mass_rel}{Relative optical air mass.}

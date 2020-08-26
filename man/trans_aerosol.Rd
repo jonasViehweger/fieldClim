@@ -10,7 +10,7 @@ trans_aerosol(...)
 
 \method{trans_aerosol}{numeric}(air_mass_abs, vis = 30)
 
-\method{trans_aerosol}{weather_station}(weather_station, height)
+\method{trans_aerosol}{weather_station}(weather_station, height = "lower")
 }
 \arguments{
 \item{air_mass_abs}{Absolute optical air mass.}
