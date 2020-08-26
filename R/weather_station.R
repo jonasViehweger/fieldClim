@@ -208,7 +208,7 @@ build_weather_station <-  function(lat = 50.840503, #weather station caldern
   if(is.null(lw_out)){
 
     if(!exists("t_surface", inherits = F)){
-      stop("If lw_out is NULL, 'albedo' needs to be passed to build_weather_station.")
+      stop("If lw_out is NULL, 't_surface' needs to be passed to build_weather_station.")
     }
 
     out_list$measurements$lw_out <- rad_lw_out(out_list)
