@@ -19,4 +19,4 @@ VignetteBuilder: knitr
 Suggests: 
     water, knitr, markdown
 Depends: 
-    R (>= 4.0.0)
+    R (>= 3.6.2)
