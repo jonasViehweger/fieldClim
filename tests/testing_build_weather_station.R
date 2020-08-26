@@ -25,5 +25,18 @@ test_station <- build_weather_station(z1 = 2,
                                       ts2 = test_data$t_surface-0.1,
                                       moisture = test_data$water_vol_soil)
 
+test_dataframe <- as.data.frame(test_station)
 
+test_monin <- turb_flux_monin(weather_station)
 
+sensible_priestley_taylor(weather_station)
+latent_priestley_taylor(weather_station)
+
+sensible_bowen(weather_station)
+latent_bowen(weather_station)
+
+sensible_monin(weather_station)
+latent_monin(weather_station)
+
+library(water)
+latent_penman(weather_station)

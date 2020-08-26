@@ -20,7 +20,7 @@ The `fieldClim` package was originally designed as a course project to the cours
 
 `fieldClim` is designed as a handy tool, that lets you calculate various weather and micro-climate conditions, based on the measurements of a weather station. It lets you create a `weather-station`-object, that can then be used to call most of the functions without the necessity of further input variables. In addition, all functions can also be called by manually inputting the needed variables, if the user whishes to do so.
 
-Here, we will provide an example of the calculation of a set of micro-climate conditions using the `weather-station`-object, based on the `weather_station_example_data` dataframe, that is included in the package.
+Here, we will provide an example of the calculation of a set of micro-climate conditions using the `weather-station`-object, based on the `weather_station_example_data` data frame, that is included in the package.
 
 
 

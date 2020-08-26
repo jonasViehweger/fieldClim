@@ -247,6 +247,9 @@ build_weather_station <-  function(lat = 50.840503, #weather station caldern
 
   }
 
+  # ---- Stability ----#
+  out_list$measurements$stability <- turb_flux_stability(out_list)
+
   # check if all vectors have the same length and print a warning if not
   length_condition <- lengths(out_list$measurements[2:length(out_list$measurements)]) != length(out_list$measurements$datetime)
   null_check <- lengths(out_list$measurements[2:length(out_list$measurements)])>0

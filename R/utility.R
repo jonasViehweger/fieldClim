@@ -48,14 +48,14 @@ as.data.frame.weather_station <- function(weather_station){
                     sw_radiation_balance = weather_station$measurements$sw_bal,
                     lw_radiation_balance = weather_station$measurements$lw_bal,
                     total_radiation_balance = weather_station$measurements$rad_bal,
-                    stability_of_atmosphere = weather_station$measurements$stability,
-                    sensible_heat_priestly_taylor = weather_station$measurements$sensible_heat_Priestley_Taylor,
-                    latent_heat_priestly_taylor = weather_station$measurements$latent_heat_Priestley_Taylor,
-                    sensible_heat_bowen = weather_station$measurements$sensible_heat_Bowen,
-                    latent_heat_bowen = weather_station$measurements$latent_heat_Bowen,
-                    sensible_heat_monin = weather_station$measurements$sensible_heat_Monin,
-                    latent_heat_monin = weather_station$measurements$latent_heat_Monin,
-                    latent_heat_penman = weather_station$measurements$latent_heat_Penman
+                    stability_of_atmosphere = weather_station$measurements$stability
+                    #sensible_heat_priestly_taylor = weather_station$measurements$sensible_heat_Priestley_Taylor,
+                    #latent_heat_priestly_taylor = weather_station$measurements$latent_heat_Priestley_Taylor,
+                    #sensible_heat_bowen = weather_station$measurements$sensible_heat_Bowen,
+                    #latent_heat_bowen = weather_station$measurements$latent_heat_Bowen,
+                    #sensible_heat_monin = weather_station$measurements$sensible_heat_Monin,
+                    #latent_heat_monin = weather_station$measurements$latent_heat_Monin,
+                    #latent_heat_penman = weather_station$measurements$latent_heat_Penman
   )
 
   colnames(out) <- c("datetime",
@@ -75,14 +75,15 @@ as.data.frame.weather_station <- function(weather_station){
                      "shortwave_radiation_balance[W/m^2]",
                      "longwave_radiation_balance[W/m^2]",
                      "total_radiation_balance[W/m^2]",
-                     "atmospheric_stability",
-                     "sensible_heat[W/m^2]_Priestly-Taylor",
-                     "latent_heat[W/m^2]_Priestly-Taylor",
-                     "sensible_heat[W/m^2]_Bowen",
-                     "latent_heat[W/m^2]_Bowen",
-                     "sensible_heat[W/m^2]_Monin",
-                     "latent_heat[W/m^2]_Monin",
-                     "latent_heat[W/m^2]_Penman")
+                     "atmospheric_stability"
+                     #"sensible_heat[W/m^2]_Priestly-Taylor",
+                     #"latent_heat[W/m^2]_Priestly-Taylor",
+                     #"sensible_heat[W/m^2]_Bowen",
+                     #"latent_heat[W/m^2]_Bowen",
+                     #"sensible_heat[W/m^2]_Monin",
+                     #"latent_heat[W/m^2]_Monin",
+                     #"latent_heat[W/m^2]_Penman"
+                     )
 
   return(out)
 
