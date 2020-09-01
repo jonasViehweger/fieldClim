@@ -1,4 +1,4 @@
-test_data <- weather_station_example_data
+test_data <- data(weather_station_example_data)
 
 #test_data$datetime <- as.POSIXct(test_data$datetime)
 #test_data$albedo <- as.character(test_data$albedo)
@@ -38,5 +38,4 @@ latent_bowen(weather_station)
 sensible_monin(weather_station)
 latent_monin(weather_station)
 
-library(water)
 latent_penman(weather_station)

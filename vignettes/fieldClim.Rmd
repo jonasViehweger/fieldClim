@@ -1,13 +1,14 @@
 ---
-title: "fieldClim"
-author: "Vignette Author"
+title: "Introduction to fieldClim"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{fieldClim}
+  %\VignetteIndexEntry{Introduction to fieldClim}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
@@ -16,36 +17,60 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Introduction to the Package
+
 The `fieldClim` package was originally designed as a course project to the course `Geländeklimatologie`, held by Prof. Dr. Jörg Bendix at the Philipps-University of Marburg in summer term 2020. Thus, the calculations and formulas of this package are based on this course, as well as the book `Geländeklimatologie` (Field climatology) by Jörg Bendix (2004; ISBN 978-3-443-07139-4).
 
-`fieldClim` is designed as a handy tool, that lets you calculate various weather and micro-climate conditions, based on the measurements of a weather station. It lets you create a `weather-station`-object, that can then be used to call most of the functions without the necessity of further input variables. In addition, all functions can also be called by manually inputting the needed variables, if the user whishes to do so.
+`fieldClim` is designed as a handy tool, that lets you calculate various weather and micro-climate conditions, based on the measurements of a weather station. It lets you create a `weather_station`-object, that can then be used to call most of the functions without the necessity of further specify input variables. In addition, all functions can also be called by manually inputting the needed variables, if the user whishes to do so.
 
-Here, we will provide an example of the calculation of a set of micro-climate conditions using the `weather-station`-object, based on the `weather_station_example_data` data frame, that is included in the package.
+Here, we will provide an example of the calculation of a set of micro-climate conditions using the `weather_station`-object, based on the `weather_station_example_data` data frame, that is included in the package.
 
+## Preparing the data
 
+First let's load the package and the provided example-data and take a look at the provided columns.
 
+```{r}
+library(fieldClim)
+ws <- get(data(weather_station_example_data, package="fieldClim"))
 
-
-
-
-
-
-
-
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+head(ws)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+The first step in building a `weather_station` object is to ensure that the input is properly formatted.
+For this we need to check if the `datetime` column is in `POSIXt`-format and if not convert it.
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+```{r}
+# Check datetime class
+class(ws$datetime)
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+# Looks good! However just to demonstrate here's how to convert to POSIXt:
+wrong_type <- as.character(ws$datetime)
+class(wrong_type)
+
+ws$datetime <- strptime(wrong_type, format = "%Y-%m-%d %H:%M:%S")
+# or
+ws$datetime <- as.POSIXlt(wrong_type)
+
+```
+
+It is also necessary to check if all other columns containing data are `numeric`. Most functions provided by `fieldClim` require `numeric` input. Some functions will automatically try to convert to `numeric`, however this will sometimes lead to unexpected side-effects so it is always best to ensure the proper data format for yourself.
+
+```{r}
+# Check if any remaining classes are not numeric
+colnames(Filter(Negate(is.numeric), ws))
+
+```
+
+Looks like only the `datetime` column is not numeric which is appropriate. If this wasn't the case, other columns might have to be converted using `as.numeric()`.
+
+
+## Building a weather_station object
+
+If the dataframe is properly formatted (date column as `POSIXt`, all other necessary columns `numeric`), `build_weather_station()` can be used to conveniently create a `weather_station` object.
+
+
+### Missing soil flux
+
+### Missing shortwave radiation
+
+### Missing longwave radiation
