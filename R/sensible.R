@@ -7,14 +7,15 @@
 #' @param t Air temperature in degrees C.
 #' @param rad_bal Radiation balance in W/m^2.
 #' @param soil_flux Soil flux in W/m^2.
+#' @param coefficient Priestley-Taylor coefficient. Default is for open water.
 #'
 #' @return Sensible heat flux in W/m^2.
 #' @export
 #'
-sensible_priestley_taylor <- function(t, rad_bal, soil_flux){
+sensible_priestley_taylor <- function(t, rad_bal, soil_flux, coefficient = 1.25){
   sc <- sc(t)
   lamb <- lamb(t)
-  alpt <- 1.25
+  alpt <- coefficient
   QH_TP <- ((1-alpt)*sc+lamb)*(-1*rad_bal-soil_flux)/(sc+lamb)
   return(QH_TP)
 }

@@ -7,14 +7,15 @@
 #' @param t Air temperature in degrees Celsius.
 #' @param rad_bal Radiation balance in W/m^2.
 #' @param soil_flux Soil flux in W/m^2.
+#' @param coefficient Priestley-Taylor coefficient. Default is for open water.
 #'
 #' @return Latent heat flux in W/m^2.
 #' @export
 #'
-latent_priestley_taylor <- function(t, rad_bal, soil_flux){
+latent_priestley_taylor <- function(t, rad_bal, soil_flux, coefficient = 1.25){
   sc <- sc(t)
   lamb <- lamb(t)
-  alpt <- 1.25
+  alpt <- coefficient
   QE_TP <- alpt*sc*((-1*rad_bal-soil_flux)/sc+lamb)
   return(QE_TP)
 }
