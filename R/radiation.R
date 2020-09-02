@@ -435,7 +435,7 @@ rad_lw_in_topo.numeric <- function(rad_lw_surface,
                                    terr_sky_view){
   # Longwave component:
   rad_lw_in_topo <- rad_lw_atmospheric*terr_sky_view + rad_lw_surface*(1-terr_sky_view)
-  return(rad_bal_topo)
+  return(rad_lw_in_topo)
 }
 
 #' @rdname rad_lw_in_topo
