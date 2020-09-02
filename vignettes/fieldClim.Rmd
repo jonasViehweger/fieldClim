@@ -85,18 +85,11 @@ test_station <- build_weather_station(lat = 50.840503,
                                       v2 = ws$v2,
                                       hum1 = ws$hum1,
                                       hum2 = ws$hum2,
-                                      albedo = ws$albedo,
-                                      t_surface = ws$t_surface,
-                                      texture = "clay",
-                                      depth1 = 0.1,
-                                      depth2 = 0.3,
-                                      ts1 = ws$t_surface,
-                                      ts2 = ws$t_surface-0.1,
-                                      moisture = ws$water_vol_soil)
+                                                                            )
 ```
 
-Many of the parameters can also be estimated using different parameters.
-Below is an overview on what can be omitted or estimated another way.
+Many of the parameters can also be estimated using different inputs.
+Below is an overview on which parameters can be omitted or estimated another way.
 
 ### Missing pressure
 
