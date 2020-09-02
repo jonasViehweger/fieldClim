@@ -7,7 +7,7 @@
 \format{
 A data frame with 288 rows and 20 variables:
 \describe{
-\item{datetime}{Date and time of measurement in POSIXct-fromat.}
+\item{datetime}{Date and time of measurement in POSIXt-format.}
 \item{t1}{Temperature in °C at 2m height (lower level).}
 \item{hum1}{Humidity in \% at 2m height (lower level).}
 \item{t2}{Temperature in °C at 10m height (upper level).}
@@ -24,9 +24,11 @@ A data frame with 288 rows and 20 variables:
 \item{rad_lw_out_temp_corrected}{Temperature corrected outgoing longwave radiation in W/m^2.}
 \item{water_vol_soil}{Moisture of ground in \%.}
 \item{t_surface}{Surface temperature in °C.}
-\item{heatflux_soil}{Soil heat flux in W/m^2.}
+\item{heatflux_soil}{Soil heat flux in W/m^2. (estimated)}
 \item{v1}{Wind velocity in m/s at 2m height (lower level).}
 \item{v2}{Wind velocity in m/s at 10m height (upper level).}
+\item{p1}{Air pressure in hPa (lower level).}
+\item{p2}{Air pressure in hPa (upper level).}
 }
 }
 \source{

@@ -260,7 +260,7 @@ grad_rich_manual <- turb_flux_grad_rich_no(t1 = ws$t1,
 head(grad_rich_manual)
 ```
 
-As you can see it is quite the effort to get all the appropriate parameters. You even have to calculate some (p1, p2) for yourself if they are not available.
+As you can see it is quite the effort to get all the appropriate parameters. You even have to calculate some additional ones (like `p1`, `p2` in this example) beforehand if they are not available.
 
 So instead it is a lot more comfortable to use a weather_station object. Here we use the weather_station object we have defined earlier:
 
@@ -274,4 +274,12 @@ head(grad_rich_quick)
 
 ## Calculating Turbulent Fluxes
 
-A convenience function to calculate all the different methods for the turbulent fluxes is given in 
+A convenience function to calculate all the different methods for turbulent fluxes is given in `turb_flux_calc()`. This function is only available for weather_station objects as it returns the results straight into the given weather_station. The `water` package also has to be installed and loaded for this function to work.
+
+```{r}
+library(water)
+station_turbulent <- turb_flux_calc(test_station)
+
+names(station_turbulent$measurements)
+```
+

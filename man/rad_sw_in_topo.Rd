@@ -14,9 +14,9 @@ rad_sw_in_topo(...)
   terr_sky_view,
   sol_elevation,
   sol_azimuth,
-  rad_sw_ground_horizontal,
+  rad_sw_in,
   albedo,
-  trans_total
+  trans_total = 0.8
 )
 
 \method{rad_sw_in_topo}{weather_station}(weather_station, trans_total = 0.8)
@@ -32,11 +32,12 @@ rad_sw_in_topo(...)
 
 \item{sol_azimuth}{Sun azimuth in degrees.}
 
-\item{rad_sw_ground_horizontal}{Shortwave radiation on the ground onto a horizontal area in W/m^2.}
+\item{rad_sw_in}{Shortwave radiation on the ground onto a horizontal area in W/m^2.}
 
 \item{albedo}{Albedo of surface.}
 
-\item{trans_total}{Total transmittance of the atmosphere (0-1).}
+\item{trans_total}{Total transmittance of the atmosphere (0-1).
+Default is average atmospheric transmittance.}
 
 \item{weather_station}{Object of class weather_station.}
 }
