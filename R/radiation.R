@@ -310,19 +310,20 @@ rad_sw_in_topo <- function (...) {
 #' @param sol_elevation Sun elevation in degrees.
 #' @param sol_azimuth Sun azimuth in degrees.
 #' @param exposition Exposition (North = 0, South = 180).
-#' @param rad_sw_ground_horizontal Shortwave radiation on the ground onto a horizontal area in W/m^2.
+#' @param rad_sw_in Shortwave radiation on the ground onto a horizontal area in W/m^2.
 #' @param albedo Albedo of surface.
 #' @param trans_total Total transmittance of the atmosphere (0-1).
+#' Default is average atmospheric transmittance.
 #' @param terr_sky_view Sky view factor (0-1).
 #' @export
 rad_sw_in_topo.numeric <- function(slope,
                                    exposition = 0,
                                    terr_sky_view,
                                    sol_elevation, sol_azimuth,
-                                   rad_sw_ground_horizontal, albedo,
-                                   trans_total){
-  sol_dir <- rad_sw_ground_horizontal*0.9751*trans_total
-  sol_dif <- rad_sw_ground_horizontal-sol_dir
+                                   rad_sw_in, albedo,
+                                   trans_total = 0.8){
+  sol_dir <- rad_sw_in*0.9751*trans_total
+  sol_dif <- rad_sw_in-sol_dir
   f <- (pi/180)
   if(slope > 0) {
     terrain_angle <- (cos(slope*f)*sin(sol_elevation*f)
@@ -349,24 +350,25 @@ rad_sw_in_topo.numeric <- function(slope,
 #' @export
 #' @param weather_station Object of class weather_station.
 rad_sw_in_topo.weather_station <- function(weather_station, trans_total = 0.8) {
-  check_availability(weather_station, "slope", "valley", "datetime", "albedo",
+  check_availability(weather_station, "slope", "datetime", "albedo",
                      "sw_in", "sky_view", "exposition")
 
   slope <- weather_station$location_properties$slope
   valley <- weather_station$location_properties$valley
-  sky_view <- weather_station$location_properties$sky_view
-  sky_view <- weather_station$location_properties$exposition
-  rad_sw_ground_horizontal <- weather_station$measurements$sw_in
+  terr_sky_view <- weather_station$location_properties$sky_view
+  exposition <- weather_station$location_properties$exposition
+  rad_sw_in <- weather_station$measurements$sw_in
   datetime <- weather_station$measurements$datetime
   albedo <- weather_station$location_properties$albedo
   sol_elevation <- sol_elevation(weather_station)
   sol_azimuth <- sol_azimuth(weather_station)
 
-  return(rad_sw_balance_topography(slope, valley,
-                                   sol_elevation, sol_azimuth,
-                                   exposition,
-                                   rad_sw_ground_horizontal, albedo,
-                                   trans_total))
+  return(rad_sw_in_topo(slope,
+                        exposition,
+                        terr_sky_view,
+                        sol_elevation, sol_azimuth,
+                        rad_sw_in, albedo,
+                        trans_total))
 }
 
 
