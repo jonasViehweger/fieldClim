@@ -31,7 +31,7 @@ check_availability <- function(weather_station, ...){
 #' @return data.frame
 #' @export
 #'
-as.data.frame.weather_station <- function(weather_station, reduced = F, units = F){
+as.data.frame.weather_station <- function(weather_station, reduced = F, unit = F){
 
   out <- as.data.frame(weather_station$measurements)
 
@@ -47,7 +47,7 @@ as.data.frame.weather_station <- function(weather_station, reduced = F, units = 
     out <- out[,important[important %in% colnames(out)]]
   }
 
-  if(units){
+  if(unit){
     replacement <- c("datetime",
                       "temperature_lower[°C]",
                       "temperature_upper[°C]",
