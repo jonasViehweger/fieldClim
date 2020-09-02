@@ -10,7 +10,7 @@
 #' If p1 and p2 are NULL, they will get estimated using the elevation and air temperature.
 #'
 #' If sw_in is NULL, it will get estimated using TOA radiation and average
-#' atmospheric transmission (see [fieldClim::rad_sw_in]).
+#' atmospheric transmittance (see [fieldClim::rad_sw_in]).
 #' By setting slope, sky_view and exposition, sw_in will be topographically corrected
 #' (see [fieldClim::rad_sw_in_topo]).
 #'

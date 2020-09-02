@@ -173,11 +173,39 @@ test_station <- build_weather_station(lat = 50.840503,
 
 ### Missing shortwave radiation
 
-The two 
+The two shortwave inputs `sw_in` and `sw_out` can be estimated by instead providing the parameter `albedo`.
 
-If sw_in is NULL, it will get estimated using TOA radiation and average atmospheric transmission (see rad_sw_in). By setting slope, sky_view and exposition, sw_in will be topographically corrected (see rad_sw_in_topo).
+This works by estimating the top of atmosphere radiation at the provided location, time and date as well as the average atmospheric transmittance (see `?rad_sw_in`). 
 
-If sw_out is NULL, albedo needs to be set (see rad_sw_out).
+By setting `slope`, `sky_view` and `exposition`, sw_in and sw_out will adittionally be topographically corrected (see `?rad_sw_in_topo`).
+
+```{r}
+test_station <- build_weather_station(lat = 50.840503,
+                                      lon = 8.6833,
+                                      elev = 270,
+                                      surface_type = "Meadow",
+                                      obs_height = 0.3,
+                                      z1 = 2,
+                                      z2 = 10,
+                                      datetime = ws$datetime,
+                                      t1 = ws$t1,
+                                      t2 = ws$t2,
+                                      v1 = ws$v1,
+                                      v2 = ws$v2,
+                                      hum1 = ws$hum1,
+                                      hum2 = ws$hum2,
+                                      lw_in = ws$rad_lw_in,
+                                      lw_out = ws$rad_lw_out,
+                                      soil_flux = ws$heatflux_soil,
+                                      # Alternative shortwave radiation:
+                                      albedo = 0.3,
+                                      # Topographic correction
+                                      slope = 10, #in degrees
+                                      exposition = 20, # North = 0, South = 180
+                                      sky_view = 0.82 # Sky view factor (0-1)
+                                      )
+```
+
 
 
 ### Missing longwave radiation
