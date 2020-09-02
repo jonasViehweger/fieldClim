@@ -26,7 +26,7 @@ check_availability <- function(weather_station, ...){
 #'
 #' @param weather_station Object of class weather_station.
 #' @param reduced TRUE, to only output the most important columns.
-#' @param units TRUE, to generate longer column labels with units.
+#' @param unit TRUE, to generate longer column labels with units.
 #'
 #' @return data.frame
 #' @export
@@ -49,8 +49,8 @@ as.data.frame.weather_station <- function(weather_station, reduced = F, unit = F
 
   if(unit){
     replacement <- c("datetime",
-                      "temperature_lower[°C]",
-                      "temperature_upper[°C]",
+                      "temperature_lower[degC]",
+                      "temperature_upper[degC]",
                       "wind_speed_lower[m/s]",
                       "wind_speed_upper[m/s]",
                       "pressure_lower[hPa]",

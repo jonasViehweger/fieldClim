@@ -289,7 +289,7 @@ You can see that now there are all results from the different methods to calcula
 You can easily convert a `weather_station` object to a data frame by using the generic function `as.data.frame`.
 This converts all the entries in the `measurements` list of the object into a dataframe.
 
-There are also two additional toggles that can be set, called `reduced` and `units`. `reduced` will omit some (very few) columns which aren't used often. `units` will add longer column names with the correct units to all columns available with `reduced = TRUE`.
+There are also two additional toggles that can be set, called `reduced` and `unit`. `reduced` will omit some (very few) columns which aren't used often. `unit` will add longer column names with the correct units to all columns available with `reduced = TRUE`.
 
 ```{r}
 
@@ -299,8 +299,8 @@ colnames(normal)
 reduced <- as.data.frame(station_turbulent, reduced = T)
 colnames(reduced)
 
-units <- as.data.frame(station_turbulent, reduced = T, units = T)
-colnames(units = T)
+unit <- as.data.frame(station_turbulent, reduced = T, unit = T)
+colnames(unit)
 
 ```
 
