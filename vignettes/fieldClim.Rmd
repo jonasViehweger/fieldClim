@@ -33,10 +33,12 @@ First let's load the package and the provided example-data and take a look at th
 library(fieldClim)
 ws <- get(data(weather_station_example_data, package="fieldClim"))
 
-head(ws)
+colnames(ws)
 ```
 
-The first step in building a `weather_station` object is to ensure that the input is properly formatted.
+This dataset includes most of the data necessary to run the functions in this package.
+
+Before building a `weather_station` object it is necessary to ensure that the input is properly formatted.
 For this we need to check if the `datetime` column is in `POSIXt`-format and if not convert it.
 
 ```{r}
@@ -66,7 +68,7 @@ Looks like only the `datetime` column is not numeric which is appropriate. If th
 
 ## Building a weather_station object
 
-If the dataframe is properly formatted (date column as `POSIXt`, all other necessary columns `numeric`), `build_weather_station()` can be used to conveniently create a `weather_station` object.
+If the dataframe is properly formatted (date column as `POSIXt`, all other necessary columns `numeric`), the function `build_weather_station()` can be used to conveniently create a `weather_station` object.
 
 You can get more info about the single parameters by calling `?build_weather_station`.
 
@@ -74,7 +76,41 @@ You can get more info about the single parameters by calling `?build_weather_sta
 test_station <- build_weather_station(lat = 50.840503,
                                       lon = 8.6833,
                                       elev = 270,
-                                      surface_type = "Wiese",
+                                      surface_type = "Meadow",
+                                      obs_height = 0.3, # obstacle height
+                                      z1 = 2, # measurement heights
+                                      z2 = 10,
+                                      datetime = ws$datetime,
+                                      t1 = ws$t1, # temperature
+                                      t2 = ws$t2,
+                                      v1 = ws$v1, # windspeed
+                                      v2 = ws$v2,
+                                      hum1 = ws$hum1, # humidity
+                                      hum2 = ws$hum2,
+                                      sw_in = ws$rad_sw_in, # shortwave radiation
+                                      sw_out = ws$rad_sw_out,
+                                      lw_in = ws$rad_lw_in, # longwave radiation
+                                      lw_out = ws$rad_lw_out,
+                                      soil_flux = ws$heatflux_soil)
+
+# We can see that this is indeed a weather_station object.
+class(test_station)
+```
+
+This is close to the minimum amount of parameters necessary to build a `weather_station` object. 
+
+Many of the parameters can however also be estimated using different inputs.
+Below is an overview on which parameters can be omitted or estimated another way.
+
+### Adding air pressure
+
+By default the air pressure at the measurment heights is estimated using the temperature and the elevation (using `pres_p()`). If the pressure is measured at the weather station it can be added to the call using the parameters `p1` and `p2`. 
+
+```{r}
+test_station <- build_weather_station(lat = 50.840503,
+                                      lon = 8.6833,
+                                      elev = 270,
+                                      surface_type = "Meadow",
                                       obs_height = 0.3,
                                       z1 = 2,
                                       z2 = 10,
@@ -85,18 +121,63 @@ test_station <- build_weather_station(lat = 50.840503,
                                       v2 = ws$v2,
                                       hum1 = ws$hum1,
                                       hum2 = ws$hum2,
-                                                                            )
+                                      sw_in = ws$rad_sw_in,
+                                      sw_out = ws$rad_sw_out,
+                                      lw_in = ws$rad_lw_in,
+                                      lw_out = ws$rad_lw_out,
+                                      soil_flux = ws$heatflux_soil,
+                                      # ADDED PRESSURE
+                                      p1 = ws$p1,
+                                      p2 = ws$p2)
 ```
 
-Many of the parameters can also be estimated using different inputs.
-Below is an overview on which parameters can be omitted or estimated another way.
 
-### Missing pressure
-
-
+Note: If the pressure at the station is only measured at one height, it will also be applied to the other height since the measured pressure is assumed to be much more accurate than the estimated pressure.
 
 ### Missing soil flux
 
+If the soil flux is not measured by a heat flux plate but by two soil temperature measurements at different depths, those measurements can also be provided to calculate `soil_flux` from them instead.
+
+For this the two depths of the temperature probes from the surface in meters, the two temperature measurements in degrees Celsius as well as the soil texture ("clay" or "sand") and soil moisture (Vol-%) are necessary.
+
+Internally the calculations are provided by the two functions `soil_heat_flux()` and `soil_thermal_cond()`.
+
+```{r}
+test_station <- build_weather_station(lat = 50.840503,
+                                      lon = 8.6833,
+                                      elev = 270,
+                                      surface_type = "Meadow",
+                                      obs_height = 0.3,
+                                      z1 = 2,
+                                      z2 = 10,
+                                      datetime = ws$datetime,
+                                      t1 = ws$t1,
+                                      t2 = ws$t2,
+                                      v1 = ws$v1,
+                                      v2 = ws$v2,
+                                      hum1 = ws$hum1,
+                                      hum2 = ws$hum2,
+                                      sw_in = ws$rad_sw_in,
+                                      sw_out = ws$rad_sw_out,
+                                      lw_in = ws$rad_lw_in,
+                                      lw_out = ws$rad_lw_out,
+                                      # Alternative Soil flux:
+                                      depth1 = 0,
+                                      depth2 = 0.3,
+                                      ts1 = ws$t_surface,
+                                      ts2 = ws$ts1,
+                                      moisture = ws$water_vol_soil,
+                                      texture = "clay")
+```
+
+
 ### Missing shortwave radiation
+
+The two 
+
+If sw_in is NULL, it will get estimated using TOA radiation and average atmospheric transmission (see rad_sw_in). By setting slope, sky_view and exposition, sw_in will be topographically corrected (see rad_sw_in_topo).
+
+If sw_out is NULL, albedo needs to be set (see rad_sw_out).
+
 
 ### Missing longwave radiation
