@@ -19,9 +19,9 @@
 #' If lw_in is NULL, it will get estimated using the air temperature and pressure
 #' (see [fieldClim::rad_lw_in]).
 #' By setting sky_view, sw_in will be topographically corrected
-#' (see [fieldClim::rad_sw_in_topo]).
+#' (see [fieldClim::rad_lw_in_topo]).
 #'
-#' If lw_out is NULL, t_surface needs to be set (see [fieldClim::rad_sw_out]).
+#' If lw_out is NULL, t_surface needs to be set (see [fieldClim::rad_lw_out]).
 #'
 #' If soil_flux is NULL, ts1, ts2, depth1, depth2, moisture and texture need to be set.
 #' (see [fieldClim::soil_heat_flux] and [fieldClim::soil_thermal_cond]).

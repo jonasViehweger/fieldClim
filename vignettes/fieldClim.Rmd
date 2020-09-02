@@ -209,3 +209,44 @@ test_station <- build_weather_station(lat = 50.840503,
 
 
 ### Missing longwave radiation
+
+If lw_in is not provided, it will get estimated using the air temperature and air pressure (see `?rad_lw_in`). By setting `sky_view`, sw_in will be topographically corrected (see `?rad_sw_in_topo`).
+
+If lw_out is not provided, the surface temperature needs to be set as `t_surface` (see `?rad_lw_out`). The surface temperature and emissivity get combined to estimate the longwave emissions. The default emissivity used in `build_weather_station()` is the one for short grass (0.95). If a different emissivity is needed, `rad_lw_out()` can be used directly.
+
+```{r}
+test_station <- build_weather_station(lat = 50.840503,
+                                      lon = 8.6833,
+                                      elev = 270,
+                                      surface_type = "Meadow",
+                                      obs_height = 0.3,
+                                      z1 = 2,
+                                      z2 = 10,
+                                      datetime = ws$datetime,
+                                      t1 = ws$t1,
+                                      t2 = ws$t2,
+                                      v1 = ws$v1,
+                                      v2 = ws$v2,
+                                      hum1 = ws$hum1,
+                                      hum2 = ws$hum2,
+                                      sw_in = ws$rad_sw_in,
+                                      sw_out = ws$rad_sw_out,
+                                      soil_flux = ws$heatflux_soil,
+                                      # Alternative longwave radiation:
+                                      t_surface = ws$t_surface,
+                                      # Different emissivity:
+                                      # lw_out = rad_lw_out(ws$t_surface, emissivity_surface = 0.92),
+                                      # Topographic correction
+                                      sky_view = 0.82 # Sky view factor (0-1)
+                                      )
+```
+
+## Calculations using the provided functions
+
+Most functions can be called in two different ways. Either by passing all the needed data yourself, or by passing a 
+
+
+
+## Calculating Turbulent Fluxes
+
+A convenience function to calculate all the different methods for the turbulent fluxes is given in 
