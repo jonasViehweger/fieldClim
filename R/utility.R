@@ -47,7 +47,7 @@ as.data.frame.weather_station <- function(weather_station, reduced = F, units = 
     out <- out[,important[important %in% colnames(out)]]
   }
 
-  if(long_names){
+  if(units){
     replacement <- c("datetime",
                       "temperature_lower[°C]",
                       "temperature_upper[°C]",
