@@ -243,7 +243,32 @@ test_station <- build_weather_station(lat = 50.840503,
 
 ## Calculations using the provided functions
 
-Most functions can be called in two different ways. Either by passing all the needed data yourself, or by passing a 
+Most functions can be called in two different ways. Either by passing all the needed data yourself, or by passing a weather_station object. Let's see how this works by calculating the Gradient-Richardson-Number.
+
+First let's calculate it by passing the needed parameters ourselves:
+
+```{r}
+grad_rich_manual <- turb_flux_grad_rich_no(t1 = ws$t1, 
+                                           t2 = ws$t2, 
+                                           z1 = 2, 
+                                           z2 = 10, 
+                                           v1 = ws$v1, 
+                                           v2 = ws$v2, 
+                                           p1 = pres_p(270+2, ws$t1), 
+                                           p2 = pres_p(270+10, ws$t2))
+
+head(grad_rich_manual)
+```
+
+As you can see it is quite the effort to get all the appropriate parameters. You even have to calculate some (p1, p2) for yourself if they are not available.
+
+So instead it is a lot more comfortable to use a weather_station object. Here we use the weather_station object we have defined earlier:
+
+```{r}
+grad_rich_quick <- turb_flux_grad_rich_no(test_station)
+
+head(grad_rich_quick)
+```
 
 
 
