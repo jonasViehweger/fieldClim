@@ -4,10 +4,14 @@
 \alias{as.data.frame.weather_station}
 \title{Create a data.frame from a weather station object}
 \usage{
-\method{as.data.frame}{weather_station}(weather_station)
+\method{as.data.frame}{weather_station}(weather_station, reduced = F, units = F)
 }
 \arguments{
 \item{weather_station}{Object of class weather_station.}
+
+\item{reduced}{TRUE, to only output the most important columns.}
+
+\item{units}{TRUE, to generate longer column labels with units.}
 }
 \value{
 data.frame

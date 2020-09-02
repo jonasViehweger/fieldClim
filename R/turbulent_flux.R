@@ -320,8 +320,6 @@ turb_flux_imp_exchange.weather_station <- function(weather_station, height){
 #'
 #' @return Object of class weather_station
 #' @export
-#'
-#' @examples
 turb_flux_calc <- function(weather_station){
   stability <- turb_flux_stability(weather_station)
   sensible_pt <- sensible_priestley_taylor(weather_station)
@@ -333,13 +331,13 @@ turb_flux_calc <- function(weather_station){
   latent_pen <- latent_penman(weather_station)
 
   weather_station$measurements$stability <- stability
-  weather_station$measurements$sensible_heat_Priestly_Taylor <- sensible_pt
-  weather_station$measurements$latent_heat_Priestly_Taylor <- latent_pt
-  weather_station$measurements$sensible_heat_Bowen <- sensible_bow
-  weather_station$measurements$latent_heat_Bowen <- latent_bow
-  weather_station$measurements$sensible_heat_Monin <- sensible_mon
-  weather_station$measurements$latent_heat_Monin <- latent_mon
-  weather_station$measurements$latent_heat_Penman <- latent_pen
+  weather_station$measurements$sensible_priestly_taylor <- sensible_pt
+  weather_station$measurements$latent_priestly_taylor <- latent_pt
+  weather_station$measurements$sensible_bowen <- sensible_bow
+  weather_station$measurements$latent_bowen <- latent_bow
+  weather_station$measurements$sensible_monin <- sensible_mon
+  weather_station$measurements$latent_monin <- latent_mon
+  weather_station$measurements$latent_penman <- latent_pen
 
   return(weather_station)
 }

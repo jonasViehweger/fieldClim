@@ -177,7 +177,7 @@ The two shortwave inputs `sw_in` and `sw_out` can be estimated by instead provid
 
 This works by estimating the top of atmosphere radiation at the provided location, time and date as well as the average atmospheric transmittance (see `?rad_sw_in`). 
 
-By setting `slope`, `sky_view` and `exposition`, sw_in and sw_out will adittionally be topographically corrected (see `?rad_sw_in_topo`).
+By setting `slope`, `sky_view` and `exposition`, `sw_in` and `sw_out` will additionally be topographically corrected (see `?rad_sw_in_topo`).
 
 ```{r}
 test_station <- build_weather_station(lat = 50.840503,
@@ -200,7 +200,7 @@ test_station <- build_weather_station(lat = 50.840503,
                                       # Alternative shortwave radiation:
                                       albedo = 0.3,
                                       # Topographic correction
-                                      slope = 10, #in degrees
+                                      slope = 10, # In degrees
                                       exposition = 20, # North = 0, South = 180
                                       sky_view = 0.82 # Sky view factor (0-1)
                                       )
@@ -210,9 +210,9 @@ test_station <- build_weather_station(lat = 50.840503,
 
 ### Missing longwave radiation
 
-If lw_in is not provided, it will get estimated using the air temperature and air pressure (see `?rad_lw_in`). By setting `sky_view`, sw_in will be topographically corrected (see `?rad_sw_in_topo`).
+If `lw_in` is not provided, it will get estimated using the air temperature and air pressure (see `?rad_lw_in`). By setting `sky_view`, `lw_in` will be topographically corrected (see `?rad_sw_in_topo`).
 
-If lw_out is not provided, the surface temperature needs to be set as `t_surface` (see `?rad_lw_out`). The surface temperature and emissivity get combined to estimate the longwave emissions. The default emissivity used in `build_weather_station()` is the one for short grass (0.95). If a different emissivity is needed, `rad_lw_out()` can be used directly.
+If `lw_out` is not provided, the surface temperature needs to be set as `t_surface` (see `?rad_lw_out`). The surface temperature and emissivity get combined to estimate the longwave emissions. The default emissivity used in `build_weather_station()` is the one for short grass (0.95). If a different emissivity is needed, `rad_lw_out()` can be used directly.
 
 ```{r}
 test_station <- build_weather_station(lat = 50.840503,
@@ -274,12 +274,33 @@ head(grad_rich_quick)
 
 ## Calculating Turbulent Fluxes
 
-A convenience function to calculate all the different methods for turbulent fluxes is given in `turb_flux_calc()`. This function is only available for weather_station objects as it returns the results straight into the given weather_station. The `water` package also has to be installed and loaded for this function to work.
+A convenience function to calculate all the different methods for turbulent fluxes is given in `turb_flux_calc()`. This function is only available for weather_station objects as it returns the results straight into the given weather_station. The `water` package also has to be installed for this function to work.
 
 ```{r}
-library(water)
 station_turbulent <- turb_flux_calc(test_station)
 
 names(station_turbulent$measurements)
+```
+
+You can see that now there are all results from the different methods to calculate the turbulent fluxes available in the measurement list of the weather_station object. 
+
+## Convert to a dataframe
+
+You can easily convert a `weather_station` object to a data frame by using the generic function `as.data.frame`.
+This converts all the entries in the `measurements` list of the object into a dataframe.
+
+There are also two additional toggles that can be set, called `reduced` and `units`. `reduced` will omit some (very few) columns which aren't used often. `units` will add longer column names with the correct units to all columns available with `reduced = TRUE`.
+
+```{r}
+
+normal <- as.data.frame(station_turbulent)
+colnames(normal)
+
+reduced <- as.data.frame(station_turbulent, reduced = T)
+colnames(reduced)
+
+units <- as.data.frame(station_turbulent, reduced = T, units = T)
+colnames(units = T)
+
 ```
 

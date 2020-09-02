@@ -101,7 +101,7 @@ If sw_out is NULL, albedo needs to be set (see \link{rad_sw_out}).
 
 If lw_in is NULL, it will get estimated using the air temperature and pressure
 (see \link{rad_lw_in}).
-By setting sky_view, sw_in will be topographically corrected
+By setting sky_view, lw_in will be topographically corrected
 (see \link{rad_lw_in_topo}).
 
 If lw_out is NULL, t_surface needs to be set (see \link{rad_lw_out}).

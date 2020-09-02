@@ -18,7 +18,7 @@
 #'
 #' If lw_in is NULL, it will get estimated using the air temperature and pressure
 #' (see [fieldClim::rad_lw_in]).
-#' By setting sky_view, sw_in will be topographically corrected
+#' By setting sky_view, lw_in will be topographically corrected
 #' (see [fieldClim::rad_lw_in_topo]).
 #'
 #' If lw_out is NULL, t_surface needs to be set (see [fieldClim::rad_lw_out]).
@@ -54,8 +54,6 @@
 #' 2) list of weather station properties
 #' 3) list of measurements, which will conatin NULLs if they were not defined in the input
 #' @export
-#'
-#' @examples
 build_weather_station <-  function(lat = 50.840503, #weather station caldern
                                    lon = 8.683300, #weather station caldern
                                    elev = 270, #weather station caldern
