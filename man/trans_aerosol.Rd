@@ -8,11 +8,13 @@
 \usage{
 trans_aerosol(...)
 
-\method{trans_aerosol}{numeric}(air_mass_abs, vis = 30)
+\method{trans_aerosol}{numeric}(air_mass_abs, vis = 30, ...)
 
-\method{trans_aerosol}{weather_station}(weather_station)
+\method{trans_aerosol}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{air_mass_abs}{Absolute optical air mass.}
 
 \item{vis}{Visibility in km.}

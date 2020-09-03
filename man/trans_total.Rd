@@ -8,11 +8,13 @@
 \usage{
 trans_total(...)
 
-\method{trans_total}{numeric}(sol_elevation, t, elev, oz = 0.35, vis = 30, p = NULL)
+\method{trans_total}{numeric}(sol_elevation, t, elev, oz = 0.35, vis = 30, p = NULL, ...)
 
-\method{trans_total}{weather_station}(weather_station, oz = 0.35, vis = 30)
+\method{trans_total}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{sol_elevation}{Solar elevation in degrees.}
 
 \item{t}{Air temperature in degrees C.}

@@ -8,11 +8,13 @@
 \usage{
 rad_sw_in(...)
 
-\method{rad_sw_in}{numeric}(rad_sw_toa, trans_total)
+\method{rad_sw_in}{numeric}(rad_sw_toa, trans_total, ...)
 
-\method{rad_sw_in}{weather_station}(weather_station, trans_total = NULL, oz = 0.35, vis = 30)
+\method{rad_sw_in}{weather_station}(weather_station, trans_total = NULL, oz = 0.35, vis = 30, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{rad_sw_toa}{Shortwave radiation at top of atmosphere in W/m^2.}
 
 \item{trans_total}{Total transmittance of the atmosphere.}

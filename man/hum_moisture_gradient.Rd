@@ -8,11 +8,13 @@
 \usage{
 hum_moisture_gradient(...)
 
-\method{hum_moisture_gradient}{numeric}(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10)
+\method{hum_moisture_gradient}{numeric}(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10, ...)
 
-\method{hum_moisture_gradient}{weather_station}(weather_station)
+\method{hum_moisture_gradient}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{hum1}{Relative humidity at lower height in \%.}
 
 \item{hum2}{Relative humidity at upper height in \%.}

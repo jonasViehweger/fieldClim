@@ -8,11 +8,13 @@
 \usage{
 turb_ustar(...)
 
-\method{turb_ustar}{numeric}(v, z, z0)
+\method{turb_ustar}{numeric}(v, z, z0, ...)
 
-\method{turb_ustar}{weather_station}(weather_station)
+\method{turb_ustar}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{v}{Windspeed in height of anemometer in m/s.}
 
 \item{z}{Height of anemometer in m.}

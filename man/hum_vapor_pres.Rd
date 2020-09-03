@@ -8,11 +8,13 @@
 \usage{
 hum_vapor_pres(...)
 
-\method{hum_vapor_pres}{numeric}(hum, t)
+\method{hum_vapor_pres}{numeric}(hum, t, ...)
 
-\method{hum_vapor_pres}{weather_station}(weather_station, height)
+\method{hum_vapor_pres}{weather_station}(weather_station, height = "lower", ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{hum}{Relative humidity in \%.}
 
 \item{t}{Air temperature in degrees C.}

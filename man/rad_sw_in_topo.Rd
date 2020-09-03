@@ -16,12 +16,15 @@ rad_sw_in_topo(...)
   sol_azimuth,
   rad_sw_in,
   albedo,
-  trans_total = 0.8
+  trans_total = 0.8,
+  ...
 )
 
-\method{rad_sw_in_topo}{weather_station}(weather_station, trans_total = 0.8)
+\method{rad_sw_in_topo}{weather_station}(weather_station, trans_total = 0.8, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{slope}{Slope in degrees.}
 
 \item{exposition}{Exposition (North = 0, South = 180).}

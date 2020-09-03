@@ -8,11 +8,25 @@
 \usage{
 latent_bowen(...)
 
-\method{latent_bowen}{numeric}(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10, rad_bal, soil_flux)
+\method{latent_bowen}{numeric}(
+  t1,
+  t2,
+  hum1,
+  hum2,
+  p1,
+  p2,
+  z1 = 2,
+  z2 = 10,
+  rad_bal,
+  soil_flux,
+  ...
+)
 
-\method{latent_bowen}{weather_station}(weather_station)
+\method{latent_bowen}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{t1}{Temperature at lower height (e.g. height of anemometer) in degrees C.}
 
 \item{t2}{Temperature at upper height in degrees C.}

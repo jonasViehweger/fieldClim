@@ -8,11 +8,13 @@
 \usage{
 soil_heat_cap(...)
 
-\method{soil_heat_cap}{numeric}(moisture, texture = "sand")
+\method{soil_heat_cap}{numeric}(moisture, texture = "sand", ...)
 
-\method{soil_heat_cap}{weather_station}(weather_station)
+\method{soil_heat_cap}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{moisture}{Soil moisture in Vol-\%.}
 
 \item{texture}{Soil texture. Either "sand" or "clay".}

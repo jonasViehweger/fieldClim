@@ -27,11 +27,12 @@ check_availability <- function(weather_station, ...){
 #' @param weather_station Object of class weather_station.
 #' @param reduced TRUE, to only output the most important columns.
 #' @param unit TRUE, to generate longer column labels with units.
+#' @param ... Not used.
 #'
 #' @return data.frame
 #' @export
 #'
-as.data.frame.weather_station <- function(weather_station, reduced = F, unit = F){
+as.data.frame.weather_station <- function(x, reduced = F, unit = F, ...){
 
   out <- as.data.frame(weather_station$measurements)
 

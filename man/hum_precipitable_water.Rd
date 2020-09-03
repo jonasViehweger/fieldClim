@@ -8,11 +8,13 @@
 \usage{
 hum_precipitable_water(...)
 
-\method{hum_precipitable_water}{numeric}(p, t, elev)
+\method{hum_precipitable_water}{numeric}(p, t, elev, ...)
 
-\method{hum_precipitable_water}{weather_station}(weather_station, height = "lower")
+\method{hum_precipitable_water}{weather_station}(weather_station, height = "lower", ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{p}{Air pressure in hPa.}
 
 \item{t}{Air temperature in degrees C.}

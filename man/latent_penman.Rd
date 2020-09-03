@@ -8,11 +8,13 @@
 \usage{
 latent_penman(...)
 
-\method{latent_penman}{POSIXt}(datetime, v, t, hum, z = 2, rad_bal, elev, lat, lon)
+\method{latent_penman}{POSIXt}(datetime, v, t, hum, z = 2, rad_bal, elev, lat, lon, ...)
 
-\method{latent_penman}{weather_station}(weather_station)
+\method{latent_penman}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{datetime}{POSIXt object (POSIXct, POSIXlt).
 See \link[base:as.POSIXlt]{base::as.POSIXlt} and \link[base:strptime]{base::strptime} for conversion.}
 

@@ -8,11 +8,13 @@
 \usage{
 rad_emissivity_air(...)
 
-\method{rad_emissivity_air}{numeric}(t, elev, p = NULL)
+\method{rad_emissivity_air}{numeric}(t, elev, p = NULL, ...)
 
-\method{rad_emissivity_air}{weather_station}(weather_station, height = "lower")
+\method{rad_emissivity_air}{weather_station}(weather_station, height = "lower", ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{t}{Air temperature in degrees C.}
 
 \item{elev}{Meters above sea level}

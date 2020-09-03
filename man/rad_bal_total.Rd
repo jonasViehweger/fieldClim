@@ -8,16 +8,18 @@
 \usage{
 rad_bal_total(...)
 
-\method{rad_bal_total}{numeric}(rad_sw_radiation_balance, rad_lw_surface, rad_lw_atmospheric)
+\method{rad_bal_total}{numeric}(rad_sw_radiation_balance, rad_lw_out, rad_lw_in, ...)
 
-\method{rad_bal_total}{weather_station}(weather_station)
+\method{rad_bal_total}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{rad_sw_radiation_balance}{Shortwave radiation balance in W/m^2.}
 
-\item{rad_lw_surface}{Longave surface emissions in W/m^2.}
+\item{rad_lw_out}{Longave surface emissions in W/m^2.}
 
-\item{rad_lw_atmospheric}{Atmospheric radiation in W/m^2.}
+\item{rad_lw_in}{Atmospheric radiation in W/m^2.}
 
 \item{weather_station}{Object of class weather_station.}
 }

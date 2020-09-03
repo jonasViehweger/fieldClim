@@ -3,6 +3,7 @@
 #' Calculates relative optical air mass. Returns NA for negative values.
 #'
 #' @rdname trans_air_mass_rel
+#' @param ... Additional parameters passed to later functions.
 #' @return Relative optical air mass.
 #' @export
 #'
@@ -15,7 +16,7 @@ trans_air_mass_rel <- function (...) {
 #' @param sol_elevation Solar elevation in degrees.
 #' @export
 #'
-trans_air_mass_rel.numeric <- function(sol_elevation) {
+trans_air_mass_rel.numeric <- function(sol_elevation, ...) {
   f <- pi/180                                 # Winkel in Radiant Faktor
   mr <- 1 / (sin(sol_elevation*f) + (1.5*sol_elevation**-0.72) )
   return(ifelse(sol_elevation <= 0, NA, mr))
@@ -26,7 +27,7 @@ trans_air_mass_rel.numeric <- function(sol_elevation) {
 #' @param weather_station Object of class weather_station
 #' @export
 #'
-trans_air_mass_rel.weather_station <- function(weather_station){
+trans_air_mass_rel.weather_station <- function(weather_station, ...){
   sol_elevation <- sol_elevation(weather_station)
   return(trans_air_mass_rel(sol_elevation))
 }
@@ -37,6 +38,7 @@ trans_air_mass_rel.weather_station <- function(weather_station){
 #' Calculates absolute optical air mass.
 #'
 #' @rdname trans_air_mass_abs
+#' @param ... Additional parameters passed to later functions.
 #' @return Absolute optical air mass.
 #' @export
 #'
@@ -50,7 +52,7 @@ trans_air_mass_abs <- function (...) {
 #' @param p Air pressure in hPa.
 #' @export
 #'
-trans_air_mass_abs.numeric <- function(air_mass_rel, p){
+trans_air_mass_abs.numeric <- function(air_mass_rel, p, ...){
   p0 <- 1013.25
   air_mass_abs <- air_mass_rel*(p/p0)
   return (air_mass_abs)
@@ -61,7 +63,7 @@ trans_air_mass_abs.numeric <- function(air_mass_rel, p){
 #' @param weather_station Object of class weather_station
 #' @export
 #'
-trans_air_mass_abs.weather_station <- function(weather_station){
+trans_air_mass_abs.weather_station <- function(weather_station, ...){
 
   check_availability(weather_station, "p2")
 
@@ -76,6 +78,7 @@ trans_air_mass_abs.weather_station <- function(weather_station){
 #' Calculates transmittance due to rayleigh scattering.
 #'
 #' @rdname trans_rayleigh
+#' @param ... Additional parameters passed to later functions.
 #' @return Transmittance due to rayleigh scattering (0-1).
 #' @export
 #'
@@ -88,7 +91,7 @@ trans_rayleigh <- function (...) {
 #' @param air_mass_abs Absolute optical air mass.
 #' @export
 #'
-trans_rayleigh.numeric <- function(air_mass_abs){
+trans_rayleigh.numeric <- function(air_mass_abs, ...){
   x <- (-0.0903)*air_mass_abs**0.84*(1.+air_mass_abs-air_mass_abs**1.01)
   return(exp(x))
 }
@@ -98,7 +101,7 @@ trans_rayleigh.numeric <- function(air_mass_abs){
 #' @param weather_station Object of class weather_station
 #' @export
 #'
-trans_rayleigh.weather_station <- function(weather_station){
+trans_rayleigh.weather_station <- function(weather_station, ...){
   air_mass_abs <- trans_air_mass_abs(weather_station)
   return(trans_rayleigh(air_mass_abs))
 }
@@ -109,6 +112,7 @@ trans_rayleigh.weather_station <- function(weather_station){
 #' Calculates transmittance due to ozone.
 #'
 #' @rdname trans_ozone
+#' @param ... Additional parameters passed to later functions.
 #' @return Transmittance due to ozone (0-1).
 #' @export
 #'
@@ -122,7 +126,7 @@ trans_ozone <- function (...) {
 #' @param oz Columnar ozone in cm. Default is average value of 0.35 cm.
 #' @export
 #'
-trans_ozone.numeric <- function(air_mass_rel, oz = 0.35) {
+trans_ozone.numeric <- function(air_mass_rel, oz = 0.35, ...) {
   x <- oz*air_mass_rel
   xx <- 0.1611*x*(1+139.48*x)**-0.3035-0.002715*x*(1+0.044*x+0.0003*x**2)**-1
   return(1.-xx)
@@ -133,9 +137,9 @@ trans_ozone.numeric <- function(air_mass_rel, oz = 0.35) {
 #' @param weather_station Object of class weather_station
 #' @export
 #'
-trans_ozone.weather_station <- function(weather_station){
+trans_ozone.weather_station <- function(weather_station, ...){
   air_mass_rel <- trans_air_mass_rel(weather_station)
-  return(trans_ozone(air_mass_rel))
+  return(trans_ozone(air_mass_rel, ...))
 }
 
 
@@ -144,6 +148,7 @@ trans_ozone.weather_station <- function(weather_station){
 #' Calculates transmittance due to water vapor.
 #'
 #' @rdname trans_vapor
+#' @param ... Additional parameters passed to later functions.
 #' @return Transmittance due to water vapor (0-1).
 #' @export
 #'
@@ -157,7 +162,7 @@ trans_vapor <- function (...) {
 #' @param precipitable_water Precipitable water in cm.
 #' @export
 #'
-trans_vapor.numeric <- function(air_mass_rel, precipitable_water) {
+trans_vapor.numeric <- function(air_mass_rel, precipitable_water, ...) {
   y <- precipitable_water*air_mass_rel
   yy <- 2.4959*y*((1+79.034*y)**0.6828+6.385*y)**-1
   return(1.-yy)
@@ -168,7 +173,7 @@ trans_vapor.numeric <- function(air_mass_rel, precipitable_water) {
 #' @param weather_station Object of class weather_station.
 #' @export
 #'
-trans_vapor.weather_station <- function(weather_station){
+trans_vapor.weather_station <- function(weather_station, ...){
   air_mass_rel <- trans_air_mass_rel(weather_station)
   precipitable_water <- hum_precipitable_water(weather_station)
   return(trans_vapor(air_mass_rel, precipitable_water))
@@ -180,6 +185,7 @@ trans_vapor.weather_station <- function(weather_station){
 #' Calculates transmittance due to aerosols.
 #'
 #' @rdname trans_aerosol
+#' @param ... Additional parameters passed to later functions.
 #' @return Transmittance due to aerosols (0-1).
 #' @export
 #'
@@ -193,7 +199,7 @@ trans_aerosol <- function (...) {
 #' @param vis Visibility in km.
 #' @export
 #'
-trans_aerosol.numeric <- function(air_mass_abs, vis = 30) {
+trans_aerosol.numeric <- function(air_mass_abs, vis = 30, ...) {
   tau38 <- 3.6536*vis**-0.7111
   tau5 <- 2.4087*vis**-0.719
   tex <- 0.2758*tau38+0.35*tau5
@@ -206,9 +212,9 @@ trans_aerosol.numeric <- function(air_mass_abs, vis = 30) {
 #' @param weather_station Object of class weather_station.
 #' @export
 #'
-trans_aerosol.weather_station <- function(weather_station){
+trans_aerosol.weather_station <- function(weather_station, ...){
   air_mass_abs <- trans_air_mass_abs(weather_station)
-  return(trans_aerosol(weather_station))
+  return(trans_aerosol(weather_station, ...))
 }
 
 
@@ -217,6 +223,7 @@ trans_aerosol.weather_station <- function(weather_station){
 #' Calculates transmittance due to O2 and CO2.
 #'
 #' @rdname trans_gas
+#' @param ... Additional parameters passed to later functions.
 #' @return Transmittance due to gas (0-1)
 #' @export
 #'
@@ -229,7 +236,7 @@ trans_gas <- function (...) {
 #' @param air_mass_abs Absolute optical air mass.
 #' @export
 #'
-trans_gas.numeric <- function(air_mass_abs) {
+trans_gas.numeric <- function(air_mass_abs, ...) {
   return(exp(-0.0127*air_mass_abs**0.26))
 }
 
@@ -238,7 +245,7 @@ trans_gas.numeric <- function(air_mass_abs) {
 #' @param weather_station Object of class weather_station.
 #' @export
 #'
-trans_gas.weather_station <- function(weather_station){
+trans_gas.weather_station <- function(weather_station, ...){
   air_mass_abs <- trans_air_mass_abs(weather_station)
   return(trans_gas(air_mass_abs))
 }
@@ -249,6 +256,7 @@ trans_gas.weather_station <- function(weather_station){
 #' Calculates total transmittance of the atmosphere.
 #'
 #' @rdname trans_total
+#' @param ... Additional parameters passed to later functions.
 #' @return Total transmittance (0-1)
 #' @export
 #'
@@ -267,7 +275,7 @@ trans_total <- function (...) {
 #' @export
 #'
 trans_total.numeric <- function(sol_elevation, t, elev,
-                        oz = 0.35, vis = 30, p = NULL){
+                        oz = 0.35, vis = 30, p = NULL, ...){
   if(is.null(p)) p <- pres_p(elev, t)
   pw <- hum_precipitable_water(p, t, elev)
   mr <- trans_air_mass_rel(sol_elevation)
@@ -286,11 +294,11 @@ trans_total.numeric <- function(sol_elevation, t, elev,
 #' @param weather_station Object of class weather_station.
 #' @export
 #'
-trans_total.weather_station <- function(weather_station, oz = 0.35, vis = 30){
+trans_total.weather_station <- function(weather_station, ...){
   sol_elevation <- sol_elevation(weather_station)
   check_availability(weather_station, "t2", "z2", "elevation", "p2")
   t <- weather_station$measurements$t2
   elev <- weather_station$location_properties$elevation + weather_station$properties$z2
   p2 <- weather_station$measurements$p2
-  return(trans_total(sol_elevation, t, elev, oz = oz, vis = vis, p = p2))
+  return(trans_total(sol_elevation, t, elev, p = p2, ...))
 }

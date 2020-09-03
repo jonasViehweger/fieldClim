@@ -19,12 +19,15 @@ latent_monin(...)
   z2 = 10,
   monin,
   ustar,
-  grad_rich_no
+  grad_rich_no,
+  ...
 )
 
-\method{latent_monin}{weather_station}(weather_station)
+\method{latent_monin}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{hum1}{Relative humidity at lower height in \%.}
 
 \item{hum2}{Relative humidity at upper height in \%.}

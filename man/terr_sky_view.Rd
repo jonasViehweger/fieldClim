@@ -8,11 +8,13 @@
 \usage{
 terr_sky_view(...)
 
-\method{terr_sky_view}{numeric}(slope, valley = F)
+\method{terr_sky_view}{numeric}(slope, valley = F, ...)
 
-\method{terr_sky_view}{weather_station}(weather_station)
+\method{terr_sky_view}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{slope}{Inclination of slope in degrees.}
 
 \item{valley}{If the position is in a valley (TRUE) or on a slope (FALSE).}

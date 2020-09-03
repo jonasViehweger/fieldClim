@@ -8,11 +8,13 @@
 \usage{
 turb_flux_stability(...)
 
-\method{turb_flux_stability}{numeric}(grad_rich_no)
+\method{turb_flux_stability}{numeric}(grad_rich_no, ...)
 
-\method{turb_flux_stability}{weather_station}(weather_station)
+\method{turb_flux_stability}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{grad_rich_no}{Gradient-Richardson-Number}
 
 \item{weather_station}{Object of class weather_station}

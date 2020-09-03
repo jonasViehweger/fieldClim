@@ -48,6 +48,7 @@
 #' @param lw_in Vector containing incoming longwave radiation in W/m^2.
 #' @param lw_out Vector containing outgoing shortwave radiation in W/m^2.
 #' @param soil_flux Vector containing soil flux in W/m^2.
+#' @param ... Additional parameters, see details for usage.
 #'
 #' @return List of class "weather_station", that contains:
 #' 1) list of location properties

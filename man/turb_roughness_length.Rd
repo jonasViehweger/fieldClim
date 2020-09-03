@@ -8,11 +8,13 @@
 \usage{
 turb_roughness_length(...)
 
-\method{turb_roughness_length}{default}(surface_type = NULL, obs_height = NULL)
+\method{turb_roughness_length}{default}(surface_type = NULL, obs_height = NULL, ...)
 
-\method{turb_roughness_length}{weather_station}(weather_station)
+\method{turb_roughness_length}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{surface_type}{Type of surface}
 
 \item{obs_height}{Height of obstacle in m.}

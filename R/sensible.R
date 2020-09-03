@@ -4,6 +4,7 @@
 #' heat flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
+#' @param ... Additional parameters passed to later functions.
 #' @return Sensible heat flux in W/m^2.
 #' @export
 #'
@@ -17,7 +18,7 @@ sensible_priestley_taylor <- function (...) {
 #' @param t Air temperature in degrees C.
 #' @param rad_bal Radiation balance in W/m^2.
 #' @param soil_flux Soil flux in W/m^2.
-sensible_priestley_taylor.numeric <- function(t, rad_bal, soil_flux){
+sensible_priestley_taylor.numeric <- function(t, rad_bal, soil_flux, ...){
   sc <- sc(t)
   lamb <- lamb(t)
   alpt <- 1.25
@@ -29,7 +30,7 @@ sensible_priestley_taylor.numeric <- function(t, rad_bal, soil_flux){
 #' @method sensible_priestley_taylor weather_station
 #' @param weather_station Object of class weather_station
 #' @export
-sensible_priestley_taylor.weather_station <- function(weather_station){
+sensible_priestley_taylor.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "t1", "rad_bal", "soil_flux")
   t1 <- weather_station$measurements$t1
   rad_bal <- weather_station$measurements$rad_bal
@@ -46,6 +47,7 @@ sensible_priestley_taylor.weather_station <- function(weather_station){
 #' flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
+#' @param ... Additional parameters passed to later functions.
 #' @return Sensible heat flux in W/m^2.
 #' @export
 sensible_monin <- function (...) {
@@ -65,7 +67,7 @@ sensible_monin <- function (...) {
 #' @param ustar Friction velocity in m/s.
 #' @param grad_rich_no Gradient-Richardson-Number.
 sensible_monin.numeric <- function(t1, t2, p1, p2, z1 = 2, z2 = 10,
-                           monin, ustar, grad_rich_no) {
+                           monin, ustar, grad_rich_no, ...) {
   cp <- 1004.834
   k <- 0.4
   s1 <- z2/monin
@@ -88,7 +90,7 @@ sensible_monin.numeric <- function(t1, t2, p1, p2, z1 = 2, z2 = 10,
 #' @method sensible_monin weather_station
 #' @param weather_station Object of class weather_station.
 #' @export
-sensible_monin.weather_station <- function(weather_station){
+sensible_monin.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "z1", "z2", "t1", "t2", "p1", "p2")
   t1 <- weather_station$measurements$t1
   t2 <- weather_station$measurements$t2
@@ -111,6 +113,7 @@ sensible_monin.weather_station <- function(weather_station){
 #' flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
+#' @param ... Additional parameters passed to later functions.
 #' @return Sensible heat flux in W/m^2
 #' @export
 #'
@@ -132,7 +135,7 @@ sensible_bowen <- function (...) {
 #' @param rad_bal Radiation balance in W/m^2.
 #' @param soil_flux Soil flux in W/m^2.
 sensible_bowen.numeric <- function(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10,
-                           rad_bal, soil_flux){
+                           rad_bal, soil_flux, ...){
 
   # Check turbulence conditions
   #if()
@@ -157,7 +160,7 @@ sensible_bowen.numeric <- function(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10,
 #' @method sensible_bowen weather_station
 #' @param weather_station Object of class weather_station
 #' @export
-sensible_bowen.weather_station <- function(weather_station){
+sensible_bowen.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "z1", "z2", "t1", "t2", "p1", "p2",
                      "hum1", "hum2", "rad_bal", "soil_flux")
   hum1 <- weather_station$measurements$hum1

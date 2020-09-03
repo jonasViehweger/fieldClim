@@ -8,11 +8,13 @@
 \usage{
 turb_flux_ex_quotient_temp(...)
 
-\method{turb_flux_ex_quotient_temp}{numeric}(grad_rich_no, ustar, monin, z, air_density)
+\method{turb_flux_ex_quotient_temp}{numeric}(grad_rich_no, ustar, monin, z, air_density, ...)
 
-\method{turb_flux_ex_quotient_temp}{weather_station}(weather_station, height)
+\method{turb_flux_ex_quotient_temp}{weather_station}(weather_station, height = "lower", ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{grad_rich_no}{Gradient-Richardson-Number.}
 
 \item{ustar}{Friction velocity in m/s.}

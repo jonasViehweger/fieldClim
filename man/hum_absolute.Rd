@@ -13,6 +13,8 @@ hum_absolute(...)
 \method{hum_absolute}{weather_station}(weather_station, height, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{p_vapor}{Vapor presure in hPa.}
 
 \item{t_pot}{Potential air temperature in Kelvin.}

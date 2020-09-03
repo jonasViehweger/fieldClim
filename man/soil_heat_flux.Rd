@@ -8,11 +8,13 @@
 \usage{
 soil_heat_flux(...)
 
-\method{soil_heat_flux}{numeric}(ts1, ts2, depth1, depth2, thermal_cond)
+\method{soil_heat_flux}{numeric}(ts1, ts2, depth1, depth2, thermal_cond, ...)
 
-\method{soil_heat_flux}{weather_station}(weather_station)
+\method{soil_heat_flux}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{ts1}{Upper soil temperature (closest to the surface) in degrees C.}
 
 \item{ts2}{Lower soil temperature in degrees C.}

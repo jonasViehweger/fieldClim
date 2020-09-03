@@ -3,16 +3,15 @@
 \name{pos_min_dist}
 \alias{pos_min_dist}
 \alias{pos_min_dist.numeric}
-\alias{pos_min_dist.weather_station}
 \title{Minimum Distance between climate station and obstacle}
 \usage{
 pos_min_dist(...)
 
-\method{pos_min_dist}{numeric}(obs_width, obs_height, ring = F, obs_radius = NULL)
-
-\method{pos_min_dist}{weather_station}(weather_station)
+\method{pos_min_dist}{numeric}(obs_width, obs_height, ring = F, obs_radius = NULL, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{obs_width}{Width of obstacle in m.}
 
 \item{obs_height}{Height of obstacle in m.}
@@ -20,13 +19,9 @@ pos_min_dist(...)
 \item{ring}{True, if obstacle is circularly surrounded by the obstacle.}
 
 \item{obs_radius}{If ring = T: radius of the ring in m.}
-
-\item{weather_station}{Object of class weather_station}
 }
 \value{
 Minimum distance in m.
-
-
 
 
 }

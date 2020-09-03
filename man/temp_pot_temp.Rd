@@ -8,11 +8,13 @@
 \usage{
 temp_pot_temp(...)
 
-\method{temp_pot_temp}{numeric}(t, p)
+\method{temp_pot_temp}{numeric}(t, p, ...)
 
-\method{temp_pot_temp}{weather_station}(weather_station, height = "lower")
+\method{temp_pot_temp}{weather_station}(weather_station, height = "lower", ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{t}{Temperature in degrees C.}
 
 \item{p}{Pressure in hPa.}

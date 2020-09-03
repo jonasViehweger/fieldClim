@@ -8,11 +8,13 @@
 \usage{
 trans_vapor(...)
 
-\method{trans_vapor}{numeric}(air_mass_rel, precipitable_water)
+\method{trans_vapor}{numeric}(air_mass_rel, precipitable_water, ...)
 
-\method{trans_vapor}{weather_station}(weather_station)
+\method{trans_vapor}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{air_mass_rel}{Relative optical air mass.}
 
 \item{precipitable_water}{Precipitable water in cm.}

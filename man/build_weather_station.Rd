@@ -72,6 +72,8 @@ Form: POSIX-Object (See \link[base:as.POSIXlt]{base::as.POSIXlt} and \link[base:
 \item{lw_out}{Vector containing outgoing shortwave radiation in W/m^2.}
 
 \item{soil_flux}{Vector containing soil flux in W/m^2.}
+
+\item{...}{Additional parameters, see details for usage.}
 }
 \value{
 List of class "weather_station", that contains:

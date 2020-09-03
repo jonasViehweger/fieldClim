@@ -4,6 +4,7 @@
 #' heat flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
+#' @param ... Additional parameters passed to later functions.
 #' @return Latent heat flux in W/m^2.
 #' @export
 #'
@@ -17,7 +18,7 @@ latent_priestley_taylor <- function (...) {
 #' @param t Air temperature in degrees Celsius.
 #' @param rad_bal Radiation balance in W/m^2.
 #' @param soil_flux Soil flux in W/m^2.
-latent_priestley_taylor.numeric <- function(t, rad_bal, soil_flux){
+latent_priestley_taylor.numeric <- function(t, rad_bal, soil_flux, ...){
   sc <- sc(t)
   lamb <- lamb(t)
   alpt <- 1.25
@@ -29,7 +30,7 @@ latent_priestley_taylor.numeric <- function(t, rad_bal, soil_flux){
 #' @method latent_priestley_taylor weather_station
 #' @param weather_station Object of class weather_station
 #' @export
-latent_priestley_taylor.weather_station <- function(weather_station){
+latent_priestley_taylor.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "t1", "rad_bal", "soil_flux")
   t1 <- weather_station$measurements$t1
   rad_bal <- weather_station$measurements$rad_bal
@@ -46,6 +47,7 @@ latent_priestley_taylor.weather_station <- function(weather_station){
 #' heat flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
+#' @param ... Additional parameters passed to later functions.
 #' @return Latent heat flux in W/m^2.
 #' @export
 #'
@@ -68,7 +70,7 @@ latent_penman <- function (...) {
 #' @param lon Longitude in decimal degrees.
 latent_penman.POSIXt <- function(datetime,
                        v, t, hum, z = 2, rad_bal,
-                       elev, lat, lon){
+                       elev, lat, lon, ...){
   if(!inherits(datetime, "POSIXt")){
     stop("datetime has to be of class POSIXt.")
   }
@@ -101,7 +103,7 @@ latent_penman.POSIXt <- function(datetime,
 #' @method latent_penman weather_station
 #' @param weather_station Object of class weather_station
 #' @export
-latent_penman.weather_station <- function(weather_station){
+latent_penman.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "datetime",
                      "v1", "t1", "hum1", "z1", "rad_bal",
                      "elevation", "latitude", "longitude")
@@ -126,6 +128,7 @@ latent_penman.weather_station <- function(weather_station){
 #' flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
+#' @param ... Additional parameters passed to later functions.
 #' @return Latent heat flux in W/m^2.
 #' @export
 latent_monin <- function (...) {
@@ -147,7 +150,7 @@ latent_monin <- function (...) {
 #' @param ustar Friction velocity in m/s.
 #' @param grad_rich_no Gradient-Richardson-Number.
 latent_monin.numeric <- function(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10,
-                         monin, ustar, grad_rich_no) {
+                         monin, ustar, grad_rich_no, ...) {
 
   moist_gradient <- hum_moisture_gradient(hum1, hum2, t1, t2, p1, p2, z1, z2)
   air_density <- pres_air_density(p1, t1)
@@ -168,7 +171,7 @@ latent_monin.numeric <- function(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10,
 #' @method latent_monin weather_station
 #' @param weather_station Object of class weather_station
 #' @export
-latent_monin.weather_station <- function(weather_station){
+latent_monin.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "z1", "z2", "t1", "t2", "p1", "p2", "hum1", "hum2")
   hum1 <- weather_station$measurements$hum1
   hum2 <- weather_station$measurements$hum2
@@ -192,6 +195,7 @@ latent_monin.weather_station <- function(weather_station){
 #' flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
+#' @param ... Additional parameters passed to later functions.
 #' @return Latent heat flux in W/m^2
 #' @export
 #'
@@ -213,7 +217,7 @@ latent_bowen <- function (...) {
 #' @param rad_bal Radiation balance in W/m^2.
 #' @param soil_flux Soil flux in W/m^2.
 latent_bowen.numeric <- function(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10,
-                         rad_bal, soil_flux){
+                         rad_bal, soil_flux, ...){
 
   # Calculating potential temperature delta
   t1_pot <- temp_pot_temp(t1, p1)
@@ -235,7 +239,7 @@ latent_bowen.numeric <- function(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10,
 #' @method latent_bowen weather_station
 #' @param weather_station Object of class weather_station
 #' @export
-latent_bowen.weather_station <- function(weather_station){
+latent_bowen.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "z1", "z2", "t1", "t2", "p1", "p2",
                      "hum1", "hum2", "rad_bal", "soil_flux")
   hum1 <- weather_station$measurements$hum1

@@ -2,6 +2,7 @@
 #'
 #' Calculates the eccentricity.
 #'
+#' @param ... Additional parameters passed to later functions.
 #' @return Eccentricity at the date.
 #' @export
 #'
@@ -14,7 +15,7 @@ sol_eccentricity <- function (...) {
 #' @param datetime POSIXt object (POSIXct, POSIXlt).
 #' See [base::as.POSIXlt] and [base::strptime] for conversion.
 #' @export
-sol_eccentricity.POSIXt <- function(datetime) {
+sol_eccentricity.POSIXt <- function(datetime, ...) {
 
   if(!inherits(datetime, "POSIXt")){
     stop("datetime has to be of class POSIXt.")
@@ -32,7 +33,7 @@ sol_eccentricity.POSIXt <- function(datetime) {
 #' @method sol_eccentricity weather_station
 #' @param weather_station Object of class weather_station.
 #' @export
-sol_eccentricity.weather_station <- function (weather_station) {
+sol_eccentricity.weather_station <- function(weather_station, ...) {
   check_availability(weather_station, "datetime")
 
   datetime <- weather_station$measurements$datetime
@@ -46,10 +47,11 @@ sol_eccentricity.weather_station <- function (weather_station) {
 #'
 #' Calculates solar azimuth and solar elevation angle.
 #'
+#' @param ... Additional parameters passed to later functions.
 #' @return data.frame with two columns: sol_azimuth and sol_elevation.
 #' @export
 #'
-sol_angles <- function (...) {
+sol_angles <- function(...) {
   UseMethod("sol_angles")
 }
 
@@ -60,7 +62,7 @@ sol_angles <- function (...) {
 #' @param lat Latitude in decimal degrees.
 #' @param lon Longitude in decimal degrees.
 #' @export
-sol_angles.POSIXt <- function(datetime, lat, lon){
+sol_angles.POSIXt <- function(datetime, lat, lon, ...){
 
   if(!inherits(datetime, "POSIXt")){
     stop("datetime has to be of class POSIXt.")
@@ -108,7 +110,7 @@ sol_angles.POSIXt <- function(datetime, lat, lon){
 #' @method sol_angles weather_station
 #' @param weather_station Object of class weather_station.
 #' @export
-sol_angles.weather_station <- function(weather_station) {
+sol_angles.weather_station <- function(weather_station, ...) {
   check_availability(weather_station, "datetime", "latitude", "longitude")
 
   datetime <- weather_station$measurements$datetime
@@ -124,6 +126,7 @@ sol_angles.weather_station <- function(weather_station) {
 #'
 #' Calculates solar elevation angle for the given date and time.
 #'
+#' @param ... Additional parameters passed to later functions.
 #' @return Solar elevation angle in degrees.
 #' @export
 #'
@@ -138,7 +141,7 @@ sol_elevation <- function (...) {
 #' @param lat Latitude in decimal degrees.
 #' @param lon Longitude in decimal degrees.
 #' @export
-sol_elevation.POSIXt <- function(datetime, lat, lon) {
+sol_elevation.POSIXt <- function(datetime, lat, lon, ...) {
   angles <- sol_angles(datetime, lat, lon)
   return(angles$sol_elevation)
 }
@@ -147,7 +150,7 @@ sol_elevation.POSIXt <- function(datetime, lat, lon) {
 #' @method sol_elevation weather_station
 #' @param weather_station Object of class weather_station.
 #' @export
-sol_elevation.weather_station <- function(weather_station) {
+sol_elevation.weather_station <- function(weather_station, ...) {
   check_availability(weather_station, "datetime", "latitude", "longitude")
 
   datetime <- weather_station$measurements$datetime
@@ -163,6 +166,7 @@ sol_elevation.weather_station <- function(weather_station) {
 #'
 #' Calculates solar azimuth angle for the given date and time.
 #'
+#' @param ... Additional parameters passed to later functions.
 #' @return Solar azimuth angle in degrees.
 #' @export
 #'
@@ -177,7 +181,7 @@ sol_azimuth <- function (...) {
 #' @param lat Latitude in decimal degrees.
 #' @param lon Longitude in decimal degrees.
 #' @export
-sol_azimuth.POSIXt <- function(datetime, lat, lon) {
+sol_azimuth.POSIXt <- function(datetime, lat, lon, ...) {
   angles <- sol_angles(datetime, lat, lon)
   return(angles$sol_azimuth)
 }
@@ -186,7 +190,7 @@ sol_azimuth.POSIXt <- function(datetime, lat, lon) {
 #' @method sol_azimuth weather_station
 #' @param weather_station Object of class weather_station.
 #' @export
-sol_azimuth.weather_station <- function(weather_station) {
+sol_azimuth.weather_station <- function(weather_station, ...) {
   check_availability(weather_station, "datetime", "latitude", "longitude")
 
   datetime <- weather_station$measurements$datetime

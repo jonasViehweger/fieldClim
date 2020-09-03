@@ -3,6 +3,7 @@
 #' Calculation of pressure as a function of height.
 #'
 #' @rdname pres_p
+#' @param ... Additional parameters passed to later functions.
 #' @return Pressure in hPa.
 #' @export
 #'
@@ -16,7 +17,7 @@ pres_p <- function (...) {
 #' @param height lower or upper
 #' @export
 #'
-pres_p.weather_station <- function(weather_station, height){
+pres_p.weather_station <- function(weather_station, height = "lower", ...){
   if(height=="lower"){
     check_availability(weather_station, "t1", "elevation", "z1")
     t <- weather_station$measurements$t1   # to Kelvin
@@ -35,7 +36,7 @@ pres_p.weather_station <- function(weather_station, height){
 #' @param t Temperature in degrees C.
 #' @export
 #'
-pres_p.numeric <- function(elev, t){
+pres_p.numeric <- function(elev, t, ...){
   t <- t+273.15   # to Kelvin
   p0 <- 1013.25    # Standardruck in hPa
   g <- 9.81
@@ -50,6 +51,7 @@ pres_p.numeric <- function(elev, t){
 #' Calculation of the air density.
 #'
 #' @rdname pres_air_density
+#' @param ... Additional parameters passed to later functions.
 #' @return Air density in kg/m^3.
 #' @export
 #'
@@ -63,7 +65,7 @@ pres_air_density <- function (...) {
 #' @param height "lower" or "upper"
 #' @export
 #'
-pres_air_density.weather_station <- function(weather_station, height){
+pres_air_density.weather_station <- function(weather_station, height = "lower", ...){
   if(height=="lower"){
     check_availability(weather_station, "t1", "p1")
     t <- weather_station$measurements$t1   # to Kelvin
@@ -83,7 +85,7 @@ pres_air_density.weather_station <- function(weather_station, height){
 #' @param t Temperature in degrees C.
 #' @export
 #'
-pres_air_density.numeric <- function(p, t){
+pres_air_density.numeric <- function(p, t, ...){
   ad <- (p*100)/(287.05*(t+273.15))
   return(ad)
 }

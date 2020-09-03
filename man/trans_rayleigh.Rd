@@ -8,11 +8,13 @@
 \usage{
 trans_rayleigh(...)
 
-\method{trans_rayleigh}{numeric}(air_mass_abs)
+\method{trans_rayleigh}{numeric}(air_mass_abs, ...)
 
-\method{trans_rayleigh}{weather_station}(weather_station)
+\method{trans_rayleigh}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{air_mass_abs}{Absolute optical air mass.}
 
 \item{weather_station}{Object of class weather_station}

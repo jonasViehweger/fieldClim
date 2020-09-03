@@ -8,11 +8,13 @@
 \usage{
 turb_flux_grad_rich_no(...)
 
-\method{turb_flux_grad_rich_no}{numeric}(t1, t2, z1 = 2, z2 = 10, v1, v2, p1, p2)
+\method{turb_flux_grad_rich_no}{numeric}(t1, t2, z1 = 2, z2 = 10, v1, v2, p1, p2, ...)
 
-\method{turb_flux_grad_rich_no}{weather_station}(weather_station)
+\method{turb_flux_grad_rich_no}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{t1}{Temperature at lower height (e.g. height of anemometer) in degrees C.}
 
 \item{t2}{Temperature at upper height in degrees C.}

@@ -8,11 +8,13 @@
 \usage{
 rad_sw_out(...)
 
-\method{rad_sw_out}{numeric}(rad_sw_in, albedo)
+\method{rad_sw_out}{numeric}(rad_sw_in, albedo, ...)
 
-\method{rad_sw_out}{weather_station}(weather_station)
+\method{rad_sw_out}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{rad_sw_in}{Shortwave radiation on the ground onto a horizontal area in W/m^2.}
 
 \item{albedo}{Albedo of the surface.}

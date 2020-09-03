@@ -8,11 +8,13 @@
 \usage{
 hum_sat_vapor_pres(...)
 
-\method{hum_sat_vapor_pres}{numeric}(t)
+\method{hum_sat_vapor_pres}{numeric}(t, ...)
 
-\method{hum_sat_vapor_pres}{weather_station}(weather_station, height)
+\method{hum_sat_vapor_pres}{weather_station}(weather_station, height = "lower", ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{t}{Air temperature in degrees C.}
 
 \item{weather_station}{Object of class weather_station.}

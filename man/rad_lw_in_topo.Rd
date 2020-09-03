@@ -8,14 +8,16 @@
 \usage{
 rad_lw_in_topo(...)
 
-\method{rad_lw_in_topo}{numeric}(rad_lw_surface, rad_lw_atmospheric, terr_sky_view)
+\method{rad_lw_in_topo}{numeric}(rad_lw_out, rad_lw_in, terr_sky_view, ...)
 
-\method{rad_lw_in_topo}{weather_station}(weather_station)
+\method{rad_lw_in_topo}{weather_station}(weather_station, ...)
 }
 \arguments{
-\item{rad_lw_surface}{Longave surface emissions in W/m^2.}
+\item{...}{Additional parameters passed to later functions.}
 
-\item{rad_lw_atmospheric}{Atmospheric radiation in W/m^2.}
+\item{rad_lw_out}{Longave surface emissions in W/m^2.}
+
+\item{rad_lw_in}{Atmospheric radiation in W/m^2.}
 
 \item{terr_sky_view}{Sky view factor from 0-1. (See \link{terr_sky_view})}
 

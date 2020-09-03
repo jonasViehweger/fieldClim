@@ -8,11 +8,13 @@
 \usage{
 trans_ozone(...)
 
-\method{trans_ozone}{numeric}(air_mass_rel, oz = 0.35)
+\method{trans_ozone}{numeric}(air_mass_rel, oz = 0.35, ...)
 
-\method{trans_ozone}{weather_station}(weather_station)
+\method{trans_ozone}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{air_mass_rel}{Relative optical air mass.}
 
 \item{oz}{Columnar ozone in cm. Default is average value of 0.35 cm.}

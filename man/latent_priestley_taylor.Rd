@@ -8,11 +8,13 @@
 \usage{
 latent_priestley_taylor(...)
 
-\method{latent_priestley_taylor}{numeric}(t, rad_bal, soil_flux)
+\method{latent_priestley_taylor}{numeric}(t, rad_bal, soil_flux, ...)
 
-\method{latent_priestley_taylor}{weather_station}(weather_station)
+\method{latent_priestley_taylor}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{t}{Air temperature in degrees Celsius.}
 
 \item{rad_bal}{Radiation balance in W/m^2.}

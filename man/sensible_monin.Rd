@@ -8,11 +8,24 @@
 \usage{
 sensible_monin(...)
 
-\method{sensible_monin}{numeric}(t1, t2, p1, p2, z1 = 2, z2 = 10, monin, ustar, grad_rich_no)
+\method{sensible_monin}{numeric}(
+  t1,
+  t2,
+  p1,
+  p2,
+  z1 = 2,
+  z2 = 10,
+  monin,
+  ustar,
+  grad_rich_no,
+  ...
+)
 
-\method{sensible_monin}{weather_station}(weather_station)
+\method{sensible_monin}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{t1}{Air temperature at lower height in degrees C.}
 
 \item{t2}{Air temperature at upper height in degrees C.}

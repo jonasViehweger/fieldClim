@@ -8,11 +8,13 @@
 \usage{
 rad_lw_in(...)
 
-\method{rad_lw_in}{numeric}(emissivity_air, t)
+\method{rad_lw_in}{numeric}(emissivity_air, t, ...)
 
-\method{rad_lw_in}{weather_station}(weather_station)
+\method{rad_lw_in}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{emissivity_air}{Emissivity of the atmosphere (factor: 0-1)}
 
 \item{t}{Air temperature in degrees C.}

@@ -8,11 +8,13 @@
 \usage{
 rad_lw_out(...)
 
-\method{rad_lw_out}{numeric}(t_surface, emissivity_surface = 0.95)
+\method{rad_lw_out}{numeric}(t_surface, emissivity_surface = 0.95, ...)
 
-\method{rad_lw_out}{weather_station}(weather_station, emissivity_surface = 0.95)
+\method{rad_lw_out}{weather_station}(weather_station, emissivity_surface = 0.95, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{t_surface}{Surface temperature in degrees C.}
 
 \item{emissivity_surface}{Emissivity of surface.

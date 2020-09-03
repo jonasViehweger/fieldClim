@@ -6,6 +6,7 @@
 #' You need to specify only one, "type" OR "obs_height".
 #'
 #' @rdname turb_roughness_length
+#' @param ... Additional parameters passed to later functions.
 #' @return Pressure in hPa.
 #' @export
 #'
@@ -18,7 +19,7 @@ turb_roughness_length <- function (...) {
 #' @param surface_type Type of surface
 #' @param obs_height Height of obstacle in m.
 #'
-turb_roughness_length.default <- function(surface_type = NULL, obs_height = NULL){
+turb_roughness_length.default <- function(surface_type = NULL, obs_height = NULL, ...){
   surface_properties <- surface_properties
   if(!is.null(obs_height)){
     z0 <- obs_height*0.1
@@ -34,7 +35,7 @@ turb_roughness_length.default <- function(surface_type = NULL, obs_height = NULL
 #' @method turb_roughness_length weather_station
 #' @param weather_station Object of class weather_station
 #'
-turb_roughness_length.weather_station <- function(weather_station){
+turb_roughness_length.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "obs_height", "surface_type")
   obs_height <- weather_station$location_properties$obs_height
   surface_type <- weather_station$location_properties$surface_type
@@ -51,6 +52,7 @@ turb_roughness_length.weather_station <- function(weather_station){
 #' Works for vegetation only.
 #'
 #' @rdname turb_displacement
+#' @param ... Additional parameters passed to later functions.
 #' @return Displacement height in m.
 #' @export
 #'
@@ -62,7 +64,7 @@ turb_displacement <- function (...) {
 #' @method turb_displacement numeric
 #' @param obs_height Height of vegetation in m.
 #'
-turb_displacement.numeric <- function(obs_height){
+turb_displacement.numeric <- function(obs_height, ...){
   d0 <- (2/3)*obs_height      # for Vegetation only
   return(d0)
 }
@@ -71,7 +73,7 @@ turb_displacement.numeric <- function(obs_height){
 #' @method turb_displacement weather_station
 #' @param weather_station Object of class weather_station
 #'
-turb_displacement.weather_station <- function(weather_station){
+turb_displacement.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "obs_height")
   obs_height <- weather_station$location_properties$obs_height
   return(turb_displacement(obs_height))
@@ -83,6 +85,7 @@ turb_displacement.weather_station <- function(weather_station){
 #' Calculate the friction velocity of the underground.
 #'
 #' @rdname turb_ustar
+#' @param ... Additional parameters passed to later functions.
 #' @return Friction velocity in m/s.
 #' @export
 #'
@@ -96,7 +99,7 @@ turb_ustar <- function (...) {
 #' @param z Height of anemometer in m.
 #' @param z0 Roughness length in m.
 #'
-turb_ustar.numeric <- function(v, z, z0){
+turb_ustar.numeric <- function(v, z, z0, ...){
   ustar <- (v*0.4)/log(z/z0)
   return(ustar)
 }
@@ -105,7 +108,7 @@ turb_ustar.numeric <- function(v, z, z0){
 #' @method turb_ustar weather_station
 #' @param weather_station Object of class weather_station
 #'
-turb_ustar.weather_station <- function(weather_station){
+turb_ustar.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "v1", "z1")
   v <- weather_station$measurements$v1
   z <- weather_station$properties$z1

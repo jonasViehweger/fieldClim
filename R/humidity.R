@@ -3,6 +3,7 @@
 #' Calculates the saturation vapor pressure from air temperature using the Magnus
 #' formula (applicable over water surfaces).
 #'
+#' @param ... Additional parameters passed to later functions.
 #' @return Saturation vapor pressure in hPa.
 #' @export
 #'
@@ -14,7 +15,7 @@ hum_sat_vapor_pres <- function (...) {
 #' @method hum_sat_vapor_pres numeric
 #' @export
 #' @param t Air temperature in degrees C.
-hum_sat_vapor_pres.numeric <- function(t) {
+hum_sat_vapor_pres.numeric <- function(t, ...) {
   a <- 7.5
   b <- 235
   return(6.1078*10**((a*t)/(b+t)))
@@ -25,7 +26,7 @@ hum_sat_vapor_pres.numeric <- function(t) {
 #' @export
 #' @param weather_station Object of class weather_station.
 #' @param height Height of measurement. "lower" or "upper".
-hum_sat_vapor_pres.weather_station <- function(weather_station, height) {
+hum_sat_vapor_pres.weather_station <- function(weather_station, height = "lower", ...) {
   check_availability(weather_station, "t1", "t2")
   if(!height %in% c("upper", "lower")){
     stop("'height' must be either 'lower' or 'upper'.")
@@ -40,7 +41,7 @@ hum_sat_vapor_pres.weather_station <- function(weather_station, height) {
 #'
 #' Calculates vapor pressure from relative humidity and saturation vapor pressure
 #'
-#'
+#' @param ... Additional parameters passed to later functions.
 #' @return Vapor pressure in hPa.
 #' @export
 #'
@@ -53,7 +54,7 @@ hum_vapor_pres <- function (...) {
 #' @export
 #' @param hum Relative humidity in %.
 #' @param t Air temperature in degrees C.
-hum_vapor_pres.numeric <- function(hum, t){
+hum_vapor_pres.numeric <- function(hum, t, ...){
   sat_vapor_pres <- hum_sat_vapor_pres(t)
   return((hum/100)*sat_vapor_pres)
 }
@@ -63,7 +64,7 @@ hum_vapor_pres.numeric <- function(hum, t){
 #' @export
 #' @param weather_station Object of class weather_station.
 #' @param height Height of measurement. "lower" or "upper".
-hum_vapor_pres.weather_station <- function(weather_station, height) {
+hum_vapor_pres.weather_station <- function(weather_station, height = "lower", ...) {
   check_availability(weather_station, "t1", "t2", "hum1", "hum2")
   if(!height %in% c("upper", "lower")){
     stop("'height' must be either 'lower' or 'upper'.")
@@ -78,7 +79,7 @@ hum_vapor_pres.weather_station <- function(weather_station, height) {
 #'
 #' Calculates specfic humidity from vapor pressure and air pressure.
 #'
-#'
+#' @param ... Additional parameters passed to later functions.
 #' @return Specific humidity in kg/kg.
 #' @export
 #'
@@ -91,7 +92,7 @@ hum_specific <- function (...) {
 #' @export
 #' @param p_vapor Vapor pressure in hPa.
 #' @param p Air pressure in hPa.
-hum_specific.numeric <- function(p_vapor, p) {
+hum_specific.numeric <- function(p_vapor, p, ...) {
   return(0.622*(p_vapor/p))
 }
 
@@ -100,7 +101,7 @@ hum_specific.numeric <- function(p_vapor, p) {
 #' @export
 #' @param weather_station Object of class weather_station.
 #' @param height Height of measurement. "lower" or "upper".
-hum_specific.weather_station <- function(weather_station, height) {
+hum_specific.weather_station <- function(weather_station, height, ...) {
   check_availability(weather_station, "p1", "p2")
   if(!height %in% c("upper", "lower")){
     stop("'height' must be either 'lower' or 'upper'.")
@@ -117,7 +118,7 @@ hum_specific.weather_station <- function(weather_station, height) {
 #'
 #' Calculates absolute humidity from vapor pressure and temperature.
 #'
-#'
+#' @param ... Additional parameters passed to later functions.
 #' @return Absolute humidity in kg/m^3.
 #' @export
 #'
@@ -154,7 +155,7 @@ hum_absolute.weather_station <- function(weather_station, height, ...) {
 #'
 #' Calculates heat of evaporation for water from air temperature.
 #'
-#'
+#' @param ... Additional parameters passed to later functions.
 #' @return Enthaly of vaporization in J/kg.
 #' @export
 #'
@@ -166,7 +167,7 @@ hum_evap_heat <- function (...) {
 #' @method hum_evap_heat numeric
 #' @export
 #' @param t Air temperature in degrees C.
-hum_evap_heat.numeric <- function(t){
+hum_evap_heat.numeric <- function(t, ...){
   return((2.5008-0.002372*t)*10^6)
 }
 
@@ -175,7 +176,7 @@ hum_evap_heat.numeric <- function(t){
 #' @export
 #' @param weather_station Object of class weather_station.
 #' @param height Height of measurement. "lower" or "upper".
-hum_evap_heat.weather_station <- function(weather_station, height) {
+hum_evap_heat.weather_station <- function(weather_station, height = "lower", ...) {
   check_availability(weather_station, "t1", "t2")
   if(!height %in% c("upper", "lower")){
     stop("'height' must be either 'lower' or 'upper'.")
@@ -194,7 +195,7 @@ hum_evap_heat.weather_station <- function(weather_station, height) {
 #' It uses a moist adiabatic temperature gradient which might not be
 #' suitable for every application.
 #'
-#'
+#' @param ... Additional parameters passed to later functions.
 #' @return Total precipitable water in cm (grams).
 #' @export
 #'
@@ -208,7 +209,7 @@ hum_precipitable_water <- function (...) {
 #' @param p Air pressure in hPa.
 #' @param t Air temperature in degrees C.
 #' @param elev Elevation above sea level in m.
-hum_precipitable_water.numeric <- function(p, t, elev){
+hum_precipitable_water.numeric <- function(p, t, elev, ...){
   p0 <- 1013.25                # Pressure Standaratmosphere
   t <- t+273.15               # degrees C in K
   cof <- (elev/100) * 0.6       # average moist adiabatic T-gradient, might have to be adjusted
@@ -223,7 +224,7 @@ hum_precipitable_water.numeric <- function(p, t, elev){
 #' @export
 #' @param weather_station Object of class weather_station.
 #' @param height Height of measurement. "lower" or "upper".
-hum_precipitable_water.weather_station <- function(weather_station, height = "lower") {
+hum_precipitable_water.weather_station <- function(weather_station, height = "lower", ...) {
   check_availability(weather_station, "t1", "t2", "p1", "p2", "elev")
   if(!height %in% c("upper", "lower")){
     stop("'height' must be either 'lower' or 'upper'.")
@@ -242,7 +243,7 @@ hum_precipitable_water.weather_station <- function(weather_station, height = "lo
 #'
 #' Calculates moisture gradient.
 #'
-#'
+#' @param ... Additional parameters passed to later functions.
 #' @return Moisture gradient.
 #' @export
 #'
@@ -261,7 +262,7 @@ hum_moisture_gradient <- function (...) {
 #' @param p2 Air pressure at lower height in hPa.
 #' @param z1 Lower measurement height in m.
 #' @param z2 Upper measurement height in m.
-hum_moisture_gradient.numeric <- function(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10){
+hum_moisture_gradient.numeric <- function(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2 = 10, ...){
   # saturation vapor pressure
 
   # vapor pressure
@@ -278,7 +279,7 @@ hum_moisture_gradient.numeric <- function(hum1, hum2, t1, t2, p1, p2, z1 = 2, z2
 #' @method hum_moisture_gradient weather_station
 #' @param weather_station Object of class weather_station
 #' @export
-hum_moisture_gradient.weather_station <- function(weather_station){
+hum_moisture_gradient.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "z1", "z2", "t1", "t2", "p1", "p2", "hum1", "hum2")
   hum1 <- weather_station$measurements$hum1
   hum2 <- weather_station$measurements$hum2

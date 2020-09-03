@@ -8,11 +8,13 @@
 \usage{
 trans_air_mass_rel(...)
 
-\method{trans_air_mass_rel}{numeric}(sol_elevation)
+\method{trans_air_mass_rel}{numeric}(sol_elevation, ...)
 
-\method{trans_air_mass_rel}{weather_station}(weather_station)
+\method{trans_air_mass_rel}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{sol_elevation}{Solar elevation in degrees.}
 
 \item{weather_station}{Object of class weather_station}

@@ -8,11 +8,13 @@
 \usage{
 hum_specific(...)
 
-\method{hum_specific}{numeric}(p_vapor, p)
+\method{hum_specific}{numeric}(p_vapor, p, ...)
 
-\method{hum_specific}{weather_station}(weather_station, height)
+\method{hum_specific}{weather_station}(weather_station, height, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{p_vapor}{Vapor pressure in hPa.}
 
 \item{p}{Air pressure in hPa.}

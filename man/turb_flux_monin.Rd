@@ -8,11 +8,13 @@
 \usage{
 turb_flux_monin(...)
 
-\method{turb_flux_monin}{numeric}(grad_rich_no, z1 = 2, z2 = 10, z0, v1, v2, t1, t2)
+\method{turb_flux_monin}{numeric}(grad_rich_no, z1 = 2, z2 = 10, z0, v1, v2, t1, t2, ...)
 
-\method{turb_flux_monin}{weather_station}(weather_station)
+\method{turb_flux_monin}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{grad_rich_no}{Gradient-Richardson-Number.}
 
 \item{z1}{Lower height of measurement (e.g. height of anemometer) in m.}
