@@ -29,7 +29,6 @@ turb_flux_monin.numeric <- function(grad_rich_no, z1 = 2, z2 = 10, z0, v1, v2, t
   for(i in 1:length(grad_rich_no)){
     if(is.na(grad_rich_no[i])){
       monin[i] <- NA
-
     } else if(grad_rich_no[i] <= -0.05){
       monin[i] <- (z1*(t1[i]+273.15)*(((v2[i]-v1[i])/(z2-z1))**2))/(9.81*(t2[i]-t1[i])/(z2-z1))
 
@@ -95,7 +94,7 @@ turb_flux_grad_rich_no.numeric <- function(t1, t2, z1 = 2, z2 = 10, v1, v2, p1, 
   grad_rich_no <- (9.81/pot_temp1)*((pot_temp2-pot_temp1)/(z2-z1))*(((v2-v1)/(z2-z1))**(-2))
   grad_rich_no <- ifelse(is.nan(grad_rich_no), 0, grad_rich_no)
   return(grad_rich_no)
-  }
+}
 
 #' @rdname turb_flux_grad_rich_no
 #' @method turb_flux_grad_rich_no weather_station
