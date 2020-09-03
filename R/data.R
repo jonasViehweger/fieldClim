@@ -24,11 +24,10 @@
 #'   \item{rad_lw_bal}{Longwave radiation balance in W/m^2.}
 #'   \item{albedo}{Albedo of ground.}
 #'   \item{rad_bal}{Total radiation balance in W/m^2.}
-#'   \item{rad_lw_in_temp_corrected}{Temperature corrected incoming longwave radiation in W/m^2.}
-#'   \item{rad_lw_out_temp_corrected}{Temperature corrected outgoing longwave radiation in W/m^2.}
 #'   \item{water_vol_soil}{Moisture of ground in %.}
 #'   \item{t_surface}{Surface temperature in °C.}
-#'   \item{heatflux_soil}{Soil heat flux in W/m^2. (estimated)}
+#'   \item{ts1}{Temperature Soil, 30 cm depth.}
+#'   \item{heatflux_soil}{Soil heat flux in W/m^2.}
 #'   \item{v1}{Wind velocity in m/s at 2m height (lower level).}
 #'   \item{v2}{Wind velocity in m/s at 10m height (upper level).}
 #'   \item{p1}{Air pressure in hPa (lower level).}
