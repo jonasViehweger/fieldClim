@@ -21,4 +21,4 @@ Imports:
 Suggests: 
     water, knitr, markdown
 Depends: 
-    R (>= 3.6.2)
+    R (>= 4.0)

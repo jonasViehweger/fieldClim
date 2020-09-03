@@ -24,7 +24,7 @@ check_availability <- function(weather_station, ...){
 #'
 #' Create a data.frame from a weather station object, that contains weather station measurements.
 #'
-#' @param weather_station Object of class weather_station.
+#' @param x Object of class weather_station.
 #' @param reduced TRUE, to only output the most important columns.
 #' @param unit TRUE, to generate longer column labels with units.
 #' @param ... Not used.
@@ -32,9 +32,10 @@ check_availability <- function(weather_station, ...){
 #' @return data.frame
 #' @export
 #'
-as.data.frame.weather_station <- function(x, reduced = F, unit = F, ...){
+as.data.frame.weather_station <- function(x, ...,
+                                          reduced = F, unit = F){
 
-  out <- as.data.frame(weather_station$measurements)
+  out <- as.data.frame(x$measurements)
 
   # Define important columns
   important <- c("datetime", "t1", "t2", "v1", "v2", "p1", "p2", "hum1", "hum2", "soil_flux",
