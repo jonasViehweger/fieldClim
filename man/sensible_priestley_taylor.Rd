@@ -8,7 +8,7 @@
 \usage{
 sensible_priestley_taylor(...)
 
-\method{sensible_priestley_taylor}{numeric}(t, rad_bal, soil_flux, ...)
+\method{sensible_priestley_taylor}{numeric}(t, rad_bal, soil_flux, coefficient = 1.25, ...)
 
 \method{sensible_priestley_taylor}{weather_station}(weather_station, ...)
 }
@@ -20,6 +20,8 @@ sensible_priestley_taylor(...)
 \item{rad_bal}{Radiation balance in W/m^2.}
 
 \item{soil_flux}{Soil flux in W/m^2.}
+
+\item{coefficient}{Priestley-Taylor coefficient. Default is for open water.}
 
 \item{weather_station}{Object of class weather_station}
 }
