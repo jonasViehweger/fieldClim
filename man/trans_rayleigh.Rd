@@ -10,7 +10,7 @@ trans_rayleigh(...)
 
 \method{trans_rayleigh}{numeric}(air_mass_abs)
 
-\method{trans_rayleigh}{weather_station}(weather_station, height = "lower")
+\method{trans_rayleigh}{weather_station}(weather_station)
 }
 \arguments{
 \item{air_mass_abs}{Absolute optical air mass.}

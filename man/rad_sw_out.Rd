@@ -8,24 +8,16 @@
 \usage{
 rad_sw_out(...)
 
-\method{rad_sw_out}{numeric}(rad_sw_ground_horizontal, albedo)
+\method{rad_sw_out}{numeric}(rad_sw_in, albedo)
 
 \method{rad_sw_out}{weather_station}(weather_station)
 }
 \arguments{
-\item{rad_sw_ground_horizontal}{Shortwave radiation on the ground onto a horizontal area in W/m^2.}
+\item{rad_sw_in}{Shortwave radiation on the ground onto a horizontal area in W/m^2.}
 
 \item{albedo}{Albedo of the surface.}
 
 \item{weather_station}{Object of class weather_station.}
-
-\item{trans_total}{Total transmittance of the atmosphere.}
-
-\item{oz}{OPTIONAL. Needed if trans_total = NULL. Columnar ozone in cm.
-Default is average global value.}
-
-\item{vis}{OPTIONAL. Needed if trans_total = NULL. Meteorological visibility in km.
-Default is the visibility on a clear day.}
 }
 \value{
 Reflected shortwave radiation in W/m^2.

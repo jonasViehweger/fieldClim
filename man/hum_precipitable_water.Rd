@@ -10,7 +10,7 @@ hum_precipitable_water(...)
 
 \method{hum_precipitable_water}{numeric}(p, t, elev)
 
-\method{hum_precipitable_water}{weather_station}(weather_station, height)
+\method{hum_precipitable_water}{weather_station}(weather_station, height = "lower")
 }
 \arguments{
 \item{p}{Air pressure in hPa.}

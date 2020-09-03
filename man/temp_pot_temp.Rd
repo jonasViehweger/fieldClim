@@ -10,7 +10,7 @@ temp_pot_temp(...)
 
 \method{temp_pot_temp}{numeric}(t, p)
 
-\method{temp_pot_temp}{`weather-station`}(weather_station, height)
+\method{temp_pot_temp}{weather_station}(weather_station, height = "lower")
 }
 \arguments{
 \item{t}{Temperature in degrees C.}
@@ -18,6 +18,8 @@ temp_pot_temp(...)
 \item{p}{Pressure in hPa.}
 
 \item{weather_station}{Object of class weather_station}
+
+\item{height}{Height of measurement, either "upper" or "lower".}
 }
 \value{
 Potential temperature in K.

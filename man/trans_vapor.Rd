@@ -10,14 +10,14 @@ trans_vapor(...)
 
 \method{trans_vapor}{numeric}(air_mass_rel, precipitable_water)
 
-\method{trans_vapor}{weather_station}(weather_station, height = "lower")
+\method{trans_vapor}{weather_station}(weather_station)
 }
 \arguments{
 \item{air_mass_rel}{Relative optical air mass.}
 
 \item{precipitable_water}{Precipitable water in cm.}
 
-\item{weather_station}{Object of class weather_station}
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Transmittance due to water vapor (0-1).

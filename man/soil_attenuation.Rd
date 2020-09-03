@@ -16,6 +16,8 @@ soil_attenuation(...)
 \item{thermal_cond}{Thermal conductivity of soil in W/m K.}
 
 \item{vol_heat_cap}{Volumetric heat capacity of soil in J/(m^3 * K).}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Soil attenuation length in m.

@@ -10,12 +10,14 @@ trans_aerosol(...)
 
 \method{trans_aerosol}{numeric}(air_mass_abs, vis = 30)
 
-\method{trans_aerosol}{weather_station}(weather_station, height = "lower")
+\method{trans_aerosol}{weather_station}(weather_station)
 }
 \arguments{
 \item{air_mass_abs}{Absolute optical air mass.}
 
-\item{weather_station}{Object of class weather_station}
+\item{vis}{Visibility in km.}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Transmittance due to aerosols (0-1).

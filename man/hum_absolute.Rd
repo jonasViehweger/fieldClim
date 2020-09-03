@@ -8,9 +8,9 @@
 \usage{
 hum_absolute(...)
 
-\method{hum_absolute}{numeric}(p_vapor, t_pot)
+\method{hum_absolute}{numeric}(p_vapor, t_pot, ...)
 
-\method{hum_absolute}{weather_station}(weather_station, height)
+\method{hum_absolute}{weather_station}(weather_station, height, ...)
 }
 \arguments{
 \item{p_vapor}{Vapor presure in hPa.}

@@ -10,12 +10,12 @@ trans_gas(...)
 
 \method{trans_gas}{numeric}(air_mass_abs)
 
-\method{trans_gas}{weather_station}(weather_station, height = "lower")
+\method{trans_gas}{weather_station}(weather_station)
 }
 \arguments{
 \item{air_mass_abs}{Absolute optical air mass.}
 
-\item{weather_station}{Object of class weather_station}
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Transmittance due to gas (0-1)

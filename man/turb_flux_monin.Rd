@@ -30,8 +30,6 @@ turb_flux_monin(...)
 \item{t2}{Temperature at upper height in degrees C.}
 
 \item{weather_station}{Object of class weather_station}
-
-\item{ustar}{Friction velocity in m/s.}
 }
 \value{
 Monin-Obhukov-Length in m.

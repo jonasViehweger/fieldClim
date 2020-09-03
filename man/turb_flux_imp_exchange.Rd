@@ -10,7 +10,7 @@ turb_flux_imp_exchange(...)
 
 \method{turb_flux_imp_exchange}{numeric}(ex_quotient, v1, v2, z1 = 2, z2 = 10)
 
-\method{turb_flux_imp_exchange}{numeric}(weather_station, height)
+\method{turb_flux_imp_exchange}{weather_station}(weather_station, height = "lower")
 }
 \arguments{
 \item{ex_quotient}{Exchange quotient in kg/(m*s).}
@@ -24,6 +24,8 @@ turb_flux_imp_exchange(...)
 \item{z2}{Upper height of measurement in m.}
 
 \item{weather_station}{Object of class weather_station}
+
+\item{height}{Height of measurement. Either "upper" or "lower".}
 }
 \value{
 Turbulent impulse exchange in kg/(m*s^2).

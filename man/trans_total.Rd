@@ -10,7 +10,7 @@ trans_total(...)
 
 \method{trans_total}{numeric}(sol_elevation, t, elev, oz = 0.35, vis = 30, p = NULL)
 
-\method{trans_total}{weather_station}(weather_station, height = "lower")
+\method{trans_total}{weather_station}(weather_station, oz = 0.35, vis = 30)
 }
 \arguments{
 \item{sol_elevation}{Solar elevation in degrees.}
@@ -25,7 +25,7 @@ trans_total(...)
 
 \item{p}{OPTIONAL. Pressure in hPa. Estimated from elev and t if not available.}
 
-\item{weather_station}{Object of class weather_station}
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Total transmittance (0-1)

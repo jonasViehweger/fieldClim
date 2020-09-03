@@ -10,7 +10,7 @@ trans_air_mass_abs(...)
 
 \method{trans_air_mass_abs}{numeric}(air_mass_rel, p)
 
-\method{trans_air_mass_abs}{weather_station}(weather_station, height = "lower")
+\method{trans_air_mass_abs}{weather_station}(weather_station)
 }
 \arguments{
 \item{air_mass_rel}{Relative optical air mass}
