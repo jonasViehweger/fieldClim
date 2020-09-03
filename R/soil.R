@@ -16,6 +16,7 @@ soil_thermal_cond <- function (...) {
 #' @method soil_thermal_cond numeric
 #' @param moisture Soil moisture in Vol-%.
 #' @param texture Soil texture. Either "sand" or "clay".
+#' @importFrom stats approx
 #' @export
 #'
 soil_thermal_cond.numeric <- function(moisture, texture = "sand") {
@@ -65,6 +66,7 @@ soil_heat_cap <- function (...) {
 #' @method soil_heat_cap numeric
 #' @param moisture Soil moisture in Vol-%.
 #' @param texture Soil texture. Either "sand" or "clay".
+#' @importFrom stats approx
 #' @export
 soil_heat_cap.numeric <- function(moisture, texture = "sand") {
   if(texture == "sand"){
@@ -162,8 +164,7 @@ soil_attenuation.numeric <- function(thermal_cond, vol_heat_cap) {
 #' @rdname soil_attenuation
 #' @method soil_attenuation weather_station
 #' @export
-#' @param thermal_cond Thermal conductivity of soil in W/m K.
-#' @param vol_heat_cap Volumetric heat capacity of soil in J/(m^3 * K).
+#' @param weather_station Object of class weather_station.
 soil_attenuation.weather_station <- function(weather_station) {
   thermal_cond <- soil_thermal_cond(weather_station)
   vol_heat_cap <- soil_heat_cap(weather_station)
