@@ -8,7 +8,7 @@ v <- 3.5   # wind velocity
 
 test_that("turb_roughness_length", {
   expect_equal(turb_roughness_length(obs_height = h), 0.12)
-  expect_equal(turb_roughness_length(surface_type = "Wiese"), 0.02)
+  expect_equal(turb_roughness_length(surface_type = "Meadow"), 0.02)
 })
 
 test_that("turb_displacement", {

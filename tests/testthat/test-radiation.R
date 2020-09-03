@@ -22,11 +22,11 @@ test_that("rad_emissivity_air", {
 })
 
 test_that("rad_lw_surface", {
-  expect_equal(rad_lw_surface(st, em), 371.3726, tolerance = 1e-5)
+  expect_equal(rad_lw_out(st, em), 371.3726, tolerance = 1e-5)
 })
 
 test_that("rad_lw_atmospheric", {
-  expect_equal(rad_lw_atmospheric(0.2090643, t), 88.50861, tolerance = 1e-4)
+  expect_equal(rad_lw_in(0.2090643, t), 88.50861, tolerance = 1e-4)
 })
 
 test_that("rad_sw_toa", {
@@ -34,34 +34,19 @@ test_that("rad_sw_toa", {
 })
 
 test_that("rad_sw_ground_horizontal", {
-  expect_equal(rad_sw_ground_horizontal(819.5255, tges), 496.5168, tolerance = 1e-3)
+  expect_equal(rad_sw_in(819.5255, tges), 496.5168, tolerance = 1e-3)
 })
 
 test_that("rad_sw_reflected", {
-  expect_equal(rad_sw_reflected(496.5168, albedo), 74.47752, tolerance = 1e-3)
+  expect_equal(rad_sw_out(496.5168, albedo), 74.47752, tolerance = 1e-3)
 })
 
 test_that("rad_sw_radiation_balance", {
   expect_equal(rad_sw_radiation_balance(496.5168, 74.47752), 422.0393, tolerance = 1e-3)
 })
 
-test_that("rad_sw_balance_topography", {
-  expect_equal(rad_sw_balance_topography(slope = slope, valley = F,
-                                           sol_elevation, sol_azimuth,
-                                           exposition = hex,
-                                           rad_sw_ground_horizontal = 496.5168,
-                                           albedo, trans_total = tges), 214.5225, tolerance = 1e-5)
-})
-
 test_that("rad_bal_total", {
   expect_equal(rad_bal_total(rad_sw_radiation_balance = 422.0393,
                              rad_lw_surface = 371.3726,
                              rad_lw_atmospheric = 88.50861), 139.1754, tolerance = 1e-3)
-})
-
-test_that("rad_bal_total_with_topography", {
-  expect_equal(rad_bal_total_with_topography(rad_sw_balance_topography = 214.5225,
-                                             rad_lw_surface = 371.3726,
-                                             rad_lw_atmospheric = 88.50861,
-                                             terr_sky_view = 0.9698463), -59.8121, tolerance = 1e-3)
 })
