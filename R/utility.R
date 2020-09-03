@@ -8,9 +8,9 @@
 #'
 #' @return
 check_availability <- function(weather_station, ...){
-  unlisted <- c(weather_station[[1]], weather_station[[2]], weather_station[[3]])
-  parameters <- unlisted[c(...)]
-  empty <- names(which(sapply(parameters, is.null)))
+  unlisted <- names(c(weather_station[[1]], weather_station[[2]], weather_station[[3]]))
+  parameters <- as.character(unlist(list(...)))
+  empty <- parameters[!parameters %in% unlisted]
   if(length(empty)>1){
     stop(paste(empty, collapse = ", "), " are not available in the weather_station object.\n",
          "Please set the needed parameters.")
