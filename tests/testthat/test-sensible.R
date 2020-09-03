@@ -20,7 +20,7 @@ test_that("sensible_bowen", {
                               p1 = p, p2 = p,
                               z1 = z1, z2 = z2,
                               rad_bal = rad_bal, soil_flux = soil_flux),
-               -128.0606, tolerance = 1e-3)
+               -128.3694, tolerance = 1e-3)
 })
 
 grad_rich_no <- -0.1573365

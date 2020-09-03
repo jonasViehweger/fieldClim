@@ -2,11 +2,19 @@
 % Please edit documentation in R/transmittance.R
 \name{trans_total}
 \alias{trans_total}
+\alias{trans_total.numeric}
+\alias{trans_total.weather_station}
 \title{Total transmittance}
 \usage{
-trans_total(sol_elevation, t, elev, oz = 0.35, vis = 30, p = NULL)
+trans_total(...)
+
+\method{trans_total}{numeric}(sol_elevation, t, elev, oz = 0.35, vis = 30, p = NULL, ...)
+
+\method{trans_total}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{sol_elevation}{Solar elevation in degrees.}
 
 \item{t}{Air temperature in degrees C.}
@@ -18,6 +26,8 @@ trans_total(sol_elevation, t, elev, oz = 0.35, vis = 30, p = NULL)
 \item{vis}{Meteorological visibility in km. Default is the visibility on a clear day.}
 
 \item{p}{OPTIONAL. Pressure in hPa. Estimated from elev and t if not available.}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Total transmittance (0-1)

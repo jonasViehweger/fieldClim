@@ -2,14 +2,24 @@
 % Please edit documentation in R/transmittance.R
 \name{trans_ozone}
 \alias{trans_ozone}
+\alias{trans_ozone.numeric}
+\alias{trans_ozone.weather_station}
 \title{Transmittance due to ozone}
 \usage{
-trans_ozone(air_mass_rel, oz = 0.35)
+trans_ozone(...)
+
+\method{trans_ozone}{numeric}(air_mass_rel, oz = 0.35, ...)
+
+\method{trans_ozone}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{air_mass_rel}{Relative optical air mass.}
 
 \item{oz}{Columnar ozone in cm. Default is average value of 0.35 cm.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Transmittance due to ozone (0-1).

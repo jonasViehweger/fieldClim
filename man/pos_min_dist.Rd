@@ -2,11 +2,16 @@
 % Please edit documentation in R/position.R
 \name{pos_min_dist}
 \alias{pos_min_dist}
+\alias{pos_min_dist.numeric}
 \title{Minimum Distance between climate station and obstacle}
 \usage{
-pos_min_dist(obs_width, obs_height, ring = F, obs_radius = NULL)
+pos_min_dist(...)
+
+\method{pos_min_dist}{numeric}(obs_width, obs_height, ring = F, obs_radius = NULL, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{obs_width}{Width of obstacle in m.}
 
 \item{obs_height}{Height of obstacle in m.}
@@ -17,6 +22,8 @@ pos_min_dist(obs_width, obs_height, ring = F, obs_radius = NULL)
 }
 \value{
 Minimum distance in m.
+
+
 }
 \description{
 Calculate the needed minimum distance between climate station and obstacle (e.g. forest), to ensure independence of measurements.

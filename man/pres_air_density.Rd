@@ -2,11 +2,23 @@
 % Please edit documentation in R/pressure.R
 \name{pres_air_density}
 \alias{pres_air_density}
+\alias{pres_air_density.weather_station}
+\alias{pres_air_density.numeric}
 \title{Air density}
 \usage{
-pres_air_density(p, t)
+pres_air_density(...)
+
+\method{pres_air_density}{weather_station}(weather_station, height = "lower", ...)
+
+\method{pres_air_density}{numeric}(p, t, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
+\item{weather_station}{Object of class weather_station}
+
+\item{height}{"lower" or "upper"}
+
 \item{p}{Pressure in hPa.}
 
 \item{t}{Temperature in degrees C.}

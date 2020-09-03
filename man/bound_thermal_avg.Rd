@@ -13,11 +13,11 @@ bound_thermal_avg(ustar, v, temp_change_dist, t_pot_upwind, t_pot, lapse_rate)
 
 \item{temp_change_dist}{Distance to point of temperature change in m.}
 
+\item{t_pot_upwind}{Potential temperature in upwind direction in °C.}
+
 \item{t_pot}{Potential temperature at site in °C.}
 
-\item{pt_upwind}{Potential temperature in upwind direction in °C.}
-
-\item{lr}{Lapse rate in K/m (or degrees C/m)}
+\item{lapse_rate}{Lapse rate in K/m (or degrees C/m)}
 }
 \value{
 Average height of the thermal boundary layer in m.

@@ -2,13 +2,23 @@
 % Please edit documentation in R/solar.R
 \name{sol_eccentricity}
 \alias{sol_eccentricity}
+\alias{sol_eccentricity.POSIXt}
+\alias{sol_eccentricity.weather_station}
 \title{Eccentricity}
 \usage{
-sol_eccentricity(datetime)
+sol_eccentricity(...)
+
+\method{sol_eccentricity}{POSIXt}(datetime, ...)
+
+\method{sol_eccentricity}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{datetime}{POSIXt object (POSIXct, POSIXlt).
 See \link[base:as.POSIXlt]{base::as.POSIXlt} and \link[base:strptime]{base::strptime} for conversion.}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Eccentricity at the date.

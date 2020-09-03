@@ -1,13 +1,15 @@
-surface_properties <- data.frame(surface_type = c("Wiese",
-                                                  "Acker",
-                                                  "Gruenflaeche",
-                                                  "Strasse",
-                                                  "Landwirtschaft",
-                                                  "Siedlung",
-                                                  "Nadelwald",
-                                                  "Laubwald",
-                                                  "Mischwald",
-                                                  "Stadt"),
+## code to prepare `surface_properties` dataset goes here
+
+surface_properties <- data.frame(surface_type = c("Meadow",
+                                                  "Field",
+                                                  "Park/Lawn",
+                                                  "Street",
+                                                  "Agriculture",
+                                                  "Settlement",
+                                                  "Coniferous",
+                                                  "Broadleaf",
+                                                  "Mixed",
+                                                  "City"),
                                  emissivity = c(0.92,
                                                 0.98,
                                                 0.95,
@@ -28,6 +30,6 @@ surface_properties <- data.frame(surface_type = c("Wiese",
                                                       1.5,
                                                       1.5,
                                                       2.0)
-                                 )
+)
 
-usethis::use_data(surface_properties, overwrite = T)
+usethis::use_data(surface_properties, overwrite = T, internal = T)

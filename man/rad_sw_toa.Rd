@@ -2,17 +2,27 @@
 % Please edit documentation in R/radiation.R
 \name{rad_sw_toa}
 \alias{rad_sw_toa}
+\alias{rad_sw_toa.POSIXt}
+\alias{rad_sw_toa.weather_station}
 \title{Shortwave radiation at top of atmosphere}
 \usage{
-rad_sw_toa(datetime, lat, lon)
+rad_sw_toa(...)
+
+\method{rad_sw_toa}{POSIXt}(datetime, lat, lon, ...)
+
+\method{rad_sw_toa}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{datetime}{Date and time as POSIX type.
 See \code{\link[base:as.POSIXlt]{base::as.POSIXlt()}} and \link[base:strptime]{base::strptime} for conversion.}
 
 \item{lat}{Latitude of the place of the climate station in decimal degrees.}
 
 \item{lon}{Longitude of the place of the climate station in decimal degrees.}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Shortwave radiation at top of atmosphere in W/m^2.

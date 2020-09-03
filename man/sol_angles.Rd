@@ -2,17 +2,27 @@
 % Please edit documentation in R/solar.R
 \name{sol_angles}
 \alias{sol_angles}
+\alias{sol_angles.POSIXt}
+\alias{sol_angles.weather_station}
 \title{Solar azimuth and elevation angles}
 \usage{
-sol_angles(datetime, lat, lon)
+sol_angles(...)
+
+\method{sol_angles}{POSIXt}(datetime, lat, lon, ...)
+
+\method{sol_angles}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{datetime}{POSIXt object (POSIXct, POSIXlt).
 See \link[base:as.POSIXlt]{base::as.POSIXlt} and \link[base:strptime]{base::strptime} for conversion.}
 
 \item{lat}{Latitude in decimal degrees.}
 
 \item{lon}{Longitude in decimal degrees.}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 data.frame with two columns: sol_azimuth and sol_elevation.

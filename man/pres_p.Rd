@@ -2,11 +2,23 @@
 % Please edit documentation in R/pressure.R
 \name{pres_p}
 \alias{pres_p}
+\alias{pres_p.weather_station}
+\alias{pres_p.numeric}
 \title{Air pressure}
 \usage{
-pres_p(elev, t)
+pres_p(...)
+
+\method{pres_p}{weather_station}(weather_station, height = "lower", ...)
+
+\method{pres_p}{numeric}(elev, t, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
+\item{weather_station}{Object of class weather_station}
+
+\item{height}{lower or upper}
+
 \item{elev}{Elevation above sea level in m.}
 
 \item{t}{Temperature in degrees C.}

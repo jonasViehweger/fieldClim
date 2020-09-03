@@ -2,14 +2,26 @@
 % Please edit documentation in R/humidity.R
 \name{hum_specific}
 \alias{hum_specific}
+\alias{hum_specific.numeric}
+\alias{hum_specific.weather_station}
 \title{Specific humidity}
 \usage{
-hum_specific(p_vapor, p)
+hum_specific(...)
+
+\method{hum_specific}{numeric}(p_vapor, p, ...)
+
+\method{hum_specific}{weather_station}(weather_station, height, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{p_vapor}{Vapor pressure in hPa.}
 
 \item{p}{Air pressure in hPa.}
+
+\item{weather_station}{Object of class weather_station.}
+
+\item{height}{Height of measurement. "lower" or "upper".}
 }
 \value{
 Specific humidity in kg/kg.

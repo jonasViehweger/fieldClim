@@ -40,6 +40,6 @@ test_that("trans_gas", {
 
 test_that("trans_total", {
   expect_equal(trans_total(sol_elevation = 36.98267, t = t, elev = h,
-                           oz = oz, vis = vis, p = p)$total,
+                           oz = oz, vis = vis, p = p),
                0.6058589, tolerance = 1e-6)
 })

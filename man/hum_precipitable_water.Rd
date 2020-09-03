@@ -2,16 +2,28 @@
 % Please edit documentation in R/humidity.R
 \name{hum_precipitable_water}
 \alias{hum_precipitable_water}
+\alias{hum_precipitable_water.numeric}
+\alias{hum_precipitable_water.weather_station}
 \title{Total precipitable water}
 \usage{
-hum_precipitable_water(p, t, elev)
+hum_precipitable_water(...)
+
+\method{hum_precipitable_water}{numeric}(p, t, elev, ...)
+
+\method{hum_precipitable_water}{weather_station}(weather_station, height = "lower", ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{p}{Air pressure in hPa.}
 
 \item{t}{Air temperature in degrees C.}
 
 \item{elev}{Elevation above sea level in m.}
+
+\item{weather_station}{Object of class weather_station.}
+
+\item{height}{Height of measurement. "lower" or "upper".}
 }
 \value{
 Total precipitable water in cm (grams).

@@ -1,4 +1,4 @@
 library(testthat)
-library(energyBudget)
+library(fieldClim)
 
-test_check("energyBudget")
+test_check("fieldClim")

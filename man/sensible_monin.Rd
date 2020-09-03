@@ -2,11 +2,30 @@
 % Please edit documentation in R/sensible.R
 \name{sensible_monin}
 \alias{sensible_monin}
+\alias{sensible_monin.numeric}
+\alias{sensible_monin.weather_station}
 \title{Sensible Heat using Monin-Obukhov length}
 \usage{
-sensible_monin(t1, t2, p1, p2, z1 = 2, z2 = 10, monin, ustar, grad_rich_no)
+sensible_monin(...)
+
+\method{sensible_monin}{numeric}(
+  t1,
+  t2,
+  p1,
+  p2,
+  z1 = 2,
+  z2 = 10,
+  monin,
+  ustar,
+  grad_rich_no,
+  ...
+)
+
+\method{sensible_monin}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{t1}{Air temperature at lower height in degrees C.}
 
 \item{t2}{Air temperature at upper height in degrees C.}
@@ -24,9 +43,11 @@ sensible_monin(t1, t2, p1, p2, z1 = 2, z2 = 10, monin, ustar, grad_rich_no)
 \item{ustar}{Friction velocity in m/s.}
 
 \item{grad_rich_no}{Gradient-Richardson-Number.}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
-Latent heat flux in W/m^2.
+Sensible heat flux in W/m^2.
 }
 \description{
 Calculates the sensible heat flux using the Monin-Obukhov length. Negative

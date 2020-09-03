@@ -2,20 +2,32 @@
 % Please edit documentation in R/turbulent_flux.R
 \name{turb_flux_ex_quotient_imp}
 \alias{turb_flux_ex_quotient_imp}
+\alias{turb_flux_ex_quotient_imp.numeric}
+\alias{turb_flux_ex_quotient_imp.weather_station}
 \title{Exchange quotient for impulse transmission}
 \usage{
-turb_flux_ex_quotient_imp(grad_rich_no, ustar, monin, z1, air_density)
+turb_flux_ex_quotient_imp(...)
+
+\method{turb_flux_ex_quotient_imp}{numeric}(grad_rich_no, ustar, monin, z, air_density, ...)
+
+\method{turb_flux_ex_quotient_imp}{weather_station}(weather_station, height = "lower", ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{grad_rich_no}{Gradient-Richardson-Number.}
 
 \item{ustar}{Friction velocity in m/s.}
 
 \item{monin}{Monin-Obhukov-Length in m.}
 
-\item{z1}{Height in m.}
+\item{z}{Observation height in m.}
 
 \item{air_density}{Air density in kg/m^3.}
+
+\item{weather_station}{Object of class weather_station}
+
+\item{height}{Height of measurement. Either "upper" or "lower".}
 }
 \value{
 Exchange quotient for impulse transmission in kg/(m*s).

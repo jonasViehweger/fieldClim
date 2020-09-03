@@ -2,14 +2,24 @@
 % Please edit documentation in R/transmittance.R
 \name{trans_air_mass_abs}
 \alias{trans_air_mass_abs}
+\alias{trans_air_mass_abs.numeric}
+\alias{trans_air_mass_abs.weather_station}
 \title{Absolute optical air mass}
 \usage{
-trans_air_mass_abs(air_mass_rel, p)
+trans_air_mass_abs(...)
+
+\method{trans_air_mass_abs}{numeric}(air_mass_rel, p, ...)
+
+\method{trans_air_mass_abs}{weather_station}(weather_station, ...)
 }
 \arguments{
-\item{air_mass_rel}{Relative optical air mass.}
+\item{...}{Additional parameters passed to later functions.}
+
+\item{air_mass_rel}{Relative optical air mass}
 
 \item{p}{Air pressure in hPa.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Absolute optical air mass.

@@ -4,13 +4,23 @@
 #'
 #' Works by linearly interpolating thermal conductivity based on measured data.
 #'
-#' @param moisture Soil moisture in Vol-%.
-#' @param texture Soil texture. Either "sand" or "clay".
-#'
+#' @rdname soil_thermal_cond
+#' @param ... Additional parameters passed to later functions.
 #' @return Soil thermal conductivity in W/m K.
 #' @export
 #'
-soil_thermal_cond <- function(moisture, texture = "sand") {
+soil_thermal_cond <- function (...) {
+  UseMethod("soil_thermal_cond")
+}
+
+#' @rdname soil_thermal_cond
+#' @method soil_thermal_cond numeric
+#' @param moisture Soil moisture in Vol-%.
+#' @param texture Soil texture. Either "sand" or "clay".
+#' @importFrom stats approx
+#' @export
+#'
+soil_thermal_cond.numeric <- function(moisture, texture = "sand", ...) {
   if(texture == "sand"){
     y <- c(0.269,1.46,1.98,2.18,2.31,2.49,2.58)
   } else if(texture == "clay"){
@@ -25,6 +35,18 @@ soil_thermal_cond <- function(moisture, texture = "sand") {
   return(therm_cond$y)
 }
 
+#' @rdname soil_thermal_cond
+#' @method soil_thermal_cond weather_station
+#' @param weather_station Object of class weather_station.
+#' @export
+#'
+soil_thermal_cond.weather_station <- function(weather_station, ...) {
+  check_availability(weather_station, "moisture", "texture")
+  moisture <- weather_station$measurements$moisture
+  texture <- weather_station$location_properties$texture
+  return(soil_thermal_cond(moisture, texture))
+}
+
 
 #' Soil volumetric heat capacity
 #'
@@ -32,13 +54,23 @@ soil_thermal_cond <- function(moisture, texture = "sand") {
 #'
 #' Works by linearly interpolating volumetric heat capacity based on measured data.
 #'
-#' @param moisture Soil moisture in Vol-%.
-#' @param texture Soil texture. Either "sand" or "clay".
-#'
+#' @rdname soil_heat_cap
+#' @param ... Additional parameters passed to later functions.
 #' @return Numeric vector with volumetric heat capacity in J/(m^3 * K)
 #' @export
 #'
-soil_heat_cap <- function(moisture, texture = "sand") {
+soil_heat_cap <- function (...) {
+  UseMethod("soil_heat_cap")
+}
+
+
+#' @rdname soil_heat_cap
+#' @method soil_heat_cap numeric
+#' @param moisture Soil moisture in Vol-%.
+#' @param texture Soil texture. Either "sand" or "clay".
+#' @importFrom stats approx
+#' @export
+soil_heat_cap.numeric <- function(moisture, texture = "sand", ...) {
   if(texture == "sand"){
     y <- c(1.17,1.38,1.59,1.8,2.0,2.42,2.97)
   } else if(texture == "clay"){
@@ -54,6 +86,20 @@ soil_heat_cap <- function(moisture, texture = "sand") {
 }
 
 
+
+#' @rdname soil_heat_cap
+#' @method soil_heat_cap weather_station
+#' @param weather_station Object of class weather_station.
+#' @export
+#'
+soil_heat_cap.weather_station <- function(weather_station, ...) {
+  check_availability(weather_station, "moisture", "texture")
+  moisture <- weather_station$measurements$moisture
+  texture <- weather_station$location_properties$texture
+  return(soil_heat_cap(moisture, texture))
+}
+
+
 #' Soil heat flux
 #'
 #' Calculates soil heat flux from measurements in two different
@@ -61,17 +107,39 @@ soil_heat_cap <- function(moisture, texture = "sand") {
 #'
 #' Negative values signify flux towards the atmosphere, positive values signify flux into the soil.
 #'
+#' @rdname soil_heat_flux
+#' @param ... Additional parameters passed to later functions.
+#' @return Soil heat flux in W*m^-2.
+#' @export
+#'
+soil_heat_flux <- function (...) {
+  UseMethod("soil_heat_flux")
+}
+
+#' @rdname soil_heat_flux
+#' @method soil_heat_flux numeric
+#' @export
 #' @param ts1 Upper soil temperature (closest to the surface) in degrees C.
 #' @param ts2 Lower soil temperature in degrees C.
 #' @param depth1 Depth of upper measurement (closest to the surface) in m.
 #' @param depth2 Depth of lower measurement in m.
 #' @param thermal_cond Thermal conductivity of soil in W/m K.
-#'
-#' @return Soil heat flux in W*m^-2.
-#' @export
-#'
-soil_heat_flux <- function(ts1, ts2, depth1, depth2, thermal_cond) {
+soil_heat_flux.numeric <- function(ts1, ts2, depth1, depth2, thermal_cond, ...) {
   return (thermal_cond*((ts1-ts2)/(depth2-depth1)))
+}
+
+#' @rdname soil_heat_flux
+#' @method soil_heat_flux weather_station
+#' @export
+#' @param weather_station Object of class weather_station.
+soil_heat_flux.weather_station <- function(weather_station, ...) {
+  check_availability(weather_station, "ts1", "ts2", "depth1", "depth2")
+  ts1 <- weather_station$measurements$ts1
+  ts2 <- weather_station$measurements$ts2
+  depth1 <- weather_station$properties$depth1
+  depth2 <- weather_station$properties$depth2
+  thermal_cond <- soil_thermal_cond(weather_station)
+  return (soil_heat_flux(ts1, ts2, depth1, depth2, thermal_cond))
 }
 
 
@@ -79,22 +147,30 @@ soil_heat_flux <- function(ts1, ts2, depth1, depth2, thermal_cond) {
 #'
 #' Calculates soil attenuation length.
 #'
-#' @param thermal_cond Thermal conductivity of soil in W/m K.
-#' @param vol_heat_cap Volumetric heat capacity of soil in J/(m^3 * K).
-#'
+#' @rdname soil_attenuation
+#' @param ... Additional parameters passed to later functions.
 #' @return Soil attenuation length in m.
 #' @export
 #'
-soil_attenuation <- function(thermal_cond, vol_heat_cap) {
-  if (!is.numeric(vol_heat_cap)) stop("vol_heat_cap is not numeric")
-  if (!is.numeric(thermal_cond)) stop("thermal_cond is not numeric")
-  if (any(thermal_cond < 0)){
-    warning("Negative thermal_cond values will be converted to NA.")
-    thermal_cond[thermal_cond < 0] <- NA
-  }
-  if (any(vol_heat_cap < 0)){
-    warning("Negative vol_heat_cap values will be converted to NA.")
-    vol_heat_cap[vol_heat_cap < 0] <- NA
-  }
+soil_attenuation <- function (...) {
+  UseMethod("soil_attenuation")
+}
+
+#' @rdname soil_attenuation
+#' @method soil_attenuation numeric
+#' @export
+#' @param thermal_cond Thermal conductivity of soil in W/m K.
+#' @param vol_heat_cap Volumetric heat capacity of soil in J/(m^3 * K).
+soil_attenuation.numeric <- function(thermal_cond, vol_heat_cap, ...) {
   return(sqrt((thermal_cond*24)/(vol_heat_cap*pi)))
+}
+
+#' @rdname soil_attenuation
+#' @method soil_attenuation weather_station
+#' @export
+#' @param weather_station Object of class weather_station.
+soil_attenuation.weather_station <- function(weather_station, ...) {
+  thermal_cond <- soil_thermal_cond(weather_station)
+  vol_heat_cap <- soil_heat_cap(weather_station)
+  return(soil_attenuation(thermal_cond, vol_heat_cap))
 }

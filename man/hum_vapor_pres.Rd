@@ -2,14 +2,26 @@
 % Please edit documentation in R/humidity.R
 \name{hum_vapor_pres}
 \alias{hum_vapor_pres}
+\alias{hum_vapor_pres.numeric}
+\alias{hum_vapor_pres.weather_station}
 \title{Vapor pressure}
 \usage{
-hum_vapor_pres(hum, t)
+hum_vapor_pres(...)
+
+\method{hum_vapor_pres}{numeric}(hum, t, ...)
+
+\method{hum_vapor_pres}{weather_station}(weather_station, height = "lower", ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{hum}{Relative humidity in \%.}
 
 \item{t}{Air temperature in degrees C.}
+
+\item{weather_station}{Object of class weather_station.}
+
+\item{height}{Height of measurement. "lower" or "upper".}
 }
 \value{
 Vapor pressure in hPa.

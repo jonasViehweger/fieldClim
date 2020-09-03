@@ -2,16 +2,26 @@
 % Please edit documentation in R/radiation.R
 \name{rad_bal_total}
 \alias{rad_bal_total}
+\alias{rad_bal_total.numeric}
+\alias{rad_bal_total.weather_station}
 \title{Total radiation balance}
 \usage{
-rad_bal_total(rad_sw_radiation_balance, rad_lw_surface, rad_lw_atmospheric)
+rad_bal_total(...)
+
+\method{rad_bal_total}{numeric}(rad_sw_radiation_balance, rad_lw_out, rad_lw_in, ...)
+
+\method{rad_bal_total}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{rad_sw_radiation_balance}{Shortwave radiation balance in W/m^2.}
 
-\item{rad_lw_surface}{Longave surface emissions in W/m^2.}
+\item{rad_lw_out}{Longave surface emissions in W/m^2.}
 
-\item{rad_lw_atmospheric}{Atmospheric radiation in W/m^2.}
+\item{rad_lw_in}{Atmospheric radiation in W/m^2.}
+
+\item{weather_station}{Object of class weather_station.}
 }
 \value{
 Total radiation balance in W/m^2.

@@ -2,12 +2,24 @@
 % Please edit documentation in R/humidity.R
 \name{hum_evap_heat}
 \alias{hum_evap_heat}
+\alias{hum_evap_heat.numeric}
+\alias{hum_evap_heat.weather_station}
 \title{Enthaly of vaporization}
 \usage{
-hum_evap_heat(t)
+hum_evap_heat(...)
+
+\method{hum_evap_heat}{numeric}(t, ...)
+
+\method{hum_evap_heat}{weather_station}(weather_station, height = "lower", ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{t}{Air temperature in degrees C.}
+
+\item{weather_station}{Object of class weather_station.}
+
+\item{height}{Height of measurement. "lower" or "upper".}
 }
 \value{
 Enthaly of vaporization in J/kg.

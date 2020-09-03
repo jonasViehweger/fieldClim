@@ -2,17 +2,29 @@
 % Please edit documentation in R/radiation.R
 \name{rad_emissivity_air}
 \alias{rad_emissivity_air}
+\alias{rad_emissivity_air.numeric}
+\alias{rad_emissivity_air.weather_station}
 \title{Emissivity of the atmosphere}
 \usage{
-rad_emissivity_air(t, elev, p = NULL)
+rad_emissivity_air(...)
+
+\method{rad_emissivity_air}{numeric}(t, elev, p = NULL, ...)
+
+\method{rad_emissivity_air}{weather_station}(weather_station, height = "lower", ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{t}{Air temperature in degrees C.}
 
 \item{elev}{Meters above sea level}
 
 \item{p}{OPTIONAL. Air pressure in hPa.
 If not available, will be calculated from elev and air temperature.}
+
+\item{weather_station}{Object of class weather_station.}
+
+\item{height}{Height of measurement. "lower" or "upper".}
 }
 \value{
 Emissivity of the atmosphere (0-1).

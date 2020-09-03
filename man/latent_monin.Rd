@@ -2,9 +2,13 @@
 % Please edit documentation in R/latent.R
 \name{latent_monin}
 \alias{latent_monin}
+\alias{latent_monin.numeric}
+\alias{latent_monin.weather_station}
 \title{Latent Heat using Monin-Obukhov length}
 \usage{
-latent_monin(
+latent_monin(...)
+
+\method{latent_monin}{numeric}(
   hum1,
   hum2,
   t1,
@@ -15,10 +19,15 @@ latent_monin(
   z2 = 10,
   monin,
   ustar,
-  grad_rich_no
+  grad_rich_no,
+  ...
 )
+
+\method{latent_monin}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{hum1}{Relative humidity at lower height in \%.}
 
 \item{hum2}{Relative humidity at upper height in \%.}
@@ -40,6 +49,8 @@ latent_monin(
 \item{ustar}{Friction velocity in m/s.}
 
 \item{grad_rich_no}{Gradient-Richardson-Number.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
 Latent heat flux in W/m^2.

@@ -4,21 +4,42 @@
 #' heat flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
+#' @param ... Additional parameters passed to later functions.
+#' @return Sensible heat flux in W/m^2.
+#' @export
+#'
+sensible_priestley_taylor <- function (...) {
+  UseMethod("sensible_priestley_taylor")
+}
+
+#' @rdname sensible_priestley_taylor
+#' @method sensible_priestley_taylor numeric
+#' @export
 #' @param t Air temperature in degrees C.
 #' @param rad_bal Radiation balance in W/m^2.
 #' @param soil_flux Soil flux in W/m^2.
 #' @param coefficient Priestley-Taylor coefficient. Default is for open water.
-#'
-#' @return Sensible heat flux in W/m^2.
-#' @export
-#'
-sensible_priestley_taylor <- function(t, rad_bal, soil_flux, coefficient = 1.25){
+sensible_priestley_taylor.numeric <- function(t, rad_bal, soil_flux, coefficient = 1.25, ...){
   sc <- sc(t)
   lamb <- lamb(t)
   alpt <- coefficient
   QH_TP <- ((1-alpt)*sc+lamb)*(-1*rad_bal-soil_flux)/(sc+lamb)
   return(QH_TP)
 }
+
+#' @rdname sensible_priestley_taylor
+#' @method sensible_priestley_taylor weather_station
+#' @param weather_station Object of class weather_station
+#' @export
+sensible_priestley_taylor.weather_station <- function(weather_station, ...){
+  check_availability(weather_station, "t1", "rad_bal", "soil_flux")
+  t1 <- weather_station$measurements$t1
+  rad_bal <- weather_station$measurements$rad_bal
+  soil_flux <- weather_station$measurements$soil_flux
+  return(sensible_priestley_taylor(t1, rad_bal, soil_flux))
+}
+
+
 
 
 #' Sensible Heat using Monin-Obukhov length
@@ -27,6 +48,16 @@ sensible_priestley_taylor <- function(t, rad_bal, soil_flux, coefficient = 1.25)
 #' flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
+#' @param ... Additional parameters passed to later functions.
+#' @return Sensible heat flux in W/m^2.
+#' @export
+sensible_monin <- function (...) {
+  UseMethod("sensible_monin")
+}
+
+#' @rdname sensible_monin
+#' @method sensible_monin numeric
+#' @export
 #' @param t1 Air temperature at lower height in degrees C.
 #' @param t2 Air temperature at upper height in degrees C.
 #' @param p1 Pressure at lower height in hPa.
@@ -36,11 +67,8 @@ sensible_priestley_taylor <- function(t, rad_bal, soil_flux, coefficient = 1.25)
 #' @param monin Monin-Obukhov-Length in m.
 #' @param ustar Friction velocity in m/s.
 #' @param grad_rich_no Gradient-Richardson-Number.
-#'
-#' @return Latent heat flux in W/m^2.
-#' @export
-sensible_monin <- function(t1, t2, p1, p2, z1 = 2, z2 = 10,
-                           monin, ustar, grad_rich_no) {
+sensible_monin.numeric <- function(t1, t2, p1, p2, z1 = 2, z2 = 10,
+                           monin, ustar, grad_rich_no, ...) {
   cp <- 1004.834
   k <- 0.4
   s1 <- z2/monin
@@ -59,6 +87,26 @@ sensible_monin <- function(t1, t2, p1, p2, z1 = 2, z2 = 10,
   return(QH)
 }
 
+#' @rdname sensible_monin
+#' @method sensible_monin weather_station
+#' @param weather_station Object of class weather_station.
+#' @export
+sensible_monin.weather_station <- function(weather_station, ...){
+  check_availability(weather_station, "z1", "z2", "t1", "t2", "p1", "p2")
+  t1 <- weather_station$measurements$t1
+  t2 <- weather_station$measurements$t2
+  z1 <- weather_station$properties$z1
+  z2 <- weather_station$properties$z2
+  p1 <- weather_station$measurements$p1
+  p2 <- weather_station$measurements$p2
+  monin <- turb_flux_monin(weather_station)
+  ustar <- turb_ustar(weather_station)
+  grad_rich_no <- turb_flux_grad_rich_no(weather_station)
+  return(sensible_monin(t1, t2, p1, p2, z1, z2,
+                      monin, ustar, grad_rich_no))
+}
+
+
 
 #' Sensible Heat using Bowen Method
 #'
@@ -66,6 +114,17 @@ sensible_monin <- function(t1, t2, p1, p2, z1 = 2, z2 = 10,
 #' flux signifies flux away from the surface, positive values signify flux
 #' towards the surface.
 #'
+#' @param ... Additional parameters passed to later functions.
+#' @return Sensible heat flux in W/m^2
+#' @export
+#'
+sensible_bowen <- function (...) {
+  UseMethod("sensible_bowen")
+}
+
+#' @rdname sensible_bowen
+#' @method sensible_bowen numeric
+#' @export
 #' @param t1 Temperature at lower height (e.g. height of anemometer) in degrees C.
 #' @param t2 Temperature at upper height in degrees C.
 #' @param hum1 Relative humidity at lower height (e.g. height of anemometer) in %.
@@ -76,12 +135,11 @@ sensible_monin <- function(t1, t2, p1, p2, z1 = 2, z2 = 10,
 #' @param z2 Upper height of measurement in m.
 #' @param rad_bal Radiation balance in W/m^2.
 #' @param soil_flux Soil flux in W/m^2.
-#'
-#' @return Sensible heat flux in W/m^2.
-#' @export
-#'
-sensible_bowen <- function(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10,
-                           rad_bal, soil_flux){
+sensible_bowen.numeric <- function(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10,
+                           rad_bal, soil_flux, ...){
+
+  # Check turbulence conditions
+  #if()
 
   # Calculating potential temperature delta
   t1_pot <- temp_pot_temp(t1, p1)
@@ -98,3 +156,31 @@ sensible_bowen <- function(t1, t2, hum1, hum2, p1, p2, z1 = 2, z2 = 10,
   out <- (-1*rad_bal-soil_flux) * (bowen_ratio / (1+bowen_ratio))
   return(out)
 }
+
+#' @rdname sensible_bowen
+#' @method sensible_bowen weather_station
+#' @param weather_station Object of class weather_station
+#' @export
+sensible_bowen.weather_station <- function(weather_station, ...){
+  check_availability(weather_station, "z1", "z2", "t1", "t2", "p1", "p2",
+                     "hum1", "hum2", "rad_bal", "soil_flux")
+  hum1 <- weather_station$measurements$hum1
+  hum2 <- weather_station$measurements$hum2
+  t1 <- weather_station$measurements$t1
+  t2 <- weather_station$measurements$t2
+  z1 <- weather_station$properties$z1
+  z2 <- weather_station$properties$z2
+  p1 <- weather_station$measurements$p1
+  p2 <- weather_station$measurements$p2
+  rad_bal <- weather_station$measurements$rad_bal
+  soil_flux <- weather_station$measurements$soil_flux
+  return(sensible_bowen(t1, t2, hum1, hum2, p1, p2, z1, z2,
+                      rad_bal, soil_flux))
+}
+
+
+
+
+
+
+

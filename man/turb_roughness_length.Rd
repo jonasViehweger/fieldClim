@@ -2,17 +2,27 @@
 % Please edit documentation in R/turbulence.R
 \name{turb_roughness_length}
 \alias{turb_roughness_length}
+\alias{turb_roughness_length.default}
+\alias{turb_roughness_length.weather_station}
 \title{Roughness length}
 \usage{
-turb_roughness_length(surface_type = NULL, obs_height = NULL)
+turb_roughness_length(...)
+
+\method{turb_roughness_length}{default}(surface_type = NULL, obs_height = NULL, ...)
+
+\method{turb_roughness_length}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{surface_type}{Type of surface}
 
 \item{obs_height}{Height of obstacle in m.}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
-Roughness length in m.
+Pressure in hPa.
 }
 \description{
 Calculate the roughness length of an surface on the basis of the obstacle height or the type of the surface

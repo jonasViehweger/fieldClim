@@ -1,0 +1,306 @@
+---
+title: "Introduction to fieldClim"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to fieldClim}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction to the Package
+
+The `fieldClim` package was originally designed as a course project to the course `Geländeklimatologie`, held by Prof. Dr. Jörg Bendix at the Philipps-University of Marburg in summer term 2020. Thus, the calculations and formulas of this package are based on this course, as well as the book `Geländeklimatologie` (Field climatology) by Jörg Bendix (2004; ISBN 978-3-443-07139-4).
+
+`fieldClim` is designed as a handy tool, that lets you calculate various weather and micro-climate conditions, based on the measurements of a weather station. It lets you create a `weather_station`-object, that can then be used to call most of the functions without the necessity of further specify input variables. In addition, all functions can also be called by manually inputting the needed variables, if the user whishes to do so.
+
+Here, we will provide an example of the calculation of a set of micro-climate conditions using the `weather_station`-object, based on the `weather_station_example_data` data frame, that is included in the package.
+
+## Preparing the data
+
+First let's load the package and the provided example-data and take a look at the provided columns.
+
+```{r}
+library(fieldClim)
+ws <- get(data(weather_station_example_data, package="fieldClim"))
+
+colnames(ws)
+```
+
+This dataset includes most of the data necessary to run the functions in this package.
+
+Before building a `weather_station` object it is necessary to ensure that the input is properly formatted.
+For this we need to check if the `datetime` column is in `POSIXt`-format and if not convert it.
+
+```{r}
+# Check datetime class
+class(ws$datetime)
+
+# Looks good! However just to demonstrate here's how to convert to POSIXt:
+wrong_type <- as.character(ws$datetime)
+class(wrong_type)
+
+ws$datetime <- strptime(wrong_type, format = "%Y-%m-%d %H:%M:%S")
+# or
+ws$datetime <- as.POSIXlt(wrong_type)
+
+```
+
+It is also necessary to check if all other columns containing data are `numeric`. Most functions provided by `fieldClim` require `numeric` input. Some functions will automatically try to convert to `numeric`, however this will sometimes lead to unexpected side-effects so it is always best to ensure the proper data format for yourself.
+
+```{r}
+# Check if any remaining classes are not numeric
+colnames(Filter(Negate(is.numeric), ws))
+
+```
+
+Looks like only the `datetime` column is not numeric which is appropriate. If this wasn't the case, other columns might have to be converted using `as.numeric()`.
+
+
+## Building a weather_station object
+
+If the dataframe is properly formatted (date column as `POSIXt`, all other necessary columns `numeric`), the function `build_weather_station()` can be used to conveniently create a `weather_station` object.
+
+You can get more info about the single parameters by calling `?build_weather_station`.
+
+```{r}
+test_station <- build_weather_station(lat = 50.840503,
+                                      lon = 8.6833,
+                                      elev = 270,
+                                      surface_type = "Meadow",
+                                      obs_height = 0.3, # obstacle height
+                                      z1 = 2, # measurement heights
+                                      z2 = 10,
+                                      datetime = ws$datetime,
+                                      t1 = ws$t1, # temperature
+                                      t2 = ws$t2,
+                                      v1 = ws$v1, # windspeed
+                                      v2 = ws$v2,
+                                      hum1 = ws$hum1, # humidity
+                                      hum2 = ws$hum2,
+                                      sw_in = ws$rad_sw_in, # shortwave radiation
+                                      sw_out = ws$rad_sw_out,
+                                      lw_in = ws$rad_lw_in, # longwave radiation
+                                      lw_out = ws$rad_lw_out,
+                                      soil_flux = ws$heatflux_soil)
+
+# We can see that this is indeed a weather_station object.
+class(test_station)
+```
+
+This is close to the minimum amount of parameters necessary to build a `weather_station` object. 
+
+Many of the parameters can however also be estimated using different inputs.
+Below is an overview on which parameters can be omitted or estimated another way.
+
+### Adding air pressure
+
+By default the air pressure at the measurment heights is estimated using the temperature and the elevation (using `pres_p()`). If the pressure is measured at the weather station it can be added to the call using the parameters `p1` and `p2`. 
+
+```{r}
+test_station <- build_weather_station(lat = 50.840503,
+                                      lon = 8.6833,
+                                      elev = 270,
+                                      surface_type = "Meadow",
+                                      obs_height = 0.3,
+                                      z1 = 2,
+                                      z2 = 10,
+                                      datetime = ws$datetime,
+                                      t1 = ws$t1,
+                                      t2 = ws$t2,
+                                      v1 = ws$v1,
+                                      v2 = ws$v2,
+                                      hum1 = ws$hum1,
+                                      hum2 = ws$hum2,
+                                      sw_in = ws$rad_sw_in,
+                                      sw_out = ws$rad_sw_out,
+                                      lw_in = ws$rad_lw_in,
+                                      lw_out = ws$rad_lw_out,
+                                      soil_flux = ws$heatflux_soil,
+                                      # ADDED PRESSURE
+                                      p1 = ws$p1,
+                                      p2 = ws$p2)
+```
+
+
+Note: If the pressure at the station is only measured at one height, it will also be applied to the other height since the measured pressure is assumed to be much more accurate than the estimated pressure.
+
+### Missing soil flux
+
+If the soil flux is not measured by a heat flux plate but by two soil temperature measurements at different depths, those measurements can also be provided to calculate `soil_flux` from them instead.
+
+For this the two depths of the temperature probes from the surface in meters, the two temperature measurements in degrees Celsius as well as the soil texture ("clay" or "sand") and soil moisture (Vol-%) are necessary.
+
+Internally the calculations are provided by the two functions `soil_heat_flux()` and `soil_thermal_cond()`.
+
+```{r}
+test_station <- build_weather_station(lat = 50.840503,
+                                      lon = 8.6833,
+                                      elev = 270,
+                                      surface_type = "Meadow",
+                                      obs_height = 0.3,
+                                      z1 = 2,
+                                      z2 = 10,
+                                      datetime = ws$datetime,
+                                      t1 = ws$t1,
+                                      t2 = ws$t2,
+                                      v1 = ws$v1,
+                                      v2 = ws$v2,
+                                      hum1 = ws$hum1,
+                                      hum2 = ws$hum2,
+                                      sw_in = ws$rad_sw_in,
+                                      sw_out = ws$rad_sw_out,
+                                      lw_in = ws$rad_lw_in,
+                                      lw_out = ws$rad_lw_out,
+                                      # Alternative Soil flux:
+                                      depth1 = 0,
+                                      depth2 = 0.3,
+                                      ts1 = ws$t_surface,
+                                      ts2 = ws$ts1,
+                                      moisture = ws$water_vol_soil,
+                                      texture = "clay")
+```
+
+
+### Missing shortwave radiation
+
+The two shortwave inputs `sw_in` and `sw_out` can be estimated by instead providing the parameter `albedo`.
+
+This works by estimating the top of atmosphere radiation at the provided location, time and date as well as the average atmospheric transmittance (see `?rad_sw_in`). 
+
+By setting `slope`, `sky_view` and `exposition`, `sw_in` and `sw_out` will additionally be topographically corrected (see `?rad_sw_in_topo`).
+
+```{r}
+test_station <- build_weather_station(lat = 50.840503,
+                                      lon = 8.6833,
+                                      elev = 270,
+                                      surface_type = "Meadow",
+                                      obs_height = 0.3,
+                                      z1 = 2,
+                                      z2 = 10,
+                                      datetime = ws$datetime,
+                                      t1 = ws$t1,
+                                      t2 = ws$t2,
+                                      v1 = ws$v1,
+                                      v2 = ws$v2,
+                                      hum1 = ws$hum1,
+                                      hum2 = ws$hum2,
+                                      lw_in = ws$rad_lw_in,
+                                      lw_out = ws$rad_lw_out,
+                                      soil_flux = ws$heatflux_soil,
+                                      # Alternative shortwave radiation:
+                                      albedo = 0.3,
+                                      # Topographic correction
+                                      slope = 10, # In degrees
+                                      exposition = 20, # North = 0, South = 180
+                                      sky_view = 0.82 # Sky view factor (0-1)
+                                      )
+```
+
+
+
+### Missing longwave radiation
+
+If `lw_in` is not provided, it will get estimated using the air temperature and air pressure (see `?rad_lw_in`). By setting `sky_view`, `lw_in` will be topographically corrected (see `?rad_sw_in_topo`).
+
+If `lw_out` is not provided, the surface temperature needs to be set as `t_surface` (see `?rad_lw_out`). The surface temperature and emissivity get combined to estimate the longwave emissions. The default emissivity used in `build_weather_station()` is the one for short grass (0.95). If a different emissivity is needed, `rad_lw_out()` can be used directly.
+
+```{r}
+test_station <- build_weather_station(lat = 50.840503,
+                                      lon = 8.6833,
+                                      elev = 270,
+                                      surface_type = "Meadow",
+                                      obs_height = 0.3,
+                                      z1 = 2,
+                                      z2 = 10,
+                                      datetime = ws$datetime,
+                                      t1 = ws$t1,
+                                      t2 = ws$t2,
+                                      v1 = ws$v1,
+                                      v2 = ws$v2,
+                                      hum1 = ws$hum1,
+                                      hum2 = ws$hum2,
+                                      sw_in = ws$rad_sw_in,
+                                      sw_out = ws$rad_sw_out,
+                                      soil_flux = ws$heatflux_soil,
+                                      # Alternative longwave radiation:
+                                      t_surface = ws$t_surface,
+                                      # Different emissivity:
+                                      # lw_out = rad_lw_out(ws$t_surface, emissivity_surface = 0.92),
+                                      # Topographic correction
+                                      sky_view = 0.82 # Sky view factor (0-1)
+                                      )
+```
+
+## Calculations using the provided functions
+
+Most functions can be called in two different ways. Either by passing all the needed data yourself, or by passing a weather_station object. Let's see how this works by calculating the Gradient-Richardson-Number.
+
+First let's calculate it by passing the needed parameters ourselves:
+
+```{r}
+grad_rich_manual <- turb_flux_grad_rich_no(t1 = ws$t1, 
+                                           t2 = ws$t2, 
+                                           z1 = 2, 
+                                           z2 = 10, 
+                                           v1 = ws$v1, 
+                                           v2 = ws$v2, 
+                                           p1 = pres_p(270+2, ws$t1), 
+                                           p2 = pres_p(270+10, ws$t2))
+
+head(grad_rich_manual)
+```
+
+As you can see it is quite the effort to get all the appropriate parameters. You even have to calculate some additional ones (like `p1`, `p2` in this example) beforehand if they are not available.
+
+So instead it is a lot more comfortable to use a weather_station object. Here we use the weather_station object we have defined earlier:
+
+```{r}
+grad_rich_quick <- turb_flux_grad_rich_no(test_station)
+
+head(grad_rich_quick)
+```
+
+
+
+## Calculating Turbulent Fluxes
+
+A convenience function to calculate all the different methods for turbulent fluxes is given in `turb_flux_calc()`. This function is only available for weather_station objects as it returns the results straight into the given weather_station. The `water` package also has to be installed for this function to work.
+
+```{r}
+station_turbulent <- turb_flux_calc(test_station)
+
+names(station_turbulent$measurements)
+```
+
+You can see that now there are all results from the different methods to calculate the turbulent fluxes available in the measurement list of the weather_station object. 
+
+## Convert to a dataframe
+
+You can easily convert a `weather_station` object to a data frame by using the generic function `as.data.frame`.
+This converts all the entries in the `measurements` list of the object into a dataframe.
+
+There are also two additional toggles that can be set, called `reduced` and `unit`. `reduced` will omit some (very few) columns which aren't used often. `unit` will add longer column names with the correct units to all columns available with `reduced = TRUE`.
+
+```{r}
+
+normal <- as.data.frame(station_turbulent)
+colnames(normal)
+
+reduced <- as.data.frame(station_turbulent, reduced = T)
+colnames(reduced)
+
+unit <- as.data.frame(station_turbulent, reduced = T, unit = T)
+colnames(unit)
+
+```
+

@@ -2,15 +2,25 @@
 % Please edit documentation in R/turbulent_flux.R
 \name{turb_flux_stability}
 \alias{turb_flux_stability}
+\alias{turb_flux_stability.numeric}
+\alias{turb_flux_stability.weather_station}
 \title{Stability}
 \usage{
-turb_flux_stability(grad_rich_no)
+turb_flux_stability(...)
+
+\method{turb_flux_stability}{numeric}(grad_rich_no, ...)
+
+\method{turb_flux_stability}{weather_station}(weather_station, ...)
 }
 \arguments{
+\item{...}{Additional parameters passed to later functions.}
+
 \item{grad_rich_no}{Gradient-Richardson-Number}
+
+\item{weather_station}{Object of class weather_station}
 }
 \value{
-Stability of atmosphere. Returns one of "stabil", "neutral" or "instabil".
+Gradient-Richardson-Number.
 }
 \description{
 Conversion of Gradient-Richardson-Number to stability string.
