@@ -14,7 +14,6 @@ temp_pot_temp <- function (...) {
 #' @method temp_pot_temp numeric
 #' @param p Pressure in hPa.
 #' @param t Temperature in degrees C.
-#'
 temp_pot_temp.numeric <- function(t, p){
   p0 <- 1013.25    # Standardruck in hPa
   air_const <- 0.286     # spezifische Gaskonstante / spezifische Wärmekapatität; Wert für Luft
@@ -23,10 +22,10 @@ temp_pot_temp.numeric <- function(t, p){
 }
 
 #' @rdname temp_pot_temp
-#' @method temp_pot_temp weather-station
+#' @method temp_pot_temp weather_station
 #' @param weather_station Object of class weather_station
-#'
-temp_pot_temp.weather_station <- function(weather_station, height){
+#' @param height Height of measurement, either "upper" or "lower".
+temp_pot_temp.weather_station <- function(weather_station, height = "lower"){
   if(height=="lower"){
     check_availability(weather_station, "t1", "p1")
     t <- weather_station$measurements$t1   # to Kelvin

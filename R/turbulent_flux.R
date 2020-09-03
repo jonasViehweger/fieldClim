@@ -21,7 +21,6 @@ turb_flux_monin <- function (...) {
 #' @param v2 Windspeed at upper height in m/s.
 #' @param t1 Temperature at lower height (e.g. height of anemometer) in degrees C.
 #' @param t2 Temperature at upper height in degrees C.
-#' @param ustar Friction velocity in m/s.
 #' @export
 turb_flux_monin.numeric <- function(grad_rich_no, z1 = 2, z2 = 10, z0, v1, v2, t1, t2){
   ustar <- turb_ustar(v1,z1,z0)
@@ -177,9 +176,9 @@ turb_flux_ex_quotient_temp.numeric <- function(grad_rich_no, ustar, monin, z, ai
     if(is.na(grad_rich_no[i])){
       ex[i] <- NA
     } else if(grad_rich_no[i] <= -0.05){
-      ex[i] <- (0.4*ustar[i]*z1/(0.74*(1-9*z1/monin[i])**(-0.5)))*air_density[i]
+      ex[i] <- (0.4*ustar[i]*z/(0.74*(1-9*z/monin[i])**(-0.5)))*air_density[i]
     } else if(grad_rich_no[i] > -0.05 && grad_rich_no[i] < 0.05){
-      ex[i] <- (0.4*ustar[i]*z1/(0.74+4.7*z1/monin[i]))*air_density[i]
+      ex[i] <- (0.4*ustar[i]*z/(0.74+4.7*z/monin[i]))*air_density[i]
     } else if(grad_rich_no[i] >= 0.05){
       ex[i] <- NA
     }
@@ -252,7 +251,7 @@ turb_flux_ex_quotient_imp.numeric <- function(grad_rich_no, ustar, monin, z, air
 #' @param weather_station Object of class weather_station
 #' @param height Height of measurement. Either "upper" or "lower".
 #' @export
-turb_flux_ex_quotient_imp.weather_station <- function(weather_station, height){
+turb_flux_ex_quotient_imp.weather_station <- function(weather_station, height = "lower"){
   grad_rich_no <- turb_flux_grad_rich_no(weather_station)
   ustar <- turb_ustar(weather_station)
   monin <- turb_flux_monin(weather_station)
@@ -297,10 +296,11 @@ turb_flux_imp_exchange.numeric <- function(ex_quotient, v1, v2, z1 = 2, z2 = 10)
 }
 
 #' @rdname turb_flux_imp_exchange
-#' @method turb_flux_imp_exchange numeric
+#' @method turb_flux_imp_exchange weather_station
 #' @param weather_station Object of class weather_station
+#' @param height Height of measurement. Either "upper" or "lower".
 #' @export
-turb_flux_imp_exchange.weather_station <- function(weather_station, height){
+turb_flux_imp_exchange.weather_station <- function(weather_station, height = "lower"){
   check_availability(weather_station, "z1", "z2", "v1", "v2")
   ex_quotient <- turb_flux_ex_quotient_imp(weather_station, height)
   v1 <- weather_station$measurements$v1
@@ -331,8 +331,8 @@ turb_flux_calc <- function(weather_station){
   latent_pen <- latent_penman(weather_station)
 
   weather_station$measurements$stability <- stability
-  weather_station$measurements$sensible_priestly_taylor <- sensible_pt
-  weather_station$measurements$latent_priestly_taylor <- latent_pt
+  weather_station$measurements$sensible_priestley_taylor <- sensible_pt
+  weather_station$measurements$latent_priestley_taylor <- latent_pt
   weather_station$measurements$sensible_bowen <- sensible_bow
   weather_station$measurements$latent_bowen <- latent_bow
   weather_station$measurements$sensible_monin <- sensible_mon

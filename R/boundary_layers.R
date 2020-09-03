@@ -33,14 +33,14 @@ bound_mech_avg <- function(dist) {
 #' @param ustar Friction velocity u* in m/s.
 #' @param v Windspeed in height of anemometer in m/s.
 #' @param temp_change_dist Distance to point of temperature change in m.
-#' @param pt_upwind Potential temperature in upwind direction in °C.
+#' @param t_pot_upwind Potential temperature in upwind direction in °C.
 #' @param t_pot Potential temperature at site in °C.
-#' @param lr Lapse rate in K/m (or degrees C/m)
+#' @param lapse_rate Lapse rate in K/m (or degrees C/m)
 #'
 #' @return Average height of the thermal boundary layer in m.
 #' @export
 #'
-bound_thermal_avg <- function(ustar,v,temp_change_dist,t_pot_upwind,t_pot,lapse_rate) {
+bound_thermal_avg <- function(ustar, v, temp_change_dist, t_pot_upwind, t_pot, lapse_rate) {
   tib <- (ustar/v)*( (temp_change_dist*abs(t_pot_upwind-t_pot))/abs(lapse_rate) )**0.5
   return(tib)
 }

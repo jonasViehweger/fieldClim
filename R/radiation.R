@@ -229,11 +229,11 @@ rad_sw_out <- function (...) {
 
 #' @rdname rad_sw_out
 #' @method rad_sw_out numeric
-#' @param rad_sw_ground_horizontal Shortwave radiation on the ground onto a horizontal area in W/m^2.
+#' @param rad_sw_in Shortwave radiation on the ground onto a horizontal area in W/m^2.
 #' @param albedo Albedo of the surface.
 #' @export
-rad_sw_out.numeric <- function(rad_sw_ground_horizontal, albedo){
-  rad_sw_out <- rad_sw_ground_horizontal*albedo
+rad_sw_out.numeric <- function(rad_sw_in, albedo){
+  rad_sw_out <- rad_sw_in*albedo
   return(rad_sw_out)
 }
 
@@ -241,11 +241,6 @@ rad_sw_out.numeric <- function(rad_sw_ground_horizontal, albedo){
 #' @method rad_sw_out weather_station
 #' @export
 #' @param weather_station Object of class weather_station.
-#' @param trans_total Total transmittance of the atmosphere.
-#' @param oz OPTIONAL. Needed if trans_total = NULL. Columnar ozone in cm.
-#' Default is average global value.
-#' @param vis OPTIONAL. Needed if trans_total = NULL. Meteorological visibility in km.
-#' Default is the visibility on a clear day.
 rad_sw_out.weather_station <- function(weather_station) {
   check_availability(weather_station, "albedo", "sw_in")
 
