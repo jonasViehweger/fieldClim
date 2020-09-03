@@ -32,7 +32,7 @@ hum_moisture_gradient(...)
 \item{weather_station}{Object of class weather_station}
 }
 \value{
-
+Moisture gradient.
 }
 \description{
 Calculates moisture gradient.

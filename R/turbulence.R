@@ -19,7 +19,7 @@ turb_roughness_length <- function (...) {
 #' @param obs_height Height of obstacle in m.
 #'
 turb_roughness_length.default <- function(surface_type = NULL, obs_height = NULL){
-  surface_properties <- data(surface_properties)
+  surface_properties <- surface_properties
   if(!is.null(obs_height)){
     z0 <- obs_height*0.1
   } else if(!is.null(surface_type)) {

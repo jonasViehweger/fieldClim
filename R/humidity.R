@@ -243,7 +243,7 @@ hum_precipitable_water.weather_station <- function(weather_station, height = "lo
 #' Calculates moisture gradient.
 #'
 #'
-#' @return
+#' @return Moisture gradient.
 #' @export
 #'
 hum_moisture_gradient <- function (...) {

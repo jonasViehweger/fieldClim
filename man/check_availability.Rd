@@ -12,7 +12,7 @@ check_availability(weather_station, ...)
 \item{...}{Strings of properties to check.}
 }
 \value{
-
+Absolutely nothing
 }
 \description{
 Checks availability of passed properties in the weather station object.
