@@ -17,7 +17,48 @@
 }
 \value{
 data.frame
+The columns of the data frame depend on \code{reduced} and \code{unit}.
+If \code{reduced = F}, the data.frame contains all coloumns of the \code{measurements} list in \code{weather_station}.
+If \code{reduced = T}, the data.frame contains: "datetime", "t1", "t2", "v1", "v2", "p1", "p2", "hum1", "hum2", "soil_flux", "sw_in", "sw_out", "lw_in", "lw_out", "sw_bal", "lw_bal", "rad_bal", "stability", "sensible_priestley_taylor", "latent_priestley_taylor","sensible_bowen", "latent_bowen","sensible_monin", "latent_monin","latent_penman"
+If \code{unit = T}, the column names are replaced by more detailed names, containing the respective uits.
 }
 \description{
 Create a data.frame from a weather station object, that contains weather station measurements.
+}
+\examples{
+/donotrun{
+#create a weather_station object
+test_station <- build_weather_station(lat = 50.840503,
+                                     lon = 8.6833,
+                                     elev = 270,
+                                     surface_type = "Meadow",
+                                     obs_height = 0.3, # obstacle height
+                                     z1 = 2, # measurement heights
+                                     z2 = 10,
+                                     datetime = ws$datetime,
+                                     t1 = ws$t1, # temperature
+                                     t2 = ws$t2,
+                                     v1 = ws$v1, # windspeed
+                                     v2 = ws$v2,
+                                     hum1 = ws$hum1, # humidity
+                                     hum2 = ws$hum2,
+                                     sw_in = ws$rad_sw_in, # shortwave radiation
+                                     sw_out = ws$rad_sw_out,
+                                     lw_in = ws$rad_lw_in, # longwave radiation
+                                     lw_out = ws$rad_lw_out,
+                                     soil_flux = ws$heatflux_soil)
+
+#add turbulent fluxes to the object
+station_turbulent <- turb_flux_calc(test_station)
+
+#create a data.frame which contains the same coloumns as the weather_station object
+normal <- as.data.frame(station_turbulent)
+
+#create a reduced data.frame
+reduced <- as.data.frame(station_turbulent, reduced = T)
+
+#create a reduced data.frame with detailed units
+unit <- as.data.frame(station_turbulent, reduced = T, unit = T)
+}
+
 }
