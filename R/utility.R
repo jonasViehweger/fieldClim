@@ -37,7 +37,7 @@ check_availability <- function(weather_station, ...){
 #' @export
 #'
 #' @examples
-#' /donotrun{
+#' \donotrun{
 #' #create a weather_station object
 #' test_station <- build_weather_station(lat = 50.840503,
 #'                                      lon = 8.6833,
