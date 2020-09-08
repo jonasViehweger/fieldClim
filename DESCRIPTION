@@ -2,11 +2,17 @@ Package: fieldClim
 Title: Calculates Fluxes for Weather Stations
 Version: 0.1.0
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    c(
+    person("David", "Langenohl",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "langenoh@students.uni-marburg.de"),
+    person("Jonas", "Viehweger",
+           role = c("aut", "cre"),
+           email = "jonas.viehweger@rwth-aachen.de"),
+    person("Jörg", "Bendix",
+           role = c("aut"),
+           email = "bendix@geo.uni-marburg.de")
+    )
 Description: Calculates different parameters for weather stations used in micrometeorology (with 2 measurement heights).
   Can estimate radiation balance, calculates soil heat flux from soil temperature measurements, calculates turbulent fluxes 
   (Bowen Ratio, Penman, Priestley-Taylor) and much more.
@@ -19,4 +25,4 @@ VignetteBuilder: knitr
 Suggests: 
     water, knitr, markdown, testthat
 Depends: 
-    R (>= 4.0)
+    R (>= 3.6)
