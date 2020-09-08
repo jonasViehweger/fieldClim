@@ -26,7 +26,7 @@ If \code{unit = T}, the column names are replaced by more detailed names, contai
 Create a data.frame from a weather station object, that contains weather station measurements.
 }
 \examples{
-\donotrun{
+\dontrun{
 #create a weather_station object
 test_station <- build_weather_station(lat = 50.840503,
                                      lon = 8.6833,

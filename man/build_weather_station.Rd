@@ -112,7 +112,7 @@ If soil_flux is NULL, ts1, ts2, depth1, depth2, moisture and texture need to be 
 (see \link{soil_heat_flux} and \link{soil_thermal_cond}).
 }
 \examples{
-\donotrun{
+\dontrun{
 # Standard parameters
 test_station <- build_weather_station(lat = 50.840503,
                                      lon = 8.6833,
