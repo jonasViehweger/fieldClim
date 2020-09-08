@@ -1,35 +1,50 @@
 # fieldClim
-Alpha-Version of fieldClim package.
+
+The `fieldClim` package was originally designed as a course project to the course `Geländeklimatologie`, held by Prof. Dr. Jörg Bendix at the Philipps-University of Marburg in summer term 2020. Thus, the calculations and formulas of this package are based on this course, as well as the book `Geländeklimatologie` (Field climatology) by Jörg Bendix (2004; ISBN 978-3-443-07139-4).
+
+`fieldClim` is designed as a handy tool, that lets you calculate various weather and micro-climate conditions, based on the measurements of a weather station. It lets you create a `weather_station`-object, that can then be used to call most of the functions without the necessity of further specify input variables. In addition, all functions can also be called by manually inputting the needed variables, if the user whishes to do so.
+
 Installation and example of usage:
   * install package `water` first
   * `devtools::install_github("jonasViehweger/fieldClim")`
   * `library(fieldClim)`
-  * you can now use the `monthly_climate()` function (for usage see `?monthly_climate()`)
+  * you can now use the `build_weather_station()` function (for usage see `?build_weather_station()`)
   
 Example
+If you got your weather station data and and simply want to get a quick overview of the overall micro-climatic conditions at the location of your weather station, such as the atmospheric stability and the latent and sensible heat flows (for a list of all output parameters, see `?as.data.frame.weather_station`), you just need three functions: `build_weather_station()`, `turb_flux_calc()` and `as.data.frame()`.
 
-    data_complete <- read.csv("yourdata.csv")
-    data_january <- data_complete[c(1:7225),] #january
-    data_january$datetime <- as.POSIXlt(data_january$datetime)
+    library(fieldClim)
+    ws <- get(data(weather_station_example_data, package="fieldClim"))
 
+    # if your datetime coloumn is not in the POSIXlt-format, you need to convert it before you continue
+    ws$datetime <- as.POSIXlt(ws$datetime)
+    
+    # now you can build a `weather_station`-object
+    test_station <- build_weather_station(lat = 50.840503,
+                                      lon = 8.6833,
+                                      elev = 270,
+                                      surface_type = "Meadow",
+                                      obs_height = 0.3, # obstacle height
+                                      z1 = 2, # measurement heights
+                                      z2 = 10,
+                                      datetime = ws$datetime,
+                                      t1 = ws$t1, # temperature
+                                      t2 = ws$t2,
+                                      v1 = ws$v1, # windspeed
+                                      v2 = ws$v2,
+                                      hum1 = ws$hum1, # humidity
+                                      hum2 = ws$hum2,
+                                      sw_in = ws$rad_sw_in, # shortwave radiation
+                                      sw_out = ws$rad_sw_out,
+                                      lw_in = ws$rad_lw_in, # longwave radiation
+                                      lw_out = ws$rad_lw_out,
+                                      soil_flux = ws$heatflux_soil)
 
-    example <- monthly_climate(data = data_january,
-                            datetime = "datetime",
-                            t1 = "Ta_2m",
-                            t2 = "Ta_10m",
-                            z1 = 2,
-                            z2 = 10,
-                            v1 = "Windspeed_2m",
-                            v2 = "Windspeed_10m",
-                            hum1 = "Huma_2m",
-                            hum2 = "Huma_10m",
-                            rad_bal = "rad_net",
-                            sw_bal = "RsNet",
-                            lw_bal = "RlNet",
-                            surface_type = "Wiese",
-                            obs_height = 0.3,
-                            soil_flux = "heatflux_soil",
-                            elev = 270,
-                            lat = 8.683303333333333,
-                            lon = 50.84050277777778
-                            )
+    # after creating the `weather_station`-object, you calculate and add the turbulent fluxes
+    station_turbulent <- turb_flux_calc(test_station)
+    
+    # for a convenient output of the calculated data, you can convert it into a data frame
+    out <- as.data.frame(station_turbulent)
+    
+For a more comprehensive example, you might have a look at the package`s [vignette](vignettes/fieldClim.Rmd).
+
