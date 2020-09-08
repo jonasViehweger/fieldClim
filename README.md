@@ -4,13 +4,13 @@ The `fieldClim` package was originally designed as a course project to the cours
 
 `fieldClim` is designed as a handy tool, that lets you calculate various weather and micro-climate conditions, based on the measurements of a weather station. It lets you create a `weather_station`-object, that can then be used to call most of the functions without the necessity of further specify input variables. In addition, all functions can also be called by manually inputting the needed variables, if the user whishes to do so.
 
-Installation and example of usage:
+### Installation and example of usage:
   * install package `water` first
   * `devtools::install_github("jonasViehweger/fieldClim")`
   * `library(fieldClim)`
   * you can now use the `build_weather_station()` function (for usage see `?build_weather_station()`)
   
-Example
+### Example
 If you got your weather station data and and simply want to get a quick overview of the overall micro-climatic conditions at the location of your weather station, such as the atmospheric stability and the latent and sensible heat flows (for a list of all output parameters, see `?as.data.frame.weather_station`), you just need three functions: `build_weather_station()`, `turb_flux_calc()` and `as.data.frame()`.
 
     library(fieldClim)
