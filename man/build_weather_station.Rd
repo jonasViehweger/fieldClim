@@ -5,10 +5,10 @@
 \title{Weather Station}
 \usage{
 build_weather_station(
-  lat = 50.840503,
-  lon = 8.6833,
-  elev = 270,
-  surface_type = "Wiese",
+  lat,
+  lon,
+  elev,
+  surface_type = "Meadow",
   obs_height = 0.3,
   z1,
   z2,
@@ -80,7 +80,7 @@ List of class "weather_station", that contains:
 \enumerate{
 \item list of location properties
 \item list of weather station properties
-\item list of measurements, which will conatin NULLs if they were not defined in the input
+\item list of measurements, which will contain NULLs if they were not defined in the input
 }
 }
 \description{
@@ -110,4 +110,94 @@ If lw_out is NULL, t_surface needs to be set (see \link{rad_lw_out}).
 
 If soil_flux is NULL, ts1, ts2, depth1, depth2, moisture and texture need to be set.
 (see \link{soil_heat_flux} and \link{soil_thermal_cond}).
+}
+\examples{
+donotrun{
+# Standard parameters
+test_station <- build_weather_station(lat = 50.840503,
+                                     lon = 8.6833,
+                                     elev = 270,
+                                     surface_type = "Meadow",
+                                     obs_height = 0.3, # obstacle height
+                                     z1 = 2, # measurement heights
+                                     z2 = 10,
+                                     datetime = ws$datetime,
+                                     t1 = ws$t1, # temperature
+                                     t2 = ws$t2,
+                                     v1 = ws$v1, # windspeed
+                                     v2 = ws$v2,
+                                     hum1 = ws$hum1, # humidity
+                                     hum2 = ws$hum2,
+                                     sw_in = ws$rad_sw_in, # shortwave radiation
+                                     sw_out = ws$rad_sw_out,
+                                     lw_in = ws$rad_lw_in, # longwave radiation
+                                     lw_out = ws$rad_lw_out,
+                                     soil_flux = ws$heatflux_soil)
+# Specify pressure
+test_station <- build_weather_station(lat = 50.840503, lon = 8.6833, elev = 270,
+                                     surface_type = "Meadow", obs_height = 0.3,
+                                     z1 = 2, z2 = 10, datetime = ws$datetime,
+                                     t1 = ws$t1, t2 = ws$t2, v1 = ws$v1, v2 = ws$v2,
+                                     hum1 = ws$hum1, hum2 = ws$hum2,
+                                     sw_in = ws$rad_sw_in,
+                                     sw_out = ws$rad_sw_out,
+                                     lw_in = ws$rad_lw_in,
+                                     lw_out = ws$rad_lw_out,
+                                     soil_flux = ws$heatflux_soil,
+                                     # ADDED PRESSURE
+                                     p1 = ws$p1,
+                                     p2 = ws$p2)
+
+# Alternative calculation of soil flux
+test_station <- build_weather_station(lat = 50.840503, lon = 8.6833, elev = 270,
+                                     surface_type = "Meadow", obs_height = 0.3,
+                                     z1 = 2, z2 = 10, datetime = ws$datetime,
+                                     t1 = ws$t1, t2 = ws$t2, v1 = ws$v1, v2 = ws$v2,
+                                     hum1 = ws$hum1, hum2 = ws$hum2,
+                                     sw_in = ws$rad_sw_in,
+                                     sw_out = ws$rad_sw_out,
+                                     lw_in = ws$rad_lw_in,
+                                     lw_out = ws$rad_lw_out,
+                                     # Alternative Soil flux:
+                                     depth1 = 0,
+                                     depth2 = 0.3,
+                                     ts1 = ws$t_surface,
+                                     ts2 = ws$ts1,
+                                     moisture = ws$water_vol_soil,
+                                     texture = "clay")
+# Alternative shortwave
+test_station <- build_weather_station(lat = 50.840503, lon = 8.6833, elev = 270,
+                                     surface_type = "Meadow", obs_height = 0.3,
+                                     z1 = 2, z2 = 10, datetime = ws$datetime,
+                                     t1 = ws$t1, t2 = ws$t2, v1 = ws$v1, v2 = ws$v2,
+                                     hum1 = ws$hum1, hum2 = ws$hum2,
+                                     lw_in = ws$rad_lw_in,
+                                     lw_out = ws$rad_lw_out,
+                                     soil_flux = ws$heatflux_soil,
+                                     # Alternative shortwave radiation:
+                                     albedo = 0.3,
+                                     # Topographic correction
+                                     slope = 10, # In degrees
+                                     exposition = 20, # North = 0, South = 180
+                                     sky_view = 0.82 # Sky view factor (0-1)
+)
+
+# Alternative longwave
+test_station <- build_weather_station(lat = 50.840503, lon = 8.6833, elev = 270,
+                                     surface_type = "Meadow", obs_height = 0.3,
+                                     z1 = 2, z2 = 10, datetime = ws$datetime,
+                                     t1 = ws$t1, t2 = ws$t2, v1 = ws$v1, v2 = ws$v2,
+                                     hum1 = ws$hum1, hum2 = ws$hum2,
+                                     sw_in = ws$rad_sw_in,
+                                     sw_out = ws$rad_sw_out,
+                                     soil_flux = ws$heatflux_soil,
+                                     # Alternative longwave radiation:
+                                     t_surface = ws$t_surface,
+                                     # Different emissivity:
+                                     # lw_out = rad_lw_out(ws$t_surface, emissivity_surface = 0.92),
+                                     # Topographic correction
+                                     sky_view = 0.82 # Sky view factor (0-1)
+)
+
+}
 }
