@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 The `fieldClim` package was originally designed as a course project to the course `Geländeklimatologie`, held by Prof. Dr. Jörg Bendix at the Philipps-University of Marburg in summer term 2020. Thus, the calculations and formulas of this package are based on this course, as well as the book `Geländeklimatologie` (Field climatology) by Jörg Bendix (2004; ISBN 978-3-443-07139-4).
 
-`fieldClim` is designed as a handy tool, that lets you calculate various weather and micro-climate conditions, based on the measurements of a weather station. It lets you create a `weather_station`-object, that can then be used to call most of the functions without the necessity of further specify input variables. In addition, all functions can also be called by manually inputting the needed variables, if the user whishes to do so.
+`fieldClim` is designed as a handy tool, that lets you calculate various weather and micro-climate conditions, based on the measurements of a weather station. It lets you create a `weather_station`-object, that can then be used to call most of the functions without the necessity of further specify input variables. In addition, all functions can also be called by manually inputting the needed variables, if the user wishes to do so.
 
 Here, we will provide an example of the calculation of a set of micro-climate conditions using the `weather_station`-object, based on the `weather_station_example_data` data frame, that is included in the package.
 
@@ -49,6 +49,7 @@ class(ws$datetime)
 wrong_type <- as.character(ws$datetime)
 class(wrong_type)
 
+# convert with
 ws$datetime <- strptime(wrong_type, format = "%Y-%m-%d %H:%M:%S")
 # or
 ws$datetime <- as.POSIXlt(wrong_type)
@@ -243,7 +244,7 @@ test_station <- build_weather_station(lat = 50.840503,
 
 ## Calculations using the provided functions
 
-Most functions can be called in two different ways. Either by passing all the needed data yourself, or by passing a weather_station object. Let's see how this works by calculating the Gradient-Richardson-Number.
+Most functions can be called in two different ways. Either by passing all the needed data yourself, or by passing a `weather_station` object. Let's see how this works by calculating the Gradient-Richardson-Number.
 
 First let's calculate it by passing the needed parameters ourselves:
 
@@ -262,7 +263,7 @@ head(grad_rich_manual)
 
 As you can see it is quite the effort to get all the appropriate parameters. You even have to calculate some additional ones (like `p1`, `p2` in this example) beforehand if they are not available.
 
-So instead it is a lot more comfortable to use a weather_station object. Here we use the weather_station object we have defined earlier:
+So instead it is a lot more comfortable to use a `weather_station` object. Here we use the object we have defined earlier:
 
 ```{r}
 grad_rich_quick <- turb_flux_grad_rich_no(test_station)
@@ -270,11 +271,12 @@ grad_rich_quick <- turb_flux_grad_rich_no(test_station)
 head(grad_rich_quick)
 ```
 
+As you can see the results are exactly the same, but using the `weather_station` object is much more convenient.
 
 
 ## Calculating Turbulent Fluxes
 
-A convenience function to calculate all the different methods for turbulent fluxes is given in `turb_flux_calc()`. This function is only available for weather_station objects as it returns the results straight into the given weather_station. The `water` package also has to be installed for this function to work.
+A convenience function to calculate all the different methods for turbulent fluxes is given in `turb_flux_calc()`. This function is only available for `weather_station` objects as it returns the results straight into the given `weather_station`. The `water` package also has to be installed for this function to work.
 
 ```{r}
 station_turbulent <- turb_flux_calc(test_station)
