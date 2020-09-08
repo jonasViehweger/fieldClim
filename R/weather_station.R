@@ -57,7 +57,7 @@
 #' @export
 #'
 #' @examples
-#' \donotrun{
+#' \dontrun{
 #' # Standard parameters
 #' test_station <- build_weather_station(lat = 50.840503,
 #'                                      lon = 8.6833,
