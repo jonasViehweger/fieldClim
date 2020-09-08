@@ -78,7 +78,7 @@
 <h2 class="hasAnchor">
 <a href="#introduction-to-the-package" class="anchor"></a>Introduction to the Package</h2>
 <p>The <code>fieldClim</code> package was originally designed as a course project to the course <code>Geländeklimatologie</code>, held by Prof. Dr. Jörg Bendix at the Philipps-University of Marburg in summer term 2020. Thus, the calculations and formulas of this package are based on this course, as well as the book <code>Geländeklimatologie</code> (Field climatology) by Jörg Bendix (2004; ISBN 978-3-443-07139-4).</p>
-<p><code>fieldClim</code> is designed as a handy tool, that lets you calculate various weather and micro-climate conditions, based on the measurements of a weather station. It lets you create a <code>weather_station</code>-object, that can then be used to call most of the functions without the necessity of further specify input variables. In addition, all functions can also be called by manually inputting the needed variables, if the user whishes to do so.</p>
+<p><code>fieldClim</code> is designed as a handy tool, that lets you calculate various weather and micro-climate conditions, based on the measurements of a weather station. It lets you create a <code>weather_station</code>-object, that can then be used to call most of the functions without the necessity of further specify input variables. In addition, all functions can also be called by manually inputting the needed variables, if the user wishes to do so.</p>
 <p>Here, we will provide an example of the calculation of a set of micro-climate conditions using the <code>weather_station</code>-object, based on the <code>weather_station_example_data</code> data frame, that is included in the package.</p>
 </div>
 <div id="preparing-the-data" class="section level2">
@@ -109,6 +109,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="kw">wrong_type</span>)
 <span class="co">#&gt; [1] "character"</span>
 
+<span class="co"># convert with</span>
 <span class="kw">ws</span><span class="op">$</span><span class="kw">datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span>(<span class="kw">wrong_type</span>, format = <span class="st">"%Y-%m-%d %H:%M:%S"</span>)
 <span class="co"># or</span>
 <span class="kw">ws</span><span class="op">$</span><span class="kw">datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span>(<span class="kw">wrong_type</span>)
@@ -286,7 +287,7 @@
 <div id="calculations-using-the-provided-functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#calculations-using-the-provided-functions" class="anchor"></a>Calculations using the provided functions</h2>
-<p>Most functions can be called in two different ways. Either by passing all the needed data yourself, or by passing a weather_station object. Let’s see how this works by calculating the Gradient-Richardson-Number.</p>
+<p>Most functions can be called in two different ways. Either by passing all the needed data yourself, or by passing a <code>weather_station</code> object. Let’s see how this works by calculating the Gradient-Richardson-Number.</p>
 <p>First let’s calculate it by passing the needed parameters ourselves:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="kw">grad_rich_manual</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/turb_flux_grad_rich_no.html">turb_flux_grad_rich_no</a></span>(t1 = <span class="kw">ws</span><span class="op">$</span><span class="kw">t1</span>, 
@@ -302,18 +303,19 @@
 <span class="co">#&gt; [1] 121.63179  62.34312  53.80912  53.30846 105.05975 223.87416</span>
 </pre></div>
 <p>As you can see it is quite the effort to get all the appropriate parameters. You even have to calculate some additional ones (like <code>p1</code>, <code>p2</code> in this example) beforehand if they are not available.</p>
-<p>So instead it is a lot more comfortable to use a weather_station object. Here we use the weather_station object we have defined earlier:</p>
+<p>So instead it is a lot more comfortable to use a <code>weather_station</code> object. Here we use the object we have defined earlier:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="kw">grad_rich_quick</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/turb_flux_grad_rich_no.html">turb_flux_grad_rich_no</a></span>(<span class="kw">test_station</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">grad_rich_quick</span>)
 <span class="co">#&gt; [1] 121.63179  62.34312  53.80912  53.30846 105.05975 223.87416</span>
 </pre></div>
+<p>As you can see the results are exactly the same, but using the <code>weather_station</code> object is much more convenient.</p>
 </div>
 <div id="calculating-turbulent-fluxes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#calculating-turbulent-fluxes" class="anchor"></a>Calculating Turbulent Fluxes</h2>
-<p>A convenience function to calculate all the different methods for turbulent fluxes is given in <code><a href="../reference/turb_flux_calc.html">turb_flux_calc()</a></code>. This function is only available for weather_station objects as it returns the results straight into the given weather_station. The <code>water</code> package also has to be installed for this function to work.</p>
+<p>A convenience function to calculate all the different methods for turbulent fluxes is given in <code><a href="../reference/turb_flux_calc.html">turb_flux_calc()</a></code>. This function is only available for <code>weather_station</code> objects as it returns the results straight into the given <code>weather_station</code>. The <code>water</code> package also has to be installed for this function to work.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
 <span class="kw">station_turbulent</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/turb_flux_calc.html">turb_flux_calc</a></span>(<span class="kw">test_station</span>)
 
