@@ -4,7 +4,7 @@ Version: 0.1.0
 Authors@R: 
     c(
     person("David", "Langenohl",
-           role = c("aut", "cre"),
+           role = c("aut"),
            email = "langenoh@students.uni-marburg.de"),
     person("Jonas", "Viehweger",
            role = c("aut", "cre"),
