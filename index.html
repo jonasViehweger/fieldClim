@@ -83,39 +83,41 @@
 <h3 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h3>
 <p>If you got your weather station data and and simply want to get a quick overview of the overall micro-climatic conditions at the location of your weather station, such as the atmospheric stability and the latent and sensible heat flows (for a list of all output parameters, see <code><a href="reference/as.data.frame.weather_station.html">?as.data.frame.weather_station</a></code>), you just need three functions: <code><a href="reference/build_weather_station.html">build_weather_station()</a></code>, <code><a href="reference/turb_flux_calc.html">turb_flux_calc()</a></code> and <code><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame()</a></code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(fieldClim)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>ws &lt;-<span class="st"> </span><span class="kw">get</span>(<span class="kw">data</span>(weather_station_example_data, <span class="dt">package=</span><span class="st">"fieldClim"</span>))</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># if your datetime coloumn is not in the POSIXlt-format, you need to convert it before you continue</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>ws<span class="op">$</span>datetime &lt;-<span class="st"> </span><span class="kw">as.POSIXlt</span>(ws<span class="op">$</span>datetime)</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># now you can build a `weather_station`-object</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>test_station &lt;-<span class="st"> </span><span class="kw">build_weather_station</span>(<span class="dt">lat =</span> <span class="fl">50.840503</span>,</span>
-<span id="cb1-9"><a href="#cb1-9"></a>                                  <span class="dt">lon =</span> <span class="fl">8.6833</span>,</span>
-<span id="cb1-10"><a href="#cb1-10"></a>                                  <span class="dt">elev =</span> <span class="dv">270</span>,</span>
-<span id="cb1-11"><a href="#cb1-11"></a>                                  <span class="dt">surface_type =</span> <span class="st">"Meadow"</span>,</span>
-<span id="cb1-12"><a href="#cb1-12"></a>                                  <span class="dt">obs_height =</span> <span class="fl">0.3</span>, <span class="co"># obstacle height</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a>                                  <span class="dt">z1 =</span> <span class="dv">2</span>, <span class="co"># measurement heights</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a>                                  <span class="dt">z2 =</span> <span class="dv">10</span>,</span>
-<span id="cb1-15"><a href="#cb1-15"></a>                                  <span class="dt">datetime =</span> ws<span class="op">$</span>datetime,</span>
-<span id="cb1-16"><a href="#cb1-16"></a>                                  <span class="dt">t1 =</span> ws<span class="op">$</span>t1, <span class="co"># temperature</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a>                                  <span class="dt">t2 =</span> ws<span class="op">$</span>t2,</span>
-<span id="cb1-18"><a href="#cb1-18"></a>                                  <span class="dt">v1 =</span> ws<span class="op">$</span>v1, <span class="co"># windspeed</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a>                                  <span class="dt">v2 =</span> ws<span class="op">$</span>v2,</span>
-<span id="cb1-20"><a href="#cb1-20"></a>                                  <span class="dt">hum1 =</span> ws<span class="op">$</span>hum1, <span class="co"># humidity</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a>                                  <span class="dt">hum2 =</span> ws<span class="op">$</span>hum2,</span>
-<span id="cb1-22"><a href="#cb1-22"></a>                                  <span class="dt">sw_in =</span> ws<span class="op">$</span>rad_sw_in, <span class="co"># shortwave radiation</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a>                                  <span class="dt">sw_out =</span> ws<span class="op">$</span>rad_sw_out,</span>
-<span id="cb1-24"><a href="#cb1-24"></a>                                  <span class="dt">lw_in =</span> ws<span class="op">$</span>rad_lw_in, <span class="co"># longwave radiation</span></span>
-<span id="cb1-25"><a href="#cb1-25"></a>                                  <span class="dt">lw_out =</span> ws<span class="op">$</span>rad_lw_out,</span>
-<span id="cb1-26"><a href="#cb1-26"></a>                                  <span class="dt">soil_flux =</span> ws<span class="op">$</span>heatflux_soil)</span>
-<span id="cb1-27"><a href="#cb1-27"></a></span>
-<span id="cb1-28"><a href="#cb1-28"></a><span class="co"># after creating the `weather_station`-object, you calculate and add the turbulent fluxes</span></span>
-<span id="cb1-29"><a href="#cb1-29"></a>station_turbulent &lt;-<span class="st"> </span><span class="kw">turb_flux_calc</span>(test_station)</span>
-<span id="cb1-30"><a href="#cb1-30"></a></span>
-<span id="cb1-31"><a href="#cb1-31"></a><span class="co"># for a convenient output of the calculated data, you can convert it into a data frame</span></span>
-<span id="cb1-32"><a href="#cb1-32"></a>out &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(station_turbulent)</span></code></pre></div>
-<p>For a more comprehensive example, you might have a look at the package`s <a href="vignettes/fieldClim.Rmd">vignette</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+    <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">fieldClim</span>)
+    <span class="kw">ws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">weather_station_example_data</span>, package=<span class="st">"fieldClim"</span>))
+
+    <span class="co"># if your datetime coloumn is not in the POSIXlt-format, you need to convert it before you continue</span>
+    <span class="kw">ws</span><span class="op">$</span><span class="kw">datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span>(<span class="kw">ws</span><span class="op">$</span><span class="kw">datetime</span>)
+    
+    <span class="co"># now you can build a `weather_station`-object</span>
+    <span class="kw">test_station</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/build_weather_station.html">build_weather_station</a></span>(lat = <span class="fl">50.840503</span>,
+                                      lon = <span class="fl">8.6833</span>,
+                                      elev = <span class="fl">270</span>,
+                                      surface_type = <span class="st">"Meadow"</span>,
+                                      obs_height = <span class="fl">0.3</span>, <span class="co"># obstacle height</span>
+                                      z1 = <span class="fl">2</span>, <span class="co"># measurement heights</span>
+                                      z2 = <span class="fl">10</span>,
+                                      datetime = <span class="kw">ws</span><span class="op">$</span><span class="kw">datetime</span>,
+                                      t1 = <span class="kw">ws</span><span class="op">$</span><span class="kw">t1</span>, <span class="co"># temperature</span>
+                                      t2 = <span class="kw">ws</span><span class="op">$</span><span class="kw">t2</span>,
+                                      v1 = <span class="kw">ws</span><span class="op">$</span><span class="kw">v1</span>, <span class="co"># windspeed</span>
+                                      v2 = <span class="kw">ws</span><span class="op">$</span><span class="kw">v2</span>,
+                                      hum1 = <span class="kw">ws</span><span class="op">$</span><span class="kw">hum1</span>, <span class="co"># humidity</span>
+                                      hum2 = <span class="kw">ws</span><span class="op">$</span><span class="kw">hum2</span>,
+                                      sw_in = <span class="kw">ws</span><span class="op">$</span><span class="kw">rad_sw_in</span>, <span class="co"># shortwave radiation</span>
+                                      sw_out = <span class="kw">ws</span><span class="op">$</span><span class="kw">rad_sw_out</span>,
+                                      lw_in = <span class="kw">ws</span><span class="op">$</span><span class="kw">rad_lw_in</span>, <span class="co"># longwave radiation</span>
+                                      lw_out = <span class="kw">ws</span><span class="op">$</span><span class="kw">rad_lw_out</span>,
+                                      soil_flux = <span class="kw">ws</span><span class="op">$</span><span class="kw">heatflux_soil</span>)
+
+    <span class="co"># after creating the `weather_station`-object, you calculate and add the turbulent fluxes</span>
+    <span class="kw">station_turbulent</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/turb_flux_calc.html">turb_flux_calc</a></span>(<span class="kw">test_station</span>)
+    
+    <span class="co"># for a convenient output of the calculated data, you can convert it into a data frame</span>
+    <span class="kw">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="kw">station_turbulent</span>)
+</pre></div>
+<p>For a more comprehensive example, you might have a look at the package`s <a href="https://jonasviehweger.github.io/fieldClim/articles/fieldClim.html">vignette</a>.</p>
 </div>
 </div>
   </div>
