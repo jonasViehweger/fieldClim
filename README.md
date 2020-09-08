@@ -13,6 +13,7 @@ The `fieldClim` package was originally designed as a course project to the cours
 ### Example
 If you got your weather station data and and simply want to get a quick overview of the overall micro-climatic conditions at the location of your weather station, such as the atmospheric stability and the latent and sensible heat flows (for a list of all output parameters, see `?as.data.frame.weather_station`), you just need three functions: `build_weather_station()`, `turb_flux_calc()` and `as.data.frame()`.
 
+```r
     library(fieldClim)
     ws <- get(data(weather_station_example_data, package="fieldClim"))
 
@@ -45,6 +46,6 @@ If you got your weather station data and and simply want to get a quick overview
     
     # for a convenient output of the calculated data, you can convert it into a data frame
     out <- as.data.frame(station_turbulent)
-    
-For a more comprehensive example, you might have a look at the package`s [vignette](vignettes/fieldClim.Rmd).
+``` 
+For a more comprehensive example, you might have a look at the package`s [vignette](https://jonasviehweger.github.io/fieldClim/articles/fieldClim.html).
 
