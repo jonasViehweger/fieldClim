@@ -84,13 +84,16 @@
 <a href="#example" class="anchor"></a>Example</h3>
 <p>If you got your weather station data and and simply want to get a quick overview of the overall micro-climatic conditions at the location of your weather station, such as the atmospheric stability and the latent and sensible heat flows (for a list of all output parameters, see <code><a href="reference/as.data.frame.weather_station.html">?as.data.frame.weather_station</a></code>), you just need three functions: <code><a href="reference/build_weather_station.html">build_weather_station()</a></code>, <code><a href="reference/turb_flux_calc.html">turb_flux_calc()</a></code> and <code><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame()</a></code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
+    <span class="co"># Load package</span>
     <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">fieldClim</span>)
+    <span class="co"># Load sample data</span>
     <span class="kw">ws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">weather_station_example_data</span>, package=<span class="st">"fieldClim"</span>))
 
-    <span class="co"># if your datetime coloumn is not in the POSIXlt-format, you need to convert it before you continue</span>
+    <span class="co"># if your datetime coloumn is not in the POSIXlt-format</span>
+    <span class="co"># you need to convert it before you continue</span>
     <span class="kw">ws</span><span class="op">$</span><span class="kw">datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span>(<span class="kw">ws</span><span class="op">$</span><span class="kw">datetime</span>)
     
-    <span class="co"># now you can build a `weather_station`-object</span>
+    <span class="co"># now you can build a "weather_station"-object</span>
     <span class="kw">test_station</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/build_weather_station.html">build_weather_station</a></span>(lat = <span class="fl">50.840503</span>,
                                       lon = <span class="fl">8.6833</span>,
                                       elev = <span class="fl">270</span>,
@@ -111,13 +114,14 @@
                                       lw_out = <span class="kw">ws</span><span class="op">$</span><span class="kw">rad_lw_out</span>,
                                       soil_flux = <span class="kw">ws</span><span class="op">$</span><span class="kw">heatflux_soil</span>)
 
-    <span class="co"># after creating the `weather_station`-object, you calculate and add the turbulent fluxes</span>
+    <span class="co"># after creating the "weather_station"-object, </span>
+    <span class="co"># you can calculate and add the turbulent fluxes</span>
     <span class="kw">station_turbulent</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/turb_flux_calc.html">turb_flux_calc</a></span>(<span class="kw">test_station</span>)
     
     <span class="co"># for a convenient output of the calculated data, you can convert it into a data frame</span>
     <span class="kw">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="kw">station_turbulent</span>)
 </pre></div>
-<p>For a more comprehensive example, you might have a look at the package`s <a href="https://jonasviehweger.github.io/fieldClim/articles/fieldClim.html">vignette</a>.</p>
+<p>For a more comprehensive example, you might have a look at the <a href="https://jonasviehweger.github.io/fieldClim/articles/fieldClim.html">vignette</a>.</p>
 </div>
 </div>
   </div>
@@ -148,7 +152,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
