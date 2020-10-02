@@ -1,3 +1,5 @@
+[![YourActionName Actions Status](https://github.com/jonasViehweger/fieldClim/workflows/R-CMD-check/badge.svg)](https://github.com/jonasViehweger/fieldClim/actions) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # fieldClim
 
 The `fieldClim` package was originally designed as a course project to the course `Geländeklimatologie`, held by Prof. Dr. Jörg Bendix at the Philipps-University of Marburg in summer term 2020. Thus, the calculations and formulas of this package are based on this course, as well as the book `Geländeklimatologie` (Field climatology) by Jörg Bendix (2004; ISBN 978-3-443-07139-4).
