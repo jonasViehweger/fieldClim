@@ -117,30 +117,30 @@ weather station, its location and its measurements." />
 weather station, its location and its measurements.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>build_weather_station</span>(
-  <span class='kw'>lat</span>,
-  <span class='kw'>lon</span>,
-  <span class='kw'>elev</span>,
-  surface_type = <span class='st'>"Meadow"</span>,
-  obs_height = <span class='fl'>0.3</span>,
-  <span class='kw'>z1</span>,
-  <span class='kw'>z2</span>,
-  <span class='kw'>datetime</span>,
-  <span class='kw'>t1</span>,
-  <span class='kw'>t2</span>,
-  <span class='kw'>v1</span>,
-  <span class='kw'>v2</span>,
-  <span class='kw'>hum1</span>,
-  <span class='kw'>hum2</span>,
-  p1 = <span class='kw'>NULL</span>,
-  p2 = <span class='kw'>NULL</span>,
-  sw_in = <span class='kw'>NULL</span>,
-  sw_out = <span class='kw'>NULL</span>,
-  lw_in = <span class='kw'>NULL</span>,
-  lw_out = <span class='kw'>NULL</span>,
-  soil_flux = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>build_weather_station</span><span class='op'>(</span>
+  <span class='va'>lat</span>,
+  <span class='va'>lon</span>,
+  <span class='va'>elev</span>,
+  surface_type <span class='op'>=</span> <span class='st'>"Meadow"</span>,
+  obs_height <span class='op'>=</span> <span class='fl'>0.3</span>,
+  <span class='va'>z1</span>,
+  <span class='va'>z2</span>,
+  <span class='va'>datetime</span>,
+  <span class='va'>t1</span>,
+  <span class='va'>t2</span>,
+  <span class='va'>v1</span>,
+  <span class='va'>v2</span>,
+  <span class='va'>hum1</span>,
+  <span class='va'>hum2</span>,
+  p1 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  p2 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sw_in <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sw_out <span class='op'>=</span> <span class='cn'>NULL</span>,
+  lw_in <span class='op'>=</span> <span class='cn'>NULL</span>,
+  lw_out <span class='op'>=</span> <span class='cn'>NULL</span>,
+  soil_flux <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -264,94 +264,94 @@ By setting sky_view, lw_in will be topographically corrected
 (see <a href='soil_heat_flux.html'>soil_heat_flux</a> and <a href='soil_thermal_cond.html'>soil_thermal_cond</a>).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Standard parameters</span>
-<span class='kw'>test_station</span> <span class='op'>&lt;-</span> <span class='fu'>build_weather_station</span>(lat = <span class='fl'>50.840503</span>,
-                                     lon = <span class='fl'>8.6833</span>,
-                                     elev = <span class='fl'>270</span>,
-                                     surface_type = <span class='st'>"Meadow"</span>,
-                                     obs_height = <span class='fl'>0.3</span>, <span class='co'># obstacle height</span>
-                                     z1 = <span class='fl'>2</span>, <span class='co'># measurement heights</span>
-                                     z2 = <span class='fl'>10</span>,
-                                     datetime = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>datetime</span>,
-                                     t1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>t1</span>, <span class='co'># temperature</span>
-                                     t2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>t2</span>,
-                                     v1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>v1</span>, <span class='co'># windspeed</span>
-                                     v2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>v2</span>,
-                                     hum1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>hum1</span>, <span class='co'># humidity</span>
-                                     hum2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>hum2</span>,
-                                     sw_in = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_sw_in</span>, <span class='co'># shortwave radiation</span>
-                                     sw_out = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_sw_out</span>,
-                                     lw_in = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_lw_in</span>, <span class='co'># longwave radiation</span>
-                                     lw_out = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_lw_out</span>,
-                                     soil_flux = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>heatflux_soil</span>)
+<span class='va'>test_station</span> <span class='op'>&lt;-</span> <span class='fu'>build_weather_station</span><span class='op'>(</span>lat <span class='op'>=</span> <span class='fl'>50.840503</span>,
+                                     lon <span class='op'>=</span> <span class='fl'>8.6833</span>,
+                                     elev <span class='op'>=</span> <span class='fl'>270</span>,
+                                     surface_type <span class='op'>=</span> <span class='st'>"Meadow"</span>,
+                                     obs_height <span class='op'>=</span> <span class='fl'>0.3</span>, <span class='co'># obstacle height</span>
+                                     z1 <span class='op'>=</span> <span class='fl'>2</span>, <span class='co'># measurement heights</span>
+                                     z2 <span class='op'>=</span> <span class='fl'>10</span>,
+                                     datetime <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>datetime</span>,
+                                     t1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>t1</span>, <span class='co'># temperature</span>
+                                     t2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>t2</span>,
+                                     v1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>v1</span>, <span class='co'># windspeed</span>
+                                     v2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>v2</span>,
+                                     hum1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>hum1</span>, <span class='co'># humidity</span>
+                                     hum2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>hum2</span>,
+                                     sw_in <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_sw_in</span>, <span class='co'># shortwave radiation</span>
+                                     sw_out <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_sw_out</span>,
+                                     lw_in <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_lw_in</span>, <span class='co'># longwave radiation</span>
+                                     lw_out <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_lw_out</span>,
+                                     soil_flux <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>heatflux_soil</span><span class='op'>)</span>
 <span class='co'># Specify pressure</span>
-<span class='kw'>test_station</span> <span class='op'>&lt;-</span> <span class='fu'>build_weather_station</span>(lat = <span class='fl'>50.840503</span>, lon = <span class='fl'>8.6833</span>, elev = <span class='fl'>270</span>,
-                                     surface_type = <span class='st'>"Meadow"</span>, obs_height = <span class='fl'>0.3</span>,
-                                     z1 = <span class='fl'>2</span>, z2 = <span class='fl'>10</span>, datetime = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>datetime</span>,
-                                     t1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>t1</span>, t2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>t2</span>, v1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>v1</span>, v2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>v2</span>,
-                                     hum1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>hum1</span>, hum2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>hum2</span>,
-                                     sw_in = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_sw_in</span>,
-                                     sw_out = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_sw_out</span>,
-                                     lw_in = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_lw_in</span>,
-                                     lw_out = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_lw_out</span>,
-                                     soil_flux = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>heatflux_soil</span>,
+<span class='va'>test_station</span> <span class='op'>&lt;-</span> <span class='fu'>build_weather_station</span><span class='op'>(</span>lat <span class='op'>=</span> <span class='fl'>50.840503</span>, lon <span class='op'>=</span> <span class='fl'>8.6833</span>, elev <span class='op'>=</span> <span class='fl'>270</span>,
+                                     surface_type <span class='op'>=</span> <span class='st'>"Meadow"</span>, obs_height <span class='op'>=</span> <span class='fl'>0.3</span>,
+                                     z1 <span class='op'>=</span> <span class='fl'>2</span>, z2 <span class='op'>=</span> <span class='fl'>10</span>, datetime <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>datetime</span>,
+                                     t1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>t1</span>, t2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>t2</span>, v1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>v1</span>, v2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>v2</span>,
+                                     hum1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>hum1</span>, hum2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>hum2</span>,
+                                     sw_in <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_sw_in</span>,
+                                     sw_out <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_sw_out</span>,
+                                     lw_in <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_lw_in</span>,
+                                     lw_out <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_lw_out</span>,
+                                     soil_flux <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>heatflux_soil</span>,
                                      <span class='co'># ADDED PRESSURE</span>
-                                     p1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>p1</span>,
-                                     p2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>p2</span>)
+                                     p1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>p1</span>,
+                                     p2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>p2</span><span class='op'>)</span>
 
 <span class='co'># Alternative calculation of soil flux</span>
-<span class='kw'>test_station</span> <span class='op'>&lt;-</span> <span class='fu'>build_weather_station</span>(lat = <span class='fl'>50.840503</span>, lon = <span class='fl'>8.6833</span>, elev = <span class='fl'>270</span>,
-                                     surface_type = <span class='st'>"Meadow"</span>, obs_height = <span class='fl'>0.3</span>,
-                                     z1 = <span class='fl'>2</span>, z2 = <span class='fl'>10</span>, datetime = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>datetime</span>,
-                                     t1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>t1</span>, t2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>t2</span>, v1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>v1</span>, v2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>v2</span>,
-                                     hum1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>hum1</span>, hum2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>hum2</span>,
-                                     sw_in = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_sw_in</span>,
-                                     sw_out = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_sw_out</span>,
-                                     lw_in = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_lw_in</span>,
-                                     lw_out = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_lw_out</span>,
+<span class='va'>test_station</span> <span class='op'>&lt;-</span> <span class='fu'>build_weather_station</span><span class='op'>(</span>lat <span class='op'>=</span> <span class='fl'>50.840503</span>, lon <span class='op'>=</span> <span class='fl'>8.6833</span>, elev <span class='op'>=</span> <span class='fl'>270</span>,
+                                     surface_type <span class='op'>=</span> <span class='st'>"Meadow"</span>, obs_height <span class='op'>=</span> <span class='fl'>0.3</span>,
+                                     z1 <span class='op'>=</span> <span class='fl'>2</span>, z2 <span class='op'>=</span> <span class='fl'>10</span>, datetime <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>datetime</span>,
+                                     t1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>t1</span>, t2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>t2</span>, v1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>v1</span>, v2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>v2</span>,
+                                     hum1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>hum1</span>, hum2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>hum2</span>,
+                                     sw_in <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_sw_in</span>,
+                                     sw_out <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_sw_out</span>,
+                                     lw_in <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_lw_in</span>,
+                                     lw_out <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_lw_out</span>,
                                      <span class='co'># Alternative Soil flux:</span>
-                                     depth1 = <span class='fl'>0</span>,
-                                     depth2 = <span class='fl'>0.3</span>,
-                                     ts1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>t_surface</span>,
-                                     ts2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>ts1</span>,
-                                     moisture = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>water_vol_soil</span>,
-                                     texture = <span class='st'>"clay"</span>)
+                                     depth1 <span class='op'>=</span> <span class='fl'>0</span>,
+                                     depth2 <span class='op'>=</span> <span class='fl'>0.3</span>,
+                                     ts1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>t_surface</span>,
+                                     ts2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>ts1</span>,
+                                     moisture <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>water_vol_soil</span>,
+                                     texture <span class='op'>=</span> <span class='st'>"clay"</span><span class='op'>)</span>
 <span class='co'># Alternative shortwave</span>
-<span class='kw'>test_station</span> <span class='op'>&lt;-</span> <span class='fu'>build_weather_station</span>(lat = <span class='fl'>50.840503</span>, lon = <span class='fl'>8.6833</span>, elev = <span class='fl'>270</span>,
-                                     surface_type = <span class='st'>"Meadow"</span>, obs_height = <span class='fl'>0.3</span>,
-                                     z1 = <span class='fl'>2</span>, z2 = <span class='fl'>10</span>, datetime = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>datetime</span>,
-                                     t1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>t1</span>, t2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>t2</span>, v1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>v1</span>, v2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>v2</span>,
-                                     hum1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>hum1</span>, hum2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>hum2</span>,
-                                     lw_in = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_lw_in</span>,
-                                     lw_out = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_lw_out</span>,
-                                     soil_flux = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>heatflux_soil</span>,
+<span class='va'>test_station</span> <span class='op'>&lt;-</span> <span class='fu'>build_weather_station</span><span class='op'>(</span>lat <span class='op'>=</span> <span class='fl'>50.840503</span>, lon <span class='op'>=</span> <span class='fl'>8.6833</span>, elev <span class='op'>=</span> <span class='fl'>270</span>,
+                                     surface_type <span class='op'>=</span> <span class='st'>"Meadow"</span>, obs_height <span class='op'>=</span> <span class='fl'>0.3</span>,
+                                     z1 <span class='op'>=</span> <span class='fl'>2</span>, z2 <span class='op'>=</span> <span class='fl'>10</span>, datetime <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>datetime</span>,
+                                     t1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>t1</span>, t2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>t2</span>, v1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>v1</span>, v2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>v2</span>,
+                                     hum1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>hum1</span>, hum2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>hum2</span>,
+                                     lw_in <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_lw_in</span>,
+                                     lw_out <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_lw_out</span>,
+                                     soil_flux <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>heatflux_soil</span>,
                                      <span class='co'># Alternative shortwave radiation:</span>
-                                     albedo = <span class='fl'>0.3</span>,
+                                     albedo <span class='op'>=</span> <span class='fl'>0.3</span>,
                                      <span class='co'># Topographic correction</span>
-                                     slope = <span class='fl'>10</span>, <span class='co'># In degrees</span>
-                                     exposition = <span class='fl'>20</span>, <span class='co'># North = 0, South = 180</span>
-                                     sky_view = <span class='fl'>0.82</span> <span class='co'># Sky view factor (0-1)</span>
-)
+                                     slope <span class='op'>=</span> <span class='fl'>10</span>, <span class='co'># In degrees</span>
+                                     exposition <span class='op'>=</span> <span class='fl'>20</span>, <span class='co'># North = 0, South = 180</span>
+                                     sky_view <span class='op'>=</span> <span class='fl'>0.82</span> <span class='co'># Sky view factor (0-1)</span>
+<span class='op'>)</span>
 
 <span class='co'># Alternative longwave</span>
-<span class='kw'>test_station</span> <span class='op'>&lt;-</span> <span class='fu'>build_weather_station</span>(lat = <span class='fl'>50.840503</span>, lon = <span class='fl'>8.6833</span>, elev = <span class='fl'>270</span>,
-                                     surface_type = <span class='st'>"Meadow"</span>, obs_height = <span class='fl'>0.3</span>,
-                                     z1 = <span class='fl'>2</span>, z2 = <span class='fl'>10</span>, datetime = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>datetime</span>,
-                                     t1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>t1</span>, t2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>t2</span>, v1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>v1</span>, v2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>v2</span>,
-                                     hum1 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>hum1</span>, hum2 = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>hum2</span>,
-                                     sw_in = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_sw_in</span>,
-                                     sw_out = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>rad_sw_out</span>,
-                                     soil_flux = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>heatflux_soil</span>,
+<span class='va'>test_station</span> <span class='op'>&lt;-</span> <span class='fu'>build_weather_station</span><span class='op'>(</span>lat <span class='op'>=</span> <span class='fl'>50.840503</span>, lon <span class='op'>=</span> <span class='fl'>8.6833</span>, elev <span class='op'>=</span> <span class='fl'>270</span>,
+                                     surface_type <span class='op'>=</span> <span class='st'>"Meadow"</span>, obs_height <span class='op'>=</span> <span class='fl'>0.3</span>,
+                                     z1 <span class='op'>=</span> <span class='fl'>2</span>, z2 <span class='op'>=</span> <span class='fl'>10</span>, datetime <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>datetime</span>,
+                                     t1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>t1</span>, t2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>t2</span>, v1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>v1</span>, v2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>v2</span>,
+                                     hum1 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>hum1</span>, hum2 <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>hum2</span>,
+                                     sw_in <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_sw_in</span>,
+                                     sw_out <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>rad_sw_out</span>,
+                                     soil_flux <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>heatflux_soil</span>,
                                      <span class='co'># Alternative longwave radiation:</span>
-                                     t_surface = <span class='kw'>ws</span><span class='op'>$</span><span class='kw'>t_surface</span>,
+                                     t_surface <span class='op'>=</span> <span class='va'>ws</span><span class='op'>$</span><span class='va'>t_surface</span>,
                                      <span class='co'># Different emissivity:</span>
                                      <span class='co'># lw_out = rad_lw_out(ws$t_surface, emissivity_surface = 0.92),</span>
                                      <span class='co'># Topographic correction</span>
-                                     sky_view = <span class='fl'>0.82</span> <span class='co'># Sky view factor (0-1)</span>
-)
+                                     sky_view <span class='op'>=</span> <span class='fl'>0.82</span> <span class='co'># Sky view factor (0-1)</span>
+<span class='op'>)</span>
 
-}
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
