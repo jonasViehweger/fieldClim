@@ -24,19 +24,19 @@ turb_flux_monin <- function (...) {
 #' @param t2 Temperature at upper height in degrees C.
 #' @export
 turb_flux_monin.numeric <- function(grad_rich_no, z1 = 2, z2 = 10, z0, v1, v2, t1, t2, ...){
-  ustar <- turb_ustar(v1,z1,z0)
+  ustar <- turb_ustar(v2,z2,z0)
   monin <- rep(NA, length(grad_rich_no))
   for(i in 1:length(grad_rich_no)){
     if(is.na(grad_rich_no[i])){
       monin[i] <- NA
     } else if(grad_rich_no[i] <= -0.05){
-      monin[i] <- (z1*(t1[i]+273.15)*(((v2[i]-v1[i])/(z2-z1))**2))/(9.81*(t2[i]-t1[i])/(z2-z1))
+      monin[i] <- (z2*(t2[i]+273.15)*(((v2[i]-v1[i])/(z2-z1))**2))/(9.81*(t2[i]-t1[i])/(z2-z1))
 
     } else if(grad_rich_no[i] > -0.05 && grad_rich_no[i] < 0.05){
-      monin[i] <- 0.75*(z1*(t1[i]+273.15)*(((v2[i]-v1[i])/(z2-z1))**2))/(9.81*(t2[i]-t1[i])/(z2-z1))
+      monin[i] <- 0.75*(z2*(t2[i]+273.15)*(((v2[i]-v1[i])/(z2-z1))**2))/(9.81*(t2[i]-t1[i])/(z2-z1))
 
     } else if(grad_rich_no[i] >= 0.05){
-      monin[i] <- 4.7*ustar[i]*log(z1/z0)*(z1-z0)/(v1[i]*0.4)
+      monin[i] <- 4.7*ustar[i]*log(z2/z0)*(z2-z0)/(v2[i]*0.4)
 
     }
   }
