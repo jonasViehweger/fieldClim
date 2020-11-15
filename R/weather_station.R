@@ -26,13 +26,13 @@
 #' If soil_flux is NULL, ts1, ts2, depth1, depth2, moisture and texture need to be set.
 #' (see [fieldClim::soil_heat_flux] and [fieldClim::soil_thermal_cond]).
 #'
-#' @param lat Latitude of location. Preset: 50.840503 (climate station caldern).
-#' @param lon Longitude of location. Preset: 8.683300 (climate station caldern).
-#' @param elev Elevation of location above sea level in m. Preset: 270 m (climate station caldern).
-#' @param surface_type Surface Type. Form: Character string. One of: "Wiese", "Acker", "Gruenflaeche", "Strasse", "Landwirtschaft", "Siedlung", "Nadelwald", "Laubwald", "Mischwald", "Stadt". Preset: "Wiese.
+#' @param lat Latitude of location.
+#' @param lon Longitude of location.
+#' @param elev Elevation of location above sea level in m.
+#' @param surface_type Surface Type. Form: Character string. One of: "Meadow", "Field", "Park/Lawn", "Street", "Agriculture", "Settlement", "Coniferous", "Broadleaf", "Mixed", "City". Preset: "Meadow".
 #' @param obs_height Height of vegetation in m. Preset: 0.3.
 #' @param z1 Lower measurement height in m. Preset: 2m.
-#' @param z2 Upper measurement height in m. Preset: 2m.
+#' @param z2 Upper measurement height in m. Preset: 10m.
 #' @param datetime Name of datetime-coloumn in data.
 #' Form: POSIX-Object (See [base::as.POSIXlt] and [base::strptime] for conversion.)
 #' @param t1 Vector containing lower temperature data in degrees C.
@@ -151,8 +151,8 @@ build_weather_station <-  function(lat,
                                    elev,
                                    surface_type = "Meadow",
                                    obs_height = 0.3,
-                                   z1,
-                                   z2,
+                                   z1 = 2,
+                                   z2 = 10,
                                    datetime,
                                    t1,
                                    t2,
