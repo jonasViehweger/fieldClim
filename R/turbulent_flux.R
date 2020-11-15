@@ -1,7 +1,6 @@
 #' Monin-Obhukov-Length
 #'
 #' Calculation of the Monin-Obhukov-Length.
-#' Stability of atmosphere needs to be given as one of "stabil", "neutral" or "unstabil".
 #'
 #' @rdname turb_flux_monin
 #' @param ... Additional parameters passed to later functions.
