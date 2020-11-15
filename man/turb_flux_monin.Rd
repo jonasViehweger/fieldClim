@@ -38,5 +38,4 @@ Monin-Obhukov-Length in m.
 }
 \description{
 Calculation of the Monin-Obhukov-Length.
-Stability of atmosphere needs to be given as one of "stabil", "neutral" or "unstabil".
 }

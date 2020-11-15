@@ -91,7 +91,7 @@ turb_flux_grad_rich_no.numeric <- function(t1, t2, z1 = 2, z2 = 10, v1, v2, p1, 
   pot_temp1 <- temp_pot_temp(t1, p1)
   pot_temp2 <- temp_pot_temp(t2, p2)
   grad_rich_no <- (9.81/pot_temp1)*((pot_temp2-pot_temp1)/(z2-z1))*(((v2-v1)/(z2-z1))**(-2))
-  grad_rich_no <- ifelse(is.nan(grad_rich_no), 0, grad_rich_no)
+  #grad_rich_no <- ifelse(!is.finite(grad_rich_no), 0, grad_rich_no)
   return(grad_rich_no)
 }
 
