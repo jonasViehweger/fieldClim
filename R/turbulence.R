@@ -22,13 +22,12 @@ turb_roughness_length <- function (...) {
 turb_roughness_length.default <- function(surface_type = NULL, obs_height = NULL, ...){
   surface_properties <- surface_properties
   if(!is.null(obs_height)){
-    z0 <- obs_height*0.1
+    return(obs_height*0.1)
   } else if(!is.null(surface_type)) {
-    z0 <- surface_properties[which(surface_properties$surface_type==surface_type),]$roughness_length
+    return(surface_properties[which(surface_properties$surface_type==surface_type),]$roughness_length)
   } else {
-    z0 <- NA
+    stop("Neither surface_type nor obs_height given.")
   }
-  return(z0)
 }
 
 #' @rdname turb_roughness_length
@@ -98,7 +97,7 @@ turb_ustar <- function (...) {
 #' @param v Windspeed in height of anemometer in m/s.
 #' @param z Height of anemometer in m.
 #' @param z0 Roughness length in m.
-#'
+#' @export
 turb_ustar.numeric <- function(v, z, z0, ...){
   ustar <- (v*0.4)/log(z/z0)
   return(ustar)
@@ -107,11 +106,11 @@ turb_ustar.numeric <- function(v, z, z0, ...){
 #' @rdname turb_ustar
 #' @method turb_ustar weather_station
 #' @param weather_station Object of class weather_station
-#'
+#' @export
 turb_ustar.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "v1", "z1")
-  v <- weather_station$measurements$v1
-  z <- weather_station$properties$z1
+  v <- weather_station$measurements$v2
+  z <- weather_station$properties$z2
   z0 <- turb_roughness_length(weather_station)
   return(turb_ustar(v,z,z0))
 }

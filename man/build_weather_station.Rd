@@ -10,8 +10,8 @@ build_weather_station(
   elev,
   surface_type = "Meadow",
   obs_height = 0.3,
-  z1,
-  z2,
+  z1 = 2,
+  z2 = 10,
   datetime,
   t1,
   t2,
@@ -30,19 +30,19 @@ build_weather_station(
 )
 }
 \arguments{
-\item{lat}{Latitude of location. Preset: 50.840503 (climate station caldern).}
+\item{lat}{Latitude of location.}
 
-\item{lon}{Longitude of location. Preset: 8.683300 (climate station caldern).}
+\item{lon}{Longitude of location.}
 
-\item{elev}{Elevation of location above sea level in m. Preset: 270 m (climate station caldern).}
+\item{elev}{Elevation of location above sea level in m.}
 
-\item{surface_type}{Surface Type. Form: Character string. One of: "Wiese", "Acker", "Gruenflaeche", "Strasse", "Landwirtschaft", "Siedlung", "Nadelwald", "Laubwald", "Mischwald", "Stadt". Preset: "Wiese.}
+\item{surface_type}{Surface Type. Form: Character string. One of: "Meadow", "Field", "Park/Lawn", "Street", "Agriculture", "Settlement", "Coniferous", "Broadleaf", "Mixed", "City". Preset: "Meadow".}
 
 \item{obs_height}{Height of vegetation in m. Preset: 0.3.}
 
 \item{z1}{Lower measurement height in m. Preset: 2m.}
 
-\item{z2}{Upper measurement height in m. Preset: 2m.}
+\item{z2}{Upper measurement height in m. Preset: 10m.}
 
 \item{datetime}{Name of datetime-coloumn in data.
 Form: POSIX-Object (See \link[base:as.POSIXlt]{base::as.POSIXlt} and \link[base:strptime]{base::strptime} for conversion.)}
