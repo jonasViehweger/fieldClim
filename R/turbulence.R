@@ -108,9 +108,9 @@ turb_ustar.numeric <- function(v, z, z0, ...){
 #' @param weather_station Object of class weather_station
 #' @export
 turb_ustar.weather_station <- function(weather_station, ...){
-  check_availability(weather_station, "v1", "z1")
+  check_availability(weather_station, "v2", "z2")
   v <- weather_station$measurements$v2
   z <- weather_station$properties$z2
-  z0 <- turb_roughness_length(weather_station)
+  z0 <- turb_roughness_length(weather_station) + turb_displacement(weather_station)
   return(turb_ustar(v,z,z0))
 }
