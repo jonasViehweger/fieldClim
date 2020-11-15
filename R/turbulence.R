@@ -2,7 +2,7 @@
 #'
 #' Calculate the roughness length of an surface on the basis of the obstacle height or the type of the surface
 #' Possible surface types are:
-#' "Wiese", "Acker", "Gruenflaeche", "Strasse", "Landwirtschaft", "Siedlung", "Nadelwald", "Laubwald", "Mischwald", "Stadt"
+#' "Meadow", "Field", "Park/Lawn", "Street", "Agriculture", "Settlement", "Coniferous", "Broadleaf", "Mixed", "City"
 #' You need to specify only one, "type" OR "obs_height".
 #'
 #' @rdname turb_roughness_length
