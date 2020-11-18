@@ -5,8 +5,9 @@
 #'
 #' @param weather_station Object of class weather_station.
 #' @param ... Strings of properties to check.
-#'
 #' @return Absolutely nothing
+#' @export
+#'
 check_availability <- function(weather_station, ...){
   unlisted <- names(c(weather_station[[1]], weather_station[[2]], weather_station[[3]]))
   parameters <- as.character(unlist(list(...)))
