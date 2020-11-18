@@ -42,8 +42,8 @@ turb_flux_monin.numeric <- function(grad_rich_no, z1 = 2, z2 = 10, z0, v1, v2, t
     }
   }
 
-  if(any(turb_ustar <= 0.2)){
-    warning("NAs were introduced, due to a small friction velocity (ustar < 0.2)")
+  if(any(is.na(monin))){
+    warning("NAs were introduced, due to a either small friction velocity (ustar < 0.2), or missing Gradient-Richardson numbers.")
   }
 
   return(monin)
