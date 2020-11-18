@@ -18,7 +18,7 @@ turb_roughness_length <- function (...) {
 #' @method turb_roughness_length default
 #' @param surface_type Type of surface
 #' @param obs_height Height of obstacle in m.
-#'
+#' @export
 turb_roughness_length.default <- function(surface_type = NULL, obs_height = NULL, ...){
   surface_properties <- surface_properties
   if(!is.null(obs_height)){
@@ -34,7 +34,7 @@ turb_roughness_length.default <- function(surface_type = NULL, obs_height = NULL
 #' @rdname turb_roughness_length
 #' @method turb_roughness_length weather_station
 #' @param weather_station Object of class weather_station
-#'
+#' @export
 turb_roughness_length.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "obs_height", "surface_type")
   obs_height <- weather_station$location_properties$obs_height
@@ -63,7 +63,7 @@ turb_displacement <- function (...) {
 #' @rdname turb_displacement
 #' @method turb_displacement numeric
 #' @param obs_height Height of vegetation in m.
-#'
+#' @export
 turb_displacement.numeric <- function(obs_height, ...){
   d0 <- (2/3)*obs_height      # for Vegetation only
   return(d0)
@@ -72,7 +72,7 @@ turb_displacement.numeric <- function(obs_height, ...){
 #' @rdname turb_displacement
 #' @method turb_displacement weather_station
 #' @param weather_station Object of class weather_station
-#'
+#' @export
 turb_displacement.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "obs_height")
   obs_height <- weather_station$location_properties$obs_height
@@ -98,7 +98,7 @@ turb_ustar <- function (...) {
 #' @param v Windspeed in height of anemometer in m/s.
 #' @param z Height of anemometer in m.
 #' @param z0 Roughness length in m.
-#'
+#' @export
 turb_ustar.numeric <- function(v, z, z0, ...){
   ustar <- (v*0.4)/log(z/z0)
   return(ustar)
@@ -107,7 +107,7 @@ turb_ustar.numeric <- function(v, z, z0, ...){
 #' @rdname turb_ustar
 #' @method turb_ustar weather_station
 #' @param weather_station Object of class weather_station
-#'
+#' @export
 turb_ustar.weather_station <- function(weather_station, ...){
   check_availability(weather_station, "v1", "z1")
   v <- weather_station$measurements$v1
