@@ -29,6 +29,8 @@ turb_flux_monin.numeric <- function(grad_rich_no, z1 = 2, z2 = 10, z0, v1, v2, t
   for(i in 1:length(grad_rich_no)){
     if(is.na(grad_rich_no[i])){
       monin[i] <- NA
+    } else if(ustar[i] < 0.2){
+      monin[i] <- NA
     } else if(grad_rich_no[i] <= -0.05){
       monin[i] <- (z1*(t1[i]+273.15)*(((v2[i]-v1[i])/(z2-z1))**2))/(9.81*(t2[i]-t1[i])/(z2-z1))
 
@@ -37,9 +39,13 @@ turb_flux_monin.numeric <- function(grad_rich_no, z1 = 2, z2 = 10, z0, v1, v2, t
 
     } else if(grad_rich_no[i] >= 0.05){
       monin[i] <- 4.7*ustar[i]*log(z1/z0)*(z1-z0)/(v1[i]*0.4)
-
     }
   }
+
+  if(any(turb_ustar <= 0.2)){
+    warning("NAs were introduced, due to a small friction velocity (ustar < 0.2)")
+  }
+
   return(monin)
 }
 

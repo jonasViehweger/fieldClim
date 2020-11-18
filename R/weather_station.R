@@ -339,5 +339,10 @@ build_weather_station <-  function(lat,
     }
   }
 
+  #check if z1 < z2
+  if(z1 > z2){
+    stop("z1 must be smaller than z2! Please check the order of your input variables.")
+  }
+
   return(out_list)
 }
