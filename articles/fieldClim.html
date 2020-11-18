@@ -60,12 +60,13 @@
 
       
 
-      </header><script src="fieldClim_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="fieldClim_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="fieldClim_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="fieldClim_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to fieldClim</h1>
             
-            <h4 class="date">2020-10-02</h4>
+            <h4 class="date">2020-11-18</h4>
       
       
       <div class="hidden name"><code>fieldClim.Rmd</code></div>
@@ -85,8 +86,8 @@
 <h2 class="hasAnchor">
 <a href="#preparing-the-data" class="anchor"></a>Preparing the data</h2>
 <p>First let’s load the package and the provided example-data and take a look at the provided columns.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">fieldClim</span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">fieldClim</span><span class="op">)</span>
 <span class="va">ws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">weather_station_example_data</span>, package<span class="op">=</span><span class="st">"fieldClim"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">ws</span><span class="op">)</span>
@@ -95,11 +96,11 @@
 <span class="co">#&gt;  [9] "rad_lw_out"     "rad_sw_bal"     "rad_lw_bal"     "albedo"        </span>
 <span class="co">#&gt; [13] "rad_bal"        "water_vol_soil" "ts1"            "heatflux_soil" </span>
 <span class="co">#&gt; [17] "v1"             "v2"             "t_surface"      "p1"            </span>
-<span class="co">#&gt; [21] "p2"</span></pre></div>
+<span class="co">#&gt; [21] "p2"</span></code></pre></div>
 <p>This dataset includes most of the data necessary to run the functions in this package.</p>
 <p>Before building a <code>weather_station</code> object it is necessary to ensure that the input is properly formatted. For this we need to check if the <code>datetime</code> column is in <code>POSIXt</code>-format and if not convert it.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co"># Check datetime class</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Check datetime class</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">ws</span><span class="op">$</span><span class="va">datetime</span><span class="op">)</span>
 <span class="co">#&gt; [1] "POSIXlt" "POSIXt"</span>
 
@@ -111,12 +112,12 @@
 <span class="co"># convert with</span>
 <span class="va">ws</span><span class="op">$</span><span class="va">datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span><span class="op">(</span><span class="va">wrong_type</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span><span class="op">)</span>
 <span class="co"># or</span>
-<span class="va">ws</span><span class="op">$</span><span class="va">datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span><span class="op">(</span><span class="va">wrong_type</span><span class="op">)</span></pre></div>
+<span class="va">ws</span><span class="op">$</span><span class="va">datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span><span class="op">(</span><span class="va">wrong_type</span><span class="op">)</span></code></pre></div>
 <p>It is also necessary to check if all other columns containing data are <code>numeric</code>. Most functions provided by <code>fieldClim</code> require <code>numeric</code> input. Some functions will automatically try to convert to <code>numeric</code>, however this will sometimes lead to unexpected side-effects so it is always best to ensure the proper data format for yourself.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co"># Check if any remaining classes are not numeric</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Check if any remaining classes are not numeric</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Negate</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">ws</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "datetime"</span></pre></div>
+<span class="co">#&gt; [1] "datetime"</span></code></pre></div>
 <p>Looks like only the <code>datetime</code> column is not numeric which is appropriate. If this wasn’t the case, other columns might have to be converted using <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code>.</p>
 </div>
 <div id="building-a-weather_station-object" class="section level2">
@@ -124,8 +125,8 @@
 <a href="#building-a-weather_station-object" class="anchor"></a>Building a weather_station object</h2>
 <p>If the dataframe is properly formatted (date column as <code>POSIXt</code>, all other necessary columns <code>numeric</code>), the function <code><a href="../reference/build_weather_station.html">build_weather_station()</a></code> can be used to conveniently create a <code>weather_station</code> object.</p>
 <p>You can get more info about the single parameters by calling <code><a href="../reference/build_weather_station.html">?build_weather_station</a></code>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">test_station</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_weather_station.html">build_weather_station</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">50.840503</span>,
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">test_station</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_weather_station.html">build_weather_station</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">50.840503</span>,
                                       lon <span class="op">=</span> <span class="fl">8.6833</span>,
                                       elev <span class="op">=</span> <span class="fl">270</span>,
                                       surface_type <span class="op">=</span> <span class="st">"Meadow"</span>,
@@ -147,15 +148,15 @@
 
 <span class="co"># We can see that this is indeed a weather_station object.</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">test_station</span><span class="op">)</span>
-<span class="co">#&gt; [1] "weather_station"</span></pre></div>
+<span class="co">#&gt; [1] "weather_station"</span></code></pre></div>
 <p>This is close to the minimum amount of parameters necessary to build a <code>weather_station</code> object.</p>
 <p>Many of the parameters can however also be estimated using different inputs. Below is an overview on which parameters can be omitted or estimated another way.</p>
 <div id="adding-air-pressure" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adding-air-pressure" class="anchor"></a>Adding air pressure</h3>
 <p>By default the air pressure at the measurment heights is estimated using the temperature and the elevation (using <code><a href="../reference/pres_p.html">pres_p()</a></code>). If the pressure is measured at the weather station it can be added to the call using the parameters <code>p1</code> and <code>p2</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">test_station</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_weather_station.html">build_weather_station</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">50.840503</span>,
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">test_station</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_weather_station.html">build_weather_station</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">50.840503</span>,
                                       lon <span class="op">=</span> <span class="fl">8.6833</span>,
                                       elev <span class="op">=</span> <span class="fl">270</span>,
                                       surface_type <span class="op">=</span> <span class="st">"Meadow"</span>,
@@ -176,7 +177,7 @@
                                       soil_flux <span class="op">=</span> <span class="va">ws</span><span class="op">$</span><span class="va">heatflux_soil</span>,
                                       <span class="co"># ADDED PRESSURE</span>
                                       p1 <span class="op">=</span> <span class="va">ws</span><span class="op">$</span><span class="va">p1</span>,
-                                      p2 <span class="op">=</span> <span class="va">ws</span><span class="op">$</span><span class="va">p2</span><span class="op">)</span></pre></div>
+                                      p2 <span class="op">=</span> <span class="va">ws</span><span class="op">$</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
 <p>Note: If the pressure at the station is only measured at one height, it will also be applied to the other height since the measured pressure is assumed to be much more accurate than the estimated pressure.</p>
 </div>
 <div id="missing-soil-flux" class="section level3">
@@ -185,8 +186,8 @@
 <p>If the soil flux is not measured by a heat flux plate but by two soil temperature measurements at different depths, those measurements can also be provided to calculate <code>soil_flux</code> from them instead.</p>
 <p>For this the two depths of the temperature probes from the surface in meters, the two temperature measurements in degrees Celsius as well as the soil texture (“clay” or “sand”) and soil moisture (Vol-%) are necessary.</p>
 <p>Internally the calculations are provided by the two functions <code><a href="../reference/soil_heat_flux.html">soil_heat_flux()</a></code> and <code><a href="../reference/soil_thermal_cond.html">soil_thermal_cond()</a></code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">test_station</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_weather_station.html">build_weather_station</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">50.840503</span>,
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">test_station</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_weather_station.html">build_weather_station</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">50.840503</span>,
                                       lon <span class="op">=</span> <span class="fl">8.6833</span>,
                                       elev <span class="op">=</span> <span class="fl">270</span>,
                                       surface_type <span class="op">=</span> <span class="st">"Meadow"</span>,
@@ -210,7 +211,7 @@
                                       ts1 <span class="op">=</span> <span class="va">ws</span><span class="op">$</span><span class="va">t_surface</span>,
                                       ts2 <span class="op">=</span> <span class="va">ws</span><span class="op">$</span><span class="va">ts1</span>,
                                       moisture <span class="op">=</span> <span class="va">ws</span><span class="op">$</span><span class="va">water_vol_soil</span>,
-                                      texture <span class="op">=</span> <span class="st">"clay"</span><span class="op">)</span></pre></div>
+                                      texture <span class="op">=</span> <span class="st">"clay"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="missing-shortwave-radiation" class="section level3">
 <h3 class="hasAnchor">
@@ -218,8 +219,8 @@
 <p>The two shortwave inputs <code>sw_in</code> and <code>sw_out</code> can be estimated by instead providing the parameter <code>albedo</code>.</p>
 <p>This works by estimating the top of atmosphere radiation at the provided location, time and date as well as the average atmospheric transmittance (see <code><a href="../reference/rad_sw_in.html">?rad_sw_in</a></code>).</p>
 <p>By setting <code>slope</code>, <code>sky_view</code> and <code>exposition</code>, <code>sw_in</code> and <code>sw_out</code> will additionally be topographically corrected (see <code><a href="../reference/rad_sw_in_topo.html">?rad_sw_in_topo</a></code>).</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">test_station</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_weather_station.html">build_weather_station</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">50.840503</span>,
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">test_station</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_weather_station.html">build_weather_station</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">50.840503</span>,
                                       lon <span class="op">=</span> <span class="fl">8.6833</span>,
                                       elev <span class="op">=</span> <span class="fl">270</span>,
                                       surface_type <span class="op">=</span> <span class="st">"Meadow"</span>,
@@ -242,15 +243,15 @@
                                       slope <span class="op">=</span> <span class="fl">10</span>, <span class="co"># In degrees</span>
                                       exposition <span class="op">=</span> <span class="fl">20</span>, <span class="co"># North = 0, South = 180</span>
                                       sky_view <span class="op">=</span> <span class="fl">0.82</span> <span class="co"># Sky view factor (0-1)</span>
-                                      <span class="op">)</span></pre></div>
+                                      <span class="op">)</span></code></pre></div>
 </div>
 <div id="missing-longwave-radiation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#missing-longwave-radiation" class="anchor"></a>Missing longwave radiation</h3>
 <p>If <code>lw_in</code> is not provided, it will get estimated using the air temperature and air pressure (see <code><a href="../reference/rad_lw_in.html">?rad_lw_in</a></code>). By setting <code>sky_view</code>, <code>lw_in</code> will be topographically corrected (see <code><a href="../reference/rad_sw_in_topo.html">?rad_sw_in_topo</a></code>).</p>
 <p>If <code>lw_out</code> is not provided, the surface temperature needs to be set as <code>t_surface</code> (see <code><a href="../reference/rad_lw_out.html">?rad_lw_out</a></code>). The surface temperature and emissivity get combined to estimate the longwave emissions. The default emissivity used in <code><a href="../reference/build_weather_station.html">build_weather_station()</a></code> is the one for short grass (0.95). If a different emissivity is needed, <code><a href="../reference/rad_lw_out.html">rad_lw_out()</a></code> can be used directly.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">test_station</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_weather_station.html">build_weather_station</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">50.840503</span>,
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">test_station</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_weather_station.html">build_weather_station</a></span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">50.840503</span>,
                                       lon <span class="op">=</span> <span class="fl">8.6833</span>,
                                       elev <span class="op">=</span> <span class="fl">270</span>,
                                       surface_type <span class="op">=</span> <span class="st">"Meadow"</span>,
@@ -273,7 +274,7 @@
                                       <span class="co"># lw_out = rad_lw_out(ws$t_surface, emissivity_surface = 0.92),</span>
                                       <span class="co"># Topographic correction</span>
                                       sky_view <span class="op">=</span> <span class="fl">0.82</span> <span class="co"># Sky view factor (0-1)</span>
-                                      <span class="op">)</span></pre></div>
+                                      <span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="calculations-using-the-provided-functions" class="section level2">
@@ -281,8 +282,8 @@
 <a href="#calculations-using-the-provided-functions" class="anchor"></a>Calculations using the provided functions</h2>
 <p>Most functions can be called in two different ways. Either by passing all the needed data yourself, or by passing a <code>weather_station</code> object. Let’s see how this works by calculating the Gradient-Richardson-Number.</p>
 <p>First let’s calculate it by passing the needed parameters ourselves:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="va">grad_rich_manual</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/turb_flux_grad_rich_no.html">turb_flux_grad_rich_no</a></span><span class="op">(</span>t1 <span class="op">=</span> <span class="va">ws</span><span class="op">$</span><span class="va">t1</span>, 
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">grad_rich_manual</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/turb_flux_grad_rich_no.html">turb_flux_grad_rich_no</a></span><span class="op">(</span>t1 <span class="op">=</span> <span class="va">ws</span><span class="op">$</span><span class="va">t1</span>, 
                                            t2 <span class="op">=</span> <span class="va">ws</span><span class="op">$</span><span class="va">t2</span>, 
                                            z1 <span class="op">=</span> <span class="fl">2</span>, 
                                            z2 <span class="op">=</span> <span class="fl">10</span>, 
@@ -292,22 +293,29 @@
                                            p2 <span class="op">=</span> <span class="fu"><a href="../reference/pres_p.html">pres_p</a></span><span class="op">(</span><span class="fl">270</span><span class="op">+</span><span class="fl">10</span>, <span class="va">ws</span><span class="op">$</span><span class="va">t2</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">grad_rich_manual</span><span class="op">)</span>
-<span class="co">#&gt; [1] 121.63179  62.34312  53.80912  53.30846 105.05975 223.87416</span></pre></div>
+<span class="co">#&gt; [1] 121.63179  62.34312  53.80912  53.30846 105.05975 223.87416</span></code></pre></div>
 <p>As you can see it is quite the effort to get all the appropriate parameters. You even have to calculate some additional ones (like <code>p1</code>, <code>p2</code> in this example) beforehand if they are not available.</p>
 <p>So instead it is a lot more comfortable to use a <code>weather_station</code> object. Here we use the object we have defined earlier:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="va">grad_rich_quick</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/turb_flux_grad_rich_no.html">turb_flux_grad_rich_no</a></span><span class="op">(</span><span class="va">test_station</span><span class="op">)</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">grad_rich_quick</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/turb_flux_grad_rich_no.html">turb_flux_grad_rich_no</a></span><span class="op">(</span><span class="va">test_station</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">grad_rich_quick</span><span class="op">)</span>
-<span class="co">#&gt; [1] 121.63179  62.34312  53.80912  53.30846 105.05975 223.87416</span></pre></div>
+<span class="co">#&gt; [1] 121.63179  62.34312  53.80912  53.30846 105.05975 223.87416</span></code></pre></div>
 <p>As you can see the results are exactly the same, but using the <code>weather_station</code> object is much more convenient.</p>
 </div>
 <div id="calculating-turbulent-fluxes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#calculating-turbulent-fluxes" class="anchor"></a>Calculating Turbulent Fluxes</h2>
 <p>A convenience function to calculate all the different methods for turbulent fluxes is given in <code><a href="../reference/turb_flux_calc.html">turb_flux_calc()</a></code>. This function is only available for <code>weather_station</code> objects as it returns the results straight into the given <code>weather_station</code>. The <code>water</code> package also has to be installed for this function to work.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="va">station_turbulent</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/turb_flux_calc.html">turb_flux_calc</a></span><span class="op">(</span><span class="va">test_station</span><span class="op">)</span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">station_turbulent</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/turb_flux_calc.html">turb_flux_calc</a></span><span class="op">(</span><span class="va">test_station</span><span class="op">)</span>
+<span class="co">#&gt; Warning in turb_flux_monin.numeric(grad_rich_no, z1, z2, z0, v1, v2, t1, :</span>
+<span class="co">#&gt; NAs were introduced, due to a either small friction velocity (ustar &lt; 0.2), or</span>
+<span class="co">#&gt; missing Gradient-Richardson numbers.</span>
+
+<span class="co">#&gt; Warning in turb_flux_monin.numeric(grad_rich_no, z1, z2, z0, v1, v2, t1, :</span>
+<span class="co">#&gt; NAs were introduced, due to a either small friction velocity (ustar &lt; 0.2), or</span>
+<span class="co">#&gt; missing Gradient-Richardson numbers.</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">station_turbulent</span><span class="op">$</span><span class="va">measurements</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "datetime"                  "t1"                       </span>
@@ -322,7 +330,7 @@
 <span class="co">#&gt; [19] "stability"                 "sensible_priestley_taylor"</span>
 <span class="co">#&gt; [21] "latent_priestley_taylor"   "sensible_bowen"           </span>
 <span class="co">#&gt; [23] "latent_bowen"              "sensible_monin"           </span>
-<span class="co">#&gt; [25] "latent_monin"              "latent_penman"</span></pre></div>
+<span class="co">#&gt; [25] "latent_monin"              "latent_penman"</span></code></pre></div>
 <p>You can see that now there are all results from the different methods to calculate the turbulent fluxes available in the measurement list of the weather_station object.</p>
 </div>
 <div id="convert-to-a-dataframe" class="section level2">
@@ -330,8 +338,8 @@
 <a href="#convert-to-a-dataframe" class="anchor"></a>Convert to a dataframe</h2>
 <p>You can easily convert a <code>weather_station</code> object to a data frame by using the generic function <code>as.data.frame</code>. This converts all the entries in the <code>measurements</code> list of the object into a dataframe.</p>
 <p>There are also two additional toggles that can be set, called <code>reduced</code> and <code>unit</code>. <code>reduced</code> will omit some (very few) columns which aren’t used often. <code>unit</code> will add longer column names with the correct units to all columns available with <code>reduced = TRUE</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="va">normal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">station_turbulent</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">normal</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "datetime"                  "t1"                       </span>
@@ -390,7 +398,7 @@
 <span class="co">#&gt; [22] "latent_heat[W/m^2]_Bowen"            </span>
 <span class="co">#&gt; [23] "sensible_heat[W/m^2]_Monin"          </span>
 <span class="co">#&gt; [24] "latent_heat[W/m^2]_Monin"            </span>
-<span class="co">#&gt; [25] "latent_heat[W/m^2]_Penman"</span></pre></div>
+<span class="co">#&gt; [25] "latent_heat[W/m^2]_Penman"</span></code></pre></div>
 </div>
   </div>
 

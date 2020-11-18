@@ -77,7 +77,7 @@
 <ul>
 <li>install package <code>water</code> first</li>
 <li><code>devtools::install_github("jonasViehweger/fieldClim")</code></li>
-<li><code>library(fieldClim)</code></li>
+<li><code><a href="https://rdrr.io/r/base/library.html">library(fieldClim)</a></code></li>
 <li>you can now use the <code><a href="reference/build_weather_station.html">build_weather_station()</a></code> function (for usage see <code>?build_weather_station()</code>)</li>
 </ul>
 </div>
@@ -85,8 +85,8 @@
 <h3 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h3>
 <p>If you got your weather station data and and simply want to get a quick overview of the overall micro-climatic conditions at the location of your weather station, such as the atmospheric stability and the latent and sensible heat flows (for a list of all output parameters, see <code><a href="reference/as.data.frame.weather_station.html">?as.data.frame.weather_station</a></code>), you just need three functions: <code><a href="reference/build_weather_station.html">build_weather_station()</a></code>, <code><a href="reference/turb_flux_calc.html">turb_flux_calc()</a></code> and <code><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame()</a></code>.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-    <span class="co"># Load package</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R">    <span class="co"># Load package</span>
     <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">fieldClim</span><span class="op">)</span>
     <span class="co"># Load sample data</span>
     <span class="va">ws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">weather_station_example_data</span>, package<span class="op">=</span><span class="st">"fieldClim"</span><span class="op">)</span><span class="op">)</span>
@@ -121,7 +121,7 @@
     <span class="va">station_turbulent</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/turb_flux_calc.html">turb_flux_calc</a></span><span class="op">(</span><span class="va">test_station</span><span class="op">)</span>
     
     <span class="co"># for a convenient output of the calculated data, you can convert it into a data frame</span>
-    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">station_turbulent</span><span class="op">)</span></pre></div>
+    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">station_turbulent</span><span class="op">)</span></code></pre></div>
 <p>For a more comprehensive example, you might have a look at the <a href="https://jonasviehweger.github.io/fieldClim/articles/fieldClim.html">vignette</a>.</p>
 </div>
 </div>
